@@ -1,0 +1,38 @@
+package ua.epam.travelagencyms.controller.actions.constants;
+
+/**
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ *
+ */
+public class ActionNames {
+
+    public static final String DEFAULT_ACTION = "default";
+    public static final String SIGN_UP_ACTION = "sign-up";
+    public static final String SIGN_IN_ACTION = "sign-in";
+    public static final String ERROR_ACTION = "error";
+    public static final String SIGN_OUT_ACTION = "sign-out";
+    public static final String EDIT_PROFILE_ACTION = "edit-profile";
+    public static final String CHANGE_PASSWORD_ACTION = "change-password";
+    public static final String VIEW_USERS_ACTION = "view-users";
+    public static final String VIEW_ORDERS_ACTION = "view-orders-by-admin";
+    public static final String SEARCH_USER_ACTION = "search-user";
+    public static final String SEARCH_ORDER_ACTION = "search-order";
+    public static final String UPDATE_ORDER_STATUS_ACTION = "update-order-status";
+    public static final String UPDATE_ORDER_DISCOUNT_ACTION = "update-order-discount";
+    public static final String SET_ROLE_ACTION = "set-role";
+    public static final String DELETE_USER_ACTION = "delete-user";
+    public static final String UPLOAD_IMAGE_TOUR_ACTION = "upload-tour-image";
+    public static final String UPLOAD_AVATAR_ACTION = "update-avatar";
+    public static final String VIEW_TOURS_ACTION = "view-tours";
+    public static final String ADD_TOUR_ACTION = "add-tour";
+    public static final String SEARCH_TOUR_ACTION = "search-tour";
+    public static final String EDIT_TOUR_ACTION = "edit-tour";
+    public static final String DELETE_TOUR_ACTION = "delete-tour";
+    public static final String BOOK_TOUR_ACTION = "book-tour";
+    public static final String PASSWORD_RESET_ACTION = "password-reset";
+    public static final String VERIFY_CODE_ACTION = "verify-code";
+    public static final String VIEW_ORDERS_OF_USER_ACTION = "view-orders-of-user";
+    public static final String CANCEL_ORDER_ACTION = "cancel-order";
+
+}
