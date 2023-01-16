@@ -49,7 +49,7 @@
         <input type="hidden" name="email" value=${requestScope.user.email}>
         <label>
             <select name="role" class="form-select mt-2">
-                <option value="MODERATOR" ${requestScope.user.role eq 'USER' ? 'selected' : ''}>
+                <option value="USER" ${requestScope.user.role eq 'USER' ? 'selected' : ''}>
                     <fmt:message key="USER"/>
                 </option>
                 <option value="ADMIN" ${requestScope.user.role eq 'ADMIN' ? 'selected' : ''}>
@@ -60,14 +60,14 @@
         <button type="submit" class="btn btn-dark mt-3 mb-4"><fmt:message key="set.role"/></button>
     </form>
 
-    <button class="btn btn-dark mt-4 mb-4" data-bs-toggle="modal" data-bs-target="#exampleModalDefault">
+    <button class="btn btn-dark mt-4 mb-4" data-toggle="modal" data-target="#delete">
         <fmt:message key="delete"/>
     </button>
 </div>
 
 <jsp:include page="fragments/footer.jsp"/>
 
-<jsp:include page="fragments/deleteUserModal.jsp"/>
+<jsp:include page="deleteUserModal.jsp"/>
 
 </body>
 </html>

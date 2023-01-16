@@ -104,7 +104,7 @@
 
 <jsp:include page="fragments/footer.jsp"/>
 
-<jsp:include page="fragments/deleteUserModal.jsp"/>
+<jsp:include page="deleteUserModal.jsp"/>
 
 </body>
 </html>
