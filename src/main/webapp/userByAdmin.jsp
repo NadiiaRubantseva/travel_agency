@@ -30,39 +30,70 @@
 
 <jsp:include page="fragments/menuChoice.jsp"/>
 
-<div class="col-lg-5 mx-auto p-4 py-md-5">
-    <header class="d-flex align-items-center pb-0 mb-3 border-bottom">
-        <span class="fs-4"><fmt:message key="view.user"/></span>
-    </header>
+<div class="col-lg-10 mx-auto p-2 py-md-2">
 
     <c:set var="user" value="${requestScope.user}"/>
-
+    <br>
     <main>
-        <p class="fs-5"><fmt:message key="email"/>: ${requestScope.user.email}</p>
-        <p class="fs-5"><fmt:message key="name"/>: ${requestScope.user.name}</p>
-        <p class="fs-5"><fmt:message key="surname"/>: ${requestScope.user.surname}</p>
-        <p class="fs-5"><fmt:message key="role"/>: <fmt:message key="${requestScope.user.role}"/></p>
+        <div class="container-fluid offset-1">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h2 class="text-muted"><fmt:message key="view.user"/></h2>
+                    <br><br>
+                    <div class="image">
+                        <c:choose>
+                            <c:when test="${not empty sessionScope.loggedUser.avatar}">
+                                <img src="${sessionScope.loggedUser.avatar}" class="rounded" width="155">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="img/default_user_photo.png" class="rounded" width="155">
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <br>
+                </div>
+
+                <div class="col-sm-4">
+                    <br>
+                    <h5><fmt:message key="email"/>:</h5>
+                    <p>${requestScope.user.email}</p>
+
+                    <h5><fmt:message key="name"/>:</h5>
+                    <p>${requestScope.user.name}</p>
+
+                    <h5><fmt:message key="surname"/>:</h5>
+                    <p>${requestScope.user.surname}</p>
+
+                    <h5><fmt:message key="role"/>:</h5>
+                    <p>${requestScope.user.role}</p>
+                </div>
+
+                <div class="col-sm-10">
+                    <form method="POST" action="controller">
+                        <input type="hidden" name="action" value="set-role">
+                        <input type="hidden" name="email" value=${requestScope.user.email}>
+                        <label>
+                            <select name="role" class="form-select mt-2">
+                                <option value="USER" ${requestScope.user.role eq 'USER' ? 'selected' : ''}>
+                                    <fmt:message key="USER"/>
+                                </option>
+                                <option value="ADMIN" ${requestScope.user.role eq 'ADMIN' ? 'selected' : ''}>
+                                    <fmt:message key="ADMIN"/>
+                                </option>
+                            </select>
+                        </label>
+                        <button type="submit" class="btn btn-success mt-0 mb-1"><fmt:message key="set.role"/></button>
+                    </form><br>
+
+                    <button class="btn btn-danger mt-0 mb-1" data-toggle="modal" data-target="#delete">
+                        <fmt:message key="delete"/>
+                    </button>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <form method="POST" action="controller">
-        <input type="hidden" name="action" value="set-role">
-        <input type="hidden" name="email" value=${requestScope.user.email}>
-        <label>
-            <select name="role" class="form-select mt-2">
-                <option value="USER" ${requestScope.user.role eq 'USER' ? 'selected' : ''}>
-                    <fmt:message key="USER"/>
-                </option>
-                <option value="ADMIN" ${requestScope.user.role eq 'ADMIN' ? 'selected' : ''}>
-                    <fmt:message key="ADMIN"/>
-                </option>
-            </select>
-        </label>
-        <button type="submit" class="btn btn-dark mt-3 mb-4"><fmt:message key="set.role"/></button>
-    </form>
 
-    <button class="btn btn-dark mt-4 mb-4" data-toggle="modal" data-target="#delete">
-        <fmt:message key="delete"/>
-    </button>
 </div>
 
 <jsp:include page="fragments/footer.jsp"/>
