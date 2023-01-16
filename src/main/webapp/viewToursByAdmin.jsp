@@ -156,7 +156,7 @@
 
                         </td>
                         <td>
-                            <a class="link-dark" href=controller?action=search-tour&title=${tour.title}>
+                            <a class="link-dark" href=controller?action=search-tour&id=${tour.id}>
                                 <fmt:message key="edit"/>
                             </a>
                         </td>

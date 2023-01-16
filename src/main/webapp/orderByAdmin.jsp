@@ -65,18 +65,37 @@
         </label>
         <button type="submit" class="btn btn-success btn-sm btn-block"><fmt:message key="set.status"/></button>
     </form><br>
-    <form method="POST" action="controller">
-        <input type="hidden" name="action" value="update-order-discount">
-        <input type="hidden" name="id" value=${requestScope.order.id}>
-        <input type="hidden" name="tour-price" value=${requestScope.order.tourPrice}>
-        <div class="form-group">
-            <label class="form-label fs-4" for="discount"><fmt:message key="discount"/>: </label>
-            <input class="form-control" type="number" name="discount" id="discount"
-                   required value="${requestScope.order.discount}">
-            <br>
-        </div>
-        <button type="submit" class="btn btn-success btn-sm btn-block"><fmt:message key="set.discount"/></button>
-    </form>
+
+    <c:choose>
+        <c:when test="${requestScope.order.orderStatus != 'PAID'}">
+            <form method="POST" action="controller">
+                <input type="hidden" name="action" value="update-order-discount">
+                <input type="hidden" name="id" value=${requestScope.order.id}>
+                <input type="hidden" name="tour-price" value=${requestScope.order.tourPrice}>
+                <div class="form-group">
+                    <label class="form-label fs-4" for="discount"><fmt:message key="discount"/>: </label>
+                    <input class="form-control" type="number" name="discount" id="discount"
+                           required value="${requestScope.order.discount}">
+                    <br>
+                </div>
+                <button type="submit" class="btn btn-success btn-sm btn-block"><fmt:message key="set.discount"/></button>
+            </form>
+        </c:when>
+    </c:choose>
+
+
+<%--    <form method="POST" action="controller">--%>
+<%--        <input type="hidden" name="action" value="update-order-discount">--%>
+<%--        <input type="hidden" name="id" value=${requestScope.order.id}>--%>
+<%--        <input type="hidden" name="tour-price" value=${requestScope.order.tourPrice}>--%>
+<%--        <div class="form-group">--%>
+<%--            <label class="form-label fs-4" for="discount"><fmt:message key="discount"/>: </label>--%>
+<%--            <input class="form-control" type="number" name="discount" id="discount"--%>
+<%--                   required value="${requestScope.order.discount}">--%>
+<%--            <br>--%>
+<%--        </div>--%>
+<%--        <button type="submit" class="btn btn-success btn-sm btn-block"><fmt:message key="set.discount"/></button>--%>
+<%--    </form>--%>
 
 <%--    <button class="btn btn-dark mt-4 mb-4" data-bs-toggle="modal" data-bs-target="#exampleModalDefault">--%>
 <%--        <fmt:message key="delete"/>--%>

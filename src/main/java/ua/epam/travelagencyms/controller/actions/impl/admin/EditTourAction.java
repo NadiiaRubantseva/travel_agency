@@ -39,7 +39,6 @@ public class EditTourAction implements Action {
         transferTourDTOFromSessionToRequest(request);
         String avatar = (String) request.getSession().getAttribute(AVATAR);
         if (avatar != null) {
-            System.out.println("avatar is not null");
             request.setAttribute(AVATAR, avatar);
             request.getSession().removeAttribute(AVATAR);
         }

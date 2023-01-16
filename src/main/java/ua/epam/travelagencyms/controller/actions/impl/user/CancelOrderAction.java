@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.*;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.VIEW_ORDERS_BY_USER_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_DELETE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
@@ -27,12 +28,11 @@ public class CancelOrderAction implements Action {
 
     private String executeGet(HttpServletRequest request) {
         transferStringFromSessionToRequest(request, MESSAGE);
-        return getPath(request);
+        return VIEW_ORDERS_BY_USER_PAGE;
     }
 
     private String executePost(HttpServletRequest request) throws ServiceException {
-        System.out.println("in execute post delete method");
-        System.out.println(request.getParameter(ORDER_ID));
+        System.out.println(request.getParameter(ORDER_ID) + "<- order id");
         orderService.delete(request.getParameter(ORDER_ID));
         request.getSession().setAttribute(MESSAGE, SUCCEED_DELETE);
         return getActionToRedirect(VIEW_ORDERS_OF_USER_ACTION);

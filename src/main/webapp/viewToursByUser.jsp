@@ -49,7 +49,7 @@
                     <option value="1" ${param.type eq "1" ? "selected" : ""}><fmt:message key="REST"/></option>
                 </select>
                 </label>
-                &nbsp;
+
 
                 <label><fmt:message key="hotel.type"/><select name="hotel" class="form-select mt-2">
                     <option><fmt:message key="select.type"/></option>
@@ -62,7 +62,7 @@
                 <label for="persons"><fmt:message key="select.persons"/></label>
                 <input class="col-1" type="number" min="1" name="persons" id="persons"
                        value="${not empty requestScope.persons ? requestScope.persons : ""}">
-                &nbsp;&nbsp;
+
                 <label for="min_price"><fmt:message key="select.price.min"/></label>
                 <input class="col-2" type="number" min="1" name="min_price" id="min_price"
                        value="${not empty requestScope.min_price ? requestScope.min_price : ""}">
@@ -156,7 +156,7 @@
 
                         </td>
                         <td>
-                            <a class="link-dark" href=controller?action=book-tour&title=${tour.title}>
+                            <a class="link-dark" href=controller?action=book-tour&id=${tour.id}>
                                 <fmt:message key="order"/>
                             </a>
                         </td>

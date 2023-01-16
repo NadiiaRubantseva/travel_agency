@@ -153,7 +153,14 @@
                     </label> <br> <br>
 
                     <div class="form-group">
-                        <input class="form-check-label" type="checkbox" name="hot" id="hot">
+                        <c:choose>
+                            <c:when test="${requestScope.tour.hot eq 'HOT'}">
+                                <input class="form-check-label" type="checkbox" name="hot" id="hot" checked>
+                            </c:when>
+                            <c:otherwise>
+                                <input class="form-check-label" type="checkbox" name="hot" id="hot">
+                            </c:otherwise>
+                        </c:choose>
                         <label class="form-check-label" for="hot">
                             Hot
                         </label>

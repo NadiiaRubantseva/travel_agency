@@ -24,7 +24,7 @@ public class SearchTourAction implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String path = TOUR_BY_TITLE_PAGE;
         try {
-            request.setAttribute(TOUR, tourService.getByTitle(request.getParameter(TITLE)));
+            request.setAttribute(TOUR, tourService.getById(request.getParameter(ID)));
         } catch (NoSuchTourException | IncorrectFormatException e) {
             request.setAttribute(ERROR, e.getMessage());
             path = SEARCH_TOUR_PAGE;

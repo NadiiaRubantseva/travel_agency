@@ -97,7 +97,6 @@ public class MysqlTourDAO implements TourDAO {
 
     @Override
     public void update(Tour tour) throws DAOException {
-        System.out.println(tour);
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_TOUR)) {
             int k = 0;

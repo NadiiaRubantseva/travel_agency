@@ -118,42 +118,52 @@
                         <td>
                             <c:choose>
                                 <c:when test="${order.orderStatus == 'CANCELED'}">
-                                    <button type="button" class="disabled btn btn-sm btn-danger" data-toggle="modal"
-                                            data-target="#cancel-order">
-                                        <fmt:message key="cancel"/>
+                                    <button type="button" class="disabled btn btn-sm btn-danger">
+                                        <fmt:message key="CANCELED"/>
                                     </button>
                                 </c:when>
                                 <c:otherwise>
-                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
-                                            data-target="#cancel-order">
-                                        <fmt:message key="cancel"/>
-                                    </button>
+
+<%--                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"--%>
+<%--                                            data-target="#cancel-order">--%>
+<%--                                        <fmt:message key="cancel"/>--%>
+<%--                                    </button>--%>
+
+                                    <form method="POST" action="controller">
+                                        <input type="hidden" name="action" value="cancel-order">
+                                        <input type="hidden" name="order-id" value=${order.id}>
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <fmt:message key="cancel"/>
+                                        </button>
+                                    </form>
                                 </c:otherwise>
                             </c:choose>
 
-                            <div id="cancel-order" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                    <div class="modal-content rounded-4 shadow">
-                                        <div class="modal-header border-bottom-0">
-                                            <h1 class="modal-title fs-5 text-md-center" id="exampleModalLabel">
-                                                <fmt:message key="cancel.order"/></h1>
-                                            <button type="button" class="btn-close"
-                                                    data-bs-dismiss="modal"></button>
-                                        </div>
-                                        <div class="modal-body py-0">
-                                            <p><fmt:message key="cancel.order.confirmation"/></p>
-                                        </div>
-                                        <div class="modal-footer flex-column border-top-0">
-                                            <form method="POST" action="controller">
-                                                <input type="hidden" name="action" value="cancel-order">
-                                                <input type="hidden" name="order-id" value=${order.id}>
-                                                <button type="submit" class="btn btn-dark mt-4 mb-4"><fmt:message
-                                                        key="yes"/></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<%--                            <div id="cancel-order" class="modal fade" role="dialog">--%>
+<%--                                <div class="modal-dialog">--%>
+<%--                                    <div class="modal-content rounded-4 shadow">--%>
+<%--                                        <div class="modal-header border-bottom-0">--%>
+<%--                                            <h1 class="modal-title fs-5 text-md-center" id="exampleModalLabel">--%>
+<%--                                                <fmt:message key="cancel.order"/></h1>--%>
+<%--                                            <button type="button" class="btn-close"--%>
+<%--                                                    data-bs-dismiss="modal"></button>--%>
+<%--                                        </div>--%>
+<%--                                        <div class="modal-body py-0">--%>
+<%--                                            <p><fmt:message key="cancel.order.confirmation"/></p>--%>
+<%--                                        </div>--%>
+<%--                                        <div class="modal-footer flex-column border-top-0">--%>
+<%--                                            <form method="POST" action="controller">--%>
+<%--                                                <input type="hidden" name="action" value="cancel-order">--%>
+<%--                                                <input type="hidden" name="order-id" value=${order.id}>--%>
+<%--                                                <button type="submit" class="btn btn-dark mt-4 mb-4">--%>
+<%--                                                    <fmt:message key="yes"/>--%>
+<%--                                                </button>--%>
+<%--                                            </form>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+
                         </td>
                     </tr>
                 </c:forEach>
