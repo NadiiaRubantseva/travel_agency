@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import static ua.epam.travelagencyms.model.dao.mysql.constants.OrderSQLQueries.*;
 import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.*;
+import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.NUMBER_OF_RECORDS;
 
 public class MySqlOrderDAO implements OrderDAO {
 

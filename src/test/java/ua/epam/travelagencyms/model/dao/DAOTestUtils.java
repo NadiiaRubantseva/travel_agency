@@ -21,38 +21,14 @@ import static ua.epam.travelagencyms.Constants.*;
 
 public final class DAOTestUtils {
 
-    private static final String EMPTY_DB_URL = "jdbc:mysql://localhost/db_test?user=root&password=root";
-
-    private static final String EMPTY_DB = "sql/db_test.sql";
-
-    private static final DAOFactory daoFactory = DAOFactory.getInstance("MySql", Mockito.mock(DataSource.class));
-
-    public static final UserDAO userDAO;
-    public static final TourDAO tourDAO;
-    public static final OrderDAO orderDAO;
-
-    static {
-        userDAO = daoFactory.getUserDAO();
-        tourDAO = daoFactory.getTourDAO();
-        orderDAO = daoFactory.getOrderDAO();
-    }
-
-    public static void createEmptyDB() throws SQLException, FileNotFoundException {
-        Connection con = DriverManager.getConnection(EMPTY_DB_URL);
-        ScriptRunner sr = new ScriptRunner(con);
-        Reader reader = new BufferedReader(new FileReader(EMPTY_DB));
-        sr.setLogWriter(null);
-        sr.runScript(reader);
-    }
-
     public static User getTestUser() {
         return User.builder()
                 .id(ID_VALUE)
-                .email(EMAIL)
-                .name(NAME)
-                .surname(SURNAME)
-                .password(PASSWORD)
-                .roleId(ROLE_ID)
+                .email(EMAIL_VALUE)
+                .name(NAME_VALUE)
+                .surname(SURNAME_VALUE)
+                .password(PASSWORD_VALUE)
+                .roleId(ROLE_ID_VALUE)
                 .build();
     }
 

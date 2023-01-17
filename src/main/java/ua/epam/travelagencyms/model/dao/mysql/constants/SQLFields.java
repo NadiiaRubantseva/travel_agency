@@ -28,6 +28,7 @@ public class SQLFields {
     public static final String TOUR_ID = "tour_id";
     public static final String USER_ID = "user_id";
 
+    public static final String NUMBER_OF_RECORDS = "numberOfRecords";
 
 
 }

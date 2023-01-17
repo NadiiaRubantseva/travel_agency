@@ -34,13 +34,17 @@ public class Constants {
     public static final int HOTEL_ID = 2;
     public static final String TITLE_FIELD = "title";
     public static final String PERSONS_FIELD = "persons";
-
+    public static final String EMAIL_VALUE = "em@em.com";
+    public static final String NAME_VALUE = "Joe";
+    public static final String SURNAME_VALUE = "Yi";
 
     public static final String ANOTHER_TITLE = "PARIS - LOVE CITY";
     public static final int ANOTHER_PERSONS = 3;
 
-    public static final String TYPE_TOUR = "SHOPPING";
+    public static final String TYPE_TOUR = "REST";
     public static final String HOTEL_TOUR = "HOSTEL";
+    public static final int ROLE_ID_VALUE = 2;
+    public static final String PASSWORD_VALUE = "Password1";
 
 
 

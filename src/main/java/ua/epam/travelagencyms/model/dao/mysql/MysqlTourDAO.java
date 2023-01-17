@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.*;
+import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.NUMBER_OF_RECORDS;
 import static ua.epam.travelagencyms.model.dao.mysql.constants.TourSQLQueries.*;
 
 public class MysqlTourDAO implements TourDAO {

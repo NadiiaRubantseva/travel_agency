@@ -6,6 +6,7 @@ import ua.epam.travelagencyms.exceptions.*;
 import ua.epam.travelagencyms.model.dao.TourDAO;
 import ua.epam.travelagencyms.model.entities.tour.Tour;
 import ua.epam.travelagencyms.model.services.implementation.TourServiceImpl;
+import ua.epam.travelagencyms.utils.ImageEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,6 +97,7 @@ public class TourServiceTest {
 
     private Tour getTestTour() {
         return Tour.builder()
+                .id(ONE)
                 .title(TITLE)
                 .persons(PERSONS)
                 .price(PRICE)
@@ -111,9 +113,11 @@ public class TourServiceTest {
                 .title(TITLE)
                 .persons(PERSONS)
                 .price(PRICE)
-                .hot(HOT)
+                .hot(null)
                 .type(TYPE_TOUR)
                 .hotel(HOTEL_TOUR)
+                .image(null)
+                .decodedImage(ImageEncoder.encode(null))
                 .build();
     }
 }

@@ -8,7 +8,7 @@
 <html lang="${sessionScope.locale}">
 
 <head>
-    <title>Conference Smart App. <fmt:message key="search.tour"/></title>
+    <title>Travel Agency <fmt:message key="search.tour"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -44,8 +44,8 @@
                 <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
             </c:if><br>
 
-            <label class="form-label fs-5" for="title"><fmt:message key="search.tour.by.title"/></label>
-            <input class="form-control" type="text" name="title" id="title"
+            <label class="form-label fs-5" for="id"><fmt:message key="search.tour.by.id"/></label>
+            <input class="form-control" type="text" name="id" id="id"
 <%--                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" required>--%>
             <c:if test="${not empty requestScope.error}">
                 <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>

@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.*;
 import static ua.epam.travelagencyms.model.dao.mysql.constants.UserSQLQueries.*;
+import static ua.epam.travelagencyms.model.dao.mysql.constants.UserSQLQueries.NUMBER_OF_RECORDS;
 
 public class MysqlUserDAO implements UserDAO {
 
@@ -243,8 +244,8 @@ public class MysqlUserDAO implements UserDAO {
 
     private User createUser(ResultSet resultSet) throws SQLException {
         return User.builder()
-                .id(resultSet.getInt(SQLFields.ID))
-                .email(resultSet.getString(SQLFields.EMAIL))
+                .id(resultSet.getLong(ID))
+                .email(resultSet.getString(EMAIL))
                 .password(resultSet.getString(PASSWORD))
                 .name(resultSet.getString(NAME))
                 .surname(resultSet.getString(SURNAME))
