@@ -9,7 +9,7 @@
 <html lang="${sessionScope.locale}">
 
 <head>
-    <title>Conference Smart App. <fmt:message key="reset.password"/></title>
+    <title><fmt:message key="travel.agency"/> <fmt:message key="reset.password"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -30,7 +30,7 @@
 <jsp:include page="fragments/mainMenu.jsp"/>
 
 <div class="col-lg-5 mx-auto p-4 py-md-5">
-    <tags:header value="reset.password"/>
+    <h2 class="text-muted"><tags:header value="reset.password"/></h2>
 
     <form method="POST" action="controller">
         <input type="hidden" name="action" value="password-reset">
@@ -44,10 +44,10 @@
             <tags:notEmptyError value="${requestScope.error}"/><br>
         </div>
 
-        <button type="submit" class="btn btn-dark mt-4 mb-4"><fmt:message key="reset.password"/></button>
+        <button type="submit" class="btn btn-success btn-sm btn-block"><fmt:message key="reset.password"/></button>
     </form>
 </div>
-
+<br><br><br><br><br>
 <jsp:include page="fragments/footer.jsp"/>
 
 </body>

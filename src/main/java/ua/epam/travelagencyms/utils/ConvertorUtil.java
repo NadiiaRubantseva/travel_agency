@@ -8,6 +8,8 @@ import ua.epam.travelagencyms.model.entities.tour.Type;
 import ua.epam.travelagencyms.model.entities.user.Role;
 import ua.epam.travelagencyms.model.entities.user.User;
 
+import static ua.epam.travelagencyms.controller.actions.constants.Parameters.HOT;
+
 public final class ConvertorUtil {
 
     private ConvertorUtil() {}
@@ -38,7 +40,7 @@ public final class ConvertorUtil {
                 .title(tour.getTitle())
                 .persons(tour.getPersons())
                 .price(tour.getPrice())
-                .hot(tour.getHot() == 1 ? "HOT" : null)
+                .hot(tour.getHot() == 1 ? HOT : null)
                 .type(String.valueOf(Type.getType(tour.getTypeId())))
                 .hotel(String.valueOf(Hotel.getHotel(tour.getHotelId())))
                 .image(tour.getImageContent())

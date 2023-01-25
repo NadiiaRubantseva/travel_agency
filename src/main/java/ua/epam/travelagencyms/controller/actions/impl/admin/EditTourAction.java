@@ -7,13 +7,9 @@ import ua.epam.travelagencyms.exceptions.DuplicateTitleException;
 import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.TourService;
-import ua.epam.travelagencyms.utils.ImageEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-
-import java.io.InputStream;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.*;
@@ -37,19 +33,19 @@ public class EditTourAction implements Action {
         transferStringFromSessionToRequest(request, MESSAGE);
         transferStringFromSessionToRequest(request, ERROR);
         transferTourDTOFromSessionToRequest(request);
-        String avatar = (String) request.getSession().getAttribute(AVATAR);
-        if (avatar != null) {
-            request.setAttribute(AVATAR, avatar);
-            request.getSession().removeAttribute(AVATAR);
+        String image = (String) request.getSession().getAttribute(IMAGE);
+        if (image != null) {
+            request.setAttribute(IMAGE, image);
+            request.getSession().removeAttribute(IMAGE);
         }
-        return getPath(request);
+        return TOUR_ADMIN_PAGE;
     }
 
     private String executePost(HttpServletRequest request) throws ServiceException {
-        String path = TOUR_ADMIN_PAGE;
+        String path = VIEW_TOUR_BY_ADMIN_PAGE;
         TourDTO tour = getTourDTO(request);
         request.getSession().setAttribute(TOUR, tour);
-        request.getSession().setAttribute(AVATAR, ImageEncoder.encode(tour.getImage()));
+        request.getSession().setAttribute(IMAGE, tourService.getById(String.valueOf(tour.getId())).getDecodedImage());
         try {
             tourService.update(tour);
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
@@ -58,13 +54,13 @@ public class EditTourAction implements Action {
             path = TOUR_ADMIN_PAGE;
         }
         request.getSession().setAttribute(CURRENT_PATH, path);
-        return getActionToRedirect(EDIT_TOUR_ACTION);
+        return getActionToRedirect(VIEW_TOUR_ACTION, ID, String.valueOf(tour.getId()));
     }
 
-    private TourDTO getTourDTO(HttpServletRequest request) {
+    private TourDTO getTourDTO(HttpServletRequest request) throws ServiceException {
         String hot = null;
         if (request.getParameter(HOT) != null) {
-            hot = "hot";
+            hot = HOT;
         }
 
         return TourDTO.builder()
@@ -75,21 +71,8 @@ public class EditTourAction implements Action {
                 .hot(hot)
                 .type(request.getParameter(TYPE))
                 .hotel(request.getParameter(HOTEL))
-                .image(getImage(request))
-                .decodedImage(ImageEncoder.encode(getImage(request)))
+                .image(tourService.getById(request.getParameter(ID)).getImage())
+                .decodedImage(tourService.getById(request.getParameter(ID)).getDecodedImage())
                 .build();
-    }
-
-    private byte[] getImage(HttpServletRequest request) {
-        byte[] image = null;
-        try {
-            Part part = request.getPart(IMAGE);
-            try (InputStream inputStream = part.getInputStream()) {
-                image = inputStream.readAllBytes();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return image;
     }
 }

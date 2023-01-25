@@ -36,7 +36,7 @@
 
     <div class="row">
         <form class="col-11" method="GET" action="controller">
-            <input type="hidden" name="action" value="view-orders">
+            <input type="hidden" name="action" value="view-orders-of-user">
             <input type="hidden" name="offset" value="0">
             <div>
                 <label><fmt:message key="order.status"/><select name="status" class="form-select mt-2">
@@ -69,7 +69,7 @@
                 <thead>
                 <tr>
 
-                    <c:set var="base" value="controller?action=view-orders&status=${param.status}&"/>
+                    <c:set var="base" value="controller?action=view-orders-of-user&status=${param.status}&"/>
                     <c:set var="byId" value="sort=id&"/>
                     <c:set var="limits" value="&offset=0&records=${param.records}"/>
 
@@ -172,7 +172,7 @@
         </div>
     </div>
     <c:set var="href"
-           value="controller?action=view-orders&status=${param.status}&sort=${param.sort}&order=${param.order}&"
+           value="controller?action=view-orders-of-user&status=${param.status}&sort=${param.sort}&order=${param.order}&"
            scope="request"/>
 
     <jsp:include page="/fragments/pagination.jsp"/>

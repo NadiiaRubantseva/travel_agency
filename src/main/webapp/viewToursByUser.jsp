@@ -116,6 +116,12 @@
                         </a>
                     </th>
                     <th scope="col">
+                        <fmt:message key="photo"/>
+<%--                        <a href="${base.concat(byId).concat(idOrder).concat(limits)}">--%>
+<%--                            <i class="bi bi-arrow-down-up link-dark"></i>--%>
+<%--                        </a>--%>
+                    </th>
+                    <th scope="col">
                         <fmt:message key="title"/>
                         <a href="${base.concat(byTitle).concat(titleOrder).concat(limits)}">
                             <i class="bi bi-arrow-down-up link-dark"></i>
@@ -141,9 +147,20 @@
                 </thead>
                 <tbody>
                 <c:forEach var="tour" items="${requestScope.tours}">
+                    <c:set var="avatar" value="${tour.decodedImage}" />
                     <c:set var="hot" value="${tour.hot}"/>
                     <tr>
                         <td><c:out value="${tour.id}"/></td>
+                        <div class="image">
+                            <c:choose>
+                                <c:when test="${fn:length(avatar) > 100 }">
+                                    <td><img src="${tour.decodedImage}" class="rounded" height="25"></td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td><img src="img/default_user_photo.png" class="rounded" height="25"></td>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
                         <td><c:out value="${tour.title}"/></td>
                         <td><c:out value="${tour.persons}"/></td>
                         <td><c:out value="${tour.price}"/></td>
@@ -164,18 +181,6 @@
                 </c:forEach>
                 </tbody>
             </table>
-
-<%--            <c:forEach var="tour" items="${requestScope.tours}">--%>
-<%--            <div class="card" style="width: 18rem;">--%>
-<%--                <img class="card-img-top" src="${tour.decodedImage}" alt="Card image cap">--%>
-<%--                <div class="card-body">--%>
-<%--                    <h5 class="card-title">${tour.title}</h5>--%>
-<%--                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the--%>
-<%--                        card's content.</p>--%>
-<%--                    <a href="#" class="btn btn-primary">Order</a>--%>
-<%--                </div>--%>
-<%--                </c:forEach>--%>
-<%--            </div>--%>
         </div>
     </div>
 

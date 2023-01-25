@@ -11,6 +11,7 @@ public class Pages {
     public static final String ADD_TOUR_PAGE = "addTour.jsp";
     public static final String EDIT_PROFILE_PAGE = "editProfile.jsp";
     public static final String TOUR_ADMIN_PAGE = "tourByAdmin.jsp";
+    public static final String VIEW_TOUR_BY_ADMIN_PAGE = "viewTourByAdmin.jsp";
     public static final String CHANGE_PASSWORD_PAGE = "changePassword.jsp";
     public static final String VIEW_USERS_PAGE = "viewUsers.jsp";
     public static final String VIEW_TOURS_BY_ADMIN_PAGE = "viewToursByAdmin.jsp";

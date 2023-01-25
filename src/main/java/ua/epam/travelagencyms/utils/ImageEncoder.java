@@ -3,6 +3,12 @@ package ua.epam.travelagencyms.utils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import java.io.InputStream;
+
+import static ua.epam.travelagencyms.controller.actions.constants.Parameters.IMAGE;
+
 /**
  * {@code ImageEncoder} util class to help encode image
  */
@@ -21,5 +27,18 @@ public class ImageEncoder {
         StringBuilder encodedImage = new StringBuilder(CODE_TYPE);
         encodedImage.append(imageAsString);
         return encodedImage.toString();
+    }
+
+    public static byte[] getImage(HttpServletRequest request) {
+        byte[] image = null;
+        try {
+            Part part = request.getPart(IMAGE);
+            try (InputStream inputStream = part.getInputStream()) {
+                image = inputStream.readAllBytes();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image;
     }
 }
