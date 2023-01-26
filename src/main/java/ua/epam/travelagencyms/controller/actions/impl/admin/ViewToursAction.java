@@ -26,9 +26,9 @@ public class ViewToursAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        request.setAttribute(PERSONS, request.getParameter(PERSONS));
-        request.setAttribute(MIN_PRICE, request.getParameter(MIN_PRICE));
-        request.setAttribute(MAX_PRICE, request.getParameter(MAX_PRICE));
+//        request.setAttribute(PERSONS, request.getParameter(PERSONS));
+//        request.setAttribute(MIN_PRICE, request.getParameter(MIN_PRICE));
+//        request.setAttribute(MAX_PRICE, request.getParameter(MAX_PRICE));
         QueryBuilder queryBuilder = getQueryBuilder(request);
         request.setAttribute(TOURS, tourService.getSortedTours(queryBuilder.getQuery()));
         int numberOfRecords = tourService.getNumberOfRecords(queryBuilder.getRecordQuery());

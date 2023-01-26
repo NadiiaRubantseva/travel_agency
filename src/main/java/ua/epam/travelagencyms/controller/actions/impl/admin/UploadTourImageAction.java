@@ -1,4 +1,4 @@
-package ua.epam.travelagencyms.controller.actions.impl.base;
+package ua.epam.travelagencyms.controller.actions.impl.admin;
 
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
