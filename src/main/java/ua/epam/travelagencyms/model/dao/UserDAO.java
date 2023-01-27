@@ -25,4 +25,6 @@ public interface UserDAO extends EntityDAO<User>{
     void setAvatar(long userId, byte[] avatar) throws DAOException;
 
     byte isBlocked(long id) throws DAOException;
+
+    void setStatus(String email, byte statusId) throws DAOException;
 }

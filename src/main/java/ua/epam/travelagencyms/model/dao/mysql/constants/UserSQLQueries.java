@@ -10,6 +10,7 @@ public class UserSQLQueries {
     public static final String UPDATE_PASSWORD = "UPDATE user SET password=? WHERE id=?";
     public static final String SET_ROLE = "UPDATE user SET role_id=? WHERE email=?";
     public static final String SET_AVATAR = "UPDATE user SET avatar=? WHERE id=?";
+    public static final String SET_STATUS = "UPDATE user SET blocked=? WHERE email=?";
     public static final String UPDATE_USER = "UPDATE user SET email=?, name=?, surname=? WHERE id=?";
     public static final String GET_SORTED = "SELECT * FROM user %s";
     public static final String GET_NUMBER_OF_RECORDS = "SELECT COUNT(id) AS numberOfRecords FROM user %s";

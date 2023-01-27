@@ -32,7 +32,6 @@ public class CancelOrderAction implements Action {
     }
 
     private String executePost(HttpServletRequest request) throws ServiceException {
-        System.out.println(request.getParameter(ORDER_ID) + "<- order id");
         orderService.delete(request.getParameter(ORDER_ID));
         request.getSession().setAttribute(MESSAGE, SUCCEED_DELETE);
         return getActionToRedirect(VIEW_ORDERS_OF_USER_ACTION);

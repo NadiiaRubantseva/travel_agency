@@ -258,6 +258,19 @@ public class MysqlUserDAO implements UserDAO {
         return res;
     }
 
+    @Override
+    public void setStatus(String email, byte statusId) throws DAOException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SET_STATUS)) {
+            int k = 0;
+            preparedStatement.setByte(++k, statusId);
+            preparedStatement.setString(++k, email);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+
     private User createUser(ResultSet resultSet) throws SQLException {
         return User.builder()
                 .id(resultSet.getLong(ID))
@@ -266,6 +279,7 @@ public class MysqlUserDAO implements UserDAO {
                 .name(resultSet.getString(NAME))
                 .surname(resultSet.getString(SURNAME))
                 .roleId(resultSet.getInt(SQLFields.ROLE_ID))
+                .isBlocked(resultSet.getInt("blocked") != 0)
                 .avatar(resultSet.getBytes(AVATAR))
                 .build();
     }

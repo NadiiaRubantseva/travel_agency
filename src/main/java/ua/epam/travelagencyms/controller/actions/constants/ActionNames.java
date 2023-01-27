@@ -26,6 +26,7 @@ public class ActionNames {
     public static final String UPDATE_ORDER_STATUS_ACTION = "update-order-status";
     public static final String UPDATE_ORDER_DISCOUNT_ACTION = "update-order-discount";
     public static final String SET_ROLE_ACTION = "set-role";
+    public static final String SET_USER_STATUS_ACTION = "set-user-status";
     public static final String DELETE_USER_ACTION = "delete-user";
     public static final String UPLOAD_IMAGE_TOUR_ACTION = "upload-tour-image";
     public static final String VIEW_TOURS_ACTION = "view-tours";

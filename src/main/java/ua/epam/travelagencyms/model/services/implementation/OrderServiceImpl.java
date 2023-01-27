@@ -31,7 +31,6 @@ public class OrderServiceImpl implements OrderService {
                 .user(User.builder().id(orderDTO.getUserId()).build())
                 .date(LocalDate.parse(orderDTO.getDate(), DateTimeFormatter.ofPattern("dd.MM.yyyy")))
                 .build();
-        System.out.println(order);
         try {
             orderDAO.add(order);
         } catch (DAOException e) {

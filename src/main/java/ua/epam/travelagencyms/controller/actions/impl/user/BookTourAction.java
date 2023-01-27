@@ -57,7 +57,6 @@ public class BookTourAction implements Action {
                 .tourPrice(tour.getPrice())
                 .date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
                 .build();
-        System.out.println(order);
         orderService.addOrder(order);
         request.getSession().setAttribute(MESSAGE, SUCCEED_DELETE);
         return BOOK_TOUR_CONFIRMATION;

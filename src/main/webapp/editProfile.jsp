@@ -46,8 +46,9 @@
                     <h2 class="text-muted"><fmt:message key="edit.profile"/></h2>
                     <br><br>
                     <div class="image">
+                        <c:set var="avatar" value="${sessionScope.loggedUser.avatar}" />
                         <c:choose>
-                            <c:when test="${not empty sessionScope.loggedUser.avatar}">
+                            <c:when test="${fn:length(avatar) > 100 }">
                                 <img src="${sessionScope.loggedUser.avatar}" class="rounded" width="155">
                             </c:when>
                             <c:otherwise>

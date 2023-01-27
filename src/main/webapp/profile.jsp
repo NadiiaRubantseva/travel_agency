@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <fmt:setBundle basename="resources"/>
@@ -42,8 +43,9 @@
                 <div class="col-sm-4">
                     <br><br>
                     <div class="image">
+                        <c:set var="avatar" value="${sessionScope.loggedUser.avatar}" />
                         <c:choose>
-                            <c:when test="${not empty sessionScope.loggedUser.avatar}">
+                            <c:when test="${fn:length(avatar) > 100 }">
                                 <img src="${sessionScope.loggedUser.avatar}" class="rounded" width="155">
                             </c:when>
                             <c:otherwise>

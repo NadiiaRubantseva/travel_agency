@@ -253,16 +253,29 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isBlocked(long id) throws ServiceException {
-       boolean result = false;
+        boolean result = false;
         try {
-           byte res = userDAO.isBlocked(id);
-           if (res == 1) {
-               return true;
-           }
-       } catch (DAOException e) {
+            byte res = userDAO.isBlocked(id);
+            if (res == 1) {
+                return true;
+            }
+        } catch (DAOException e) {
             throw new ServiceException();
         }
         return result;
+    }
+
+    @Override
+    public void setStatus(String email, String status) throws ServiceException {
+        byte statusId = 0;
+        if (status.equals("BLOCKED")) {
+            statusId = 1;
+        }
+        try {
+            userDAO.setStatus(email, statusId);
+        } catch (DAOException e) {
+            throw new ServiceException();
+        }
     }
 
 

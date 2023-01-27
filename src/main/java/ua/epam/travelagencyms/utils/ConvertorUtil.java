@@ -30,6 +30,7 @@ public final class ConvertorUtil {
                 .name(user.getName())
                 .surname(user.getSurname())
                 .role(String.valueOf(Role.getRole(user.getRoleId())))
+                .status(user.isBlocked() ? "BLOCKED" : "ACTIVE")
                 .avatar(ImageEncoder.encode(user.getAvatar()))
                 .build();
     }

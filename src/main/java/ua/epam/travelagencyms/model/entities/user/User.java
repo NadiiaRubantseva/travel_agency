@@ -15,6 +15,7 @@ public class User implements Serializable {
     private transient String password;
     private String name;
     private String surname;
+    private boolean isBlocked;
     private byte[] avatar;
     @EqualsAndHashCode.Exclude private int roleId;
 }

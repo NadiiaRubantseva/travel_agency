@@ -36,6 +36,7 @@ public class ActionFactory {
         ACTION_MAP.put(VIEW_USERS_ACTION, new ViewUsersAction(APP_CONTEXT));
         ACTION_MAP.put(SEARCH_USER_ACTION, new SearchUserAction(APP_CONTEXT));
         ACTION_MAP.put(SET_ROLE_ACTION, new SetRoleAction(APP_CONTEXT));
+        ACTION_MAP.put(SET_USER_STATUS_ACTION, new SetUserStatusAction(APP_CONTEXT));
         ACTION_MAP.put(DELETE_USER_ACTION, new DeleteUserAction(APP_CONTEXT));
         ACTION_MAP.put(VIEW_TOURS_ACTION, new ViewToursAction(APP_CONTEXT));
         ACTION_MAP.put(ADD_TOUR_ACTION, new AddTourAction(APP_CONTEXT));

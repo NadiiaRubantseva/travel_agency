@@ -33,4 +33,5 @@ public interface UserService extends Service<UserDTO> {
 
     boolean isBlocked(long id) throws ServiceException;
 
+    void setStatus(String email, String status) throws ServiceException;
 }
