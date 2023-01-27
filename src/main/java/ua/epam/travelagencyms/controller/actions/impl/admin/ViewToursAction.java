@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.ADMIN;
-import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.USER;
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.DESCENDING_ORDER;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.utils.PaginationUtil.paginate;
 import static ua.epam.travelagencyms.utils.QueryBuilderUtil.tourQueryBuilder;
@@ -26,10 +26,11 @@ public class ViewToursAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-//        request.setAttribute(PERSONS, request.getParameter(PERSONS));
-//        request.setAttribute(MIN_PRICE, request.getParameter(MIN_PRICE));
-//        request.setAttribute(MAX_PRICE, request.getParameter(MAX_PRICE));
+        request.setAttribute(PERSONS, request.getParameter(PERSONS));
+        request.setAttribute(MIN_PRICE, request.getParameter(MIN_PRICE));
+        request.setAttribute(MAX_PRICE, request.getParameter(MAX_PRICE));
         QueryBuilder queryBuilder = getQueryBuilder(request);
+        System.out.println(queryBuilder.toString());
         request.setAttribute(TOURS, tourService.getSortedTours(queryBuilder.getQuery()));
         int numberOfRecords = tourService.getNumberOfRecords(queryBuilder.getRecordQuery());
         paginate(numberOfRecords, request);
@@ -50,6 +51,8 @@ public class ViewToursAction implements Action {
                 .setPersonsFilter(request.getParameter(PERSONS))
                 .setSortField(request.getParameter(SORT))
                 .setOrder(request.getParameter(ORDER))
+                .setSortField(HOT)
+                .setOrder(DESCENDING_ORDER)
                 .setLimits(request.getParameter(OFFSET), request.getParameter(RECORDS));
     }
 }

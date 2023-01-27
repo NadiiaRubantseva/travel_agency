@@ -18,6 +18,9 @@ import ua.epam.travelagencyms.utils.EmailSender;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_DELETE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
@@ -52,7 +55,9 @@ public class BookTourAction implements Action {
                 .userId(userId)
                 .tourId(tour.getId())
                 .tourPrice(tour.getPrice())
+                .date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
                 .build();
+        System.out.println(order);
         orderService.addOrder(order);
         request.getSession().setAttribute(MESSAGE, SUCCEED_DELETE);
         return BOOK_TOUR_CONFIRMATION;

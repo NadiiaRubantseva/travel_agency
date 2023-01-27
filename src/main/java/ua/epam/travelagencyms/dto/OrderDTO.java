@@ -20,4 +20,5 @@ public class OrderDTO implements Serializable {
     private double tourPrice;
     private int discount;
     private double totalCost;
+    private String date;
 }

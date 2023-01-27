@@ -99,14 +99,10 @@
                     <c:set var="byTitle" value="sort=title&"/>
                     <c:set var="byPersons" value="sort=persons&"/>
                     <c:set var="byPrice" value="sort=price&"/>
-                    <c:set var="idOrder" value="order=${empty param.sort ? 'DESC' :
-                            param.sort ne 'id' || empty param.order || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
-                    <c:set var="titleOrder"
-                           value="order=${param.sort ne 'email' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
-                    <c:set var="personsOrder"
-                           value="order=${param.sort ne 'persons' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
-                    <c:set var="priceOrder"
-                           value="order=${param.sort ne 'price' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+                    <c:set var="idOrder" value="order=${empty param.sort ? 'DESC' : param.sort ne 'id' || empty param.order || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+                    <c:set var="titleOrder" value="order=${param.sort ne 'email' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+                    <c:set var="personsOrder" value="order=${param.sort ne 'persons' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+                    <c:set var="priceOrder" value="order=${param.sort ne 'price' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
                     <c:set var="limits" value="&offset=0&records=${param.records}"/>
 
                     <th scope="col">

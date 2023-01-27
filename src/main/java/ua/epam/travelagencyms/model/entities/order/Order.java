@@ -7,6 +7,7 @@ import ua.epam.travelagencyms.model.entities.tour.Tour;
 import ua.epam.travelagencyms.model.entities.user.User;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -18,4 +19,5 @@ public class Order implements Serializable {
     @EqualsAndHashCode.Exclude private Tour tour;
     private int discount;
     private double totalCost;
+    private LocalDate date;
 }

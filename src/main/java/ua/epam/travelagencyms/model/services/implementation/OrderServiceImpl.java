@@ -11,6 +11,8 @@ import ua.epam.travelagencyms.model.entities.tour.Tour;
 import ua.epam.travelagencyms.model.entities.user.User;
 import ua.epam.travelagencyms.model.services.OrderService;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,9 @@ public class OrderServiceImpl implements OrderService {
         Order order = Order.builder()
                 .tour(Tour.builder().id(orderDTO.getTourId()).price(orderDTO.getTourPrice()).build())
                 .user(User.builder().id(orderDTO.getUserId()).build())
+                .date(LocalDate.parse(orderDTO.getDate(), DateTimeFormatter.ofPattern("dd.MM.yyyy")))
                 .build();
+        System.out.println(order);
         try {
             orderDAO.add(order);
         } catch (DAOException e) {
@@ -189,6 +193,7 @@ public class OrderServiceImpl implements OrderService {
                 .tourPrice(tour.getPrice())
                 .discount(order.getDiscount())
                 .totalCost(order.getTotalCost())
+                .date(String.valueOf(order.getDate()))
                 .build();
     }
 }

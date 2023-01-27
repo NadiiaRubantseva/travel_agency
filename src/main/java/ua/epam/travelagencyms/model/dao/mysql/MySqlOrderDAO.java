@@ -8,10 +8,7 @@ import ua.epam.travelagencyms.model.entities.tour.Tour;
 import ua.epam.travelagencyms.model.entities.user.User;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +33,7 @@ public class MySqlOrderDAO implements OrderDAO {
             preparedStatement.setLong(++k, order.getUser().getId());
             preparedStatement.setLong(++k, order.getTour().getId());
             preparedStatement.setDouble(++k, order.getTour().getPrice());
+            preparedStatement.setDate(++k, Date.valueOf(order.getDate()));
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new DAOException(e);
@@ -206,6 +204,7 @@ public class MySqlOrderDAO implements OrderDAO {
                 .user(user)
                 .discount(resultSet.getInt(DISCOUNT))
                 .totalCost(resultSet.getDouble(TOTAL_COST))
+                .date(resultSet.getDate("date").toLocalDate())
                 .build();
     }
 

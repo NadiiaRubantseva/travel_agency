@@ -140,4 +140,14 @@ public abstract class QueryBuilder {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "QueryBuilder{" +
+                "filters=" + filters +
+                ", sortField='" + sortField + '\'' +
+                ", order='" + order + '\'' +
+                ", offset=" + offset +
+                ", records=" + records +
+                '}';
+    }
 }

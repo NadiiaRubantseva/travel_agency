@@ -73,44 +73,45 @@
                     <c:set var="byId" value="sort=id&"/>
                     <c:set var="limits" value="&offset=0&records=${param.records}"/>
 
-                    <th scope="col">
-                        <fmt:message key="id"/>
-                    </th>
-                    <th scope="col">
+                    <th scope="col" class="col-md-2">
                         <fmt:message key="status"/>
                     </th>
-                    <th scope="col">
-                        <fmt:message key="user.id"/>
+                    <th scope="col" class="col-md-2">
+                        <fmt:message key="order.date"/>
                     </th>
-                    <th scope="col">
-                        <fmt:message key="user.name"/>
-                    </th>
-                    <th scope="col">
-                        <fmt:message key="tour.id"/>
-                    </th>
-                    <th scope="col">
+                    <th scope="col" class="col-md-3">
                         <fmt:message key="tour.title"/>
                     </th>
-                    <th scope="col">
+                    <th scope="col" class="col-md-1">
                         <fmt:message key="tour.price"/>
                     </th>
-                    <th scope="col">
+                    <th scope="col" class="col-md-1">
                         <fmt:message key="order.discount"/>
                     </th>
-                    <th scope="col">
+                    <th scope="col" class="col-md-1">
                         <fmt:message key="order.total"/>
                     </th>
-                    <th scope="col"><fmt:message key="action"/></th>
+                    <th scope="col" class="col-md-1">
+                        <fmt:message key="action"/>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
+
                 <c:forEach var="order" items="${requestScope.orders}">
                     <tr>
-                        <td><c:out value="${order.id}"/></td>
-                        <td><c:out value="${order.orderStatus}"/></td>
-                        <td><c:out value="${order.userId}"/></td>
-                        <td><c:out value="${order.userName}"/></td>
-                        <td><c:out value="${order.tourId}"/></td>
+                        <c:choose>
+                            <c:when test="${order.orderStatus eq 'REGISTERED'}">
+                                <td><div style=" text-align: center; background-color: #fdf66a; border-radius: 5px;"><c:out value="${order.orderStatus}"/></div></td>
+                            </c:when>
+                            <c:when test="${order.orderStatus eq 'PAID'}">
+                                <td><div style=" text-align: center; background-color: lightgreen; border-radius: 5px;"><c:out value="${order.orderStatus}"/></div></td>
+                            </c:when>
+                            <c:when test="${order.orderStatus eq 'CANCELED'}">
+                                <td><div style=" text-align: center; background-color: lightgrey; border-radius: 5px;"><c:out value="${order.orderStatus}"/></div></td>
+                            </c:when>
+                        </c:choose>
+                        <td><c:out value="${order.date}"/></td>
                         <td><c:out value="${order.tourTitle}"/></td>
                         <td><c:out value="${order.tourPrice}"/></td>
                         <td><c:out value="${order.discount}"/></td>
@@ -174,7 +175,6 @@
     <c:set var="href"
            value="controller?action=view-orders-of-user&status=${param.status}&sort=${param.sort}&order=${param.order}&"
            scope="request"/>
-
     <jsp:include page="/fragments/pagination.jsp"/>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
