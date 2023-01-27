@@ -163,7 +163,7 @@
                         <td><fmt:message key="${tour.type}"/></td>
                         <td><c:out value="${tour.hotel}"/></td>
                         <td>
-                            <c:if test="${fn:contains(hot, 'HOT')}">
+                            <c:if test="${fn:contains(hot, 'hot')}">
                                 <img src="img/fire.png" height="17px" width="17px">
                             </c:if>
 
@@ -181,7 +181,7 @@
     </div>
 
     <c:set var="href"
-           value="controller?action=view-tours&type=${param.type}&sort=${param.sort}&order=${param.order}&"
+           value="controller?action=view-tours&type=${param.type}&sort=hot&order=DESC&sort=${param.sort}&order=${param.order}&"
            scope="request"/>
 
     <jsp:include page="/fragments/pagination.jsp"/>

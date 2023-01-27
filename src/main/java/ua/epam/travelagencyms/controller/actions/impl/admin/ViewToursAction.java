@@ -38,7 +38,7 @@ public class ViewToursAction implements Action {
         UserDTO userDTO = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
         switch (userDTO.getRole()) {
             case ADMIN: return VIEW_TOURS_BY_ADMIN_PAGE;
-            case USER: return VIEW_TOURS_BY_USER_PAGE;
+            case "USER": return VIEW_TOURS_BY_USER_PAGE;
         }
         return INDEX_PAGE;
     }

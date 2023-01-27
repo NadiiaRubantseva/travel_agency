@@ -185,7 +185,7 @@
     </div>
 
     <c:set var="href"
-           value="controller?action=view-tours&type=${param.type}&sort=${param.sort}&order=${param.order}&"
+           value="controller?action=view-tours&type=${param.type}&sort=hot&order=DESC&sort=${param.sort}&order=${param.order}&"
            scope="request"/>
 
     <jsp:include page="/fragments/pagination.jsp"/>
