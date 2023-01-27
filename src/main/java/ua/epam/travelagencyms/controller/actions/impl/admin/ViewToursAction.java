@@ -49,10 +49,10 @@ public class ViewToursAction implements Action {
                 .setHotelFilter(request.getParameter(HOTEL))
                 .setPriceFilter(request.getParameter(MIN_PRICE), request.getParameter(MAX_PRICE))
                 .setPersonsFilter(request.getParameter(PERSONS))
-                .setSortField(request.getParameter(SORT))
-                .setOrder(request.getParameter(ORDER))
                 .setSortField(HOT)
                 .setOrder(DESCENDING_ORDER)
+                .setSortField(request.getParameter(SORT))
+                .setOrder(request.getParameter(ORDER))
                 .setLimits(request.getParameter(OFFSET), request.getParameter(RECORDS));
     }
 }
