@@ -9,8 +9,6 @@ public class ParameterValues {
     public static final String SUCCEED_DELETE = "succeed.delete";
     public static final String CHECK_EMAIL = "check.email";
 
-    public static final String ON = "on";
-
     public static final String USER = "USER";
     public static final String ADMIN = "ADMIN";
 

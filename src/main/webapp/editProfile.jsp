@@ -80,7 +80,7 @@
                         <label class="form-label fs-5" for="email"><fmt:message key="email"/>: </label>
                         <input class="form-control" type="email" name="email" id="email"
                                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" required
-                               value="${titleValue}">
+                               value="${titleValue}" disabled>
                         <c:if test="${fn:contains(error, 'email')}">
                             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
                         </c:if><br>
