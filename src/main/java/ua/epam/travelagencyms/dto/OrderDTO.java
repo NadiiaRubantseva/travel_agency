@@ -14,7 +14,9 @@ public class OrderDTO implements Serializable {
     private long id;
     private String orderStatus;
     private long userId;
+    private String userEmail;
     private String userName;
+    private String userSurname;
     private long tourId;
     private String tourTitle;
     private double tourPrice;

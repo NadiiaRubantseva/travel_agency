@@ -3,6 +3,7 @@ package ua.epam.travelagencyms.dto;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -16,5 +17,6 @@ public class UserDTO implements Serializable {
     private String name;
     private String surname;
     private String role;
+    @ToString.Exclude
     private String avatar;
 }

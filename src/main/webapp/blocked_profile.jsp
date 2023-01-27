@@ -28,12 +28,13 @@
 
 <jsp:include page="fragments/mainMenu.jsp"/>
 
-<jsp:include page="fragments/menuChoice.jsp"/>
+<%--<jsp:include page="fragments/menuChoice.jsp"/>--%>
 
 <br>
 <div class="col-lg-7 mx-auto p-2 py-md-2">
 
     <h2 class="text-muted"><fmt:message key="profile.info"/></h2>
+    <span class="text-opacity-75 text-danger">You are blocked. Please contact customer support.</span>
 
     <main>
         <div class="container-fluid">
@@ -42,21 +43,13 @@
                 <div class="col-sm-4">
                     <br><br>
                     <div class="image">
-                        <c:choose>
-                            <c:when test="${not empty sessionScope.loggedUser.avatar}">
-                                <img src="${sessionScope.loggedUser.avatar}" class="rounded" width="155">
-                            </c:when>
-                            <c:otherwise>
                                 <img src="img/default_user_photo.png" class="rounded" height="155">
-                            </c:otherwise>
-                        </c:choose>
                     </div>
                     <br>
                 </div>
 
-                <div class="col-sm-4">
-                    <p>
-                    <h5><fmt:message key="email"/>:</h5></p>
+                <div class="col-sm-4"><br>
+                    <h5><fmt:message key="email"/>:</h5>
                     <p>${sessionScope.loggedUser.email}</p>
 
                     <h5><fmt:message key="name"/>:</h5>
@@ -68,13 +61,8 @@
             </div>
         </div>
     </main>
-
-    <div id="button" class="form-group">
-        <a href="editProfile.jsp" class="btn btn-success mt-0 mb-1"><fmt:message key="edit.profile"/></a>
-    </div>
-
 </div>
-<br><br>
+<br><br><br><br>
 
 <jsp:include page="fragments/footer.jsp"/>
 

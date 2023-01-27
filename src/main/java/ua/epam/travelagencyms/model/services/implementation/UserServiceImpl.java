@@ -251,6 +251,20 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public boolean isBlocked(long id) throws ServiceException {
+       boolean result = false;
+        try {
+           byte res = userDAO.isBlocked(id);
+           if (res == 1) {
+               return true;
+           }
+       } catch (DAOException e) {
+            throw new ServiceException();
+        }
+        return result;
+    }
+
 
     public static long getUserId(String idString) throws ServiceException {
         return checkId(idString, new NoSuchUserException());

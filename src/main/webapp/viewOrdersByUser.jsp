@@ -115,7 +115,7 @@
                         <td><c:out value="${order.tourTitle}"/></td>
                         <td><c:out value="${order.tourPrice}"/> грн</td>
                         <td><c:out value="${order.discount}"/>%</td>
-                        <td><c:out value="${order.totalCost}"/></td>
+                        <td><c:out value="${order.totalCost}"/> грн</td>
                         <td>
                             <c:choose>
                                 <c:when test="${order.orderStatus == 'CANCELED'}">

@@ -86,6 +86,9 @@
                         <fmt:message key="user.name"/>
                     </th>
                     <th scope="col">
+                        Surname
+                    </th>
+                    <th scope="col">
                         <fmt:message key="tour.id"/>
                     </th>
                     <th scope="col">
@@ -120,11 +123,12 @@
                         </c:choose>
                         <td><c:out value="${order.userId}"/></td>
                         <td><c:out value="${order.userName}"/></td>
+                        <td><c:out value="${order.userSurname}"/></td>
                         <td><c:out value="${order.tourId}"/></td>
                         <td><c:out value="${order.tourTitle}"/></td>
                         <td><c:out value="${order.tourPrice}"/> грн</td>
                         <td><c:out value="${order.discount}"/>%</td>
-                        <td><c:out value="${order.totalCost}"/></td>
+                        <td><c:out value="${order.totalCost}"/> грн</td>
                         <td>
                             <a class="link-dark" href=controller?action=search-order&order-id=${order.id}>
                                 <fmt:message key="edit"/>

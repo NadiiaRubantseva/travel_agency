@@ -242,6 +242,22 @@ public class MysqlUserDAO implements UserDAO {
         }
     }
 
+    @Override
+    public byte isBlocked(long id) throws DAOException {
+        byte res = 0;
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("select blocked from db.user where id='" + id + "'")) {
+                if (resultSet.next()) {
+                    res = resultSet.getByte(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return res;
+    }
+
     private User createUser(ResultSet resultSet) throws SQLException {
         return User.builder()
                 .id(resultSet.getLong(ID))

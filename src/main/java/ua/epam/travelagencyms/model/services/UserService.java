@@ -31,4 +31,6 @@ public interface UserService extends Service<UserDTO> {
 
     void setAvatar(String userId, byte[] avatar) throws ServiceException;
 
+    boolean isBlocked(long id) throws ServiceException;
+
 }

@@ -188,6 +188,8 @@ public class OrderServiceImpl implements OrderService {
                 .orderStatus(order.getOrderStatus().name())
                 .userId(user.getId())
                 .userName(user.getEmail())
+                .userName(user.getName())
+                .userSurname(user.getSurname())
                 .tourId(tour.getId())
                 .tourTitle(tour.getTitle())
                 .tourPrice(tour.getPrice())
