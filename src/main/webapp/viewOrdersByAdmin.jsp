@@ -107,13 +107,23 @@
                 <c:forEach var="order" items="${requestScope.orders}">
                     <tr>
                         <td><c:out value="${order.id}"/></td>
-                        <td><c:out value="${order.orderStatus}"/></td>
+                        <c:choose>
+                            <c:when test="${order.orderStatus eq 'REGISTERED'}">
+                                <td><div style=" text-align: center; background-color: #fdf66a; border-radius: 5px;"><c:out value="${order.orderStatus}"/></div></td>
+                            </c:when>
+                            <c:when test="${order.orderStatus eq 'PAID'}">
+                                <td><div style=" text-align: center; background-color: lightgreen; border-radius: 5px;"><c:out value="${order.orderStatus}"/></div></td>
+                            </c:when>
+                            <c:when test="${order.orderStatus eq 'CANCELED'}">
+                                <td><div style=" text-align: center; background-color: lightgrey; border-radius: 5px;"><c:out value="${order.orderStatus}"/></div></td>
+                            </c:when>
+                        </c:choose>
                         <td><c:out value="${order.userId}"/></td>
                         <td><c:out value="${order.userName}"/></td>
                         <td><c:out value="${order.tourId}"/></td>
                         <td><c:out value="${order.tourTitle}"/></td>
-                        <td><c:out value="${order.tourPrice}"/></td>
-                        <td><c:out value="${order.discount}"/></td>
+                        <td><c:out value="${order.tourPrice}"/> грн</td>
+                        <td><c:out value="${order.discount}"/>%</td>
                         <td><c:out value="${order.totalCost}"/></td>
                         <td>
                             <a class="link-dark" href=controller?action=search-order&order-id=${order.id}>
