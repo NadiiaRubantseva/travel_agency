@@ -48,6 +48,7 @@ public class ActionFactory {
         ACTION_MAP.put(UPDATE_ORDER_DISCOUNT_ACTION, new UpdateOrderDiscountAction(APP_CONTEXT));
         ACTION_MAP.put(VIEW_ORDERS_ACTION, new ViewOrdersAction(APP_CONTEXT));
         ACTION_MAP.put(VIEW_TOUR_ACTION, new ViewTourAction(APP_CONTEXT));
+        ACTION_MAP.put(USERS_PDF_ACTION, new UsersToPdfAction(APP_CONTEXT));
 
         // USER
         ACTION_MAP.put(VIEW_ORDERS_OF_USER_ACTION, new ViewOrdersOfUserAction(APP_CONTEXT));

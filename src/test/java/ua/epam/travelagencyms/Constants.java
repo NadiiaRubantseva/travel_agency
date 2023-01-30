@@ -26,7 +26,7 @@ public class Constants {
     public static final String EMAIL_FIELD = "email";
     public static final String DESC = "DESC";
 
-    public static final String TITLE = "INCREDIBLE PLACES";
+    public static final String TITLE = "title";
     public static final int PERSONS = 2;
     public static final double PRICE = 100;
     public static final String HOT = "Hot";

@@ -56,6 +56,7 @@
         </form>
 
         <form class="col-1 mt-3" method="GET" action="controller">
+            <input type="hidden" name="action" value="users-pdf">
             <input type="hidden" name="role" value="${param.role}">
             <input type="hidden" name="sort" value="${param.sort}">
             <input type="hidden" name="order" value="${param.order}">

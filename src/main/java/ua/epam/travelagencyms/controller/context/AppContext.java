@@ -10,6 +10,7 @@ import ua.epam.travelagencyms.model.services.ServiceFactory;
 import ua.epam.travelagencyms.model.services.TourService;
 import ua.epam.travelagencyms.model.services.UserService;
 import ua.epam.travelagencyms.utils.EmailSender;
+import ua.epam.travelagencyms.utils.PdfUtil;
 
 import javax.servlet.ServletContext;
 import javax.sql.DataSource;
@@ -25,9 +26,11 @@ public class AppContext {
     @Getter private final TourService tourService;
     @Getter private final OrderService orderService;
     @Getter private final EmailSender emailSender;
+    @Getter private final PdfUtil pdfUtil;
 
 
     private AppContext(ServletContext servletContext, String propertiesFile) {
+        pdfUtil = new PdfUtil(servletContext);
         Properties properties = getProperties(propertiesFile);
         emailSender = new EmailSender(properties);
         DataSource dataSource = MyDataSource.getDataSource(properties);

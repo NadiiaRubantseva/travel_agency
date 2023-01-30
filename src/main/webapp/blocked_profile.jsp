@@ -50,13 +50,13 @@
 
                 <div class="col-sm-4"><br>
                     <h5><fmt:message key="email"/>:</h5>
-                    <p>${sessionScope.loggedUser.email}</p>
+                    <p>${requestScope.blockedUser.email}</p>
 
                     <h5><fmt:message key="name"/>:</h5>
-                    <p>${sessionScope.loggedUser.name}</p>
+                    <p>${requestScope.blockedUser.name}</p>
 
                     <h5><fmt:message key="surname"/>:</h5>
-                    <p>${sessionScope.loggedUser.surname}</p>
+                    <p>${requestScope.blockedUser.surname}</p>
                 </div>
             </div>
         </div>

@@ -27,6 +27,9 @@ public class AuthorizationFilter implements Filter {
             long id = userDTO.getId();
             try {
                 if (userService.isBlocked(id)) {
+                    httpRequest.setAttribute("blockedUser", userService.getById(String.valueOf(id)));
+                    httpRequest.getSession().removeAttribute(LOGGED_USER);
+
                     request.getRequestDispatcher("blocked_profile.jsp").forward(request, response);
                 } else {
                     chain.doFilter(request, response);

@@ -41,6 +41,7 @@ public final class DAOTestUtils {
                 .hot((byte) 0)
                 .typeId(TYPE_ID)
                 .hotelId(HOTEL_ID)
+                .imageContent(new byte[]{1,2,3})
                 .build();
     }
 
@@ -62,6 +63,7 @@ public final class DAOTestUtils {
                 .tourId(1)
                 .discount(0)
                 .totalCost(100)
+                .date("27.01.2023")
                 .build();
     }
 }
