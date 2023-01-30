@@ -30,7 +30,7 @@
 <jsp:include page="fragments/menuChoice.jsp"/><br>
 <figure class="text-start navbar col-8 offset-2 opacity-75">
     <div><br>
-        <h2 style="color: #f04f01" class="form-label text-center"><fmt:message key="lead.title"/></h2><br>
+        <h2 class="form-label text-center text-success"><fmt:message key="lead.title"/></h2><br>
         <p class="lead">
             <strong style="color: #f04f01"><fmt:message key="travel.agency"/>&nbsp</strong><fmt:message key="lead.2"/><strong style="color: #f04f01"><fmt:message key="lead.3"/></strong><fmt:message key="lead.4"/>
             <strong style="color: #f04f01"><fmt:message key="lead.5"/></strong><fmt:message key="lead.6"/><strong style="color: #f04f01"><fmt:message key="lead.7"/></strong>
