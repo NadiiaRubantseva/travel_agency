@@ -9,7 +9,7 @@
 <html lang="${sessionScope.locale}">
 
 <head>
-    <title>Travel Agency MS. <fmt:message key="view.tours"/></title>
+    <title><fmt:message key="travel.agency"/> <fmt:message key="view.tours"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -33,8 +33,8 @@
 
 <jsp:include page="fragments/menuChoice.jsp"/>
 
-<div class="col-lg-10 mx-auto p-4 py-md-5">
-    <h2 class="text-muted"><fmt:message key="tours"/></h2>
+<div class="col-lg-10 mx-auto p-4 py-md-4">
+    <h2 class="text-muted pb-3"><fmt:message key="tours"/></h2>
 
     <div class="container-fluid">
         <div class="row">
@@ -181,7 +181,7 @@
     </div>
 
     <c:set var="href"
-           value="controller?action=view-tours&type=${param.type}&sort=hot&order=DESC&sort=${param.sort}&order=${param.order}&"
+           value="controller?action=view-tours&type=${param.type}&sort=hot&order=DESC&sort=${param.sort}&order=${param.order}&persons=${requestScope.persons}&min_price=${requestScope.min_price}&max_price=${requestScope.max_price}&"
            scope="request"/>
 
     <jsp:include page="/fragments/pagination.jsp"/>

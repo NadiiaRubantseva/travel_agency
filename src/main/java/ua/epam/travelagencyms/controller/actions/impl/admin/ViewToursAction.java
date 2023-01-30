@@ -34,6 +34,9 @@ public class ViewToursAction implements Action {
         int numberOfRecords = tourService.getNumberOfRecords(queryBuilder.getRecordQuery());
         paginate(numberOfRecords, request);
 
+        System.out.println(request.getParameter(MIN_PRICE) + " <- min price");
+        System.out.println(request.getParameter(MAX_PRICE) + " <- max price");
+
         UserDTO userDTO = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
         switch (userDTO.getRole()) {
             case ADMIN: return VIEW_TOURS_BY_ADMIN_PAGE;

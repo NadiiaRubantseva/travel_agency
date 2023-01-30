@@ -47,10 +47,21 @@ public abstract class QueryBuilder {
 
 
     public QueryBuilder setPriceFilter(String priceMinFilter, String priceMaxFilter) {
-        if (priceMinFilter != null && isPositiveInt(priceMinFilter) &&
-                priceMaxFilter != null && isPositiveInt(priceMaxFilter)) {
+        if (priceMinFilter == null || priceMaxFilter == null) {
+            return this;
+        }
+
+        if (priceMinFilter.equals("") && !priceMaxFilter.isEmpty()) {
+            priceMinFilter = "1";
+        } else if (!priceMinFilter.isEmpty() && priceMaxFilter.equals("")) {
+            filters.add("price > " + priceMinFilter);
+            return this;
+        }
+
+        if (isPositiveInt(priceMinFilter) && isPositiveInt(priceMaxFilter)) {
             filters.add("price BETWEEN " + priceMinFilter + " AND " + priceMaxFilter);
         }
+
         return this;
     }
 
