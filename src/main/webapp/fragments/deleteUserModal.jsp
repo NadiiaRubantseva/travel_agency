@@ -17,7 +17,7 @@
                 <form method="POST" action="controller">
                     <input type="hidden" name="action" value="delete-user">
                     <input type="hidden" name="user-id" value=${requestScope.user.id}>
-                    <button type="submit" class="btn btn-info mt-4 mb-4"><fmt:message key="yes"/></button>
+                    <button type="submit" class="btn btn-danger mt-4 mb-4"><fmt:message key="yes"/></button>
                 </form>
             </div>
         </div>

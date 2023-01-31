@@ -35,7 +35,7 @@
     <h2 class="text-muted"><fmt:message key="search.users"/></h2>
 
     <form method="GET" action="controller">
-        <input type="hidden" name="action" value="search-user">
+        <input type="hidden" name="action" value="search-user-by-email">
 
         <div class="form-group">
             <c:if test="${not empty requestScope.message}">

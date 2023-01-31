@@ -22,7 +22,7 @@ public class Pages {
     public static final String VIEW_TOUR_BY_ADMIN_PAGE = "viewTourByAdmin.jsp";
     public static final String VIEW_USERS_PAGE = "viewUsers.jsp";
     public static final String VIEW_ORDERS_BY_ADMIN_PAGE = "viewOrdersByAdmin.jsp";
-    public static final String USER_BY_EMAIL_PAGE = "viewUserByAdmin.jsp";
+    public static final String VIEW_USER_BY_ADMIN = "viewUserByAdmin.jsp";
     public static final String ORDER_BY_ID_PAGE = "viewOrderByAdmin.jsp";
     public static final String SEARCH_USER_PAGE = "searchUser.jsp";
     public static final String SEARCH_TOUR_PAGE = "searchTour.jsp";

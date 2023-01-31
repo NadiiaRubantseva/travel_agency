@@ -8,13 +8,9 @@ import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.*;
 import ua.epam.travelagencyms.utils.query.QueryBuilder;
 
+import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.VIEW_USERS_PAGE;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.OFFSET;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.ORDER;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.RECORDS;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.ROLE;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.SORT;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.USERS;
+import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.utils.PaginationUtil.paginate;
 import static ua.epam.travelagencyms.utils.QueryBuilderUtil.userQueryBuilder;
 
@@ -27,6 +23,7 @@ public class ViewUsersAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        transferStringFromSessionToRequest(request, MESSAGE);
         QueryBuilder queryBuilder = getQueryBuilder(request);
         request.setAttribute(USERS, userService.getSortedUsers(queryBuilder.getQuery()));
         int numberOfRecords = userService.getNumberOfRecords(queryBuilder.getRecordQuery());

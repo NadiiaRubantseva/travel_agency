@@ -22,7 +22,8 @@ public class ActionNames {
     // ADMIN
     public static final String VIEW_USERS_ACTION = "view-users";
     public static final String VIEW_ORDERS_ACTION = "view-orders-by-admin";
-    public static final String SEARCH_USER_ACTION = "search-user";
+    public static final String SEARCH_USER_BY_ID_ACTION = "search-user-by-id";
+    public static final String SEARCH_USER_BY_EMAIL_ACTION = "search-user-by-email";
     public static final String UPDATE_ORDER_STATUS_ACTION = "update-order-status";
     public static final String UPDATE_ORDER_DISCOUNT_ACTION = "update-order-discount";
     public static final String SET_ROLE_ACTION = "set-role";

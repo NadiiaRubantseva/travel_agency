@@ -34,7 +34,8 @@ public class ActionFactory {
 
         // ADMIN
         ACTION_MAP.put(VIEW_USERS_ACTION, new ViewUsersAction(APP_CONTEXT));
-        ACTION_MAP.put(SEARCH_USER_ACTION, new SearchUserAction(APP_CONTEXT));
+        ACTION_MAP.put(SEARCH_USER_BY_ID_ACTION, new SearchUserByIdAction(APP_CONTEXT));
+        ACTION_MAP.put(SEARCH_USER_BY_EMAIL_ACTION, new SearchUserByEmailAction(APP_CONTEXT));
         ACTION_MAP.put(SET_ROLE_ACTION, new SetRoleAction(APP_CONTEXT));
         ACTION_MAP.put(SET_USER_STATUS_ACTION, new SetUserStatusAction(APP_CONTEXT));
         ACTION_MAP.put(DELETE_USER_ACTION, new DeleteUserAction(APP_CONTEXT));

@@ -9,7 +9,7 @@ import ua.epam.travelagencyms.model.entities.user.Role;
 import ua.epam.travelagencyms.model.services.*;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
-import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SEARCH_USER_ACTION;
+import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SEARCH_USER_BY_ID_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.EMAIL;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.ROLE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.USER;
@@ -27,6 +27,6 @@ public class SetRoleAction implements Action {
         int roleId = Role.valueOf(request.getParameter(ROLE)).getValue();
         userService.setRole(email, roleId);
         request.setAttribute(USER, userService.getByEmail(email));
-        return getActionToRedirect(SEARCH_USER_ACTION, EMAIL, email);
+        return getActionToRedirect(SEARCH_USER_BY_ID_ACTION, EMAIL, email);
     }
 }

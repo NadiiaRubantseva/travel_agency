@@ -34,6 +34,9 @@
 <jsp:include page="fragments/menuChoice.jsp"/>
 
 <div class="col-lg-10 mx-auto p-4 py-md-5">
+    <c:if test="${not empty requestScope.message}">
+        <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
+    </c:if>
     <h2 class="text-muted"><fmt:message key="users"/></h2>
 
     <div class="row">
@@ -135,8 +138,8 @@
                         <td><c:out value="${user.surname}"/></td>
                         <td><fmt:message key="${user.role}"/></td>
                         <td>
-                            <a class="link-dark" href=controller?action=search-user&email=${user.email}>
-                                <fmt:message key="edit"/>
+                            <a class="link-dark" href=controller?action=search-user-by-id&id=${user.id}>
+                                <img src="img/edit.png" width="20">
                             </a>
                         </td>
                     </tr>
