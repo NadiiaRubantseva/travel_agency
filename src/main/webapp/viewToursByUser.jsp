@@ -77,13 +77,22 @@
                 <button type="submit" class="btn btn-success btn-sm mt-0 mb-1"><fmt:message
                         key="submit"/></button>
             </form>
-            <%--            <form class="col-2 mt-3" method="GET" action="controller">--%>
-            <%--                <input type="hidden" name="type" value="${param.type}">--%>
-            <%--                <input type="hidden" name="sort" value="${param.sort}">--%>
-            <%--                <input type="hidden" name="order" value="${param.order}">--%>
-            <%--                <input type="hidden" name="persons" value="${param.persons}">--%>
-            <%--                <button type="submit" class="icon-button"><img src="img/pdf-file.png" height="25"></button>--%>
-            <%--            </form>--%>
+
+            <form class="col-1 offset-1 justify-content-end"  method="GET" action="controller">
+                <input type="hidden" name="action" value="tours-pdf">
+                <input type="hidden" name="id" value="${param.id}">
+                <input type="hidden" name="title" value="${param.title}">
+                <input type="hidden" name="persons" value="${param.persons}">
+                <input type="hidden" name="price" value="${param.price}">
+                <input type="hidden" name="type" value="${param.type}">
+                <input type="hidden" name="hotel" value="${param.type}">
+                <input type="hidden" name="min_price" value="${param.minPrice}">
+                <input type="hidden" name="max_price" value="${param.maxPrice}">
+                <input type="hidden" name="sort" value="${param.sort}">
+                <input type="hidden" name="order" value="${param.order}">
+                <button type="submit" class="icon-button"><img src="img/pdf-file.png" height="25"></button>
+            </form>
+
         </div>
     </div>
 
