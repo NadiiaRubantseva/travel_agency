@@ -76,10 +76,10 @@
                     <th scope="col" class="col-md-2">
                         <fmt:message key="status"/>
                     </th>
-                    <th scope="col" class="col-md-2">
+                    <th scope="col" class="col-md-1">
                         <fmt:message key="order.date"/>
                     </th>
-                    <th scope="col" class="col-md-3">
+                    <th scope="col" class="col-md-2">
                         <fmt:message key="tour.title"/>
                     </th>
                     <th scope="col" class="col-md-1">
