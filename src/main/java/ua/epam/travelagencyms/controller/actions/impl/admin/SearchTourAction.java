@@ -2,6 +2,7 @@ package ua.epam.travelagencyms.controller.actions.impl.admin;
 
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
+import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
 import ua.epam.travelagencyms.exceptions.NoSuchTourException;
 import ua.epam.travelagencyms.exceptions.ServiceException;
@@ -22,11 +23,12 @@ public class SearchTourAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-
-        String path = EDIT_TOUR;
+        String id = request.getParameter(ID);
+        String path = VIEW_TOUR_BY_ADMIN_PAGE;
         try {
-            request.setAttribute(TOUR, tourService.getById(request.getParameter(ID)));
-            request.setAttribute(IMAGE, tourService.getById(request.getParameter(ID)).getDecodedImage());
+            TourDTO tour = tourService.getById(id);
+            request.setAttribute(TOUR, tour);
+            request.setAttribute(IMAGE, tour.getDecodedImage());
         } catch (NoSuchTourException | IncorrectFormatException e) {
             request.setAttribute(ERROR, e.getMessage());
             path = SEARCH_TOUR_PAGE;
