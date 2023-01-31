@@ -135,7 +135,6 @@ public class PdfUtil {
     private PdfFont getPdfFont() {
         try {
             URL resource = servletContext.getResource(FONT);
-            System.out.println("url is -> " + resource);
             String fontUrl = resource.getFile();
             return PdfFontFactory.createFont(fontUrl);
         } catch (IOException e) {
