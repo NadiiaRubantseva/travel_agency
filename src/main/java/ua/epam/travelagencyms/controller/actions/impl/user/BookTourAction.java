@@ -41,7 +41,7 @@ public class BookTourAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String path = TOUR_BY_TITLE_PAGE;
+        String path = VIEW_TOURS_BY_USER_PAGE;
         try {
             request.setAttribute(TOUR, tourService.getById(request.getParameter(ID)));
         } catch (NoSuchTourException | IncorrectFormatException e) {

@@ -12,4 +12,5 @@ public class ErrorAction implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         return ERROR_PAGE;
     }
+
 }

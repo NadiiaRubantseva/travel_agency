@@ -60,7 +60,7 @@ public class UploadTourImageAction implements Action {
         }
 
         request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
-        request.getSession().setAttribute(CURRENT_PATH, TOUR_ADMIN_PAGE);
+        request.getSession().setAttribute(CURRENT_PATH, EDIT_TOUR);
         return getActionToRedirect(VIEW_TOUR_ACTION, ID, id);
     }
 }

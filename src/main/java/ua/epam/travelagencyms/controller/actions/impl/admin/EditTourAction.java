@@ -38,7 +38,7 @@ public class EditTourAction implements Action {
             request.setAttribute(IMAGE, image);
             request.getSession().removeAttribute(IMAGE);
         }
-        return TOUR_ADMIN_PAGE;
+        return EDIT_TOUR;
     }
 
     private String executePost(HttpServletRequest request) throws ServiceException {
@@ -51,7 +51,7 @@ public class EditTourAction implements Action {
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
         } catch (IncorrectFormatException | DuplicateTitleException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
-            path = TOUR_ADMIN_PAGE;
+            path = EDIT_TOUR;
         }
         request.getSession().setAttribute(CURRENT_PATH, path);
         return getActionToRedirect(VIEW_TOUR_ACTION, ID, String.valueOf(tour.getId()));

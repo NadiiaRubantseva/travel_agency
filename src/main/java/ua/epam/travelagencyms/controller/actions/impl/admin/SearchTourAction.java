@@ -23,7 +23,7 @@ public class SearchTourAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        String path = TOUR_ADMIN_PAGE;
+        String path = EDIT_TOUR;
         try {
             request.setAttribute(TOUR, tourService.getById(request.getParameter(ID)));
             request.setAttribute(IMAGE, tourService.getById(request.getParameter(ID)).getDecodedImage());
