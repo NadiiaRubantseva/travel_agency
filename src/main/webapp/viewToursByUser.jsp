@@ -87,7 +87,7 @@
         </div>
     </div>
 
-    <div class="bd-example-snippet bd-code-snippet">
+    <div class="bd-example-snippet bd-code-snippet pt-2">
         <div class="bd-example">
             <table class="table table-striped" aria-label="user-table">
                 <thead>
