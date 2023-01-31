@@ -39,7 +39,7 @@ public class AddTourAction implements Action {
 
     private String executePost(HttpServletRequest request) throws ServiceException {
         String path = VIEW_TOUR_BY_ADMIN_PAGE;
-        TourDTO tour = ConvertorUtil.getTourDTOFromRequest(request);
+        TourDTO tour = ConvertorUtil.getTourDTOFromAddRequest(request);
         request.getSession().setAttribute(TOUR, tour);
         try {
             tourService.add(tour);

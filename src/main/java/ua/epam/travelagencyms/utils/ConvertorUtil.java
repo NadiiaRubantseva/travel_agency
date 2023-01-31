@@ -1,12 +1,15 @@
 package ua.epam.travelagencyms.utils;
 
+import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.dto.UserDTO;
+import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.entities.tour.Hotel;
 import ua.epam.travelagencyms.model.entities.tour.Tour;
 import ua.epam.travelagencyms.model.entities.tour.Type;
 import ua.epam.travelagencyms.model.entities.user.Role;
 import ua.epam.travelagencyms.model.entities.user.User;
+import ua.epam.travelagencyms.model.services.TourService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,7 +41,7 @@ public final class ConvertorUtil {
                 .build();
     }
 
-    public static TourDTO getTourDTOFromRequest(HttpServletRequest request) {
+    public static TourDTO getTourDTOFromAddRequest(HttpServletRequest request) {
         return TourDTO.builder()
                 .title(request.getParameter(TITLE))
                 .persons(Integer.parseInt(request.getParameter(PERSONS)))
@@ -48,6 +51,24 @@ public final class ConvertorUtil {
                 .hotel(request.getParameter(HOTEL))
                 .image(ImageEncoder.getImage(request))
                 .decodedImage(ImageEncoder.encode(ImageEncoder.getImage(request)))
+                .build();
+    }
+
+    public static TourDTO getFullTourDTOFromRequest(HttpServletRequest request) throws ServiceException {
+        TourService tourService = AppContext.getAppContext().getTourService();
+        String id = request.getParameter(ID);
+        byte[]image = tourService.getImage(id);
+
+        return TourDTO.builder()
+                .id(Long.parseLong(request.getParameter(ID)))
+                .title(request.getParameter(TITLE))
+                .persons(Integer.parseInt(request.getParameter(PERSONS)))
+                .price(Double.parseDouble(request.getParameter(PRICE)))
+                .hot(request.getParameter(HOT) == null ? null : HOT)
+                .type(request.getParameter(TYPE))
+                .hotel(request.getParameter(HOTEL))
+                .image(image)
+                .decodedImage(ImageEncoder.encode(image))
                 .build();
     }
 

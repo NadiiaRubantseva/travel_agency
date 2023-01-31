@@ -17,4 +17,6 @@ public interface TourService extends Service<TourDTO>{
 
     boolean createImage(byte[] image, String tourId) throws ServiceException;
 
+    byte[] getImage(String id) throws ServiceException;
+
 }

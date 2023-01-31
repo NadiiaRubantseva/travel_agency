@@ -40,6 +40,14 @@ public class ActionUtil {
         }
     }
 
+    public static void transferTourImageFromSessionToRequest(HttpServletRequest request) {
+        String image = (String) request.getSession().getAttribute(IMAGE);
+        if (image != null) {
+            request.setAttribute(IMAGE, image);
+            request.getSession().removeAttribute(IMAGE);
+        }
+    }
+
     public static String getPath(HttpServletRequest request){
         return (String) request.getSession().getAttribute(CURRENT_PATH);
     }

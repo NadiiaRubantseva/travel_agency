@@ -188,6 +188,25 @@ public class MysqlTourDAO implements TourDAO {
         return rows == 1;
     }
 
+    @Override
+    public byte[] getImage(long id) throws DAOException {
+        byte[] image = null;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_IMAGE_BY_ID)) {
+            int k = 0;
+            preparedStatement.setLong(++k, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    image = resultSet.getBytes(IMAGE);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return image;
+    }
+
+
     private Tour createTour(ResultSet resultSet) throws SQLException {
         return Tour.builder()
                 .id(resultSet.getInt(ID))

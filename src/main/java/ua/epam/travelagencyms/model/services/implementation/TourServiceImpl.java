@@ -126,6 +126,18 @@ public class TourServiceImpl implements TourService {
         return isCreate;
     }
 
+    @Override
+    public byte[] getImage(String tourId) throws ServiceException {
+        int id = Integer.parseInt(tourId);
+        byte[] image;
+        try {
+            image = tourDAO.getImage(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return image;
+    }
+
     public static long getTourId(String idString) throws ServiceException {
         return checkId(idString, new NoSuchUserException());
     }

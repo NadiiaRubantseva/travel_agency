@@ -7,6 +7,7 @@ import ua.epam.travelagencyms.exceptions.DuplicateTitleException;
 import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.TourService;
+import ua.epam.travelagencyms.utils.ConvertorUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,19 +34,15 @@ public class EditTourAction implements Action {
         transferStringFromSessionToRequest(request, MESSAGE);
         transferStringFromSessionToRequest(request, ERROR);
         transferTourDTOFromSessionToRequest(request);
-        String image = (String) request.getSession().getAttribute(IMAGE);
-        if (image != null) {
-            request.setAttribute(IMAGE, image);
-            request.getSession().removeAttribute(IMAGE);
-        }
+        transferTourImageFromSessionToRequest(request);
         return EDIT_TOUR;
     }
 
     private String executePost(HttpServletRequest request) throws ServiceException {
         String path = VIEW_TOUR_BY_ADMIN_PAGE;
-        TourDTO tour = getTourDTO(request);
+        TourDTO tour = ConvertorUtil.getFullTourDTOFromRequest(request);
         request.getSession().setAttribute(TOUR, tour);
-        request.getSession().setAttribute(IMAGE, tourService.getById(String.valueOf(tour.getId())).getDecodedImage());
+        request.getSession().setAttribute(IMAGE, tour.getDecodedImage());
         try {
             tourService.update(tour);
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
@@ -55,24 +52,5 @@ public class EditTourAction implements Action {
         }
         request.getSession().setAttribute(CURRENT_PATH, path);
         return getActionToRedirect(VIEW_TOUR_ACTION, ID, String.valueOf(tour.getId()));
-    }
-
-    private TourDTO getTourDTO(HttpServletRequest request) throws ServiceException {
-        String hot = null;
-        if (request.getParameter(HOT) != null) {
-            hot = HOT;
-        }
-
-        return TourDTO.builder()
-                .id(Long.parseLong(request.getParameter(ID)))
-                .title(request.getParameter(TITLE))
-                .persons(Integer.parseInt(request.getParameter(PERSONS)))
-                .price(Double.parseDouble(request.getParameter(PRICE)))
-                .hot(hot)
-                .type(request.getParameter(TYPE))
-                .hotel(request.getParameter(HOTEL))
-                .image(tourService.getById(request.getParameter(ID)).getImage())
-                .decodedImage(tourService.getById(request.getParameter(ID)).getDecodedImage())
-                .build();
     }
 }
