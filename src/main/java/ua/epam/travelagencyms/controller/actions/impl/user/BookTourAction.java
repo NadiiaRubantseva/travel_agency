@@ -10,9 +10,11 @@ import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
 import ua.epam.travelagencyms.exceptions.NoSuchTourException;
 import ua.epam.travelagencyms.exceptions.ServiceException;
+import ua.epam.travelagencyms.model.entities.user.User;
 import ua.epam.travelagencyms.model.services.OrderService;
 import ua.epam.travelagencyms.model.services.TourService;
 import ua.epam.travelagencyms.model.services.UserService;
+import ua.epam.travelagencyms.utils.ConvertorUtil;
 import ua.epam.travelagencyms.utils.EmailSender;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,21 +45,13 @@ public class BookTourAction implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String path = VIEW_TOURS_BY_USER_PAGE;
         try {
-            request.setAttribute(TOUR, tourService.getById(request.getParameter(ID)));
-        } catch (NoSuchTourException | IncorrectFormatException e) {
+            OrderDTO order = ConvertorUtil.convertToOrderDTO(request);
+            orderService.addOrder(order);
+        } catch (Exception e) {
             request.setAttribute(ERROR, e.getMessage());
             path = SEARCH_TOUR_PAGE;
         }
-        UserDTO user = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
-        long userId = userService.getByEmail(user.getEmail()).getId();
-        TourDTO tour = (TourDTO) request.getAttribute(TOUR);
-        OrderDTO order = OrderDTO.builder()
-                .userId(userId)
-                .tourId(tour.getId())
-                .tourPrice(tour.getPrice())
-                .date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
-                .build();
-        orderService.addOrder(order);
+        request.getSession().setAttribute(CURRENT_PATH, path);
         request.getSession().setAttribute(MESSAGE, SUCCEED_DELETE);
         return BOOK_TOUR_CONFIRMATION;
     }

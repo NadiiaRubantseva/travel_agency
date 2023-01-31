@@ -62,6 +62,7 @@ public class SignInAction implements Action {
 
     private static void setLoggedUser(HttpServletRequest request, UserDTO user) {
         request.getSession().setAttribute(LOGGED_USER, user);
+        System.out.println(user);
         request.getSession().setAttribute(ROLE, user.getRole());
     }
 

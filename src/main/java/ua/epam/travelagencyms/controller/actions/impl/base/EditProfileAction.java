@@ -7,6 +7,7 @@ import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.exceptions.*;
 import ua.epam.travelagencyms.model.services.*;
+import ua.epam.travelagencyms.utils.ConvertorUtil;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.isPostMethod;
@@ -44,7 +45,7 @@ public class EditProfileAction implements Action {
 
     private String executePost(HttpServletRequest request) throws ServiceException {
         UserDTO sessionUser = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
-        UserDTO user = getUserDTO(request, sessionUser);
+        UserDTO user = ConvertorUtil.getUserDTOFromEditUserAction(request, sessionUser);
         try {
             userService.update(user);
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
@@ -54,15 +55,6 @@ public class EditProfileAction implements Action {
             request.getSession().setAttribute(ERROR, e.getMessage());
         }
         return getActionToRedirect(EDIT_PROFILE_ACTION);
-    }
-
-    private UserDTO getUserDTO(HttpServletRequest request, UserDTO currentUser) {
-        return UserDTO.builder()
-                .id(currentUser.getId())
-                .email(request.getParameter(EMAIL))
-                .name(request.getParameter(NAME))
-                .surname(request.getParameter(SURNAME))
-                .build();
     }
 
     private void updateSessionUser(UserDTO currentUser, UserDTO user) {

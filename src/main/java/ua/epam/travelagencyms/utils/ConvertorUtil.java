@@ -1,6 +1,7 @@
 package ua.epam.travelagencyms.utils;
 
 import ua.epam.travelagencyms.controller.context.AppContext;
+import ua.epam.travelagencyms.dto.OrderDTO;
 import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.exceptions.ServiceException;
@@ -12,6 +13,9 @@ import ua.epam.travelagencyms.model.entities.user.User;
 import ua.epam.travelagencyms.model.services.TourService;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.HOTEL;
@@ -26,6 +30,15 @@ public final class ConvertorUtil {
                 .email(userDTO.getEmail())
                 .name(userDTO.getName())
                 .surname(userDTO.getSurname())
+                .build();
+    }
+
+    public static UserDTO getUserDTOFromEditUserAction(HttpServletRequest request, UserDTO currentUser) {
+        return UserDTO.builder()
+                .id(currentUser.getId())
+                .email(request.getParameter(EMAIL))
+                .name(request.getParameter(NAME))
+                .surname(request.getParameter(SURNAME))
                 .build();
     }
 
@@ -96,6 +109,18 @@ public final class ConvertorUtil {
                 .typeId(Type.valueOf(tourDTO.getType()).getValue())
                 .hotelId(Hotel.valueOf(tourDTO.getHotel()).getValue())
                 .imageContent(tourDTO.getImage())
+                .build();
+    }
+
+    public static OrderDTO convertToOrderDTO(HttpServletRequest request) {
+        UserDTO user = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
+        String tourId = request.getParameter(ID);
+        String tourPrice = request.getParameter(PRICE);
+        return OrderDTO.builder()
+                .userId(user.getId())
+                .tourId(Long.parseLong(tourId))
+                .tourPrice(Double.parseDouble(tourPrice))
+                .date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
                 .build();
     }
 }

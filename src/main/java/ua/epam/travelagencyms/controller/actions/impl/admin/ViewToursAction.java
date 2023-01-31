@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.ADMIN;
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.USER;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.DESCENDING_ORDER;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.utils.PaginationUtil.paginate;
@@ -39,7 +40,7 @@ public class ViewToursAction implements Action {
         UserDTO userDTO = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
         switch (userDTO.getRole()) {
             case ADMIN: return VIEW_TOURS_BY_ADMIN_PAGE;
-            case "USER": return VIEW_TOURS_BY_USER_PAGE;
+            case USER: return VIEW_TOURS_BY_USER_PAGE;
         }
         return INDEX_PAGE;
     }
