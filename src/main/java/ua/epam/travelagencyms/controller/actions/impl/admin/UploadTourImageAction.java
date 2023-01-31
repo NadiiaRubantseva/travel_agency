@@ -33,34 +33,27 @@ public class UploadTourImageAction implements Action {
     private String executeGet(HttpServletRequest request) {
         transferStringFromSessionToRequest(request, MESSAGE);
         transferTourDTOFromSessionToRequest(request);
-        String image = (String) request.getSession().getAttribute(IMAGE);
-        if (image != null) {
-            request.setAttribute(IMAGE, image);
-            request.getSession().removeAttribute(IMAGE);
-        }
+        transferTourImageFromSessionToRequest(request);
         return VIEW_TOUR_BY_ADMIN_PAGE;
     }
 
     private String executePost(HttpServletRequest request) throws ServiceException {
-        String id = null;
+        String tourId = request.getParameter(ID);
+
         try {
             Part part = request.getPart(IMAGE);
             try (InputStream inputStream = part.getInputStream()) {
                 byte[] newImage = inputStream.readAllBytes();
-                String tourId = request.getParameter(ID);
-                boolean result = tourService.createImage(newImage, tourId);
+                tourService.createImage(newImage, tourId);
                 TourDTO tour = tourService.getById(tourId);
-                id = String.valueOf(tour.getId());
-                request.getSession().setAttribute("upload-result", result);
                 request.getSession().setAttribute(TOUR, tour);
-                request.getSession().setAttribute(IMAGE, tourService.getById(String.valueOf(tour.getId())).getDecodedImage());
+                request.getSession().setAttribute(IMAGE, tour.getDecodedImage());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
-        request.getSession().setAttribute(CURRENT_PATH, EDIT_TOUR);
-        return getActionToRedirect(VIEW_TOUR_ACTION, ID, id);
+        return getActionToRedirect(VIEW_TOUR_ACTION, ID, tourId);
     }
 }
