@@ -24,18 +24,42 @@ import static ua.epam.travelagencyms.controller.actions.constants.Parameters.NAM
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.SURNAME;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.USER;
 
+/**
+ * This is EditProfileAction class. Accessible by any logged user. Allows to change user's email, name and surname.
+ * Implements PRG pattern
+ *
+ * @author Vitalii Kalinchyk
+ * @version 1.0
+ */
 public class EditProfileAction implements Action {
     private final UserService userService;
 
+    /**
+     * @param appContext contains UserService instance to use in action
+     */
     public EditProfileAction(AppContext appContext) {
         userService = appContext.getUserService();
     }
 
+    /**
+     * Checks method and calls required implementation
+     *
+     * @param request  to get method, session and set all required attributes
+     * @return path to redirect or forward by front-controller
+     * @throws ServiceException to call error page in front-controller
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         return isPostMethod(request) ? executePost(request) : executeGet(request);
     }
 
+    /**
+     * Called from doGet method in front-controller. Obtains required path and transfer attributes from session
+     * to request
+     *
+     * @param request to get message, UserDTO or error attribute from session and put it in request
+     * @return edit profile page
+     */
     private String executeGet(HttpServletRequest request) {
         transferStringFromSessionToRequest(request, MESSAGE);
         transferStringFromSessionToRequest(request, ERROR);
@@ -43,6 +67,16 @@ public class EditProfileAction implements Action {
         return EDIT_PROFILE_PAGE;
     }
 
+    /**
+     * Called from doPost method in front-controller. Tries to change users email, name, password via service.
+     * Sets UserDTO to session so user will not need to enter fields again. Update logged user in session if
+     * editing was successful
+     *
+     * @param request to get users id and all required fields. Also, to set message in case of successful deleting and
+     * error in another case.
+     *
+     * @return path to redirect to executeGet method through front-controller
+     */
     private String executePost(HttpServletRequest request) throws ServiceException {
         UserDTO sessionUser = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
         UserDTO user = ConvertorUtil.getUserDTOFromEditUserAction(request, sessionUser);

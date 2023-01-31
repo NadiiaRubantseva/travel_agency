@@ -6,8 +6,17 @@ import ua.epam.travelagencyms.controller.actions.Action;
 
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.ERROR_PAGE;
 
+/**
+ * This is ErrorAction class.
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 public class ErrorAction implements Action {
 
+    /**
+     * @return error page
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         return ERROR_PAGE;

@@ -33,6 +33,14 @@ public final class ConvertorUtil {
                 .build();
     }
 
+    public static UserDTO getUserDTO(HttpServletRequest request) {
+        return UserDTO.builder()
+                .email(request.getParameter(EMAIL))
+                .name(request.getParameter(NAME))
+                .surname(request.getParameter(SURNAME))
+                .build();
+    }
+
     public static UserDTO getUserDTOFromEditUserAction(HttpServletRequest request, UserDTO currentUser) {
         return UserDTO.builder()
                 .id(currentUser.getId())
