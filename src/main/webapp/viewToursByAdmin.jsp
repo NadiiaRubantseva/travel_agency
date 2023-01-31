@@ -184,7 +184,7 @@
 
                         </td>
                         <td>
-                            <a class="link-dark" href=controller?action=view-tour&id=${tour.id}>
+                            <a class="link-dark" href=controller?action=search-tour&id=${tour.id}>
                                 <img src="img/info3.png" height="20px" width="20px">
                             </a>
                         </td>
@@ -196,7 +196,7 @@
     </div>
 
     <c:set var="href"
-           value="controller?action=view-tours&type=${param.type}&sort=hot&order=DESC&sort=${param.sort}&order=${param.order}&persons=${requestScope.persons}&min_price=${requestScope.min_price}&max_price=${requestScope.max_price}&"
+           value="controller?action=search-tours&type=${param.type}&sort=hot&order=DESC&sort=${param.sort}&order=${param.order}&persons=${requestScope.persons}&min_price=${requestScope.min_price}&max_price=${requestScope.max_price}&"
            scope="request"/>
 
     <jsp:include page="/fragments/pagination.jsp"/>
