@@ -36,6 +36,7 @@ public class ActionNames {
     public static final String EDIT_TOUR_ACTION = "edit-tour";
     public static final String DELETE_TOUR_ACTION = "delete-tour";
     public static final String USERS_PDF_ACTION = "users-pdf";
+    public static final String TOURS_PDF_ACTION = "tours-pdf";
 
     // USER
     public static final String BOOK_TOUR_ACTION = "book-tour";

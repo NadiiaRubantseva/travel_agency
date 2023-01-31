@@ -14,6 +14,7 @@ import com.itextpdf.layout.*;
 import com.itextpdf.layout.borders.*;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.*;
+import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.dto.UserDTO;
 
 import java.io.ByteArrayOutputStream;
@@ -32,7 +33,9 @@ public class PdfUtil {
     private static final int TITLE_SIZE = 20;
     private static final Paragraph LINE_SEPARATOR = new Paragraph(new Text("\n"));
     private static final String USER_TITLE = "users";
+    private static final String TOUR_TITLE = "tours";
     private static final String[] USER_CELLS = new String[]{"id", "email", "name", "surname", "role"};
+    private static final String[] TOUR_CELLS = new String[]{"id", "title", "persons", "price", "type"};
 
 
     public PdfUtil(ServletContext servletContext) {
@@ -46,6 +49,17 @@ public class PdfUtil {
         document.add(getTableTitle(resourceBundle.getString(USER_TITLE).toUpperCase()));
         document.add(LINE_SEPARATOR);
         document.add(getUserTable(users, resourceBundle));
+        document.close();
+        return output;
+    }
+
+    public ByteArrayOutputStream createToursPdf(List<TourDTO> tours, String locale) {
+        ResourceBundle resourceBundle = getBundle(locale);
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        Document document = getDocument(output);
+        document.add(getTableTitle(resourceBundle.getString(TOUR_TITLE).toUpperCase()));
+        document.add(LINE_SEPARATOR);
+        document.add(getTourTable(tours, resourceBundle));
         document.close();
         return output;
     }
@@ -75,6 +89,14 @@ public class PdfUtil {
         return table;
     }
 
+    private Table getTourTable(List<TourDTO> tours, ResourceBundle resourceBundle) {
+        Table table = new Table(new float[]{4, 12, 6, 6, 6});
+        table.setWidth(UnitValue.createPercentValue(100));
+        addTableHeader(table, TOUR_CELLS, resourceBundle);
+        addTourTableRows(table, tours);
+        return table;
+    }
+
     private void addTableHeader(Table table, String[] cells, ResourceBundle resourceBundle) {
         Stream.of(cells)
                 .forEach(columnTitle -> {
@@ -94,6 +116,18 @@ public class PdfUtil {
                     table.addCell(user.getName());
                     table.addCell(user.getSurname());
                     table.addCell(user.getRole());
+                }
+        );
+    }
+
+    private void addTourTableRows(Table table, List<TourDTO> tours) {
+        tours.forEach(tour ->
+                {
+                    table.addCell(String.valueOf(tour.getId()));
+                    table.addCell(tour.getTitle());
+                    table.addCell(String.valueOf(tour.getPersons()));
+                    table.addCell(String.valueOf(tour.getPrice()));
+                    table.addCell(tour.getType());
                 }
         );
     }
