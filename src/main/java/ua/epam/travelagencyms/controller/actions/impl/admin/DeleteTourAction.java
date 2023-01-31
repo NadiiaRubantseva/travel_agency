@@ -22,17 +22,9 @@ public class DeleteTourAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        return isPostMethod(request) ? executePost(request) : executeGet(request);
-    }
-
-    private String executeGet(HttpServletRequest request) {
-        transferStringFromSessionToRequest(request, MESSAGE);
-        return getPath(request);
-    }
-
-    private String executePost(HttpServletRequest request) throws ServiceException {
         tourService.delete(request.getParameter(TOUR_ID));
         request.getSession().setAttribute(MESSAGE, SUCCEED_DELETE);
         return getActionToRedirect(VIEW_TOURS_ACTION);
     }
+
 }

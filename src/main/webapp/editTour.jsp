@@ -165,14 +165,14 @@
                     </div>
                     <br>
 
-                    <div class="row-cols-3">
-                        <button type="submit" class="btn col-3 btn-success"><fmt:message
+                    <div class="row-cols-5">
+                        <button type="submit" class="btn col-5 btn-success"><fmt:message
                                 key="edit.tour"/></button>
                     </div>
                 </form><br>
 
-                <div class="row-cols-3">
-                    <button type="button" class="col-3 btn btn-danger" data-toggle="modal"
+                <div class="row-cols-5">
+                    <button type="button" class="col-5 btn btn-danger" data-toggle="modal"
                             data-target="#delete-tour">
                         <fmt:message key="delete"/>
                     </button>

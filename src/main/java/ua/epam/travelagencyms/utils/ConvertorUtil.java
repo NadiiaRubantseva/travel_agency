@@ -8,7 +8,10 @@ import ua.epam.travelagencyms.model.entities.tour.Type;
 import ua.epam.travelagencyms.model.entities.user.Role;
 import ua.epam.travelagencyms.model.entities.user.User;
 
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.HOT;
+import javax.servlet.http.HttpServletRequest;
+
+import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
+import static ua.epam.travelagencyms.controller.actions.constants.Parameters.HOTEL;
 
 public final class ConvertorUtil {
 
@@ -32,6 +35,19 @@ public final class ConvertorUtil {
                 .role(String.valueOf(Role.getRole(user.getRoleId())))
                 .status(user.isBlocked() ? "BLOCKED" : "ACTIVE")
                 .avatar(ImageEncoder.encode(user.getAvatar()))
+                .build();
+    }
+
+    public static TourDTO getTourDTOFromRequest(HttpServletRequest request) {
+        return TourDTO.builder()
+                .title(request.getParameter(TITLE))
+                .persons(Integer.parseInt(request.getParameter(PERSONS)))
+                .price(Double.parseDouble(request.getParameter(PRICE)))
+                .hot(request.getParameter(HOT) == null ? null : HOT)
+                .type(request.getParameter(TYPE))
+                .hotel(request.getParameter(HOTEL))
+                .image(ImageEncoder.getImage(request))
+                .decodedImage(ImageEncoder.encode(ImageEncoder.getImage(request)))
                 .build();
     }
 

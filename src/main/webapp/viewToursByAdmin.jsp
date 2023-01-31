@@ -34,6 +34,9 @@
 <jsp:include page="fragments/menuChoice.jsp"/>
 
 <div class="col-lg-10 mx-auto p-4 py-md-4">
+    <c:if test="${not empty requestScope.message}">
+        <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
+    </c:if><br>
     <h2 class="text-muted pb-3"><fmt:message key="tours"/></h2>
 
     <div class="container-fluid">

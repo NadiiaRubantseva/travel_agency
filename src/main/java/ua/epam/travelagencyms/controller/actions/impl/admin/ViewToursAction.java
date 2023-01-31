@@ -10,6 +10,7 @@ import ua.epam.travelagencyms.utils.query.QueryBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.ADMIN;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.DESCENDING_ORDER;
@@ -26,6 +27,7 @@ public class ViewToursAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        transferStringFromSessionToRequest(request, MESSAGE);
         request.setAttribute(PERSONS, request.getParameter(PERSONS));
         request.setAttribute(MIN_PRICE, request.getParameter(MIN_PRICE));
         request.setAttribute(MAX_PRICE, request.getParameter(MAX_PRICE));

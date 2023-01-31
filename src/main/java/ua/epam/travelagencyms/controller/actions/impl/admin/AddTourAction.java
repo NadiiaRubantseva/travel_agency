@@ -5,7 +5,7 @@ import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.TourService;
-import ua.epam.travelagencyms.utils.ImageEncoder;
+import ua.epam.travelagencyms.utils.ConvertorUtil;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,11 +39,11 @@ public class AddTourAction implements Action {
 
     private String executePost(HttpServletRequest request) throws ServiceException {
         String path = VIEW_TOUR_BY_ADMIN_PAGE;
-        TourDTO tour = getTourDTO(request);
+        TourDTO tour = ConvertorUtil.getTourDTOFromRequest(request);
         request.getSession().setAttribute(TOUR, tour);
         try {
             tourService.add(tour);
-            tour.setId(Long.parseLong(String.valueOf(tourService.getByTitle(tour.getTitle()).getId())));
+            tour.setId(tourService.getByTitle(tour.getTitle()).getId());
             request.getSession().setAttribute(MESSAGE, SUCCEED_ADDED);
         } catch (Exception e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
@@ -52,18 +52,4 @@ public class AddTourAction implements Action {
         request.getSession().setAttribute(CURRENT_PATH, path);
         return getActionToRedirect(ADD_TOUR_ACTION);
     }
-
-    private TourDTO getTourDTO(HttpServletRequest request) {
-        return TourDTO.builder()
-                .title(request.getParameter(TITLE))
-                .persons(Integer.parseInt(request.getParameter(PERSONS)))
-                .price(Double.parseDouble(request.getParameter(PRICE)))
-                .hot(request.getParameter(HOT) == null ? null : HOT)
-                .type(request.getParameter(TYPE))
-                .hotel(request.getParameter(HOTEL))
-                .image(ImageEncoder.getImage(request))
-                .decodedImage(ImageEncoder.encode(ImageEncoder.getImage(request)))
-                .build();
-    }
-
 }
