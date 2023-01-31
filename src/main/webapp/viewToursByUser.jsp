@@ -138,7 +138,8 @@
                     <th scope="col"><fmt:message key="tour.type"/></th>
                     <th scope="col"><fmt:message key="hotel.type"/></th>
                     <th scope="col"><fmt:message key="hot"/></th>
-                    <th scope="col"><fmt:message key="action"/></th>
+                    <th scope="col"><fmt:message key="details"/></th>
+                    <th scope="col"><fmt:message key="order"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -167,6 +168,11 @@
                                 <img src="img/fire.png" height="17px" width="17px">
                             </c:if>
 
+                        </td>
+                        <td>
+                            <a class="link-dark" href=controller?action=view-tour&id=${tour.id}>
+                                <img src="img/info3.png" height="20px" width="20px">
+                            </a>
                         </td>
                         <td>
                             <a class="link-dark" href=controller?action=book-tour&id=${tour.id}>

@@ -142,7 +142,7 @@
                     <th scope="col"><fmt:message key="tour.type"/></th>
                     <th scope="col"><fmt:message key="hotel.type"/></th>
                     <th scope="col"><fmt:message key="hot"/></th>
-                    <th scope="col"><fmt:message key="action"/></th>
+                    <th scope="col"><fmt:message key="details"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -174,7 +174,7 @@
                         </td>
                         <td>
                             <a class="link-dark" href=controller?action=view-tour&id=${tour.id}>
-                                View
+                                <img src="img/info3.png" height="20px" width="20px">
                             </a>
                         </td>
                     </tr>
