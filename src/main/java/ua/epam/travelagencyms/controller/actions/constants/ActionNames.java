@@ -1,13 +1,16 @@
 package ua.epam.travelagencyms.controller.actions.constants;
 
 /**
+ *
+ * This is ActionNames class. It contains all action names
+ *
  * @author Nadiia Rubantseva
  * @version 1.0
  *
  */
 public class ActionNames {
 
-    // ACCOUNT
+    /** Basic actions */
     public static final String ERROR_ACTION = "error";
     public static final String DEFAULT_ACTION = "default";
     public static final String SIGN_UP_ACTION = "sign-up";
@@ -19,7 +22,7 @@ public class ActionNames {
     public static final String EDIT_PROFILE_ACTION = "edit-profile";
     public static final String UPLOAD_AVATAR_ACTION = "update-avatar";
 
-    // ADMIN
+    /** Admin's actions */
     public static final String VIEW_USERS_ACTION = "view-users";
     public static final String VIEW_ORDERS_ACTION = "view-orders-by-admin";
     public static final String SEARCH_USER_BY_ID_ACTION = "search-user-by-id";
@@ -39,7 +42,7 @@ public class ActionNames {
     public static final String USERS_PDF_ACTION = "users-pdf";
     public static final String TOURS_PDF_ACTION = "tours-pdf";
 
-    // USER
+    /** User's actions */
     public static final String BOOK_TOUR_ACTION = "book-tour";
     public static final String VIEW_ORDERS_OF_USER_ACTION = "view-orders-of-user";
     public static final String CANCEL_ORDER_ACTION = "cancel-order";
