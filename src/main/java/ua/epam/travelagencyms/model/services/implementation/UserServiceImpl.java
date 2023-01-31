@@ -145,10 +145,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void setRole(String userEmail, int roleId) throws ServiceException {
+    public void setRole(String userId, int roleId) throws ServiceException {
         try {
+            long id = Long.parseLong(userId);
             Role role = Role.getRole(roleId);
-            userDAO.setUserRole(userEmail, role);
+            userDAO.setUserRole(id, role);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

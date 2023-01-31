@@ -13,13 +13,29 @@ import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SE
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.EMAIL;
 
+/**
+ * This is SetUserStatusAction class. Accessible by admin. Allows to set user's status. Implements PRG pattern
+ *
+ * @author Vitalii Kalinchyk
+ * @version 1.0
+ */
 public class SetUserStatusAction implements Action {
     private final UserService userService;
 
+    /**
+     * @param appContext contains UserService instance to use in action
+     */
     public SetUserStatusAction(AppContext appContext) {
         userService = appContext.getUserService();
     }
 
+    /**
+     * Obtains required path and sets users status
+     *
+     * @param request to get user id and new status and put user in request
+     * @return path to redirect to executeGet method in SearchTourAction through front-controller with required
+     * parameters to find user.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String email = request.getParameter(EMAIL);

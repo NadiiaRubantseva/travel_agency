@@ -10,23 +10,37 @@ import ua.epam.travelagencyms.model.services.*;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SEARCH_USER_BY_ID_ACTION;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.EMAIL;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.ROLE;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.USER;
+import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
+/**
+ * This is SetRoleAction class. Accessible by admin. Allows to set users role. Implements PRG pattern
+ *
+ * @author Vitalii Kalinchyk
+ * @version 1.0
+ */
 public class SetRoleAction implements Action {
     private final UserService userService;
 
+    /**
+     * @param appContext contains UserService instance to use in action
+     */
     public SetRoleAction(AppContext appContext) {
         userService = appContext.getUserService();
     }
 
+    /**
+     * Obtains required path and sets users role
+     *
+     * @param request to get user id and new role and put user in request
+     * @return path to redirect to executeGet method in SearchUserAction through front-controller with required
+     * parameters to find user.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String email = request.getParameter(EMAIL);
+        String id = request.getParameter(ID);
         int roleId = Role.valueOf(request.getParameter(ROLE)).getValue();
-        userService.setRole(email, roleId);
-        request.setAttribute(USER, userService.getByEmail(email));
-        return getActionToRedirect(SEARCH_USER_BY_ID_ACTION, EMAIL, email);
+        userService.setRole(id, roleId);
+        request.setAttribute(USER, userService.getById(id));
+        return getActionToRedirect(SEARCH_USER_BY_ID_ACTION, ID, id);
     }
 }

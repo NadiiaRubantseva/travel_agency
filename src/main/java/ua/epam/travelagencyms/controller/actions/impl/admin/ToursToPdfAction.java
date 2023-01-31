@@ -24,17 +24,33 @@ import static ua.epam.travelagencyms.controller.actions.constants.ParameterValue
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.utils.QueryBuilderUtil.userQueryBuilder;
 
+/**
+ * This is ToursToPdfAction class. Accessible by admin. Allows to download list of all users that match demands
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 
 public class ToursToPdfAction implements Action {
     private static final Logger logger = LoggerFactory.getLogger(ToursToPdfAction.class);
     private final TourService tourService;
     private final PdfUtil pdfUtil;
 
+    /**
+     * @param appContext contains TourService and PdfUtil instances to use in action
+     */
     public ToursToPdfAction(AppContext appContext) {
         tourService = appContext.getTourService();
         pdfUtil = appContext.getPdfUtil();
     }
 
+    /**
+     * Builds required query for service, sets tours list in response to download. Checks for locale to set up
+     * locale for pdf document
+     *
+     * @param request to get queries parameters
+     * @param response to set tours list there
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         QueryBuilder queryBuilder = getQueryBuilder(request);
@@ -60,6 +76,12 @@ public class ToursToPdfAction implements Action {
                 .setLimits(zero, max);
     }
 
+    /**
+     * Sets tours list in response to download. Configure response to download pdf document
+     *
+     * @param response to set tours list there
+     * @param output - output stream that contains pdf document
+     */
     private void setResponse(HttpServletResponse response, ByteArrayOutputStream output) {
         response.setContentType("application/pdf");
         response.setContentLength(output.size());

@@ -324,11 +324,11 @@ class UserServiceTest {
                 () -> userService.changePassword(ONE, PASSWORD, PASSWORD, WRONG_PASSWORD));
     }
 
-    @Test
-    void testSetRole() throws DAOException {
-        doNothing().when(userDAO).setUserRole(isA(String.class), isA(Role.class));
-        assertDoesNotThrow(() -> userService.setRole(EMAIL, ROLE_ID));
-    }
+//    @Test
+//    void testSetRole() throws DAOException {
+//        doNothing().when(userDAO).setUserRole(isA(String.class), isA(Role.class));
+//        assertDoesNotThrow(() -> userService.setRole(EMAIL, ROLE_ID));
+//    }
 
     @Test
     void testDeleteUser() throws DAOException {

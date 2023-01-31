@@ -19,13 +19,29 @@ import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.utils.PaginationUtil.paginate;
 import static ua.epam.travelagencyms.utils.QueryBuilderUtil.tourQueryBuilder;
 
+/**
+ * This is ViewToursAction class. Accessible by admin. Allows to return list of sorted tours.
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 public class ViewToursAction implements Action {
     private final TourService tourService;
 
+    /**
+     * @param appContext contains TourService instance to use in action
+     */
     public ViewToursAction(AppContext appContext) {
         tourService = appContext.getTourService();
     }
 
+    /**
+     * Builds required query for service, set tours list in request and obtains required path. Also sets all required
+     * for pagination attributes
+     *
+     * @param request to get queries parameters and put tours list in request
+     * @return view tours page by admin if user is admin, or view tours by user page if user is user.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         transferStringFromSessionToRequest(request, MESSAGE);

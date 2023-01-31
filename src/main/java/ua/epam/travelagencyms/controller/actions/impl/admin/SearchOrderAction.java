@@ -13,13 +13,28 @@ import javax.servlet.http.HttpServletResponse;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
+/**
+ * This is SearchOrderAction class. Accessible by admin. Allows to find an order from database by id.
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 public class SearchOrderAction implements Action {
     private final OrderService orderService;
 
+    /**
+     * @param appContext contains OrderService instance to use in action
+     */
     public SearchOrderAction(AppContext appContext) {
         orderService = appContext.getOrderService();
     }
 
+    /**
+     * Obtains required path and sets user to request if it finds
+     *
+     * @param request to get order id and put order in request or error if it can't find user
+     * @return viewOrderById page if it finds or SearchOrder page if not
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String path = ORDER_BY_ID_PAGE;

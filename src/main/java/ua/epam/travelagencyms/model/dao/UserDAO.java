@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface UserDAO extends EntityDAO<User>{
     Optional<User> getByEmail(String email) throws DAOException;
     void updatePassword(User user) throws DAOException;
-    void setUserRole(String userEmail, Role role) throws DAOException;
+    void setUserRole(long userId, Role role) throws DAOException;
     List<User> getSorted(String query) throws DAOException;
     int getNumberOfRecords(String filter) throws DAOException;
 

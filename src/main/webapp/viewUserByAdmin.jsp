@@ -73,7 +73,7 @@
                 <div class="col-sm-10">
                     <form method="POST" action="controller">
                         <input type="hidden" name="action" value="set-role">
-                        <input type="hidden" name="email" value=${requestScope.user.email}>
+                        <input type="hidden" name="id" value=${requestScope.user.id}>
                         <label>
                             <select name="role" class="form-select mt-2">
                                 <option value="USER" ${requestScope.user.role eq 'USER' ? 'selected' : ''}>

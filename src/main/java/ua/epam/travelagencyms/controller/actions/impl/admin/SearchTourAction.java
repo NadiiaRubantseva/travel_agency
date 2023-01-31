@@ -14,17 +14,32 @@ import javax.servlet.http.HttpServletResponse;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
+/**
+ * This is SearchTourAction class. Accessible by admin. Allows to find a tour from database by id.
+ *
+ * @author Vitalii Kalinchyk
+ * @version 1.0
+ */
 public class SearchTourAction implements Action {
     private final TourService tourService;
 
+    /**
+     * @param appContext contains TourService instance to use in action
+     */
     public SearchTourAction(AppContext appContext) {
         tourService = appContext.getTourService();
     }
 
+    /**
+     * Obtains required path and sets tour to request if it finds
+     *
+     * @param request to get tour id and put tour in request or error if it can't find tour
+     * @return view tour by admin page if it finds or search tour page if not
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String id = request.getParameter(ID);
-        String path = EDIT_TOUR;
+        String path = VIEW_TOUR_BY_ADMIN_PAGE;
         try {
             TourDTO tour = tourService.getById(id);
             request.setAttribute(TOUR, tour);

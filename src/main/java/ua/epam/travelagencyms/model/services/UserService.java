@@ -17,7 +17,7 @@ public interface UserService extends Service<UserDTO> {
 
     String changePassword(long userId) throws ServiceException;
 
-    void setRole(String userEmail, int roleId) throws ServiceException;
+    void setRole(String userId, int roleId) throws ServiceException;
 
     List<UserDTO> getSortedUsers(String query) throws ServiceException;
 

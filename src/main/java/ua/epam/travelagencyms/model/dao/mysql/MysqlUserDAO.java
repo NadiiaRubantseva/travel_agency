@@ -132,12 +132,12 @@ public class MysqlUserDAO implements UserDAO {
     }
 
     @Override
-    public void setUserRole(String userEmail, Role role) throws DAOException {
+    public void setUserRole(long userId, Role role) throws DAOException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SET_ROLE)) {
             int k = 0;
             preparedStatement.setInt(++k, role.getValue());
-            preparedStatement.setString(++k, userEmail);
+            preparedStatement.setLong(++k, userId);
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new DAOException(e);

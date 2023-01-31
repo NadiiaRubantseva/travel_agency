@@ -8,7 +8,7 @@ public class UserSQLQueries {
     public static final String DELETE_USER = "DELETE FROM user WHERE id=?";
     public static final String GET_USER_BY_EMAIL = "SELECT * FROM user WHERE email=?";
     public static final String UPDATE_PASSWORD = "UPDATE user SET password=? WHERE id=?";
-    public static final String SET_ROLE = "UPDATE user SET role_id=? WHERE email=?";
+    public static final String SET_ROLE = "UPDATE user SET role_id=? WHERE id=?";
     public static final String SET_AVATAR = "UPDATE user SET avatar=? WHERE id=?";
     public static final String SET_STATUS = "UPDATE user SET blocked=? WHERE email=?";
     public static final String UPDATE_USER = "UPDATE user SET email=?, name=?, surname=? WHERE id=?";

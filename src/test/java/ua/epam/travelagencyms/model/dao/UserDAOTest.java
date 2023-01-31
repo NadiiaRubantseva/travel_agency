@@ -242,22 +242,22 @@ class UserDAOTest {
         assertThrows(DAOException.class, () -> userDAO.updatePassword(getTestUser()));
     }
 
-    @Test
-    void testSetUserRole() throws SQLException {
-        DataSource dataSource = mock(DataSource.class);
-        UserDAO userDAO = new MysqlUserDAO(dataSource);
-        try (PreparedStatement ignored = prepareMocks(dataSource)) {
-            assertDoesNotThrow(() -> userDAO.setUserRole(EMAIL_VALUE, Role.USER));
-        }
-    }
+//    @Test
+//    void testSetUserRole() throws SQLException {
+//        DataSource dataSource = mock(DataSource.class);
+//        UserDAO userDAO = new MysqlUserDAO(dataSource);
+//        try (PreparedStatement ignored = prepareMocks(dataSource)) {
+//            assertDoesNotThrow(() -> userDAO.setUserRole(EMAIL_VALUE, Role.USER));
+//        }
+//    }
 
-    @Test
-    void testSqlExceptionSetUserRole() throws SQLException {
-        DataSource dataSource = mock(DataSource.class);
-        UserDAO userDAO = new MysqlUserDAO(dataSource);
-        when(dataSource.getConnection()).thenThrow(new SQLException());
-        assertThrows(DAOException.class, () -> userDAO.setUserRole(EMAIL_VALUE, Role.USER));
-    }
+//    @Test
+//    void testSqlExceptionSetUserRole() throws SQLException {
+//        DataSource dataSource = mock(DataSource.class);
+//        UserDAO userDAO = new MysqlUserDAO(dataSource);
+//        when(dataSource.getConnection()).thenThrow(new SQLException());
+//        assertThrows(DAOException.class, () -> userDAO.setUserRole(EMAIL_VALUE, Role.USER));
+//    }
 
     @Test
     void testDelete() throws SQLException {

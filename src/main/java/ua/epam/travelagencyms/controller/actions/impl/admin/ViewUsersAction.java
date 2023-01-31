@@ -14,13 +14,29 @@ import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.utils.PaginationUtil.paginate;
 import static ua.epam.travelagencyms.utils.QueryBuilderUtil.userQueryBuilder;
 
+/**
+ * This is ViewUsersAction class. Accessible by admin. Allows to return list of sorted users.
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 public class ViewUsersAction implements Action {
     private final UserService userService;
 
+    /**
+     * @param appContext contains UserService instance to use in action
+     */
     public ViewUsersAction(AppContext appContext) {
         userService = appContext.getUserService();
     }
 
+    /**
+     * Builds required query for service, set users list in request and obtains required path. Also sets all required
+     * for pagination attributes
+     *
+     * @param request to get queries parameters and put users list in request
+     * @return view users page
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         transferStringFromSessionToRequest(request, MESSAGE);
