@@ -96,6 +96,5 @@ public class Parameters {
      */
     public static final String LOCALE = "locale";
 
-
     public static final String CURRENT_PATH = "currentPath";
 }

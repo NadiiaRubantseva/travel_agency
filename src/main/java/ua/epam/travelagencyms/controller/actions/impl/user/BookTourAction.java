@@ -1,46 +1,44 @@
 package ua.epam.travelagencyms.controller.actions.impl.user;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.OrderDTO;
-import ua.epam.travelagencyms.dto.TourDTO;
-import ua.epam.travelagencyms.dto.UserDTO;
-import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
-import ua.epam.travelagencyms.exceptions.NoSuchTourException;
 import ua.epam.travelagencyms.exceptions.ServiceException;
-import ua.epam.travelagencyms.model.entities.user.User;
 import ua.epam.travelagencyms.model.services.OrderService;
-import ua.epam.travelagencyms.model.services.TourService;
-import ua.epam.travelagencyms.model.services.UserService;
 import ua.epam.travelagencyms.utils.ConvertorUtil;
-import ua.epam.travelagencyms.utils.EmailSender;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_DELETE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
+/**
+ * This is BookTourAction class. Accessible by user. Allows to book tour.
+ * Implements PRG pattern
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 public class BookTourAction implements Action {
-
-    private static final Logger logger = LoggerFactory.getLogger(BookTourAction.class.getName().getClass());
-
-    private final TourService tourService;
-    private final UserService userService;
     private final OrderService orderService;
 
+    /**
+     * @param appContext contains OrderService instance to use in action
+     */
     public BookTourAction(AppContext appContext) {
-        tourService = appContext.getTourService();
-        userService = appContext.getUserService();
         orderService = appContext.getOrderService();
     }
 
+    /**
+     * Tries to book a tour from database.
+     * Logs error in case if not able
+     *
+     * @param request to get tour's id, user's id, tour's price and set error message in case of unsuccessful ordering
+     * @return path to redirect through front-controller
+     * @throws ServiceException to call error page in front-controller
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String path = VIEW_TOURS_BY_USER_PAGE;

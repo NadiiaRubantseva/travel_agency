@@ -15,13 +15,29 @@ import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.utils.PaginationUtil.paginate;
 import static ua.epam.travelagencyms.utils.QueryBuilderUtil.orderQueryBuilder;
 
+/**
+ * This is ViewOrdersOfUserAction class. Accessible by user. Allows to return list of sorted orders.
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 public class ViewOrdersOfUserAction implements Action {
     private final OrderService orderService;
 
+    /**
+     * @param appContext contains OrderService instance to use in action
+     */
     public ViewOrdersOfUserAction(AppContext appContext) {
         orderService = appContext.getOrderService();
     }
 
+    /**
+     * Builds required query for service, set orders list in request and obtains required path. Also sets all required
+     * for pagination attributes
+     *
+     * @param request to get queries parameters and put orders list in request
+     * @return view orders by user page
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         UserDTO userDTO = (UserDTO) request.getSession().getAttribute(LOGGED_USER);

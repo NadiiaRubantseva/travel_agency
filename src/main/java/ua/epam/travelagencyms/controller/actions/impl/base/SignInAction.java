@@ -58,6 +58,7 @@ public class SignInAction implements Action {
      */
     private String executeGet(HttpServletRequest request) {
         transferStringFromSessionToRequest(request, EMAIL);
+        transferStringFromSessionToRequest(request, MESSAGE);
         transferStringFromSessionToRequest(request, ERROR);
         return getPath(request);
     }
