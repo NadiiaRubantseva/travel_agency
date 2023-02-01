@@ -51,6 +51,6 @@ public class BookTourAction implements Action {
         }
         request.getSession().setAttribute(CURRENT_PATH, path);
         request.getSession().setAttribute(MESSAGE, SUCCEED_DELETE);
-        return BOOK_TOUR_CONFIRMATION;
+        return BOOK_TOUR_CONFIRMATION_PAGE;
     }
 }

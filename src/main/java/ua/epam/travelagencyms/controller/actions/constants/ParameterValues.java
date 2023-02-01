@@ -17,6 +17,8 @@ public class ParameterValues {
     public static final String SUCCEED_UPDATE = "succeed.update";
     public static final String SUCCEED_DELETE = "succeed.delete";
 
+    /** Some common errors for user */
+    public static final String ACCESS_DENIED = "access.denied";
 
     /**
      * Representing user's role

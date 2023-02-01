@@ -51,7 +51,7 @@ public class EditTourAction implements Action {
         transferStringFromSessionToRequest(request, ERROR);
         transferTourDTOFromSessionToRequest(request);
         transferTourImageFromSessionToRequest(request);
-        return EDIT_TOUR;
+        return EDIT_TOUR_PAGE;
     }
 
     /**
@@ -71,7 +71,7 @@ public class EditTourAction implements Action {
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
         } catch (IncorrectFormatException | DuplicateTitleException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
-            path = EDIT_TOUR;
+            path = EDIT_TOUR_PAGE;
         }
         request.getSession().setAttribute(CURRENT_PATH, path);
         return getActionToRedirect(VIEW_TOUR_ACTION, ID, String.valueOf(tour.getId()));

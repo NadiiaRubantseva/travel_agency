@@ -34,7 +34,7 @@ public class SearchUserByIdAction implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String path = VIEW_USER_BY_ADMIN;
+        String path = VIEW_USER_BY_ADMIN_PAGE;
         try {
             request.setAttribute(USER, userService.getById(request.getParameter(ID)));
         } catch (NoSuchUserException | IncorrectFormatException e) {

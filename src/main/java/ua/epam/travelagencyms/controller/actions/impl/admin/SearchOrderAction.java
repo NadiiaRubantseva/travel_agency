@@ -37,7 +37,7 @@ public class SearchOrderAction implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String path = ORDER_BY_ID_PAGE;
+        String path = VIEW_ORDER_BY_ADMIN_PAGE;
         try {
             request.setAttribute(ORDER, orderService.getById(request.getParameter(ORDER_ID)));
         } catch (NoSuchOrderException | IncorrectFormatException e) {

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.SEARCH_USER_PAGE;
-import static ua.epam.travelagencyms.controller.actions.constants.Pages.VIEW_USER_BY_ADMIN;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.VIEW_USER_BY_ADMIN_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
 /**
@@ -38,7 +38,7 @@ public class SearchUserByEmailAction implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String path = VIEW_USER_BY_ADMIN;
+        String path = VIEW_USER_BY_ADMIN_PAGE;
         try {
             request.setAttribute(USER, userService.getByEmail(request.getParameter(EMAIL)));
         } catch (NoSuchUserException | IncorrectFormatException e) {
