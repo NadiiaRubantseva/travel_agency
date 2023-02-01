@@ -6,8 +6,15 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
+/**
+ * OrderDTO class.
+ * Use OrderDTO.builder().fieldName(fieldValue).build() to create an instance
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 @Data
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode
 @Builder
 public class OrderDTO implements Serializable {
     private static final long serialVersionUID = 1L;

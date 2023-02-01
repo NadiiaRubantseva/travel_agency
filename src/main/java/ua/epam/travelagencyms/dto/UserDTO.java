@@ -7,6 +7,13 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
+/**
+ * UserDTO class. Password field is absent.
+ * Use UserDTO.builder().fieldName(fieldValue).build() to create an instance
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 @Data
 @EqualsAndHashCode(of = {"email", "name", "surname"})
 @Builder

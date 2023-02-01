@@ -1,5 +1,11 @@
 package ua.epam.travelagencyms.exceptions.constants;
 
+/**
+ * Contains messages for all user-defined exceptions
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 public class Message {
     public static final String NO_USER = "error.email.absent";
     public static final String NO_ORDER = "error.order.absent";

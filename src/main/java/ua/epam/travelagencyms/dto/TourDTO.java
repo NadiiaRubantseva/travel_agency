@@ -6,6 +6,13 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
+/**
+ * TourDTO class.
+ * Use TourDTO.builder().fieldName(fieldValue).build() to create an instance
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 @Data
 @EqualsAndHashCode(of = {"title", "persons", "price", "hot"})
 @Builder
