@@ -18,6 +18,7 @@ public class SQLFields {
     public static final String SURNAME = "surname";
     public static final String ROLE_ID = "role_id";
     public static final String AVATAR = "avatar";
+    public static final String BLOCKED = "blocked";
 
     /** Fields for tour table */
     public static final String TITLE = "title";

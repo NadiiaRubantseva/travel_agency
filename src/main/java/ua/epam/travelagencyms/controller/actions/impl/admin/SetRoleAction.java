@@ -15,7 +15,7 @@ import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 /**
  * This is SetRoleAction class. Accessible by admin. Allows to set users role. Implements PRG pattern
  *
- * @author Vitalii Kalinchyk
+ * @author Nadiia Rubantseva
  * @version 1.0
  */
 public class SetRoleAction implements Action {

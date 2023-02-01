@@ -230,16 +230,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isBlocked(long id) throws ServiceException {
-        boolean result = false;
         try {
-            byte res = userDAO.isBlocked(id);
-            if (res == 1) {
-                return true;
-            }
+            return userDAO.isBlocked(id);
         } catch (DAOException e) {
             throw new ServiceException();
         }
-        return result;
     }
 
     @Override

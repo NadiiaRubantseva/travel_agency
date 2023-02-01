@@ -16,19 +16,16 @@ import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferUserD
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.EDIT_PROFILE_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.EDIT_PROFILE_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.EMAIL;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.ERROR;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.LOGGED_USER;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.MESSAGE;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.NAME;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.SURNAME;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.USER;
 
 /**
  * This is EditProfileAction class. Accessible by any logged user. Allows to change user's email, name and surname.
  * Implements PRG pattern
  *
- * @author Vitalii Kalinchyk
+ * @author Nadiia Rubantseva
  * @version 1.0
  */
 public class EditProfileAction implements Action {

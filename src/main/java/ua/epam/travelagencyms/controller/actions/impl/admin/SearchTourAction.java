@@ -17,7 +17,7 @@ import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 /**
  * This is SearchTourAction class. Accessible by admin. Allows to find a tour from database by id.
  *
- * @author Vitalii Kalinchyk
+ * @author Nadiia Rubantseva
  * @version 1.0
  */
 public class SearchTourAction implements Action {

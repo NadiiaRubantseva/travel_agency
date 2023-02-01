@@ -15,7 +15,7 @@ import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 /**
  * This is SetUserStatusAction class. Accessible by admin. Allows to set user's status. Implements PRG pattern
  *
- * @author Vitalii Kalinchyk
+ * @author Nadiia Rubantseva
  * @version 1.0
  */
 public class SetUserStatusAction implements Action {
