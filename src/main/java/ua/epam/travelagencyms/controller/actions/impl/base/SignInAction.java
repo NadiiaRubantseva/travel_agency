@@ -75,17 +75,18 @@ public class SignInAction implements Action {
         String email = request.getParameter(EMAIL);
         String password = request.getParameter(PASSWORD);
         try {
-            setLoggedUser(request, userService.signIn(email, password));
-            userService.isEmailConfirmed(email);
+            UserDTO user = userService.signIn(email, password);
+            setLoggedUser(request, user);
+            if (!userService.isEmailConfirmed(String.valueOf(user.getId()))) {
+                String code = userService.setVerificationCode(user.getId());
+                sendEmail(code, email);
+                path = VERIFY_EMAIL_PAGE;
+            }
             return path;
         } catch (NoSuchUserException | IncorrectPasswordException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
             request.getSession().setAttribute(EMAIL, email);
             path = SIGN_IN_PAGE;
-        } catch (NotConfirmedEmailException e) {
-            String code = userService.setVerificationCode(email);
-            sendEmail(code, email);
-            path = VERIFY_EMAIL_PAGE;
         }
         request.getSession().setAttribute(CURRENT_PATH, path);
         return getActionToRedirect(SIGN_IN_ACTION);

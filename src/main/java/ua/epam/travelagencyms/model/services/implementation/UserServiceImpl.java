@@ -179,16 +179,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isEmailConfirmed(String email) throws ServiceException {
+    public boolean isEmailConfirmed(String id) throws ServiceException {
         try {
-            if (!userDAO.isEmailConfirmed(email)) {
-//                sendEmail(email);
-                throw new NotConfirmedEmailException();
-            }
+            return userDAO.isEmailVerified(Long.parseLong(id));
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-        return true;
     }
 
     public String getRandom() {
@@ -198,44 +194,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String setVerificationCode(String email) throws ServiceException {
+    public String setVerificationCode(long id) throws ServiceException {
         String code = getRandom();
         try {
-            userDAO.setVerificationCode(email, code);
+            userDAO.setVerificationCode(id, code);
             return code;
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
     }
 
-
-    public String getVerificationCode(String email) throws ServiceException {
-        String code = "";
-        try {
-            code = userDAO.getVerificationCode(email);
-        } catch (DAOException e) {
-            throw new ServiceException(e);
-        }
-        return code;
-    }
-
-
-    public void setEmailVerified(String email) throws ServiceException {
-        try {
-            userDAO.setEmailVerified(email);
-        } catch (DAOException e) {
-            throw new ServiceException(e);
-        }
-    }
-
     @Override
-    public void verifySecurityCode(String email, String code) throws ServiceException {
+    public void verifySecurityCode(long id, String code) throws ServiceException {
         try {
-            String codeInDB = userDAO.getVerificationCode(email);
+            String codeInDB = userDAO.getVerificationCode(id);
             if (!codeInDB.equals(code)) {
                 throw new IncorrectCodeException();
             } else {
-                userDAO.setEmailVerified(email);
+                userDAO.setEmailVerified(id);
             }
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -267,13 +243,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void setStatus(String email, String status) throws ServiceException {
+    public void setStatus(long id, String status) throws ServiceException {
         byte statusId = 0;
         if (status.equals("BLOCKED")) {
             statusId = 1;
         }
         try {
-            userDAO.setStatus(email, statusId);
+            userDAO.setStatus(id, statusId);
         } catch (DAOException e) {
             throw new ServiceException();
         }

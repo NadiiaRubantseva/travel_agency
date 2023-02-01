@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SEARCH_USER_BY_ID_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.EMAIL;
 
 /**
  * This is SetUserStatusAction class. Accessible by admin. Allows to set user's status. Implements PRG pattern
@@ -38,10 +37,10 @@ public class SetUserStatusAction implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String email = request.getParameter(EMAIL);
+        String id = request.getParameter(ID);
         String status = request.getParameter(STATUS);
-        userService.setStatus(email, status);
-        request.setAttribute(USER, userService.getByEmail(email));
-        return getActionToRedirect(SEARCH_USER_BY_ID_ACTION, EMAIL, email);
+        userService.setStatus(Long.parseLong(id), status);
+        request.setAttribute(USER, userService.getById(id));
+        return getActionToRedirect(SEARCH_USER_BY_ID_ACTION, ID, id);
     }
 }

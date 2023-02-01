@@ -1,5 +1,11 @@
 package ua.epam.travelagencyms.model.dao.mysql.constants;
 
+/**
+ * Class that contains all My SQL queries for TourDAO
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 public class TourSQLQueries {
 
     public static final String ADD_TOUR = "INSERT INTO tour (title, persons, price, hot, type_id, hotel_id, image) VALUES (?,?,?,?,?,?,?)";

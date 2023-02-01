@@ -7,6 +7,11 @@ package ua.epam.travelagencyms.exceptions;
  * @version 1.0
  */
 public class DAOException extends Exception {
+
+    public DAOException(String message, Throwable cause) {
+        super(cause);
+    }
+
     public DAOException(Throwable cause) {
         super(cause);
     }

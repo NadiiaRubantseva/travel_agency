@@ -25,13 +25,13 @@ public interface UserService extends Service<UserDTO> {
 
     boolean isEmailConfirmed(String parameter) throws ServiceException;
 
-    String setVerificationCode(String email) throws ServiceException;
+    String setVerificationCode(long id) throws ServiceException;
 
-    void verifySecurityCode (String email, String code) throws ServiceException;
+    void verifySecurityCode (long id, String code) throws ServiceException;
 
     void setAvatar(String userId, byte[] avatar) throws ServiceException;
 
     boolean isBlocked(long id) throws ServiceException;
 
-    void setStatus(String email, String status) throws ServiceException;
+    void setStatus(long id, String status) throws ServiceException;
 }

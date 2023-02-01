@@ -1,5 +1,11 @@
 package ua.epam.travelagencyms.model.dao.mysql.constants;
 
+/**
+ * Class that contains all My SQL queries for OrderDAO
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 public class OrderSQLQueries {
 
     public static final String ADD_ORDER = "INSERT INTO `order` (`user_id`, `tour_id`, `total_cost`, `date`) VALUES (?, ?, ?, ?)";

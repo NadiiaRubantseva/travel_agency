@@ -14,17 +14,17 @@ public interface UserDAO extends EntityDAO<User>{
     List<User> getSorted(String query) throws DAOException;
     int getNumberOfRecords(String filter) throws DAOException;
 
-    boolean isEmailConfirmed(String email) throws DAOException;
+    boolean isEmailVerified(long id) throws DAOException;
 
-    void setVerificationCode(String email, String code) throws DAOException;
+    void setVerificationCode(long id, String code) throws DAOException;
 
-    String getVerificationCode(String email) throws DAOException;
+    String getVerificationCode(long id) throws DAOException;
 
-    void setEmailVerified(String email) throws DAOException;
+    void setEmailVerified(long id) throws DAOException;
 
     void setAvatar(long userId, byte[] avatar) throws DAOException;
 
     byte isBlocked(long id) throws DAOException;
 
-    void setStatus(String email, byte statusId) throws DAOException;
+    void setStatus(long userId, byte statusId) throws DAOException;
 }

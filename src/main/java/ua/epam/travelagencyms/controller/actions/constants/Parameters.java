@@ -13,6 +13,11 @@ public class Parameters {
      */
     public static final String LOGGED_USER = "loggedUser";
 
+    /**
+     * To store blocked user in HttpRequest
+     */
+    public static final String BLOCKED_USER = "blockedUser";
+
 
     /**
      * Basic field

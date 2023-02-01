@@ -60,16 +60,15 @@ public class VerifyCodeAction implements Action {
     /**
      * Called from doPost method in front-controller. Tries to validate security code.
      *
-     * @param request to get user email and verification code and set error in case of unsuccessful code verification
+     * @param request to get user id and verification code and set error in case of unsuccessful code verification
      * @return path to redirect to executeGet method through front-controller with required parameters
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
         String path = PROFILE_PAGE;
         UserDTO user = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
-        String email = user.getEmail();
-        String enteredCode = request.getParameter(VERIFICATION_CODE);
+        String enteredCode = request.getParameter(VERIFICATION_CODE).trim();
         try {
-            userService.verifySecurityCode(email, enteredCode);
+            userService.verifySecurityCode(user.getId(), enteredCode);
         } catch (IncorrectCodeException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
             path = VERIFY_EMAIL_PAGE;
