@@ -19,14 +19,21 @@ import java.util.Properties;
 
 import static ua.epam.travelagencyms.model.dao.constants.DbImplementations.MYSQL;
 
+/**
+ * AppContext  class. Contains all required to correct application work objects
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
+@Getter
 public class AppContext {
     private static final Logger logger = LoggerFactory.getLogger(AppContext.class);
     private static AppContext appContext;
-    @Getter private final UserService userService;
-    @Getter private final TourService tourService;
-    @Getter private final OrderService orderService;
-    @Getter private final EmailSender emailSender;
-    @Getter private final PdfUtil pdfUtil;
+    private final UserService userService;
+    private final TourService tourService;
+    private final OrderService orderService;
+    private final EmailSender emailSender;
+    private final PdfUtil pdfUtil;
 
 
     private AppContext(ServletContext servletContext, String propertiesFile) {
@@ -41,15 +48,24 @@ public class AppContext {
         orderService = serviceFactory.getOrderService();
     }
 
+
+    /**
+     * @return instance of AppContext
+     */
     public static AppContext getAppContext() {
         return appContext;
     }
 
+    /**
+     * Creates instance of AppContext to use in Actions. Configure all required classes. Loads properties
+     * @param servletContext - to use relative address in classes
+     * @param propertiesFile - to configure DataSource, EmailSender and Captcha
+     */
     public static void createAppContext(ServletContext servletContext, String propertiesFile) {
         appContext = new AppContext(servletContext, propertiesFile);
     }
 
-    public static Properties getProperties(String propertiesFile) {
+    private static Properties getProperties(String propertiesFile) {
         Properties properties = new Properties();
         try (InputStream resource = AppContext.class.getClassLoader().getResourceAsStream(propertiesFile)){
             properties.load(resource);
