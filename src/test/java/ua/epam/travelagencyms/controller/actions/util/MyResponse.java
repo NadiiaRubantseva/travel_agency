@@ -1,4 +1,4 @@
-package ua.epam.travelagencyms.controller.actions.utils;
+package ua.epam.travelagencyms.controller.actions.util;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;

@@ -7,7 +7,6 @@ import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.exceptions.*;
 import ua.epam.travelagencyms.model.dao.UserDAO;
 import ua.epam.travelagencyms.model.entities.user.User;
-import ua.epam.travelagencyms.model.entities.user.Role;
 import ua.epam.travelagencyms.model.services.implementation.UserServiceImpl;
 
 import java.sql.SQLException;
@@ -22,7 +21,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static ua.epam.travelagencyms.Constants.*;
-import static ua.epam.travelagencyms.Constants.EMAIL;
+import static ua.epam.travelagencyms.Constants.EMAIL_VALUE;
 import static ua.epam.travelagencyms.Constants.ID_VALUE;
 import static ua.epam.travelagencyms.Constants.INCORRECT_EMAIL;
 import static ua.epam.travelagencyms.Constants.INCORRECT_NAME;
@@ -30,7 +29,6 @@ import static ua.epam.travelagencyms.Constants.INCORRECT_PASSWORD;
 import static ua.epam.travelagencyms.Constants.INCORRECT_SURNAME;
 import static ua.epam.travelagencyms.Constants.NAME;
 import static ua.epam.travelagencyms.Constants.PASSWORD;
-import static ua.epam.travelagencyms.Constants.ROLE_ID;
 import static ua.epam.travelagencyms.Constants.SURNAME;
 import static ua.epam.travelagencyms.exceptions.constants.Message.DUPLICATE_EMAIL;
 import static ua.epam.travelagencyms.exceptions.constants.Message.ENTER_CORRECT_EMAIL;
@@ -174,22 +172,22 @@ class UserServiceTest {
     void testSignIn() throws DAOException, ServiceException {
         User user = getTestUser();
         user.setPassword(encode(PASSWORD));
-        when(userDAO.getByEmail(EMAIL)).thenReturn(Optional.of(user));
-        assertEquals(getTestUserDTO(), userService.signIn(EMAIL, PASSWORD));
+        when(userDAO.getByEmail(EMAIL_VALUE)).thenReturn(Optional.of(user));
+        assertEquals(getTestUserDTO(), userService.signIn(EMAIL_VALUE, PASSWORD));
     }
 
     @Test
     void testWrongEmailSignIn() throws DAOException {
-        when(userDAO.getByEmail(EMAIL)).thenReturn(Optional.empty());
-        assertThrows(NoSuchUserException.class,() -> userService.signIn(EMAIL, PASSWORD));
+        when(userDAO.getByEmail(EMAIL_VALUE)).thenReturn(Optional.empty());
+        assertThrows(NoSuchUserException.class,() -> userService.signIn(EMAIL_VALUE, PASSWORD));
     }
 
     @Test
     void testWrongPasswordSignIn() throws DAOException {
         User testUser = getTestUser();
         testUser.setPassword(encode(PASSWORD));
-        when(userDAO.getByEmail(EMAIL)).thenReturn(Optional.of(testUser));
-        assertThrows(IncorrectPasswordException.class,() -> userService.signIn(EMAIL, INCORRECT_PASSWORD));
+        when(userDAO.getByEmail(EMAIL_VALUE)).thenReturn(Optional.of(testUser));
+        assertThrows(IncorrectPasswordException.class,() -> userService.signIn(EMAIL_VALUE, INCORRECT_PASSWORD));
     }
 
     @Test
@@ -206,14 +204,14 @@ class UserServiceTest {
 
     @Test
     void testSearchUser() throws DAOException, ServiceException {
-        when(userDAO.getByEmail(EMAIL)).thenReturn(Optional.of(getTestUser()));
-        assertEquals(getTestUserDTO(), userService.getByEmail(EMAIL));
+        when(userDAO.getByEmail(EMAIL_VALUE)).thenReturn(Optional.of(getTestUser()));
+        assertEquals(getTestUserDTO(), userService.getByEmail(EMAIL_VALUE));
     }
 
     @Test
     void testSearchNoUser() throws DAOException {
-        when(userDAO.getByEmail(EMAIL)).thenReturn(Optional.empty());
-        assertThrows(NoSuchUserException.class,() -> userService.getByEmail(EMAIL));
+        when(userDAO.getByEmail(EMAIL_VALUE)).thenReturn(Optional.empty());
+        assertThrows(NoSuchUserException.class,() -> userService.getByEmail(EMAIL_VALUE));
     }
 
     @Test
@@ -362,7 +360,7 @@ class UserServiceTest {
     private UserDTO getTestUserDTO() {
         return UserDTO.builder()
                 .id(ONE)
-                .email(EMAIL)
+                .email(EMAIL_VALUE)
                 .name(NAME)
                 .surname(SURNAME)
                 .role(ROLE_USER)
@@ -372,7 +370,7 @@ class UserServiceTest {
     private User getTestUser() {
         return User.builder()
                 .id(ONE)
-                .email(EMAIL)
+                .email(EMAIL_VALUE)
                 .password(PASSWORD)
                 .name(NAME)
                 .surname(SURNAME)

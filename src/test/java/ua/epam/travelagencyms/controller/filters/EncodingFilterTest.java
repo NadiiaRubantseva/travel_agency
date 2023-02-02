@@ -1,7 +1,7 @@
 package ua.epam.travelagencyms.controller.filters;
 
 import org.junit.jupiter.api.Test;
-import ua.epam.travelagencyms.controller.actions.utils.MyRequest;
+import ua.epam.travelagencyms.controller.actions.util.MyRequest;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;

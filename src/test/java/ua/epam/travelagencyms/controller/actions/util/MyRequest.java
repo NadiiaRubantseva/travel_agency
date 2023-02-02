@@ -1,4 +1,4 @@
-package ua.epam.travelagencyms.controller.actions.utils;
+package ua.epam.travelagencyms.controller.actions.util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;

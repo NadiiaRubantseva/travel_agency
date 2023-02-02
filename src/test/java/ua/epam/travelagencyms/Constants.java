@@ -2,8 +2,30 @@ package ua.epam.travelagencyms;
 
 public class Constants {
 
+    // Request.getMethod()
+    public static final String POST = "POST";
+    public static final String GET = "GET";
+
+    // ID
     public static final long ID_VALUE = 1L;
-    public static final String EMAIL = "em@em.com";
+
+    // User
+    public static final String EMAIL_VALUE = "user@mail.com";
+    public static final String NAME_VALUE = "Name";
+    public static final String SURNAME_VALUE = "Surname";
+    public static final String ROLE_VALUE = "USER";
+
+    // Tour
+    public static final String TITLE_VALUE = "Best Title";
+    public static final int PERSONS_VALUE = 2;
+    public static final int PRICE_VALUE = 1299;
+    public static final String HOT_VALUE = "hot";
+    public static final String TYPE_TOUR_VALUE = "SHOPPING";
+    public static final String HOTEL_TOUR_VALUE = "HOSTEL";
+
+
+
+
     public static final String PASSWORD = "Password1";
     public static final int ROLE_ID = 2;
     public static final String ROLE_USER = "USER";
@@ -34,9 +56,6 @@ public class Constants {
     public static final int HOTEL_ID = 2;
     public static final String TITLE_FIELD = "title";
     public static final String PERSONS_FIELD = "persons";
-    public static final String EMAIL_VALUE = "em@em.com";
-    public static final String NAME_VALUE = "Joe";
-    public static final String SURNAME_VALUE = "Yi";
 
     public static final String ANOTHER_TITLE = "PARIS - LOVE CITY";
     public static final int ANOTHER_PERSONS = 3;

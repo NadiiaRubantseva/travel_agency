@@ -33,7 +33,7 @@ class ConvertorUtilTest {
     private UserDTO getTestUserDTO() {
         return UserDTO.builder()
                 .id(ID_VALUE)
-                .email(EMAIL)
+                .email(EMAIL_VALUE)
                 .name(NAME)
                 .surname(SURNAME)
                 .role(ROLE_USER)
@@ -43,7 +43,7 @@ class ConvertorUtilTest {
     private User getTestUser() {
         return User.builder()
                 .id(ID_VALUE)
-                .email(EMAIL)
+                .email(EMAIL_VALUE)
                 .password(PASSWORD)
                 .name(NAME)
                 .surname(SURNAME)
