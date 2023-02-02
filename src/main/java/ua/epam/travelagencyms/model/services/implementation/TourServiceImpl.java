@@ -16,6 +16,8 @@ import static ua.epam.travelagencyms.utils.ValidatorUtil.*;
 
 @RequiredArgsConstructor
 public class TourServiceImpl implements TourService {
+
+    /** Contains tourDAO field to work with TourDAO */
     private final TourDAO tourDAO;
 
     /**

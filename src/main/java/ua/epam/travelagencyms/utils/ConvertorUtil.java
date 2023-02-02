@@ -5,6 +5,8 @@ import ua.epam.travelagencyms.dto.OrderDTO;
 import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.exceptions.ServiceException;
+import ua.epam.travelagencyms.model.entities.order.Order;
+import ua.epam.travelagencyms.model.entities.order.OrderStatus;
 import ua.epam.travelagencyms.model.entities.tour.Hotel;
 import ua.epam.travelagencyms.model.entities.tour.Tour;
 import ua.epam.travelagencyms.model.entities.tour.Type;
@@ -129,6 +131,36 @@ public final class ConvertorUtil {
                 .tourId(Long.parseLong(tourId))
                 .tourPrice(Double.parseDouble(tourPrice))
                 .date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
+                .build();
+    }
+
+    public static Order convertDTOToOrder(OrderDTO orderDTO) {
+        return Order.builder()
+                .id(orderDTO.getId())
+                .orderStatus(OrderStatus.valueOf(orderDTO.getOrderStatus()))
+                .user(User.builder().id(orderDTO.getUserId()).build())
+                .tour(Tour.builder().id(orderDTO.getTourId()).price(orderDTO.getTourPrice()).title(orderDTO.getTourTitle()).build())
+                .discount(orderDTO.getDiscount())
+                .totalCost(orderDTO.getTotalCost())
+                .build();
+    }
+
+    public static OrderDTO convertOrderToDTO(Order order) {
+        User user = order.getUser();
+        Tour tour = order.getTour();
+        return OrderDTO.builder()
+                .id(order.getId())
+                .orderStatus(order.getOrderStatus().name())
+                .userId(user.getId())
+                .userName(user.getEmail())
+                .userName(user.getName())
+                .userSurname(user.getSurname())
+                .tourId(tour.getId())
+                .tourTitle(tour.getTitle())
+                .tourPrice(tour.getPrice())
+                .discount(order.getDiscount())
+                .totalCost(order.getTotalCost())
+                .date(String.valueOf(order.getDate()))
                 .build();
     }
 }

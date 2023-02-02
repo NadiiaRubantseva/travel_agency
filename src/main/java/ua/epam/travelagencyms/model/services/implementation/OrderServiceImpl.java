@@ -1,5 +1,6 @@
 package ua.epam.travelagencyms.model.services.implementation;
 
+import lombok.RequiredArgsConstructor;
 import ua.epam.travelagencyms.dto.OrderDTO;
 import ua.epam.travelagencyms.exceptions.DAOException;
 import ua.epam.travelagencyms.exceptions.NoSuchOrderException;
@@ -16,14 +17,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderServiceImpl implements OrderService {
+import static ua.epam.travelagencyms.utils.ConvertorUtil.convertDTOToOrder;
+import static ua.epam.travelagencyms.utils.ConvertorUtil.convertOrderToDTO;
 
+@RequiredArgsConstructor
+public class OrderServiceImpl implements OrderService {
+    /** Contains orderDAO field to work with OrderDAO */
     private final OrderDAO orderDAO;
 
-    public OrderServiceImpl (OrderDAO orderDAO) {
-        this.orderDAO = orderDAO;
-    }
-
+    /**
+     * Calls DAO to add relevant entity.
+     * Converts OrderDTO to Order
+     * @param orderDTO - DTO to be added as Order to database
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public void addOrder(OrderDTO orderDTO) throws ServiceException {
         Order order = Order.builder()
@@ -38,6 +45,12 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    /**
+     * Calls DAO to set new order status
+     * @param status - new status for the order
+     * @param orderId - order id
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public void setStatus(String status, String orderId) throws ServiceException {
         try {
@@ -49,6 +62,13 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    /**
+     * Calls DAO to set order discount
+     * @param discount - discount value to be set
+     * @param price - tour price, required for establishing the total cose of the order.
+     * @param orderId - order id value.
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public void setDiscount(String discount, String price, String orderId) throws ServiceException {
         try {
@@ -61,6 +81,12 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    /**
+     * Obtains list of all instances of Orders from DAO that were made for specific tour. Converts Tour to TourDTOs
+     * @param tourId - tour id value
+     * @return List of TourDTOS
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public List<OrderDTO> viewToursOrders(long tourId) throws ServiceException {
         List<OrderDTO> orderDTOS = new ArrayList<>();
@@ -73,6 +99,12 @@ public class OrderServiceImpl implements OrderService {
         return orderDTOS;
     }
 
+    /**
+     * Obtains list of all instances of Orders from DAO that were made by specific user. Converts Tour to TourDTOs
+     * @param userId - user id value
+     * @return List of TourDTOS
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public List<OrderDTO> viewUsersOrders(long userId) throws ServiceException {
         List<OrderDTO> orderDTOS = new ArrayList<>();
@@ -85,6 +117,12 @@ public class OrderServiceImpl implements OrderService {
         return orderDTOS;
     }
 
+    /**
+     * Calls DAO to get sorted, filtered and limited list of DTOs. Converts Orders to OrderDTOs
+     * @param query - to obtain necessary DTOs
+     * @return List of OrderDTOs that match demands
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public List<OrderDTO> getSortedOrders(String query) throws ServiceException {
         List<OrderDTO> orderDTOS = new ArrayList<>();
@@ -97,6 +135,12 @@ public class OrderServiceImpl implements OrderService {
         return orderDTOS;
     }
 
+    /**
+     * Calls DAO to get number of all records that match filter
+     * @param filter - conditions for such Orders
+     * @return number of records that match demands
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public int getNumberOfRecords(String filter) throws ServiceException {
         int records;
@@ -108,6 +152,12 @@ public class OrderServiceImpl implements OrderService {
         return records;
     }
 
+    /**
+     * Obtains instance of Order from DAO by id. Checks if id valid. Converts Order to OrderDTO
+     * @param orderIdString - id as a String to validate and convert to long
+     * @return OrderDTO instance
+     * @throws ServiceException - may wrap DAOException or be thrown as NoSuchOrderException
+     */
     @Override
     public OrderDTO getById(String orderIdString) throws ServiceException {
         OrderDTO orderDTO;
@@ -121,7 +171,7 @@ public class OrderServiceImpl implements OrderService {
         return orderDTO;
     }
 
-    public static long getOrderId(String idString) throws ServiceException {
+    private static long getOrderId(String idString) throws ServiceException {
         return checkId(idString, new NoSuchOrderException());
     }
 
@@ -135,6 +185,11 @@ public class OrderServiceImpl implements OrderService {
         return orderId;
     }
 
+    /**
+     * Obtains list of all instances of Order from DAO. Converts Orders to OrderDTOs
+     * @return List of OrderDTOs
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public List<OrderDTO> getAll() throws ServiceException {
         List<OrderDTO> orderDTOS = new ArrayList<>();
@@ -147,6 +202,11 @@ public class OrderServiceImpl implements OrderService {
         return orderDTOS;
     }
 
+    /**
+     * Updates Order. Validate UserDTO. Converts OrderDTO to Order
+     * @param entity - OrderDTO instance.
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public void update(OrderDTO entity) throws ServiceException {
         Order order = convertDTOToOrder(entity);
@@ -157,6 +217,11 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    /**
+     * Deletes Order entity from database. Validate id.
+     * @param orderIdString - id as a String
+     * @throws ServiceException - may wrap DAOException or be thrown as NoSuchOrderException
+     */
     @Override
     public void delete(String orderIdString) throws ServiceException {
         long orderId = getOrderId(orderIdString);
@@ -167,34 +232,4 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-
-    public static Order convertDTOToOrder(OrderDTO orderDTO) {
-        return Order.builder()
-                .id(orderDTO.getId())
-                .orderStatus(OrderStatus.valueOf(orderDTO.getOrderStatus()))
-                .user(User.builder().id(orderDTO.getUserId()).build())
-                .tour(Tour.builder().id(orderDTO.getTourId()).price(orderDTO.getTourPrice()).title(orderDTO.getTourTitle()).build())
-                .discount(orderDTO.getDiscount())
-                .totalCost(orderDTO.getTotalCost())
-                .build();
-    }
-
-    public static OrderDTO convertOrderToDTO(Order order) {
-        User user = order.getUser();
-        Tour tour = order.getTour();
-        return OrderDTO.builder()
-                .id(order.getId())
-                .orderStatus(order.getOrderStatus().name())
-                .userId(user.getId())
-                .userName(user.getEmail())
-                .userName(user.getName())
-                .userSurname(user.getSurname())
-                .tourId(tour.getId())
-                .tourTitle(tour.getTitle())
-                .tourPrice(tour.getPrice())
-                .discount(order.getDiscount())
-                .totalCost(order.getTotalCost())
-                .date(String.valueOf(order.getDate()))
-                .build();
-    }
 }
