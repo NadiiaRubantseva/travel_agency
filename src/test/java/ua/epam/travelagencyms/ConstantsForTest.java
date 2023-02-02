@@ -5,6 +5,9 @@ import ua.epam.travelagencyms.dto.UserDTO;
 
 public class ConstantsForTest {
 
+    // thenReturn()
+    public static final String ONE = "1";
+
     // Get entity dto
     public static UserDTO getTestUserDTO() {
         return UserDTO.builder()
@@ -35,7 +38,7 @@ public class ConstantsForTest {
     // ID
     public static final long ID_VALUE = 1L;
 
-    // User
+    // User values
     public static final String EMAIL_VALUE = "user@mail.com";
     public static final String NAME_VALUE = "Name";
     public static final String SURNAME_VALUE = "Surname";
@@ -57,7 +60,6 @@ public class ConstantsForTest {
     public static final String ROLE_USER = "USER";
     public static final String ANOTHER_EMAIL = "a@a.com";
     public static final String DUPLICATE = "Duplicate entry";
-    public static final int ONE = 1;
     public static final int THREE = 3;
     public static final int ZERO = 0;
     public static final String ANOTHER_PASSWORD = "newPassword1234";
