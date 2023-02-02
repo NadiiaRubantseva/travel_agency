@@ -58,6 +58,7 @@ public final class DomainActionsSets {
         adminActions.add(UPDATE_ORDER_DISCOUNT_ACTION);
         adminActions.add(USERS_PDF_ACTION);
         adminActions.add(TOURS_PDF_ACTION);
+        adminActions.add(SEARCH_ORDER_ACTION);
     }
 
     static {
