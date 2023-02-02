@@ -18,7 +18,7 @@ import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.NUMBER_
 import static ua.epam.travelagencyms.model.dao.mysql.constants.TourSQLQueries.*;
 
 /**
- * Tour DAO class for My SQL database. Match tables 'user' and 'user_has_event' in database.
+ * Tour DAO class for My SQL database. Matches table 'tour' in database.
  *
  * @author Nadiia Rubantseva
  * @version 1.0
