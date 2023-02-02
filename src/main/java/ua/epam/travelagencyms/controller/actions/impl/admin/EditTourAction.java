@@ -74,6 +74,6 @@ public class EditTourAction implements Action {
             path = EDIT_TOUR_PAGE;
         }
         request.getSession().setAttribute(CURRENT_PATH, path);
-        return getActionToRedirect(VIEW_TOUR_ACTION, ID, String.valueOf(tour.getId()));
+        return getActionToRedirect(SEARCH_TOUR_ACTION, ID, String.valueOf(tour.getId()));
     }
 }

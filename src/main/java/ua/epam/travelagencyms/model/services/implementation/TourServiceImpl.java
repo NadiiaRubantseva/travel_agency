@@ -115,15 +115,13 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public boolean createImage(byte[] image, String tourId) throws ServiceException {
-        boolean isCreate = false;
+    public void createImage(byte[] image, String tourId) throws ServiceException {
         int id = Integer.parseInt(tourId);
         try {
-            isCreate = tourDAO.createImageContent(image, id);
+            tourDAO.createImageContent(image, id);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-        return isCreate;
     }
 
     @Override

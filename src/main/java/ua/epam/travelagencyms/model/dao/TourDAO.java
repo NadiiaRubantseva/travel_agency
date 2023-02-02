@@ -8,10 +8,9 @@ import java.util.Optional;
 
 public interface TourDAO extends EntityDAO<Tour>{
     Optional<Tour> getByTitle(String title) throws DAOException;
-    void updateTitle(Tour tour) throws DAOException;
     List<Tour> getSorted(String query) throws DAOException;
     int getNumberOfRecords(String filter) throws DAOException;
-    boolean createImageContent(byte[] image, int tourId) throws DAOException;
+    void createImageContent(byte[] image, int tourId) throws DAOException;
     byte[] getImage(long id) throws DAOException;
 
 

@@ -43,6 +43,7 @@
     <div class="container-fluid">
         <form method="GET" action="controller" enctype="multipart/form-data">
             <input type="hidden" name="action" value="search-tour">
+            <input type="hidden" name="purpose" value="edit">
             <input type="hidden" name="id" value=${requestScope.tour.id}>
             <c:set var="error" value="${requestScope.error}"/>
 

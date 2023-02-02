@@ -25,6 +25,5 @@ public class UserSQLQueries {
     public static final String IS_EMAIL_VERIFIED = "SELECT email_verified FROM user WHERE id=?";
     public static final String IS_USER_BLOCKED = "SELECT blocked FROM user WHERE id=?";
     public static final String GET_NUMBER_OF_RECORDS = "SELECT COUNT(id) AS numberOfRecords FROM user %s";
-    public static final String NUMBER_OF_RECORDS = "numberOfRecords";
 
 }

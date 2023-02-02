@@ -14,7 +14,6 @@ import java.util.Optional;
 
 import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.*;
 import static ua.epam.travelagencyms.model.dao.mysql.constants.UserSQLQueries.*;
-import static ua.epam.travelagencyms.model.dao.mysql.constants.UserSQLQueries.NUMBER_OF_RECORDS;
 
 /**
  * User DAO class for My SQL database. Match tables 'user' and 'user_has_event' in database.

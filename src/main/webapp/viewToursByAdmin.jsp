@@ -162,7 +162,6 @@
                     <c:set var="hot" value="${tour.hot}"/>
                     <tr>
                         <td><c:out value="${tour.id}"/></td>
-                        <div class="image">
                             <c:choose>
                                 <c:when test="${fn:length(avatar) > 100 }">
                                     <td><img src="${tour.decodedImage}" class="rounded" height="25"></td>
@@ -171,7 +170,6 @@
                                     <td><img src="img/default_user_photo.png" class="rounded" height="25"></td>
                                 </c:otherwise>
                             </c:choose>
-                        </div>
                         <td><c:out value="${tour.title}"/></td>
                         <td><c:out value="${tour.persons}"/></td>
                         <td><c:out value="${tour.price}"/></td>
@@ -196,7 +194,7 @@
     </div>
 
     <c:set var="href"
-           value="controller?action=search-tours&type=${param.type}&sort=hot&order=DESC&sort=${param.sort}&order=${param.order}&persons=${requestScope.persons}&min_price=${requestScope.min_price}&max_price=${requestScope.max_price}&"
+           value="controller?action=view-tours&type=${param.type}&sort=hot&order=DESC&sort=${param.sort}&order=${param.order}&persons=${requestScope.persons}&min_price=${requestScope.min_price}&max_price=${requestScope.max_price}&"
            scope="request"/>
 
     <jsp:include page="/fragments/pagination.jsp"/>

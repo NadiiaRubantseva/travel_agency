@@ -39,7 +39,10 @@ public class SearchTourAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String id = request.getParameter(ID);
+        String purpose = request.getParameter("purpose");
         String path = VIEW_TOUR_BY_ADMIN_PAGE;
+        if (purpose != null && purpose.equals("edit")) {
+            path = EDIT_TOUR_PAGE; }
         try {
             TourDTO tour = tourService.getById(id);
             request.setAttribute(TOUR, tour);

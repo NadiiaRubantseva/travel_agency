@@ -67,7 +67,7 @@ public class UploadTourImageAction implements Action {
      * @param request to get tour id and tour image and set message in case of successful uploading or error
      * @return path to redirect to executeGet method through front-controller with required parameters
      */
-    private String executePost(HttpServletRequest request) throws ServiceException {
+    private String executePost(HttpServletRequest request) {
         String tourId = request.getParameter(ID);
 
         try {
@@ -84,6 +84,6 @@ public class UploadTourImageAction implements Action {
         }
 
         request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
-        return getActionToRedirect(VIEW_TOUR_ACTION, ID, tourId);
+        return getActionToRedirect(SEARCH_TOUR_ACTION, ID, tourId);
     }
 }
