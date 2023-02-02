@@ -68,7 +68,7 @@ public class TourServiceImpl implements TourService {
     @Override
     public void update(TourDTO tourDTO) throws ServiceException {
         validateTour(tourDTO);
-        Tour tour = convertDTOToTour(tourDTO);
+        Tour tour = convertTourDTOToTour(tourDTO);
         try {
             tourDAO.update(tour);
         } catch (DAOException e) {
@@ -102,7 +102,7 @@ public class TourServiceImpl implements TourService {
     @Override
     public void add(TourDTO tourDTO) throws ServiceException {
         validateTour(tourDTO);
-        Tour tour = convertDTOToTour(tourDTO);
+        Tour tour = convertTourDTOToTour(tourDTO);
         try {
             tourDAO.add(tour);
         } catch (DAOException e) {

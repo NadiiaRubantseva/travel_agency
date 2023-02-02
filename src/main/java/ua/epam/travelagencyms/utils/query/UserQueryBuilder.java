@@ -5,7 +5,15 @@ import java.util.Set;
 
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
+/**
+ * UserQueryBuilder. Able to build query to obtain sorted, ordered and limited list of users
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 public class UserQueryBuilder extends QueryBuilder {
+
+    /** Contains set of allowed sort fields */
     private static final Set<String> USER_SORT_FIELDS_SET = new HashSet<>();
 
     static {
@@ -15,10 +23,16 @@ public class UserQueryBuilder extends QueryBuilder {
         USER_SORT_FIELDS_SET.add(SURNAME);
     }
 
+    /**
+     * set id as default sort field
+     */
     public UserQueryBuilder() {
         super(ID);
     }
 
+    /**
+     * @return empty String - no need to group by in userQuery
+     */
     @Override
     protected String getGroupByQuery() {
         return "";

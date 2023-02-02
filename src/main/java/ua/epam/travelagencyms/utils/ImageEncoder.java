@@ -29,6 +29,11 @@ public class ImageEncoder {
         return encodedImage.toString();
     }
 
+    /**
+     * {@code getImage} method to decode image from string to byte array
+     * @param request - HttpServletRequest for retrieving image part
+     * @return decoded image
+     */
     public static byte[] getImage(HttpServletRequest request) {
         byte[] image = null;
         try {

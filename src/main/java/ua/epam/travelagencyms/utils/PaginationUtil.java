@@ -4,8 +4,20 @@ import javax.servlet.http.HttpServletRequest;
 
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
+/**
+ * Configure request to set all required for page surfing attributes
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 public final class PaginationUtil {
 
+    /**
+     * Calculates required attributes and sets them to request. In case of wrong offset and/or records - sets
+     * default values (as for now 0 and 5)
+     * @param totalRecords - total number of records
+     * @param request - request to get offset, records and to set other attributes
+     */
     public static void paginate(int totalRecords, HttpServletRequest request) {
         int records = getInt(request.getParameter(RECORDS), 1, 5);
         int offset = getInt(request.getParameter(OFFSET), 0, 0);

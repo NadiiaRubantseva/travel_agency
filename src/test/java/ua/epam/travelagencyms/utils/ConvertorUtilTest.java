@@ -54,7 +54,7 @@ class ConvertorUtilTest {
     @Test
     void testConvertDTOToTour() {
         Tour testTour = getTestTour();
-        Tour dtoToTour = convertDTOToTour(getTestTourDTO());
+        Tour dtoToTour = convertTourDTOToTour(getTestTourDTO());
         assertEquals(testTour, dtoToTour);
     }
 

@@ -5,7 +5,15 @@ import java.util.Set;
 
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
+/**
+ * TourQueryBuilder. Able to build query to obtain sorted, ordered and limited list of tours
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 public class TourQueryBuilder extends QueryBuilder {
+
+    /** Contains set of allowed sort fields */
     private static final Set<String> TOUR_SORT_FIELDS_SET = new HashSet<>();
 
     static {
@@ -17,10 +25,16 @@ public class TourQueryBuilder extends QueryBuilder {
         TOUR_SORT_FIELDS_SET.add(DISCOUNT);
     }
 
+    /**
+     * set id as default sort field
+     */
     public TourQueryBuilder() {
         super(ID);
     }
 
+    /**
+     * @return empty String - no need to group by in tourQuery
+     */
     @Override
     protected String getGroupByQuery() {
         return "";
