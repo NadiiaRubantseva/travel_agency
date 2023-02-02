@@ -1,6 +1,5 @@
 package ua.epam.travelagencyms.model.services.implementation;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.exceptions.*;
 import ua.epam.travelagencyms.model.dao.UserDAO;
@@ -11,6 +10,7 @@ import ua.epam.travelagencyms.model.services.UserService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 import static ua.epam.travelagencyms.exceptions.constants.Message.ENTER_CORRECT_NAME;
 import static ua.epam.travelagencyms.exceptions.constants.Message.ENTER_CORRECT_SURNAME;
@@ -20,16 +20,30 @@ import static ua.epam.travelagencyms.utils.PasswordHashUtil.encode;
 import static ua.epam.travelagencyms.utils.PasswordHashUtil.verify;
 import static ua.epam.travelagencyms.utils.ValidatorUtil.*;
 
-
+/**
+ * Implementation of UserService interface.
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 public class UserServiceImpl implements UserService {
 
+    /** Contains userDAO field to work with UserDAO */
     private final UserDAO userDAO;
+
+    private static final String SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private final Random random = new Random();
 
     public UserServiceImpl(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
-
+    /**
+     * Obtains instance of User from DAO by id. Checks if id valid. Converts User to UserDTO
+     * @param userIdString - id as a String to validate and convert to long
+     * @return UserDTO instance
+     * @throws ServiceException - may wrap DAOException or be thrown as NoSuchUserException
+     */
     @Override
     public UserDTO getById(String userIdString) throws ServiceException {
         UserDTO userDTO;
@@ -43,6 +57,11 @@ public class UserServiceImpl implements UserService {
         return userDTO;
     }
 
+    /**
+     * Obtains list of all instances of User from DAO. Converts Users to UserDTOs
+     * @return List of UserDTOs
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public List<UserDTO> getAll() throws ServiceException {
         List<UserDTO> userDTOS = new ArrayList<>();
@@ -55,6 +74,12 @@ public class UserServiceImpl implements UserService {
         return userDTOS;
     }
 
+    /**
+     * Updates User's email, name, surname. Validate UserDTO. Converts UserDTO to User
+     * @param userDTO - UserDTO that contains user's id, email, name and surname.
+     * @throws ServiceException - may wrap DAOException or be thrown as IncorrectFormatException or
+     * DuplicateEmailException
+     */
     @Override
     public void update(UserDTO userDTO) throws ServiceException {
         validateUser(userDTO);
@@ -66,6 +91,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Deletes User entity from database. Validate id.
+     * @param userIdString - id as a String
+     * @throws ServiceException - may wrap DAOException or be thrown as NoSuchUserException
+     */
     @Override
     public void delete(String userIdString) throws ServiceException {
         long userId = getUserId(userIdString);
@@ -76,6 +106,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Gets UserDTO from action and calls DAO to add relevant entity. Validate user's fields, passwords.
+     * Encode password for database. Converts UserDTO to User
+     * @param userDTO - DTO to be added as User to database
+     * @param password - password to be added to User
+     * @param confirmPassword - will check if passwords match
+     * @throws ServiceException - may wrap DAOException or be thrown as IncorrectFormatException with specific message,
+     * PasswordMatchingException, DuplicateEmailException.
+     */
     @Override
     public void add(UserDTO userDTO, String password, String confirmPassword) throws ServiceException {
         validateUser(userDTO);
@@ -90,6 +129,14 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Checks if parameters are correct. Obtains necessary User entity and checks if password matches.
+     * Converts UserDTO to User
+     * @param email - to find user in database
+     * @param password - to check if matches with user password
+     * @return UserDTO - that matches this User entity
+     * @throws ServiceException - may wrap DAOException or be thrown as NoSuchUserException, IncorrectPasswordException.
+     */
     @Override
     public UserDTO signIn(String email, String password) throws ServiceException {
         checkStrings(email, password);
@@ -104,6 +151,12 @@ public class UserServiceImpl implements UserService {
         return userDTO;
     }
 
+    /**
+     * Obtains instance of User from DAO by email. Checks if email valid. Converts User to UserDTO
+     * @param email - email to find User's instance
+     * @return DTO instance
+     * @throws ServiceException - may wrap DAOException or be thrown as NoSuchUserException
+     */
     @Override
     public UserDTO getByEmail(String email) throws ServiceException {
         validateEmail(email);
@@ -117,6 +170,15 @@ public class UserServiceImpl implements UserService {
         return userDTO;
     }
 
+    /**
+     * Updates User's password. Validate passwords. Encode new password
+     * @param userId - id to find user by
+     * @param password - old password
+     * @param newPass - new password
+     * @param confirmPass - should match new password
+     * @throws ServiceException - may wrap DAOException or be thrown as IncorrectFormatException,
+     * IncorrectPasswordException, NoSuchUserException, PasswordMatchingException
+     */
     @Override
     public void changePassword(long userId, String password, String newPass, String confirmPass) throws ServiceException {
         checkStrings(password, newPass, confirmPass);
@@ -132,6 +194,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Calls DAO to update User with new password id. Generate new password. Encode new password.
+     * @param userId id to find user by
+     * @return new password for user
+     * @throws ServiceException - may wrap DAOException or be thrown as IncorrectFormatException, NoSuchUserException.
+     */
     @Override
     public String changePassword(long userId) throws ServiceException {
         String newPass = generatePassword();
@@ -144,6 +212,12 @@ public class UserServiceImpl implements UserService {
         return newPass;
     }
 
+    /**
+     * Calls DAO to set new user role
+     * @param userId - to find user by id
+     * @param roleId new role for user
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public void setRole(String userId, int roleId) throws ServiceException {
         try {
@@ -155,6 +229,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Calls DAO to get sorted, filtered and limited list of DTOs. Converts Users to UserDTOs
+     * @param query - to obtain necessary DTOs
+     * @return List of UserDTOs that match demands
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public List<UserDTO> getSortedUsers(String query) throws ServiceException {
         List<UserDTO> userDTOS = new ArrayList<>();
@@ -167,6 +247,12 @@ public class UserServiceImpl implements UserService {
         return userDTOS;
     }
 
+    /**
+     * Calls DAO to get number of all records that match filter
+     * @param filter - conditions for such Users
+     * @return number of records that match demands
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public int getNumberOfRecords(String filter) throws ServiceException {
         int records;
@@ -178,8 +264,13 @@ public class UserServiceImpl implements UserService {
         return records;
     }
 
+    /**
+     * Calls DAO to check if user email is verified
+     * @param id - to find user by id
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
-    public boolean isEmailConfirmed(String id) throws ServiceException {
+    public boolean isEmailVerified(String id) throws ServiceException {
         try {
             return userDAO.isEmailVerified(Long.parseLong(id));
         } catch (DAOException e) {
@@ -187,12 +278,17 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public String getRandom() {
+    private String getRandom() {
         Random rnd = new Random();
         int number = rnd.nextInt(999999);
         return String.format("%06d", number);
     }
 
+    /**
+     * Calls DAO to set verification code
+     * @param id - to find user by id
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public String setVerificationCode(long id) throws ServiceException {
         String code = getRandom();
@@ -204,6 +300,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Calls DAO to check if provided verification code matched the one from database
+     * @param id - to find user by id
+     * @param code - verification code received
+     * @throws ServiceException - may wrap DAOException
+     * @throws IncorrectCodeException - if code entered by user does not match database.
+     */
     @Override
     public void verifySecurityCode(long id, String code) throws ServiceException {
         try {
@@ -218,6 +321,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Calls DAO to set user avatar
+     * @param userId - to find user by id
+     * @param avatar - image in byte representation
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public void setAvatar(String userId, byte[] avatar) throws ServiceException {
         try {
@@ -228,6 +337,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Calls DAO to check if user is blocked
+     * @param id - to find user by id
+     * @return - if yes - true, otherwise false.
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public boolean isBlocked(long id) throws ServiceException {
         try {
@@ -237,6 +352,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Calls DAO to set user status
+     * @param id - to find user by id
+     * @param status - status value
+     * @throws ServiceException - may wrap DAOException
+     */
     @Override
     public void setStatus(long id, String status) throws ServiceException {
         byte statusId = 0;
@@ -251,7 +372,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public static long getUserId(String idString) throws ServiceException {
+    private static long getUserId(String idString) throws ServiceException {
         return checkId(idString, new NoSuchUserException());
     }
 
@@ -279,7 +400,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public static void checkStrings(String... strings) throws ServiceException {
+    private static void checkStrings(String... strings) throws ServiceException {
         for (String string : strings) {
             if (string == null) {
                 throw new ServiceException(new NullPointerException());
@@ -287,7 +408,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Obtains new password for User
+     * @return generated password
+     */
     private String generatePassword() {
-        return "1aA" + RandomStringUtils.randomAlphanumeric(5);
+        return IntStream.generate(() -> random.nextInt(SYMBOLS.length()))
+                .map(SYMBOLS::charAt)
+                .limit(8)
+                .collect(() -> new StringBuilder("1aA"), StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
     }
 }

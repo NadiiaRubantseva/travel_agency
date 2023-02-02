@@ -77,7 +77,7 @@ public class SignInAction implements Action {
         try {
             UserDTO user = userService.signIn(email, password);
             setLoggedUser(request, user);
-            if (!userService.isEmailConfirmed(String.valueOf(user.getId()))) {
+            if (!userService.isEmailVerified(String.valueOf(user.getId()))) {
                 String code = userService.setVerificationCode(user.getId());
                 sendEmail(code, email);
                 path = VERIFY_EMAIL_PAGE;

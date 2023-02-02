@@ -23,7 +23,7 @@ public interface UserService extends Service<UserDTO> {
 
     int getNumberOfRecords(String filter) throws ServiceException;
 
-    boolean isEmailConfirmed(String parameter) throws ServiceException;
+    boolean isEmailVerified(String parameter) throws ServiceException;
 
     String setVerificationCode(long id) throws ServiceException;
 
