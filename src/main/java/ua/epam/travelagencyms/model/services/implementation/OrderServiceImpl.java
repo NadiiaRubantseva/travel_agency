@@ -65,16 +65,16 @@ public class OrderServiceImpl implements OrderService {
     /**
      * Calls DAO to set order discount
      * @param discount - discount value to be set
-     * @param price - tour price, required for establishing the total cose of the order.
+     * @param tourPrice - tour price, required for establishing the total cose of the order.
      * @param orderId - order id value.
      * @throws ServiceException - may wrap DAOException
      */
     @Override
-    public void setDiscount(String discount, String price, String orderId) throws ServiceException {
+    public void setDiscount(String discount, String tourPrice, String orderId) throws ServiceException {
         try {
             long id = Long.parseLong(orderId);
             int d = Integer.parseInt(discount);
-            double t = Double.parseDouble(price);
+            double t = Double.parseDouble(tourPrice);
             orderDAO.setOrderDiscount(id, d, t);
         } catch (DAOException e) {
             throw new ServiceException(e);
