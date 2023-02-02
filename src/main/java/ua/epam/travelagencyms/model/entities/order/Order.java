@@ -9,6 +9,13 @@ import ua.epam.travelagencyms.model.entities.user.User;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * Order entity class. Matches table 'order' in database.
+ * Use Order.builder().fieldName(fieldValue).build() to create an instance
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 @Data
 @Builder
 public class Order implements Serializable {

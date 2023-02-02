@@ -6,6 +6,13 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
+/**
+ * Tour entity class. Matches table 'tour' in database.
+ * Use Tour.builder().fieldName(fieldValue).build() to create an instance
+ *
+ * @author Nadiia Rubantseva
+ * @version 1.0
+ */
 @Data
 @Builder
 public class Tour implements Serializable {
