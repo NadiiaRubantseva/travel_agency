@@ -1,5 +1,6 @@
 package ua.epam.travelagencyms.model.services.implementation;
 
+import lombok.RequiredArgsConstructor;
 import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.exceptions.*;
 import ua.epam.travelagencyms.model.dao.UserDAO;
@@ -26,17 +27,13 @@ import static ua.epam.travelagencyms.utils.ValidatorUtil.*;
  * @author Nadiia Rubantseva
  * @version 1.0
  */
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     /** Contains userDAO field to work with UserDAO */
     private final UserDAO userDAO;
-
     private static final String SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private final Random random = new Random();
-
-    public UserServiceImpl(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
 
     /**
      * Obtains instance of User from DAO by id. Checks if id valid. Converts User to UserDTO
