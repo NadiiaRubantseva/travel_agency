@@ -1,6 +1,32 @@
 package ua.epam.travelagencyms;
 
-public class Constants {
+import ua.epam.travelagencyms.dto.TourDTO;
+import ua.epam.travelagencyms.dto.UserDTO;
+
+public class ConstantsForTest {
+
+    // Get entity dto
+    public static UserDTO getTestUserDTO() {
+        return UserDTO.builder()
+                .id(ID_VALUE)
+                .email(EMAIL_VALUE)
+                .name(NAME_VALUE)
+                .surname(SURNAME_VALUE)
+                .role(ROLE_VALUE)
+                .build();
+    }
+
+    public static TourDTO getTestTourDTO() {
+        return TourDTO.builder()
+                .id(ID_VALUE)
+                .title(TITLE_VALUE)
+                .persons(PERSONS_VALUE)
+                .price(PRICE_VALUE)
+                .hot(HOT_VALUE)
+                .type(TYPE_TOUR_VALUE)
+                .hotel(HOTEL_TOUR_VALUE)
+                .build();
+    }
 
     // Request.getMethod()
     public static final String POST = "POST";

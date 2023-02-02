@@ -1,15 +1,11 @@
 package ua.epam.travelagencyms.model.dao;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ua.epam.travelagencyms.exceptions.*;
 import ua.epam.travelagencyms.model.dao.mysql.MysqlUserDAO;
-import ua.epam.travelagencyms.model.entities.user.Role;
 import ua.epam.travelagencyms.model.entities.user.User;
 
 import javax.sql.DataSource;
-import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
-import static ua.epam.travelagencyms.Constants.*;
+import static ua.epam.travelagencyms.ConstantsForTest.*;
 import static ua.epam.travelagencyms.model.dao.DAOTestUtils.*;
 import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.*;
 import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.EMAIL;

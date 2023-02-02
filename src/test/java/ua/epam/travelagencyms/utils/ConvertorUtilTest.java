@@ -6,7 +6,7 @@ import ua.epam.travelagencyms.model.entities.tour.Tour;
 import ua.epam.travelagencyms.model.entities.user.User;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static ua.epam.travelagencyms.Constants.*;
+import static ua.epam.travelagencyms.ConstantsForTest.*;
 import static ua.epam.travelagencyms.utils.ConvertorUtil.*;
 
 class ConvertorUtilTest {

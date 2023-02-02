@@ -24,7 +24,7 @@
         <jstl.version>1.2</jstl.version>
         <mybatis.version>3.5.11</mybatis.version>
         <mysql.version>8.0.31</mysql.version>
-        <mockito.version>4.10.0</mockito.version>
+        <mockito.version>5.0.0</mockito.version>
         <mail.version>1.6.2</mail.version>
         <pdf.version>7.2.4</pdf.version>
     </properties>

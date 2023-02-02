@@ -16,7 +16,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
-import static ua.epam.travelagencyms.Constants.ID_VALUE;
+import static ua.epam.travelagencyms.ConstantsForTest.ID_VALUE;
 import static ua.epam.travelagencyms.model.dao.DAOTestUtils.*;
 import static ua.epam.travelagencyms.utils.QueryBuilderUtil.orderQueryBuilder;
 import static ua.epam.travelagencyms.utils.QueryBuilderUtil.tourQueryBuilder;

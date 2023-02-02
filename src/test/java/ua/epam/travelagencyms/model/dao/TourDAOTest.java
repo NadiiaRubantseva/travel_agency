@@ -3,9 +3,7 @@ package ua.epam.travelagencyms.model.dao;
 import org.junit.jupiter.api.Test;
 import ua.epam.travelagencyms.exceptions.DAOException;
 import ua.epam.travelagencyms.model.dao.mysql.MysqlTourDAO;
-import ua.epam.travelagencyms.model.dao.mysql.MysqlUserDAO;
 import ua.epam.travelagencyms.model.entities.tour.Tour;
-import ua.epam.travelagencyms.model.entities.user.User;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -17,16 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
-import static ua.epam.travelagencyms.Constants.*;
-import static ua.epam.travelagencyms.Constants.PERSONS;
-import static ua.epam.travelagencyms.Constants.ROLE_ID_VALUE;
-import static ua.epam.travelagencyms.Constants.TITLE;
 import static ua.epam.travelagencyms.model.dao.DAOTestUtils.getTestTour;
-import static ua.epam.travelagencyms.model.dao.DAOTestUtils.getTestUser;
-import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.*;
-import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.PASSWORD;
-import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.ROLE_ID;
-import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.SURNAME;
 
 public class TourDAOTest {
 

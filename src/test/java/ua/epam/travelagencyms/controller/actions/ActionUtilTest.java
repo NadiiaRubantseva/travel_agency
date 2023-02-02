@@ -2,14 +2,12 @@ package ua.epam.travelagencyms.controller.actions;
 
 import org.junit.jupiter.api.Test;
 import ua.epam.travelagencyms.controller.actions.util.MyRequest;
-import ua.epam.travelagencyms.dto.TourDTO;
-import ua.epam.travelagencyms.dto.UserDTO;
 
 import javax.servlet.http.HttpServletRequest;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static ua.epam.travelagencyms.Constants.*;
+import static ua.epam.travelagencyms.ConstantsForTest.*;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.DELETE_USER_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
@@ -106,25 +104,4 @@ class ActionUtilTest {
         assertEquals(result, getURL(request));
     }
 
-    private UserDTO getTestUserDTO() {
-        return UserDTO.builder()
-                .id(ID_VALUE)
-                .email(EMAIL_VALUE)
-                .name(NAME_VALUE)
-                .surname(SURNAME_VALUE)
-                .role(ROLE_VALUE)
-                .build();
-    }
-
-    private TourDTO getTestTourDTO() {
-        return TourDTO.builder()
-                .id(ID_VALUE)
-                .title(TITLE_VALUE)
-                .persons(PERSONS_VALUE)
-                .price(PRICE_VALUE)
-                .hot(HOT_VALUE)
-                .type(TYPE_TOUR_VALUE)
-                .hotel(HOTEL_TOUR_VALUE)
-                .build();
-    }
 }

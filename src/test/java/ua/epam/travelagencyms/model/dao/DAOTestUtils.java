@@ -1,23 +1,12 @@
 package ua.epam.travelagencyms.model.dao;
 
-import org.apache.ibatis.jdbc.ScriptRunner;
-import org.mockito.Mockito;
 import ua.epam.travelagencyms.dto.OrderDTO;
 import ua.epam.travelagencyms.model.entities.order.Order;
 import ua.epam.travelagencyms.model.entities.order.OrderStatus;
 import ua.epam.travelagencyms.model.entities.tour.Tour;
 import ua.epam.travelagencyms.model.entities.user.User;
 
-import javax.sql.DataSource;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.Reader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
-import static ua.epam.travelagencyms.Constants.*;
+import static ua.epam.travelagencyms.ConstantsForTest.*;
 
 public final class DAOTestUtils {
 
