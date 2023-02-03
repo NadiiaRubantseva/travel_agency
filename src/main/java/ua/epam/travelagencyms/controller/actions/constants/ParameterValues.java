@@ -33,4 +33,10 @@ public class ParameterValues {
     public static final String ASCENDING_ORDER = "ASC";
     public static final String DESCENDING_ORDER = "DESC";
 
+    /**
+     * Localization
+     */
+    public static final String UA = "uk_UA";
+    public static final String EN = "en";
+
 }

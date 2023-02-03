@@ -3,7 +3,22 @@ package ua.epam.travelagencyms;
 import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.dto.UserDTO;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ConstantsForTest {
+
+    public static String clearString(String string) {
+        String[] lines = string.split("\n");
+        StringBuilder sb = new StringBuilder();
+        for (String line : lines) {
+            if (!line.contains("CreationDate") && !line.contains("ID") && !line.contains("BaseFont")) {
+                sb.append(line).append("\n");
+            }
+        }
+        return sb.toString();
+    }
 
     // thenReturn()
     public static final String ONE = "1";
@@ -17,6 +32,16 @@ public class ConstantsForTest {
                 .surname(SURNAME_VALUE)
                 .role(ROLE_VALUE)
                 .build();
+    }
+
+    public static List<UserDTO> getUserDTOs(){
+        List<UserDTO> users = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            users.add(UserDTO.builder()
+                    .id(i).email(EMAIL_VALUE).name(NAME_VALUE).surname(SURNAME_VALUE).role(NAME_VALUE)
+                    .build());
+        }
+        return users;
     }
 
     public static TourDTO getTestTourDTO() {
@@ -52,6 +77,9 @@ public class ConstantsForTest {
     public static final String TYPE_TOUR_VALUE = "SHOPPING";
     public static final String HOTEL_TOUR_VALUE = "HOSTEL";
 
+
+    // pdf
+    public static final String FONT = "css/fonts/arial.ttf";
 
 
 
