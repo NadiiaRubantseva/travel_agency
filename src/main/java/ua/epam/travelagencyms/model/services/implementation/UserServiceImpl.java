@@ -267,14 +267,18 @@ public class UserServiceImpl implements UserService {
      * @throws ServiceException - may wrap DAOException
      */
     @Override
-    public boolean isEmailVerified(String id) throws ServiceException {
+    public boolean isEmailVerified(long id) throws ServiceException {
         try {
-            return userDAO.isEmailVerified(Long.parseLong(id));
+            return userDAO.isEmailVerified(id);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
     }
 
+    @Override
+    public boolean isEmailNotVerified(long id) throws ServiceException {
+        return !isEmailVerified(id);
+    }
     private String getRandom() {
         Random rnd = new Random();
         int number = rnd.nextInt(999999);
@@ -308,10 +312,10 @@ public class UserServiceImpl implements UserService {
     public void verifySecurityCode(long id, String code) throws ServiceException {
         try {
             String codeInDB = userDAO.getVerificationCode(id);
-            if (!codeInDB.equals(code)) {
-                throw new IncorrectCodeException();
-            } else {
+            if (codeInDB.equals(code)) {
                 userDAO.setEmailVerified(id);
+            } else {
+                throw new IncorrectCodeException();
             }
         } catch (DAOException e) {
             throw new ServiceException(e);

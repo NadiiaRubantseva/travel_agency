@@ -39,7 +39,7 @@ public class Parameters {
     public static final String AVATAR = "avatar";
     public static final String NAME = "name";
     public static final String SURNAME = "surname";
-    public static final String VERIFICATION_CODE = "authcode";
+    public static final String SECURITY_CODE = "security-code";
     public static final String STATUS = "status";
 
 

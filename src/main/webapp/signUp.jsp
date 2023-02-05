@@ -32,7 +32,7 @@
                name="name"
                placeholder="<fmt:message key="first.name"/>"
                title="<fmt:message key="name.requirements"/>"
-               pattern="^[A-Za-zА-ЩЬЮЯҐІЇЄа-щьюяґіїє'\- ]{1,30}"
+               pattern="^\p{L}[\p{L}'’]{0,29}$"
                required="required" value="${requestScope.user.name}">
         <c:if test="${fn:contains(error, 'name')}">
             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
@@ -46,7 +46,7 @@
                name="surname"
                placeholder="<fmt:message key="last.name"/>"
                title="<fmt:message key="surname.requirements"/>"
-               pattern="^[A-Za-zА-ЩЬЮЯҐІЇЄа-щьюяґіїє'\- ]{1,30}" required
+               pattern="^\p{L}[\p{L}'’]{0,29}$"
                value="${requestScope.user.surname}">
         <c:if test="${fn:contains(error, 'surname')}">
             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>

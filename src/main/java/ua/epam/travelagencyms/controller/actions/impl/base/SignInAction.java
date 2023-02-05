@@ -1,5 +1,7 @@
 package ua.epam.travelagencyms.controller.actions.impl.base;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.exceptions.ServiceException;
@@ -25,6 +27,8 @@ import static ua.epam.travelagencyms.utils.constants.Email.*;
  * @version 1.0
  */
 public class SignInAction implements Action {
+
+    private static final Logger logger = LoggerFactory.getLogger(SignInAction.class);
     private final UserService userService;
     private final EmailSender emailSender;
 
@@ -39,7 +43,7 @@ public class SignInAction implements Action {
     /**
      * Checks method and calls required implementation
      *
-     * @param request  to get method, session and set all required attributes
+     * @param request to get method, session and set all required attributes
      * @return path to redirect or forward by front-controller
      * @throws ServiceException to call error page in front-controller
      */
@@ -53,7 +57,7 @@ public class SignInAction implements Action {
      * to request
      *
      * @param request to get email and error attribute from session and put it in request. Email for user to check
-     * for mistakes
+     *                for mistakes
      * @return sign in page after failing to sign in
      */
     private String executeGet(HttpServletRequest request) {
@@ -64,8 +68,9 @@ public class SignInAction implements Action {
     }
 
     /**
-     * Called from doPost method in front-controller. Tries to sign in web app. If successful sets user to session and
-     * redirects to profile page, if not sets error and email and redirects to executeGet
+     * Called from doPost method in front-controller. Tries to sign in web app.
+     * If successful sets user to session and redirects to profile page, if not sets error and email and redirects to executeGet.
+     * But if email is not verified by the user, sends verification email and redirects to verify page first.
      *
      * @param request to get users email, password and set some attributes in session
      * @return profile page if successful, verify email page if email is not confirmed or path to redirect to executeGet method through front-controller if not
@@ -74,18 +79,26 @@ public class SignInAction implements Action {
         String path = PROFILE_PAGE;
         String email = request.getParameter(EMAIL);
         String password = request.getParameter(PASSWORD);
+        logger.debug("logging attempt: email:" + email);
+
         try {
             UserDTO user = userService.signIn(email, password);
             setLoggedUser(request, user);
-            if (!userService.isEmailVerified(String.valueOf(user.getId()))) {
-                String code = userService.setVerificationCode(user.getId());
+
+            long userId = user.getId();
+            logger.debug("successful login for user: " + userId);
+
+            if (userService.isEmailNotVerified(userId)) {
+                logger.debug("email is not verified for user: " + userId);
+                String code = userService.setVerificationCode(userId);
                 sendEmail(code, email);
-                path = VERIFY_EMAIL_PAGE;
+                logger.debug("sent verification email to user: " + userId);
+                return VERIFY_EMAIL_PAGE;
             }
-            return path;
         } catch (NoSuchUserException | IncorrectPasswordException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
             request.getSession().setAttribute(EMAIL, email);
+            logger.debug("unsuccessful login with email: " + email + ", reason: " + e.getMessage());
             path = SIGN_IN_PAGE;
         }
         request.getSession().setAttribute(CURRENT_PATH, path);

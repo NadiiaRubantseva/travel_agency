@@ -15,7 +15,7 @@ public class Pages {
     public static final String CONTACTS_PAGE = "contacts.jsp";
     public static final String ERROR_PAGE = "error.jsp";
     public static final String SIGN_IN_PAGE = "signIn.jsp";
-    public static final String VERIFY_EMAIL_PAGE = "verify.jsp";
+    public static final String VERIFY_EMAIL_PAGE = "verifyEmail.jsp";
     public static final String SIGN_UP_PAGE = "signUp.jsp";
     public static final String BLOCKED_USER_PAGE = "blocked_profile.jsp";
     public static final String RESET_PASSWORD_PAGE = "resetPassword.jsp";

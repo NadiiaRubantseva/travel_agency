@@ -1,6 +1,8 @@
 package ua.epam.travelagencyms.controller.actions.impl.base;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
@@ -9,7 +11,6 @@ import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
 import ua.epam.travelagencyms.exceptions.PasswordMatchingException;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.UserService;
-import ua.epam.travelagencyms.utils.ConvertorUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SI
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_REGISTER;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
+import static ua.epam.travelagencyms.utils.ConvertorUtil.getUserDTO;
 
 /**
  * This is SignUpAction class. Accessible by any user. Allows to create account. Implements PRG pattern
@@ -27,6 +29,8 @@ import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
  * @version 1.0
  */
 public class SignUpAction implements Action {
+
+    private static final Logger logger = LoggerFactory.getLogger(SignUpAction.class);
     private final UserService userService;
 
     /**
@@ -71,13 +75,15 @@ public class SignUpAction implements Action {
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
         String path = SIGN_IN_PAGE;
-        UserDTO user = ConvertorUtil.getUserDTO(request);
+        UserDTO user = getUserDTO(request);
         request.getSession().setAttribute(USER, user);
         try {
             userService.add(user, request.getParameter(PASSWORD), request.getParameter(CONFIRM_PASSWORD));
+            logger.debug("successful sign up for user with email: " + user.getEmail());
             request.getSession().setAttribute(MESSAGE, SUCCEED_REGISTER);
         } catch (IncorrectFormatException | PasswordMatchingException | DuplicateEmailException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
+            logger.debug("unsuccessful sign up for user with email: " + user.getEmail());
             path = SIGN_UP_PAGE;
         }
         request.getSession().setAttribute(CURRENT_PATH, path);

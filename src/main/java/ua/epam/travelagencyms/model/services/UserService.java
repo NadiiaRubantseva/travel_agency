@@ -88,7 +88,9 @@ public interface UserService extends Service<UserDTO> {
      * @return True if the email is verified, False otherwise.
      * @throws ServiceException - may wrap DAOException or be thrown by another mistakes
      */
-    boolean isEmailVerified(String id) throws ServiceException;
+    boolean isEmailVerified(long id) throws ServiceException;
+    boolean isEmailNotVerified(long id) throws ServiceException;
+
 
     /**
      * Calls DAO to set verification code.

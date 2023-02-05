@@ -1,6 +1,8 @@
 package ua.epam.travelagencyms.controller.actions.impl.base;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
@@ -23,6 +25,8 @@ import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
  * @version 1.0
  */
 public class VerifyCodeAction implements Action {
+
+    private static final Logger logger = LoggerFactory.getLogger(VerifyCodeAction.class);
     private final UserService userService;
 
     /**
@@ -66,11 +70,14 @@ public class VerifyCodeAction implements Action {
     private String executePost(HttpServletRequest request) throws ServiceException {
         String path = PROFILE_PAGE;
         UserDTO user = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
-        String enteredCode = request.getParameter(VERIFICATION_CODE).trim();
+        String enteredCode = request.getParameter(SECURITY_CODE).trim();
         try {
             userService.verifySecurityCode(user.getId(), enteredCode);
+            logger.debug("successful code verification for user: " + user.getId());
+
         } catch (IncorrectCodeException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
+            logger.debug("unsuccessful code verification for user: " + user.getId() + ", reason: " + e.getMessage());
             path = VERIFY_EMAIL_PAGE;
         }
        request.getSession().setAttribute(CURRENT_PATH, path);

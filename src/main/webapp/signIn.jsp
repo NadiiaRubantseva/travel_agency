@@ -51,7 +51,7 @@
                    placeholder="<fmt:message key="password"/>"
                    required>
             <c:if test="${fn:contains(error, 'pass')}">
-                <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
+                <span class="text-danger text-center"><fmt:message key="${requestScope.error}"/></span>
             </c:if>
 
             <div id="pass" class="form-group">

@@ -20,7 +20,7 @@ public class Email {
     /** Place user's name instead of %s */
     public static final String HELLO = "Hello %s,<br>";
     public static final String INFORMATION = "We have some important information for you:";
-    public static final String SIGNATURE = "Yours truly,<br>Travel Agency team";
+    public static final String SIGNATURE = "Kind Regards,<br>Travel Agency team";
     public static final String A_HREF = "<a href=";
     public static final String DOUBLE_ENTER = "<br><br>";
 
@@ -37,7 +37,7 @@ public class Email {
 
     /** Place security code instead of %s */
     public static final String MESSAGE_VERIFY_EMAIL =
-            "Registration successfully. Please verify your account using this code: %s." +
+            "Successful registration. Please verify your account using this code: %s." +
             DOUBLE_ENTER +
             SIGNATURE;
 

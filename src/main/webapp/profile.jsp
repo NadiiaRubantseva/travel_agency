@@ -22,7 +22,7 @@
 <jsp:include page="fragments/menuChoice.jsp"/>
 
 <br>
-<div class="col-lg-7 mx-auto p-2 py-md-2">
+<div class="col-lg-7 mx-auto p-2 py-md-2"><br>
 
     <h2 class="text-muted"><fmt:message key="profile.info"/></h2>
 
