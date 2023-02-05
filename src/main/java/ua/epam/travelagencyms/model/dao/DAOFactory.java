@@ -1,6 +1,7 @@
 package ua.epam.travelagencyms.model.dao;
 
 import ua.epam.travelagencyms.model.dao.constants.DbImplementations;
+import ua.epam.travelagencyms.model.dao.mysql.MySqlLoyaltyProgramDAO;
 import ua.epam.travelagencyms.model.dao.mysql.MysqlDAOFactory;
 
 import javax.sql.DataSource;
@@ -49,5 +50,7 @@ public abstract class DAOFactory {
      * @return OrderDAO for required database type
      */
     public abstract OrderDAO getOrderDAO();
+
+    public abstract MySqlLoyaltyProgramDAO getLoyaltyProgramDAO();
 
 }

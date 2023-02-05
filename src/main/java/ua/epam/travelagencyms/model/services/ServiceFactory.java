@@ -2,6 +2,7 @@ package ua.epam.travelagencyms.model.services;
 
 import lombok.Getter;
 import ua.epam.travelagencyms.model.dao.DAOFactory;
+import ua.epam.travelagencyms.model.services.implementation.LoyaltyProgramService;
 import ua.epam.travelagencyms.model.services.implementation.OrderServiceImpl;
 import ua.epam.travelagencyms.model.services.implementation.TourServiceImpl;
 import ua.epam.travelagencyms.model.services.implementation.UserServiceImpl;
@@ -18,11 +19,13 @@ public final class ServiceFactory {
     private final UserService userService;
     private final TourService tourService;
     private final OrderService orderService;
+    private final LoyaltyProgramService loyaltyProgramService;
 
     private ServiceFactory(DAOFactory daoFactory) {
         userService = new UserServiceImpl(daoFactory.getUserDAO());
         tourService = new TourServiceImpl(daoFactory.getTourDAO());
         orderService = new OrderServiceImpl(daoFactory.getOrderDAO());
+        loyaltyProgramService = new LoyaltyProgramService(daoFactory.getLoyaltyProgramDAO());
     }
 
     /**

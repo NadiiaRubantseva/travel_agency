@@ -44,7 +44,8 @@ public class MySqlOrderDAO implements OrderDAO {
             int k = 0;
             preparedStatement.setLong(++k, order.getUser().getId());
             preparedStatement.setLong(++k, order.getTour().getId());
-            preparedStatement.setDouble(++k, order.getTour().getPrice());
+            preparedStatement.setInt(++k, order.getUser().getDiscount());
+            preparedStatement.setDouble(++k, order.getTotalCost());
             preparedStatement.setDate(++k, Date.valueOf(order.getDate()));
             preparedStatement.execute();
         } catch (SQLException e) {

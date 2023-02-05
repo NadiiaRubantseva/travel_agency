@@ -50,6 +50,7 @@
     <form method="POST" action="controller">
         <input type="hidden" name="action" value="update-order-status">
         <input type="hidden" name="id" value=${requestScope.order.id}>
+        <input type="hidden" name="user-id" value=${requestScope.order.userId}>
         <label>
             <select name="status" class="form-select mt-2">
                 <option value="REGISTERED" ${requestScope.order.orderStatus eq 'REGISTERED' ? 'selected' : ''}>

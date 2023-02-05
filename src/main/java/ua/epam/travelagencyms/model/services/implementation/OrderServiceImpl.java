@@ -35,7 +35,8 @@ public class OrderServiceImpl implements OrderService {
     public void addOrder(OrderDTO orderDTO) throws ServiceException {
         Order order = Order.builder()
                 .tour(Tour.builder().id(orderDTO.getTourId()).price(orderDTO.getTourPrice()).build())
-                .user(User.builder().id(orderDTO.getUserId()).build())
+                .user(User.builder().id(orderDTO.getUserId()).discount(orderDTO.getDiscount()).build())
+                .totalCost(orderDTO.getTotalCost())
                 .date(LocalDate.parse(orderDTO.getDate(), DateTimeFormatter.ofPattern("dd.MM.yyyy")))
                 .build();
         try {

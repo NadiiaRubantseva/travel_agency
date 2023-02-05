@@ -106,4 +106,6 @@ public interface UserDAO extends EntityDAO<User>{
      * @throws DAOException is wrapper for SQLException
      */
     void setStatus(long userId, byte statusId) throws DAOException;
+    int getDiscount(long userId) throws DAOException;
+    void setDiscount(int discount, long userId) throws DAOException;
 }

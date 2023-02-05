@@ -16,8 +16,6 @@ import ua.epam.travelagencyms.model.services.TourService;
 
 import javax.servlet.http.HttpServletRequest;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.HOTEL;
@@ -185,19 +183,6 @@ public final class ConvertorUtil {
                 .hotel(request.getParameter(HOTEL))
                 .image(image)
                 .decodedImage(ImageEncoder.encode(image))
-                .build();
-    }
-
-
-    public static OrderDTO convertToOrderDTO(HttpServletRequest request) {
-        UserDTO user = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
-        String tourId = request.getParameter(ID);
-        String tourPrice = request.getParameter(PRICE);
-        return OrderDTO.builder()
-                .userId(user.getId())
-                .tourId(Long.parseLong(tourId))
-                .tourPrice(Double.parseDouble(tourPrice))
-                .date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
                 .build();
     }
 }

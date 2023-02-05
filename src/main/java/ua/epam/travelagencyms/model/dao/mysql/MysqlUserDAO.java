@@ -404,6 +404,37 @@ public class MysqlUserDAO implements UserDAO {
         }
     }
 
+    @Override
+    public int getDiscount(long userId) throws DAOException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_DISCOUNT)) {
+            int k = 0;
+            preparedStatement.setLong(++k, userId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                } else {
+                    throw new DAOException("error retrieving discount value from database");
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public void setDiscount(int discount, long userId) throws DAOException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SET_DISCOUNT)) {
+            int k = 0;
+            preparedStatement.setInt(++k, discount);
+            preparedStatement.setLong(++k, userId);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+
     private User createUser(ResultSet resultSet) throws SQLException {
         return User.builder()
                 .id(resultSet.getLong(ID))

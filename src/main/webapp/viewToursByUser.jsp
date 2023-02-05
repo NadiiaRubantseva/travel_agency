@@ -184,7 +184,7 @@
                             </a>
                         </td>
                         <td>
-                            <a class="link-dark" href=controller?action=book-tour&id=${tour.id}&price=${tour.price}>
+                            <a class="link-dark" href=controller?action=book-tour&tour-id=${tour.id}&price=${tour.price}>
                                 <fmt:message key="order"/>
                             </a>
                         </td>

@@ -8,12 +8,13 @@ package ua.epam.travelagencyms.model.dao.mysql.constants;
  */
 public class OrderSQLQueries {
 
-    public static final String ADD_ORDER = "INSERT INTO `order` (`user_id`, `tour_id`, `total_cost`, `date`) VALUES (?, ?, ?, ?)";
+    public static final String ADD_ORDER = "INSERT INTO `order` (`user_id`, `tour_id`, `discount`, `total_cost`, `date`) VALUES (?, ?, ?, ?, ?)";
     public static final String GET_ORDERS = "SELECT order.id, order.order_status_id, order.user_id, user.email, " +
             "user.name, user.surname, order.tour_id, tour.title, tour.price, order.discount, order.total_cost, order.date FROM `order` " +
             "LEFT JOIN user ON order.user_id=user.id LEFT JOIN tour ON order.tour_id=tour.id";
 
     public static final String GET_ORDER_BY_ID = GET_ORDERS + " WHERE order.id = ?";
+    public static final String GET_ORDERS_COUNT_BY_USER_ID = "SELECT COUNT(*) FROM `order` WHERE user_id=?";
     public static final String UPDATE_ORDER = "UPDATE `order` SET order_status_id=?, discount=?, total_cost=? WHERE id=?";
     public static final String CANCEL_ORDER = "UPDATE `order` SET order_status_id=3 WHERE id=?";
     public static final String GET_TOURS_ORDERS = GET_ORDERS + " WHERE tour_id=?";

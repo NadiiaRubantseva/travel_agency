@@ -9,6 +9,7 @@ import ua.epam.travelagencyms.model.services.OrderService;
 import ua.epam.travelagencyms.model.services.ServiceFactory;
 import ua.epam.travelagencyms.model.services.TourService;
 import ua.epam.travelagencyms.model.services.UserService;
+import ua.epam.travelagencyms.model.services.implementation.LoyaltyProgramService;
 import ua.epam.travelagencyms.utils.EmailSender;
 import ua.epam.travelagencyms.utils.PdfUtil;
 
@@ -32,6 +33,7 @@ public class AppContext {
     private final UserService userService;
     private final TourService tourService;
     private final OrderService orderService;
+    private final LoyaltyProgramService loyaltyProgramService;
     private final EmailSender emailSender;
     private final PdfUtil pdfUtil;
 
@@ -46,6 +48,7 @@ public class AppContext {
         userService = serviceFactory.getUserService();
         tourService = serviceFactory.getTourService();
         orderService = serviceFactory.getOrderService();
+        loyaltyProgramService = serviceFactory.getLoyaltyProgramService();
     }
 
 

@@ -27,4 +27,5 @@ public class UserDTO implements Serializable {
     private String status;
     @ToString.Exclude
     private String avatar;
+    private String discount;
 }

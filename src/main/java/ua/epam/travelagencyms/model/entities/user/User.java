@@ -24,5 +24,6 @@ public class User implements Serializable {
     private String surname;
     private boolean isBlocked;
     private byte[] avatar;
+    private int discount;
     @EqualsAndHashCode.Exclude private int roleId;
 }

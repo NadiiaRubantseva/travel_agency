@@ -368,6 +368,24 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void setDiscount(int discount, long userId) throws ServiceException {
+        try {
+            userDAO.setDiscount(discount, userId);
+        } catch (DAOException e) {
+            throw new ServiceException();
+        }
+    }
+
+    @Override
+    public int getDiscount(long userId) throws ServiceException {
+        try {
+            return userDAO.getDiscount(userId);
+        } catch (DAOException e) {
+            throw new ServiceException();
+        }
+    }
+
 
     private static long getUserId(String idString) throws ServiceException {
         return checkId(idString, new NoSuchUserException());
