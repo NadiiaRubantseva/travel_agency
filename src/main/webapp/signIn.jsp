@@ -64,18 +64,18 @@
                 </label>
             </div>
 
-            <div id="button" class="form-group">
-                <button type="submit" class="btn btn-success btn-sm btn-block"><fmt:message key="sign.in"/></button>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-success btn-block col-3"><fmt:message key="sign.in"/></button>
             </div>
         </div>
     </form>
     <br>
 
-    <div class="text-center"><fmt:message key="forgot.password"/> <a href="resetPassword.jsp"><fmt:message
+    <div class="text-center text-muted"><fmt:message key="forgot.password"/> <a href="resetPassword.jsp"><fmt:message
             key="reset.password"/></a>
     </div>
 
-    <div class="text-center"><fmt:message key="no.account"/> <a href="signUp.jsp"><fmt:message key="sign.up"/></a>
+    <div class="text-center text-muted"><fmt:message key="no.account"/> <a href="signUp.jsp"><fmt:message key="sign.up"/></a>
     </div>
 
 </div>

@@ -20,7 +20,7 @@
 <jsp:include page="fragments/menuChoice.jsp"/><br>
 
 <figure class="text-center">
-    <img src="img/index.jpg" class="figure-img img-fluid rounded px-1 mx-1 py-1 my-1" alt="<fmt:message key="pic"/>">
+    <img src="img/index.jpg" class="figure-img img-fluid" alt="<fmt:message key="pic"/>">
     <figcaption class="figure-caption"><fmt:message key="pic.description"/></figcaption>
 </figure>
 

@@ -12,11 +12,11 @@
     <title><fmt:message key="travel.agency"/> <fmt:message key="sign.up"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@include file="/fragments/import_CSS_and_JS.jsp"%>
+    <%@include file="/fragments/import_CSS_and_JS.jsp" %>
     <script src="js/showPass.js"></script>
 </head>
 <jsp:include page="fragments/mainMenu.jsp"/>
-<br>
+
 <body class="signup-form">
 <form method="POST" action="controller">
     <input type="hidden" name="action" value="sign-up">
@@ -27,95 +27,89 @@
     </p>
 
     <div class="form-group">
-        <div class="row">
-            <div class="row">
-                <div class="col">
-                    <input type="text"
-                           class="form-control"
-                           name="name"
-                           placeholder="<fmt:message key="first.name"/>"
-                           title="<fmt:message key="name.requirements"/>"
-                           pattern="^[A-Za-zА-ЩЬЮЯҐІЇЄа-щьюяґіїє'\- ]{1,30}"
-                           required="required" value="${requestScope.user.name}">
-                    <c:if test="${fn:contains(error, 'name')}">
-                        <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
-                    </c:if>
-                </div>
-                <br>
-
-                <div class="col">
-                    <input type="text"
-                           class="form-control"
-                           name="surname"
-                           placeholder="<fmt:message key="first.name"/>"
-                           title="<fmt:message key="surname.requirements"/>"
-                           pattern="^[A-Za-zА-ЩЬЮЯҐІЇЄа-щьюяґіїє'\- ]{1,30}" required
-                           value="${requestScope.user.surname}">
-                    <c:if test="${fn:contains(error, 'surname')}">
-                        <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
-                    </c:if>
-                </div>
-                <br>
-
-            </div>
-
-            <div id="fg" class="form-group">
-                <input type="email"
-                       class="form-control"
-                       name="email"
-                       placeholder="<fmt:message key="email"/>"
-                       pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" required
-                       value="${requestScope.user.email}">
-                <c:if test="${fn:contains(error, 'email')}">
-                    <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
-                </c:if>
-            </div>
-            <br>
-
-            <div class="form-group">
-                <input type="password"
-                       class="form-control"
-                       name="password"
-                       id="password"
-                       placeholder="<fmt:message key="password"/>"
-                       title="<fmt:message key="password.requirements"/>"
-                       pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,20}$" required>
-                <c:if test="${fn:contains(error, 'pass')}">
-                    <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
-                </c:if><br>
-            </div>
-
-            <div class="form-group">
-                <input type="password"
-                       class="form-control"
-                       name="confirm-password"
-                       id="confirm-password"
-                       placeholder="<fmt:message key="confirm.password"/>"
-                       pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,20}$"
-                       title="<fmt:message key="password.requirements"/>" required>
-            </div>
-            <br>
-
-            <div id="pass" class="form-group">
-                <label class="form-check-label">
-                    <input type="checkbox" id="flexCheckDefault"
-                           onclick="showPass('password'); showPass('confirm-password');">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        <fmt:message key="show.password"/>
-                    </label>
-                </label>
-            </div>
-            <br>
-
-            <div id="button" class="form-group">
-                <button type="submit" class="btn btn-success btn-sm btn-block"><fmt:message key="sign.up"/></button>
-            </div>
-            <br>
-        </div>
+        <input type="text"
+               class="form-control"
+               name="name"
+               placeholder="<fmt:message key="first.name"/>"
+               title="<fmt:message key="name.requirements"/>"
+               pattern="^[A-Za-zА-ЩЬЮЯҐІЇЄа-щьюяґіїє'\- ]{1,30}"
+               required="required" value="${requestScope.user.name}">
+        <c:if test="${fn:contains(error, 'name')}">
+            <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
+        </c:if>
     </div>
+    <br>
+
+    <div class="form-group">
+        <input type="text"
+               class="form-control"
+               name="surname"
+               placeholder="<fmt:message key="last.name"/>"
+               title="<fmt:message key="surname.requirements"/>"
+               pattern="^[A-Za-zА-ЩЬЮЯҐІЇЄа-щьюяґіїє'\- ]{1,30}" required
+               value="${requestScope.user.surname}">
+        <c:if test="${fn:contains(error, 'surname')}">
+            <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
+        </c:if>
+    </div>
+    <br>
+
+    <div class="form-group">
+        <input type="email"
+               class="form-control"
+               name="email"
+               placeholder="<fmt:message key="email"/>"
+               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" required
+               value="${requestScope.user.email}">
+        <c:if test="${fn:contains(error, 'email')}">
+            <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
+        </c:if>
+    </div>
+    <br>
+
+    <div class="form-group">
+        <input type="password"
+               class="form-control"
+               name="password"
+               id="password"
+               placeholder="<fmt:message key="password"/>"
+               title="<fmt:message key="password.requirements"/>"
+               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,20}$" required>
+        <c:if test="${fn:contains(error, 'pass')}">
+            <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
+        </c:if>
+    </div>
+    <br>
+
+    <div class="form-group">
+        <input type="password"
+               class="form-control"
+               name="confirm-password"
+               id="confirm-password"
+               placeholder="<fmt:message key="confirm.password"/>"
+               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,20}$"
+               title="<fmt:message key="password.requirements"/>" required>
+    </div>
+    <br>
+
+    <div class="form-group">
+        <label class="form-check-label">
+            <input type="checkbox" id="flexCheckDefault"
+                   onclick="showPass('password'); showPass('confirm-password');">
+            <label class="form-check-label" for="flexCheckDefault">
+                <fmt:message key="show.password"/>
+            </label>
+        </label>
+    </div>
+    <br>
+
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-success btn-block"><fmt:message key="sign.up"/></button>
+    </div>
+    <br>
 </form>
 
-<div class="text-center"><fmt:message key="have.account"/> <a href="signIn.jsp"><fmt:message key="sign.in"/></a>
+<div class="text-center text-muted"><fmt:message key="have.account"/> <a href="signIn.jsp"><fmt:message key="sign.in"/></a>
 </div>
 
 <jsp:include page="fragments/footer.jsp"/>
