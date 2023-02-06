@@ -1,5 +1,8 @@
 package ua.epam.travelagencyms.controller.actions.impl.base;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.exceptions.ServiceException;
@@ -25,6 +28,7 @@ import static ua.epam.travelagencyms.utils.constants.Email.*;
  * @version 1.0
  */
 public class SignInAction implements Action {
+    private static final Logger logger = LoggerFactory.getLogger(SignInAction.class);
     private final UserService userService;
     private final EmailSender emailSender;
 
@@ -60,7 +64,7 @@ public class SignInAction implements Action {
         transferStringFromSessionToRequest(request, EMAIL);
         transferStringFromSessionToRequest(request, MESSAGE);
         transferStringFromSessionToRequest(request, ERROR);
-        return getPath(request);
+        return SIGN_IN_PAGE;
     }
 
     /**
@@ -72,7 +76,6 @@ public class SignInAction implements Action {
      * @return profile page if successful, verify email page if email is not confirmed or path to redirect to executeGet method through front-controller if not
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
-        String path = PROFILE_PAGE;
         String email = request.getParameter(EMAIL);
         String password = request.getParameter(PASSWORD);
 
@@ -80,22 +83,20 @@ public class SignInAction implements Action {
             UserDTO user = userService.signIn(email, password);
             request.getSession().setAttribute(LOGGED_USER, user);
             request.getSession().setAttribute(ROLE, user.getRole());
+            logger.atLevel(Level.INFO).log(String.format("%s entered web app", user.getEmail()));
 
             long userId = user.getId();
-
             if (userService.isEmailNotVerified(userId)) {
                 String code = userService.setVerificationCode(userId);
                 sendEmail(code, email);
                 return VERIFY_EMAIL_PAGE;
             }
 
+            return PROFILE_PAGE;
         } catch (NoSuchUserException | IncorrectPasswordException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
             request.getSession().setAttribute(EMAIL, email);
-            path = SIGN_IN_PAGE;
         }
-
-        request.getSession().setAttribute(CURRENT_PATH, path);
         return getActionToRedirect(SIGN_IN_ACTION);
     }
 

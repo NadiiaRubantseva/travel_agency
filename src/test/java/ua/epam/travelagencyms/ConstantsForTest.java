@@ -1,60 +1,9 @@
 package ua.epam.travelagencyms;
 
-import ua.epam.travelagencyms.dto.TourDTO;
-import ua.epam.travelagencyms.dto.UserDTO;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class ConstantsForTest {
-
-    public static String clearString(String string) {
-        String[] lines = string.split("\n");
-        StringBuilder sb = new StringBuilder();
-        for (String line : lines) {
-            if (!line.contains("CreationDate") && !line.contains("ID") && !line.contains("BaseFont")) {
-                sb.append(line).append("\n");
-            }
-        }
-        return sb.toString();
-    }
 
     // thenReturn()
     public static final String ONE = "1";
-
-    // Get entity dto
-    public static UserDTO getTestUserDTO() {
-        return UserDTO.builder()
-                .id(ID_VALUE)
-                .email(EMAIL_VALUE)
-                .name(NAME_VALUE)
-                .surname(SURNAME_VALUE)
-                .role(ROLE_VALUE)
-                .build();
-    }
-
-    public static List<UserDTO> getUserDTOs(){
-        List<UserDTO> users = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            users.add(UserDTO.builder()
-                    .id(i).email(EMAIL_VALUE).name(NAME_VALUE).surname(SURNAME_VALUE).role(NAME_VALUE)
-                    .build());
-        }
-        return users;
-    }
-
-    public static TourDTO getTestTourDTO() {
-        return TourDTO.builder()
-                .id(ID_VALUE)
-                .title(TITLE_VALUE)
-                .persons(PERSONS_VALUE)
-                .price(PRICE_VALUE)
-                .hot(HOT_VALUE)
-                .type(TYPE_TOUR_VALUE)
-                .hotel(HOTEL_TOUR_VALUE)
-                .build();
-    }
 
     // Request.getMethod()
     public static final String POST = "POST";
@@ -67,6 +16,7 @@ public class ConstantsForTest {
     public static final String EMAIL_VALUE = "user@mail.com";
     public static final String NAME_VALUE = "Name";
     public static final String SURNAME_VALUE = "Surname";
+    public static final String PASS_VALUE = "MyPassword1@";
     public static final String ROLE_VALUE = "USER";
 
     // Tour
@@ -80,6 +30,11 @@ public class ConstantsForTest {
 
     // pdf
     public static final String FONT = "css/fonts/arial.ttf";
+
+    // servlet
+    public static final String SERVLET_PATH = "somePath";
+    public static final StringBuffer REQUEST_URL = new StringBuffer("someURL");
+
 
 
 

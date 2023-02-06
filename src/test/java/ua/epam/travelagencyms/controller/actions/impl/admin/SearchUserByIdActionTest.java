@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static ua.epam.travelagencyms.ConstantsForTest.*;
+import static ua.epam.travelagencyms.MethodsForTest.getTestUserDTO;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.SEARCH_USER_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.VIEW_USER_BY_ADMIN_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;

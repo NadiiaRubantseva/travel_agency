@@ -1,5 +1,8 @@
 package ua.epam.travelagencyms.controller.actions.impl.base;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
+import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SIGN_IN_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SIGN_UP_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_REGISTER;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
@@ -26,6 +30,8 @@ import static ua.epam.travelagencyms.utils.ConvertorUtil.getUserDTO;
  * @version 1.0
  */
 public class SignUpAction implements Action {
+
+    private static final Logger logger = LoggerFactory.getLogger(SignUpAction.class);
     private final UserService userService;
 
     /**
@@ -58,7 +64,7 @@ public class SignUpAction implements Action {
         transferStringFromSessionToRequest(request, MESSAGE);
         transferStringFromSessionToRequest(request, ERROR);
         transferUserDTOFromSessionToRequest(request);
-        return getPath(request);
+        return SIGN_UP_PAGE;
     }
 
     /**
@@ -69,21 +75,17 @@ public class SignUpAction implements Action {
      * @return path to redirect to executeGet method
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
-        String path = SIGN_IN_PAGE;
         UserDTO user = getUserDTO(request);
-        request.getSession().setAttribute(USER, user);
-
         try {
             userService.add(user, request.getParameter(PASSWORD), request.getParameter(CONFIRM_PASSWORD));
             request.getSession().setAttribute(MESSAGE, SUCCEED_REGISTER);
-
+            request.getSession().setAttribute(EMAIL, user.getEmail());
+            logger.atLevel(Level.INFO).log(String.format("New user registered - %s", user.getEmail()));
+            return getActionToRedirect(SIGN_IN_ACTION);
         } catch (IncorrectFormatException | PasswordMatchingException | DuplicateEmailException e) {
+            request.getSession().setAttribute(USER, user);
             request.getSession().setAttribute(ERROR, e.getMessage());
-            path = SIGN_UP_PAGE;
+            return getActionToRedirect(SIGN_UP_ACTION);
         }
-
-        request.getSession().setAttribute(CURRENT_PATH, path);
-        return getActionToRedirect(SIGN_UP_ACTION);
     }
-
 }

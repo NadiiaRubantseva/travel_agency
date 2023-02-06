@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static ua.epam.travelagencyms.ConstantsForTest.*;
+import static ua.epam.travelagencyms.MethodsForTest.getTestTourDTO;
+import static ua.epam.travelagencyms.MethodsForTest.getTestUserDTO;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.DELETE_USER_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
