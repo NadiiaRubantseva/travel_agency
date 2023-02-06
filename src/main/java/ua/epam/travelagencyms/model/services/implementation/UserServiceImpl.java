@@ -406,7 +406,6 @@ public class UserServiceImpl implements UserService {
     }
 
     private void validateUser(UserDTO userDTO) throws IncorrectFormatException {
-        validateEmail(userDTO.getEmail());
         validateName(userDTO.getName(), ENTER_CORRECT_NAME);
         validateName(userDTO.getSurname(), ENTER_CORRECT_SURNAME);
     }

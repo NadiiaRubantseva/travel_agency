@@ -48,13 +48,13 @@
 
                 <div class="col-sm-4">
                     <p>
-                    <h5><fmt:message key="email"/>:</h5></p>
+                    <h5 class="text-muted"><fmt:message key="email"/>:</h5></p>
                     <p>${sessionScope.loggedUser.email}</p>
 
-                    <h5><fmt:message key="name"/>:</h5>
+                    <h5 class="text-muted"><fmt:message key="name"/>:</h5>
                     <p>${sessionScope.loggedUser.name}</p>
 
-                    <h5><fmt:message key="surname"/>:</h5>
+                    <h5 class="text-muted"><fmt:message key="surname"/>:</h5>
                     <p>${sessionScope.loggedUser.surname}</p>
                 </div>
             </div>
@@ -62,7 +62,7 @@
     </main>
 
     <div id="button" class="form-group">
-        <a href="editProfile.jsp" class="btn btn-success mt-0 mb-1"><fmt:message key="edit.profile"/></a>
+        <a href="editProfile.jsp" class="btn btn-success mt-0 mb-1"><fmt:message key="change"/></a>
     </div>
 
 </div>

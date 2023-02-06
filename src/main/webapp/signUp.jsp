@@ -44,7 +44,7 @@
         <input type="text"
                class="form-control"
                name="surname"
-               placeholder="<fmt:message key="last.name"/>"
+               placeholder="<fmt:message key="surname"/>"
                title="<fmt:message key="surname.requirements"/>"
                pattern="^\p{L}[\p{L}'’]{0,29}$"
                value="${requestScope.user.surname}">

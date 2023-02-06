@@ -136,7 +136,6 @@ public class MysqlUserDAO implements UserDAO {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER)) {
             int k = 0;
-            preparedStatement.setString(++k, user.getEmail());
             preparedStatement.setString(++k, user.getName());
             preparedStatement.setString(++k, user.getSurname());
             preparedStatement.setLong(++k, user.getId());

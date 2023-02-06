@@ -12,6 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%@include file="/fragments/import_CSS_and_JS.jsp"%>
+    <script src="js/showPass.js"></script>
 </head>
 
 <body>
@@ -28,7 +29,7 @@
 
         <div class="form-group">
             <c:if test="${not empty requestScope.message}">
-                <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
+                <span class="text-bg-success"><fmt:message key="${requestScope.message}"/></span>
             </c:if><br>
             <label class="form-label fs-5" for="old-password"><fmt:message key="old.password"/>*: </label>
             <input class="form-control" type="password" name="old-password" id="old-password" required>

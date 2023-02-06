@@ -21,7 +21,7 @@ public class UserSQLQueries {
     public static final String SET_VERIFICATION_CODE = "UPDATE user SET verification_code=? WHERE id=?";
     public static final String SET_EMAIL_VERIFIED = "UPDATE user SET email_verified=1 WHERE id=?";
     public static final String GET_VERIFICATION_CODE = "SELECT verification_code FROM user WHERE id=?";
-    public static final String UPDATE_USER = "UPDATE user SET email=?, name=?, surname=? WHERE id=?";
+    public static final String UPDATE_USER = "UPDATE user SET name=?, surname=? WHERE id=?";
     public static final String GET_SORTED = "SELECT * FROM user %s";
     public static final String IS_EMAIL_VERIFIED = "SELECT email_verified FROM user WHERE id=?";
     public static final String IS_USER_BLOCKED = "SELECT blocked FROM user WHERE id=?";

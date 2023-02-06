@@ -2,6 +2,9 @@ package ua.epam.travelagencyms.controller.actions.impl.base;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
@@ -29,6 +32,8 @@ import static ua.epam.travelagencyms.controller.actions.constants.Parameters.USE
  * @version 1.0
  */
 public class EditProfileAction implements Action {
+
+    private static final Logger logger = LoggerFactory.getLogger(EditProfileAction.class);
     private final UserService userService;
 
     /**
@@ -76,9 +81,14 @@ public class EditProfileAction implements Action {
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
         UserDTO sessionUser = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
+        logger.debug("attempt to edit profile by session user:" + sessionUser.getId());
+
         UserDTO user = ConvertorUtil.getUserDTOFromEditUserAction(request, sessionUser);
+        logger.debug("received name: " + user.getName() + "; surname: " + user.getSurname() + " for user: " + sessionUser.getId());
+
         try {
             userService.update(user);
+            logger.debug("successful profile update for user: " + user.getId());
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
             updateSessionUser(sessionUser, user);
         } catch (IncorrectFormatException | DuplicateEmailException e) {

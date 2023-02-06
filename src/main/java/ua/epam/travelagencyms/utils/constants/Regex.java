@@ -29,7 +29,7 @@ public class Regex {
      *      3) [\p{L}'’]{0,29} matches 0 to 29 additional Unicode letters or apostrophes (single or double);
      *      4) $ matches the end of the string.
      */
-    public static final String NAME_REGEX = "^\\p{L}[\\p{L}'’]{0,29}$\n";
+    public static final String NAME_REGEX = "^\\p{L}[\\p{L}'’]{0,29}$";
 
     /** Use it for titles*/
     public static final String COMPLEX_NAME_REGEX = "^[\\wА-ЩЬЮЯҐІЇЄа-щьюяґіїє'.,;:+\\-~`!@#$^&*()={}| ]{2,70}";
