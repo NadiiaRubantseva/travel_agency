@@ -3,14 +3,11 @@ package ua.epam.travelagencyms.controller.actions.impl.base;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.exceptions.*;
 import ua.epam.travelagencyms.model.services.*;
-import ua.epam.travelagencyms.utils.ConvertorUtil;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.isPostMethod;
@@ -19,10 +16,8 @@ import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferUserD
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.EDIT_PROFILE_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.EDIT_PROFILE_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.ERROR;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.LOGGED_USER;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.MESSAGE;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.USER;
+import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
+import static ua.epam.travelagencyms.controller.actions.constants.Parameters.SURNAME;
 
 /**
  * This is EditProfileAction class. Accessible by any logged user. Allows to change user's email, name and surname.
@@ -32,8 +27,6 @@ import static ua.epam.travelagencyms.controller.actions.constants.Parameters.USE
  * @version 1.0
  */
 public class EditProfileAction implements Action {
-
-    private static final Logger logger = LoggerFactory.getLogger(EditProfileAction.class);
     private final UserService userService;
 
     /**
@@ -79,23 +72,27 @@ public class EditProfileAction implements Action {
      * @return path to redirect to executeGet method through front-controller
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
-        UserDTO sessionUser = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
-        logger.info("attempt to edit profile by session user:" + sessionUser.getId());
 
-        UserDTO user = ConvertorUtil.getUserDTOFromEditUserAction(request, sessionUser);
-        logger.info("received name: " + user.getName() + "; surname: " + user.getSurname() + " for user: " + sessionUser.getId());
+        UserDTO sessionUser = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
+
+        UserDTO user = UserDTO.builder()
+                .id(sessionUser.getId())
+                .email(sessionUser.getEmail())
+                .name(request.getParameter(NAME))
+                .surname(request.getParameter(SURNAME))
+                .build();
 
         try {
             userService.update(user);
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
             sessionUser.setName(user.getName());
             sessionUser.setSurname(user.getSurname());
-            logger.info("successful profile update for user: " + user.getId());
+
         } catch (IncorrectFormatException | DuplicateEmailException e) {
             request.getSession().setAttribute(USER, user);
             request.getSession().setAttribute(ERROR, e.getMessage());
-            logger.info("unsuccessful profile update for user: " + user.getId() + ", reason: " + e.getMessage());
         }
+
         return getActionToRedirect(EDIT_PROFILE_ACTION);
     }
 }

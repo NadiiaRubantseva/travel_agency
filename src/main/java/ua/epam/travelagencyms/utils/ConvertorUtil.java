@@ -146,15 +146,6 @@ public final class ConvertorUtil {
                 .build();
     }
 
-    public static UserDTO getUserDTOFromEditUserAction(HttpServletRequest request, UserDTO currentUser) {
-        return UserDTO.builder()
-                .id(currentUser.getId())
-                .email(currentUser.getEmail())
-                .name(request.getParameter(NAME))
-                .surname(request.getParameter(SURNAME))
-                .build();
-    }
-
     public static TourDTO getTourDTOFromAddRequest(HttpServletRequest request) {
         return TourDTO.builder()
                 .title(request.getParameter(TITLE))

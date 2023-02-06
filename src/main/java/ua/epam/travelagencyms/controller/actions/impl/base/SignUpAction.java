@@ -1,8 +1,5 @@
 package ua.epam.travelagencyms.controller.actions.impl.base;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
@@ -29,8 +26,6 @@ import static ua.epam.travelagencyms.utils.ConvertorUtil.getUserDTO;
  * @version 1.0
  */
 public class SignUpAction implements Action {
-
-    private static final Logger logger = LoggerFactory.getLogger(SignUpAction.class);
     private final UserService userService;
 
     /**
@@ -77,15 +72,16 @@ public class SignUpAction implements Action {
         String path = SIGN_IN_PAGE;
         UserDTO user = getUserDTO(request);
         request.getSession().setAttribute(USER, user);
+
         try {
             userService.add(user, request.getParameter(PASSWORD), request.getParameter(CONFIRM_PASSWORD));
-            logger.info("successful sign up for user with email: " + user.getEmail());
             request.getSession().setAttribute(MESSAGE, SUCCEED_REGISTER);
+
         } catch (IncorrectFormatException | PasswordMatchingException | DuplicateEmailException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
-            logger.info("unsuccessful sign up for user with email: " + user.getEmail());
             path = SIGN_UP_PAGE;
         }
+
         request.getSession().setAttribute(CURRENT_PATH, path);
         return getActionToRedirect(SIGN_UP_ACTION);
     }

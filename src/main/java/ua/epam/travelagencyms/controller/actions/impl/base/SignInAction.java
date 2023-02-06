@@ -1,7 +1,5 @@
 package ua.epam.travelagencyms.controller.actions.impl.base;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.exceptions.ServiceException;
@@ -27,8 +25,6 @@ import static ua.epam.travelagencyms.utils.constants.Email.*;
  * @version 1.0
  */
 public class SignInAction implements Action {
-
-    private static final Logger logger = LoggerFactory.getLogger(SignInAction.class);
     private final UserService userService;
     private final EmailSender emailSender;
 
@@ -79,35 +75,28 @@ public class SignInAction implements Action {
         String path = PROFILE_PAGE;
         String email = request.getParameter(EMAIL);
         String password = request.getParameter(PASSWORD);
-        logger.info("logging attempt: email:" + email);
 
         try {
             UserDTO user = userService.signIn(email, password);
-            setLoggedUser(request, user);
+            request.getSession().setAttribute(LOGGED_USER, user);
+            request.getSession().setAttribute(ROLE, user.getRole());
 
             long userId = user.getId();
-            logger.info("successful login for user: " + userId);
 
             if (userService.isEmailNotVerified(userId)) {
-                logger.info("email is not verified for user: " + userId);
                 String code = userService.setVerificationCode(userId);
                 sendEmail(code, email);
-                logger.info("sent verification email to user: " + userId);
                 return VERIFY_EMAIL_PAGE;
             }
+
         } catch (NoSuchUserException | IncorrectPasswordException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
             request.getSession().setAttribute(EMAIL, email);
-            logger.info("unsuccessful login with email: " + email + ", reason: " + e.getMessage());
             path = SIGN_IN_PAGE;
         }
+
         request.getSession().setAttribute(CURRENT_PATH, path);
         return getActionToRedirect(SIGN_IN_ACTION);
-    }
-
-    private static void setLoggedUser(HttpServletRequest request, UserDTO user) {
-        request.getSession().setAttribute(LOGGED_USER, user);
-        request.getSession().setAttribute(ROLE, user.getRole());
     }
 
     private void sendEmail(String code, String email) {

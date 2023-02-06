@@ -1,8 +1,5 @@
 package ua.epam.travelagencyms.controller.actions.impl.base;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
@@ -25,8 +22,6 @@ import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
  * @version 1.0
  */
 public class VerifyCodeAction implements Action {
-
-    private static final Logger logger = LoggerFactory.getLogger(VerifyCodeAction.class);
     private final UserService userService;
 
     /**
@@ -39,7 +34,7 @@ public class VerifyCodeAction implements Action {
     /**
      * Checks method and calls required implementation
      *
-     * @param request  to get method, session and set all required attributes
+     * @param request to get method, session and set all required attributes
      * @return path to redirect or forward by front-controller
      * @throws ServiceException to call error page in front-controller
      */
@@ -54,7 +49,7 @@ public class VerifyCodeAction implements Action {
      *
      * @param request to get message, error attributes from session and put it in request
      * @return profile page in case of success, otherwise verify email page
-     * */
+     */
     private String executeGet(HttpServletRequest request) {
         transferStringFromSessionToRequest(request, MESSAGE);
         transferStringFromSessionToRequest(request, ERROR);
@@ -71,16 +66,15 @@ public class VerifyCodeAction implements Action {
         String path = PROFILE_PAGE;
         UserDTO user = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
         String enteredCode = request.getParameter(SECURITY_CODE).trim();
+
         try {
             userService.verifySecurityCode(user.getId(), enteredCode);
-            logger.info("successful code verification for user: " + user.getId());
-
         } catch (IncorrectCodeException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
-            logger.info("unsuccessful code verification for user: " + user.getId() + ", reason: " + e.getMessage());
             path = VERIFY_EMAIL_PAGE;
         }
-       request.getSession().setAttribute(CURRENT_PATH, path);
+
+        request.getSession().setAttribute(CURRENT_PATH, path);
         return getActionToRedirect(VERIFY_CODE_ACTION);
     }
 }
