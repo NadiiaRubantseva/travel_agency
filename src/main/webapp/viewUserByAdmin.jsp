@@ -93,10 +93,10 @@
                         <input type="hidden" name="user-id" value=${requestScope.user.id}>
                         <label>
                             <select name="user-status" class="form-select">
-                                <option value="ACTIVE" ${requestScope.user.isBlocked eq '0' ? 'selected' : ''}>
+                                <option value="Active" ${requestScope.user.isBlocked eq 'Active' ? 'selected' : ''}>
                                     <fmt:message key="active"/>
                                 </option>
-                                <option value="BLOCKED" ${requestScope.user.isBlocked eq '1' ? 'selected' : ''}>
+                                <option value="Blocked" ${requestScope.user.isBlocked eq 'Blocked' ? 'selected' : ''}>
                                     <fmt:message key="blocked"/>
                                 </option>
                             </select>

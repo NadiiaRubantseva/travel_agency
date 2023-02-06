@@ -41,7 +41,7 @@ public class PdfUtil {
     private static final Paragraph LINE_SEPARATOR = new Paragraph(new Text("\n"));
     private static final String USER_TITLE = "users";
     private static final String TOUR_TITLE = "tours";
-    private static final String[] USER_CELLS = new String[]{"id", "email", "name", "surname", "role"};
+    private static final String[] USER_CELLS = new String[]{"id", "status", "email", "name", "surname", "discount", "role"};
     private static final String[] TOUR_CELLS = new String[]{"id", "title", "persons", "price", "type"};
 
     /**
@@ -108,7 +108,7 @@ public class PdfUtil {
     }
 
     private Table getUserTable(List<UserDTO> users, ResourceBundle resourceBundle) {
-        Table table = new Table(new float[]{4, 12, 6, 6, 6});
+        Table table = new Table(new float[]{4, 6, 10, 8, 8, 4, 4});
         table.setWidth(UnitValue.createPercentValue(100));
         addTableHeader(table, USER_CELLS, resourceBundle);
         addUserTableRows(table, users);
@@ -138,9 +138,11 @@ public class PdfUtil {
         users.forEach(user ->
                 {
                     table.addCell(String.valueOf(user.getId()));
+                    table.addCell(user.getIsBlocked());
                     table.addCell(user.getEmail());
                     table.addCell(user.getName());
                     table.addCell(user.getSurname());
+                    table.addCell(user.getDiscount() + "%");
                     table.addCell(user.getRole());
                 }
         );
@@ -149,6 +151,7 @@ public class PdfUtil {
     private void addTourTableRows(Table table, List<TourDTO> tours) {
         tours.forEach(tour ->
                 {
+                    table.addCell(String.valueOf(tour.getId()));
                     table.addCell(String.valueOf(tour.getId()));
                     table.addCell(tour.getTitle());
                     table.addCell(String.valueOf(tour.getPersons()));

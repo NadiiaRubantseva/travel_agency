@@ -56,7 +56,7 @@ public final class ConvertorUtil {
                 .name(user.getName())
                 .surname(user.getSurname())
                 .role(String.valueOf(Role.getRole(user.getRoleId())))
-                .isBlocked(user.isBlocked() ? "1" : "0")
+                .isBlocked(user.isBlocked() ? "Blocked" : "Active")
                 .avatar(ImageEncoder.encode(user.getAvatar()))
                 .discount(String.valueOf(user.getDiscount()))
                 .build();

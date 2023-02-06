@@ -361,7 +361,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void setStatus(long id, String status) throws ServiceException {
         byte statusId = 0;
-        if (status.equals("BLOCKED")) {
+        if (status.equals("Blocked")) {
             statusId = 1;
         }
         try {

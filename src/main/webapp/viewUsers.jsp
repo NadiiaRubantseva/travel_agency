@@ -115,7 +115,7 @@
                         <td><c:out value="${user.id}"/></td>
                         <td>
                             <c:choose>
-                                <c:when test="${user.isBlocked == 1}">
+                                <c:when test="${user.isBlocked eq 'Blocked'}">
                                     <div class="text-danger">Blocked</div>
                                 </c:when>
                                 <c:otherwise>
