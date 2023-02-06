@@ -1,7 +1,6 @@
 package ua.epam.travelagencyms.controller.actions.impl.base;
 
 import ua.epam.travelagencyms.controller.actions.Action;
-import ua.epam.travelagencyms.exceptions.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +19,7 @@ public class DefaultAction implements Action {
      * @return index page
      */
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         return INDEX_PAGE;
     }
 }
