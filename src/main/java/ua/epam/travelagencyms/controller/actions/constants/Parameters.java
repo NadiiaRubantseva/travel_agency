@@ -41,6 +41,7 @@ public class Parameters {
     public static final String SURNAME = "surname";
     public static final String SECURITY_CODE = "security-code";
     public static final String STATUS = "status";
+    public static final String USER_STATUS = "user-status";
 
 
     /**

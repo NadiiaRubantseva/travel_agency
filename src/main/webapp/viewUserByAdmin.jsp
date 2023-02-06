@@ -9,10 +9,10 @@
 <html lang="${sessionScope.locale}">
 
 <head>
-    <title><fmt:message key="travel.agency"/><fmt:message key="view.user"/></title>
+    <title><fmt:message key="travel.agency"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@include file="/fragments/import_CSS_and_JS.jsp"%>
+    <%@include file="/fragments/import_CSS_and_JS.jsp" %>
 </head>
 
 <body>
@@ -27,9 +27,12 @@
     <br>
     <main>
         <div class="container-fluid offset-1">
+            <c:if test="${not empty requestScope.message}">
+                <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
+            </c:if><br>
+            <h2 class="text-muted"><fmt:message key="view.user"/></h2>
             <div class="row">
                 <div class="col-sm-4">
-                    <h2 class="text-muted"><fmt:message key="view.user"/></h2>
                     <br><br>
                     <div class="image">
                         <c:set var="avatar" value="${requestScope.user.avatar}"/>
@@ -47,17 +50,24 @@
 
                 <div class="col-sm-4">
                     <br>
-                    <h5><fmt:message key="email"/>:</h5>
+                    <h5 class="text-muted"><fmt:message key="email"/>:</h5>
                     <p>${requestScope.user.email}</p>
 
-                    <h5><fmt:message key="name"/>:</h5>
+                    <h5 class="text-muted"><fmt:message key="name"/>:</h5>
                     <p>${requestScope.user.name}</p>
 
-                    <h5><fmt:message key="surname"/>:</h5>
+                    <h5 class="text-muted"><fmt:message key="surname"/>:</h5>
                     <p>${requestScope.user.surname}</p>
 
-                    <h5><fmt:message key="role"/>:</h5>
-                    <p>${requestScope.user.role}</p>
+                    <h5 class="text-muted"><fmt:message key="role"/>:</h5>
+                    <c:choose>
+                        <c:when test="${requestScope.user.role eq 'ADMIN'}">
+                            <p><fmt:message key="ADMIN"/></p>
+                        </c:when>
+                        <c:when test="${requestScope.user.role eq 'USER'}">
+                            <p><fmt:message key="USER"/></p>
+                        </c:when>
+                    </c:choose>
                 </div>
 
                 <div class="col-sm-10">
@@ -74,28 +84,30 @@
                                 </option>
                             </select>
                         </label>
-                        <button type="submit" class="btn btn-success mt-0 mb-1"><fmt:message key="set.role"/></button>
+                        <button type="submit" class="btn btn-success mt-0"><fmt:message key="set.role"/></button>
                     </form>
                     <br>
 
                     <form method="POST" action="controller">
                         <input type="hidden" name="action" value="set-user-status">
-                        <input type="hidden" name="email" value=${requestScope.user.email}>
+                        <input type="hidden" name="user-id" value=${requestScope.user.id}>
                         <label>
-                            <select name="status" class="form-select mt-2">
-                                <option value="ACTIVE" ${requestScope.user.status eq 'ACTIVE' ? 'selected' : ''}>
-                                    ACTIVE
+                            <select name="user-status" class="form-select">
+                                <option value="ACTIVE" ${requestScope.user.isBlocked eq '0' ? 'selected' : ''}>
+                                    <fmt:message key="active"/>
                                 </option>
-                                <option value="BLOCKED" ${requestScope.user.status eq 'BLOCKED' ? 'selected' : ''}>
-                                    BLOCKED
+                                <option value="BLOCKED" ${requestScope.user.isBlocked eq '1' ? 'selected' : ''}>
+                                    <fmt:message key="blocked"/>
                                 </option>
                             </select>
                         </label>
-                        <button type="submit" class="btn btn-success mt-0 mb-1">Set Status</button>
+                        <button type="submit" class="btn btn-success">
+                            <fmt:message key="set.user.status"/>
+                        </button>
                     </form>
                     <br>
 
-                    <button class="btn btn-danger mt-0 mb-1" data-toggle="modal" data-target="#delete">
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#delete">
                         <fmt:message key="delete"/>
                     </button>
                 </div>
@@ -109,7 +121,6 @@
 <jsp:include page="fragments/footer.jsp"/>
 
 <jsp:include page="fragments/deleteUserModal.jsp"/>
-
 
 
 </body>

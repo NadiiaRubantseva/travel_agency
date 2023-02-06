@@ -15,13 +15,12 @@ import static ua.epam.travelagencyms.controller.actions.ActionUtil.getURL;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.isPostMethod;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.PASSWORD_RESET_ACTION;
-import static ua.epam.travelagencyms.utils.constants.Email.MESSAGE_RESET_PASSWORD;
-import static ua.epam.travelagencyms.utils.constants.Email.SUBJECT_NOTIFICATION;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.RESET_PASSWORD_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.CHECK_EMAIL;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.EMAIL;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.ERROR;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.MESSAGE;
+import static ua.epam.travelagencyms.utils.constants.Email.*;
 
 /**
  * This is ResetPasswordAction class. Accessible by any user. Allows to reset user's password.
@@ -93,6 +92,6 @@ public class ResetPasswordAction implements Action {
 
     private void sendEmail(UserDTO user, String newPass, String url)  {
         String body = String.format(MESSAGE_RESET_PASSWORD, user.getName(), newPass, url);
-        new Thread(() -> emailSender.send(SUBJECT_NOTIFICATION, body, user.getEmail())).start();
+        new Thread(() -> emailSender.send(PASSWORD_RESET, body, user.getEmail())).start();
     }
 }

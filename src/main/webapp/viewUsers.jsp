@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <fmt:setBundle basename="resources"/>
 
@@ -81,6 +81,7 @@
                             <i class="bi bi-arrow-down-up link-dark"></i>
                         </a>
                     </th>
+                    <th scope="col"><fmt:message key="status"/></th>
                     <th scope="col">
                         <fmt:message key="photo"/>
                     </th>
@@ -102,28 +103,38 @@
                             <i class="bi bi-arrow-down-up link-dark"></i>
                         </a>
                     </th>
+                    <th scope="col"><fmt:message key="discount"/></th>
                     <th scope="col"><fmt:message key="role"/></th>
                     <th scope="col"><fmt:message key="action"/></th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="user" items="${requestScope.users}">
-                    <c:set var="avatar" value="${user.avatar}" />
+                    <c:set var="avatar" value="${user.avatar}"/>
                     <tr>
                         <td><c:out value="${user.id}"/></td>
-                        <div class="image">
-                                <c:choose>
-                                    <c:when test="${fn:length(avatar) > 100 }">
-                                        <td><img src="${user.avatar}" class="rounded" height="25"></td>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <td><img src="img/default_user_photo.png" class="rounded" height="25"></td>
-                                    </c:otherwise>
-                                </c:choose>
-                        </div>
+                        <td>
+                            <c:choose>
+                                <c:when test="${user.isBlocked == 1}">
+                                    <div class="text-danger">Blocked</div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="text-success">Active</div>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                            <c:choose>
+                                <c:when test="${fn:length(avatar) > 100 }">
+                                    <td><img src="${user.avatar}" class="rounded" height="25"></td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td><img src="img/default_user_photo.png" class="rounded" height="25"></td>
+                                </c:otherwise>
+                            </c:choose>
                         <td><c:out value="${user.email}"/></td>
                         <td><c:out value="${user.name}"/></td>
                         <td><c:out value="${user.surname}"/></td>
+                        <td><c:out value="${user.discount}"/>%</td>
                         <td><fmt:message key="${user.role}"/></td>
                         <td>
                             <a class="link-dark" href=controller?action=search-user-by-id&id=${user.id}>

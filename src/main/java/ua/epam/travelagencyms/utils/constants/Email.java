@@ -16,6 +16,7 @@ public class Email {
 
     /** Letter subject for email verification letter */
     public static final String EMAIL_VERIFICATION = "Email Verification";
+    public static final String PASSWORD_RESET = "Password Reset";
 
     /** Place user's name instead of %s */
     public static final String HELLO = "Hello %s,<br>";

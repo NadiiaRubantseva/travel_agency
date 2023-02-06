@@ -18,9 +18,10 @@
                                                                                                  height="25px"><fmt:message
                                 key="users"/></a>
                         <div class="dropdown-menu">
-                            <a href="controller?action=view-users" class="dropdown-item"><fmt:message
-                                    key="view.users"/></a>
-                            <a href="searchUser.jsp" class="dropdown-item"><fmt:message key="search.users"/></a>
+                            <a href="controller?action=view-users" class="dropdown-item">
+                                <fmt:message key="view.users"/></a>
+                            <a href="searchUser.jsp" class="dropdown-item">
+                                <fmt:message key="search.users"/></a>
                         </div>
                     </div>
                 </li>
