@@ -73,11 +73,11 @@ public class VerifyCodeAction implements Action {
         String enteredCode = request.getParameter(SECURITY_CODE).trim();
         try {
             userService.verifySecurityCode(user.getId(), enteredCode);
-            logger.debug("successful code verification for user: " + user.getId());
+            logger.info("successful code verification for user: " + user.getId());
 
         } catch (IncorrectCodeException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
-            logger.debug("unsuccessful code verification for user: " + user.getId() + ", reason: " + e.getMessage());
+            logger.info("unsuccessful code verification for user: " + user.getId() + ", reason: " + e.getMessage());
             path = VERIFY_EMAIL_PAGE;
         }
        request.getSession().setAttribute(CURRENT_PATH, path);

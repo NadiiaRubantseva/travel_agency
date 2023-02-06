@@ -79,11 +79,11 @@ public class SignUpAction implements Action {
         request.getSession().setAttribute(USER, user);
         try {
             userService.add(user, request.getParameter(PASSWORD), request.getParameter(CONFIRM_PASSWORD));
-            logger.debug("successful sign up for user with email: " + user.getEmail());
+            logger.info("successful sign up for user with email: " + user.getEmail());
             request.getSession().setAttribute(MESSAGE, SUCCEED_REGISTER);
         } catch (IncorrectFormatException | PasswordMatchingException | DuplicateEmailException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
-            logger.debug("unsuccessful sign up for user with email: " + user.getEmail());
+            logger.info("unsuccessful sign up for user with email: " + user.getEmail());
             path = SIGN_UP_PAGE;
         }
         request.getSession().setAttribute(CURRENT_PATH, path);

@@ -80,21 +80,21 @@ public class EditProfileAction implements Action {
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
         UserDTO sessionUser = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
-        logger.debug("attempt to edit profile by session user:" + sessionUser.getId());
+        logger.info("attempt to edit profile by session user:" + sessionUser.getId());
 
         UserDTO user = ConvertorUtil.getUserDTOFromEditUserAction(request, sessionUser);
-        logger.debug("received name: " + user.getName() + "; surname: " + user.getSurname() + " for user: " + sessionUser.getId());
+        logger.info("received name: " + user.getName() + "; surname: " + user.getSurname() + " for user: " + sessionUser.getId());
 
         try {
             userService.update(user);
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
             sessionUser.setName(user.getName());
             sessionUser.setSurname(user.getSurname());
-            logger.debug("successful profile update for user: " + user.getId());
+            logger.info("successful profile update for user: " + user.getId());
         } catch (IncorrectFormatException | DuplicateEmailException e) {
             request.getSession().setAttribute(USER, user);
             request.getSession().setAttribute(ERROR, e.getMessage());
-            logger.debug("unsuccessful profile update for user: " + user.getId() + ", reason: " + e.getMessage());
+            logger.info("unsuccessful profile update for user: " + user.getId() + ", reason: " + e.getMessage());
         }
         return getActionToRedirect(EDIT_PROFILE_ACTION);
     }
