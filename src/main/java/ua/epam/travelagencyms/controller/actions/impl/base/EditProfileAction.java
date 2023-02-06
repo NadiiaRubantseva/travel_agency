@@ -46,7 +46,7 @@ public class EditProfileAction implements Action {
     /**
      * Checks method and calls required implementation
      *
-     * @param request  to get method, session and set all required attributes
+     * @param request to get method, session and set all required attributes
      * @return path to redirect or forward by front-controller
      * @throws ServiceException to call error page in front-controller
      */
@@ -75,8 +75,7 @@ public class EditProfileAction implements Action {
      * editing was successful
      *
      * @param request to get users id and all required fields. Also, to set message in case of successful deleting and
-     * error in another case.
-     *
+     *                error in another case.
      * @return path to redirect to executeGet method through front-controller
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
@@ -88,19 +87,15 @@ public class EditProfileAction implements Action {
 
         try {
             userService.update(user);
-            logger.debug("successful profile update for user: " + user.getId());
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
-            updateSessionUser(sessionUser, user);
+            sessionUser.setName(user.getName());
+            sessionUser.setSurname(user.getSurname());
+            logger.debug("successful profile update for user: " + user.getId());
         } catch (IncorrectFormatException | DuplicateEmailException e) {
             request.getSession().setAttribute(USER, user);
             request.getSession().setAttribute(ERROR, e.getMessage());
+            logger.debug("unsuccessful profile update for user: " + user.getId() + ", reason: " + e.getMessage());
         }
         return getActionToRedirect(EDIT_PROFILE_ACTION);
-    }
-
-    private void updateSessionUser(UserDTO currentUser, UserDTO user) {
-        currentUser.setEmail(user.getEmail());
-        currentUser.setName(user.getName());
-        currentUser.setSurname(user.getSurname());
     }
 }
