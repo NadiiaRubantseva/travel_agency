@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import static ua.epam.travelagencyms.exceptions.constants.Message.ENTER_CORRECT_NAME;
-import static ua.epam.travelagencyms.exceptions.constants.Message.ENTER_CORRECT_SURNAME;
+import static ua.epam.travelagencyms.exceptions.constants.Message.*;
 import static ua.epam.travelagencyms.utils.ConvertorUtil.convertDTOToUser;
 import static ua.epam.travelagencyms.utils.ConvertorUtil.convertUserToDTO;
 import static ua.epam.travelagencyms.utils.PasswordHashUtil.encode;
@@ -406,6 +405,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void validateUser(UserDTO userDTO) throws IncorrectFormatException {
+        validateEmail(userDTO.getEmail());
         validateName(userDTO.getName(), ENTER_CORRECT_NAME);
         validateName(userDTO.getSurname(), ENTER_CORRECT_SURNAME);
     }
