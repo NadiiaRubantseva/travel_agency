@@ -14,8 +14,11 @@ public class ConstantsForTest {
 
     // User values
     public static final String EMAIL_VALUE = "user@mail.com";
+    public static final String NEW_EMAIL = "userNewEmail@mail.com";
     public static final String NAME_VALUE = "Name";
+    public static final String NEW_NAME = "NewName";
     public static final String SURNAME_VALUE = "Surname";
+    public static final String NEW_SURNAME = "NewSurname";
     public static final String PASS_VALUE = "MyPassword1@";
     public static final String ROLE_VALUE = "USER";
 
