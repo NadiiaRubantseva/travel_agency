@@ -11,7 +11,7 @@
     <title><fmt:message key="travel.agency"/>. <fmt:message key="view.orders"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@include file="/fragments/import_CSS_and_JS.jsp"%>
+    <%@include file="/fragments/import_CSS_and_JS.jsp" %>
 </head>
 
 <body>
@@ -21,22 +21,35 @@
 <jsp:include page="fragments/menuChoice.jsp"/>
 
 <div class="col-lg-11 mx-auto p-4 py-md-5">
-        <h2 class="text-muted"><fmt:message key="orders"/></h2>
+    <h2 class="text-muted"><fmt:message key="orders"/></h2>
 
     <div class="row">
         <form class="col-11" method="GET" action="controller">
             <input type="hidden" name="action" value="view-orders-by-admin">
             <input type="hidden" name="offset" value="0">
-            <div>
-                <label><fmt:message key="order.status"/><select name="status" class="form-select mt-2">
+            <div class="row row-cols-auto">
+
+                <label><fmt:message key="order.status"/><select name="status" class="form-select">
                     <option><fmt:message key="select.status"/></option>
-                    <option value="3" ${param.status eq "3" ? "selected" : ""}><fmt:message key="CANCELED"/></option>
+                    <option value="3" ${param.status eq "3" ? "selected" : ""}><fmt:message
+                            key="CANCELED"/></option>
                     <option value="2" ${param.status eq "2" ? "selected" : ""}><fmt:message key="PAID"/></option>
-                    <option value="1" ${param.status eq "1" ? "selected" : ""}><fmt:message key="REGISTERED"/></option>
+                    <option value="1" ${param.status eq "1" ? "selected" : ""}><fmt:message
+                            key="REGISTERED"/></option>
                 </select>
                 </label>
+
+                <div class="form-group">
+                    <label for="start-date"><fmt:message key="start.date"/></label>
+                    <input type="date" class="form-control" id="start-date" name="start-date">
+                </div>
+
+                <div class="form-group">
+                    <label for="end-date"><fmt:message key="end.date"/></label>
+                    <input type="date" class="form-control" id="end-date" name="end-date">
+                </div>
+
             </div>
-            &nbsp&nbsp&nbsp&nbsp&nbsp
             <br>
             <label for="records"><fmt:message key="number.records"/></label>
             <input class="col-2" type="number" min="1" name="records" id="records"
@@ -117,13 +130,22 @@
                         <td><c:out value="${order.date}"/></td>
                         <c:choose>
                             <c:when test="${order.orderStatus eq 'REGISTERED'}">
-                                <td><div style=" text-align: center; background-color: #fdf66a; border-radius: 5px;"><fmt:message key="${order.orderStatus}"/></div></td>
+                                <td>
+                                    <div style=" text-align: center; background-color: #fdf66a; border-radius: 5px;">
+                                        <fmt:message key="${order.orderStatus}"/></div>
+                                </td>
                             </c:when>
                             <c:when test="${order.orderStatus eq 'PAID'}">
-                                <td><div style=" text-align: center; background-color: lightgreen; border-radius: 5px;"><fmt:message key="${order.orderStatus}"/></div></td>
+                                <td>
+                                    <div style=" text-align: center; background-color: lightgreen; border-radius: 5px;">
+                                        <fmt:message key="${order.orderStatus}"/></div>
+                                </td>
                             </c:when>
                             <c:when test="${order.orderStatus eq 'CANCELED'}">
-                                <td><div style=" text-align: center; background-color: lightgrey; border-radius: 5px;"><fmt:message key="${order.orderStatus}"/></div></td>
+                                <td>
+                                    <div style=" text-align: center; background-color: lightgrey; border-radius: 5px;">
+                                        <fmt:message key="${order.orderStatus}"/></div>
+                                </td>
                             </c:when>
                         </c:choose>
                         <td><c:out value="${order.userId}"/></td>
@@ -146,7 +168,8 @@
         </div>
     </div>
 
-    <c:set var="href" value="controller?action=view-orders-by-admin&status=${param.status}&sort=${param.sort}&order=${param.order}&"
+    <c:set var="href"
+           value="controller?action=view-orders-by-admin&status=${param.status}&sort=${param.sort}&order=${param.order}&"
            scope="request"/>
 
     <jsp:include page="/fragments/pagination.jsp"/>

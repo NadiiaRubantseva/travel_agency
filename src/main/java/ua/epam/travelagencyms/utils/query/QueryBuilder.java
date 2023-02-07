@@ -74,6 +74,34 @@ public abstract class QueryBuilder {
     }
 
     /**
+     * Creates date filter for orders query
+     * @param startDate - startDate.
+     * @param endDate - endDate.
+     * @return QueryBuilder (as Builder pattern)
+     */
+    public QueryBuilder setDateFilter(String startDate, String endDate) {
+        if (startDate == null || endDate == null) {
+            return this;
+        }
+
+        if (!startDate.isEmpty() && endDate.equals("")) {
+            filters.add("date >= '" + startDate + "'");
+            return this;
+        }
+
+        if (startDate.equals("") && !endDate.isEmpty()) {
+            filters.add("date <= '" + endDate + "'");
+            return this;
+        }
+
+        if (!startDate.equals("") && !endDate.equals("")) {
+            filters.add("date BETWEEN '" + startDate + "' AND '" + endDate + "'");
+            return this;
+        }
+        return this;
+    }
+
+    /**
      * Creates price filter for tours query
      * @param priceMinFilter - min price. can be any not negative number.
      * @param priceMaxFilter - max price. can be any not negative number.

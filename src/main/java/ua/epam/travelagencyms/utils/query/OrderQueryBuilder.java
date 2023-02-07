@@ -25,7 +25,7 @@ public class OrderQueryBuilder extends QueryBuilder {
      * set id as default sort field
      */
     public OrderQueryBuilder() {
-        super(ID);
+        super(DATE);
     }
 
     /**

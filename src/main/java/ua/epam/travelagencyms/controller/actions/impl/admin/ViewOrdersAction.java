@@ -49,6 +49,7 @@ public class ViewOrdersAction implements Action {
     private QueryBuilder getQueryBuilder(HttpServletRequest request) {
         return orderQueryBuilder()
                 .setStatusFilter(request.getParameter(ORDER_STATUS_ID))
+                .setDateFilter(request.getParameter(START_DATE), request.getParameter(END_DATE))
                 .setSortField(request.getParameter(SORT))
                 .setOrder(request.getParameter(ORDER))
                 .setLimits(request.getParameter(OFFSET), request.getParameter(RECORDS));

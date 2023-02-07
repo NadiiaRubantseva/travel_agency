@@ -64,6 +64,7 @@ public class Parameters {
     public static final String ORDER_ID = "order-id";
     public static final String ORDERS = "orders";
     public static final String DISCOUNT = "discount";
+    public static final String DATE = "date";
 
 
     /**
@@ -82,6 +83,8 @@ public class Parameters {
     public static final String PERSONS = "persons";
     public static final String PRICE = "price";
     public static final String TOUR_PRICE = "tour-price";
+    public static final String START_DATE = "start-date";
+    public static final String END_DATE = "start-date";
 
 
     /**
