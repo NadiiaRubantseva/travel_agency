@@ -13,7 +13,9 @@ import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
  */
 public class TourQueryBuilder extends QueryBuilder {
 
-    /** Contains set of allowed sort fields */
+    /**
+     * Contains set of allowed sort fields
+     */
     private static final Set<String> TOUR_SORT_FIELDS_SET = new HashSet<>();
 
     static {
@@ -48,5 +50,9 @@ public class TourQueryBuilder extends QueryBuilder {
         return ID;
     }
 
-
+    @Override
+    protected String getSortQuery() {
+        return " ORDER BY hot DESC, " + sortField + " " + order;
+    }
 }
+

@@ -14,7 +14,6 @@ import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStrin
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.ADMIN;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.USER;
-import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.DESCENDING_ORDER;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.utils.PaginationUtil.paginate;
 import static ua.epam.travelagencyms.utils.QueryBuilderUtil.tourQueryBuilder;
@@ -49,6 +48,7 @@ public class ViewToursAction implements Action {
         request.setAttribute(MIN_PRICE, request.getParameter(MIN_PRICE));
         request.setAttribute(MAX_PRICE, request.getParameter(MAX_PRICE));
         QueryBuilder queryBuilder = getQueryBuilder(request);
+        System.out.println(queryBuilder.getQuery() + " <- query");
         request.setAttribute(TOURS, tourService.getSortedTours(queryBuilder.getQuery()));
         int numberOfRecords = tourService.getNumberOfRecords(queryBuilder.getRecordQuery());
         paginate(numberOfRecords, request);
@@ -67,8 +67,6 @@ public class ViewToursAction implements Action {
                 .setHotelFilter(request.getParameter(HOTEL))
                 .setPriceFilter(request.getParameter(MIN_PRICE), request.getParameter(MAX_PRICE))
                 .setPersonsFilter(request.getParameter(PERSONS))
-                .setSortField(HOT)
-                .setOrder(DESCENDING_ORDER)
                 .setSortField(request.getParameter(SORT))
                 .setOrder(request.getParameter(ORDER))
                 .setLimits(request.getParameter(OFFSET), request.getParameter(RECORDS));

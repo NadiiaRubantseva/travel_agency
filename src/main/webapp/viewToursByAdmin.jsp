@@ -9,7 +9,7 @@
 <html lang="${sessionScope.locale}">
 
 <head>
-    <title><fmt:message key="travel.agency"/> <fmt:message key="view.tours"/></title>
+    <title><fmt:message key="travel.agency"/>. <fmt:message key="view.tours"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%@include file="/fragments/import_CSS_and_JS.jsp"%>
@@ -25,6 +25,7 @@
     <c:if test="${not empty requestScope.message}">
         <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
     </c:if><br>
+
     <h2 class="text-muted pb-3"><fmt:message key="tours"/></h2>
 
     <div class="container-fluid">
@@ -39,21 +40,20 @@
                     <option value="2" ${param.type eq "2" ? "selected" : ""}><fmt:message key="EXCURSION"/></option>
                     <option value="1" ${param.type eq "1" ? "selected" : ""}><fmt:message key="REST"/></option>
                 </select>
-                </label>
-                &nbsp;
+                </label>&nbsp;&nbsp;
 
-                <label><fmt:message key="hotel.type"/><select name="hotel" class="form-select mt-2">
+                <label><fmt:message key="hotel.type"/>
+                    <select name="hotel" class="form-select mt-2">
                     <option><fmt:message key="select.type"/></option>
                     <option value="3" ${param.hotel eq "3" ? "selected" : ""}><fmt:message key="MOTEL"/></option>
                     <option value="2" ${param.hotel eq "2" ? "selected" : ""}><fmt:message key="HOSTEL"/></option>
                     <option value="1" ${param.hotel eq "1" ? "selected" : ""}><fmt:message key="HOTEL"/></option>
                 </select>
                 </label>
-
+                &nbsp;&nbsp;
                 <label for="persons"><fmt:message key="select.persons"/></label>
                 <input class="col-1" type="number" min="1" name="persons" id="persons"
-                       value="${not empty requestScope.persons ? requestScope.persons : ""}">
-                &nbsp;&nbsp;
+                       value="${not empty requestScope.persons ? requestScope.persons : ""}">&nbsp;&nbsp;
                 <label for="min_price"><fmt:message key="select.price.min"/></label>
                 <input class="col-2" type="number" min="1" name="min_price" id="min_price"
                        value="${not empty requestScope.min_price ? requestScope.min_price : ""}">
@@ -76,7 +76,7 @@
                 <input type="hidden" name="persons" value="${param.persons}">
                 <input type="hidden" name="price" value="${param.price}">
                 <input type="hidden" name="type" value="${param.type}">
-                <input type="hidden" name="hotel" value="${param.type}">
+                <input type="hidden" name="hotel" value="${param.hotel}">
                 <input type="hidden" name="min_price" value="${param.minPrice}">
                 <input type="hidden" name="max_price" value="${param.maxPrice}">
                 <input type="hidden" name="sort" value="${param.sort}">
@@ -93,19 +93,22 @@
                 <tr>
 
                     <c:set var="base"
-                           value="controller?action=view-tours&type=${param.type}&hotel=${param.hotel}&persons=${param.persons}&price=${param.min_price}&"/>
+                           value="controller?action=view-tours&type=${param.type}&hotel=${param.hotel}&persons=${param.persons}&price=${param.price}&"/>
+
                     <c:set var="byId" value="sort=id&"/>
                     <c:set var="byTitle" value="sort=title&"/>
                     <c:set var="byPersons" value="sort=persons&"/>
                     <c:set var="byPrice" value="sort=price&"/>
-                    <c:set var="idOrder" value="order=${empty param.sort ? 'DESC' :
-                            param.sort ne 'id' || empty param.order || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+
+                    <c:set var="idOrder"
+                           value="order=${empty param.sort ? 'DESC' : param.sort ne 'id' || empty param.order || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
                     <c:set var="titleOrder"
-                           value="order=${param.sort ne 'email' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+                           value="order=${param.sort ne 'title' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
                     <c:set var="personsOrder"
                            value="order=${param.sort ne 'persons' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
                     <c:set var="priceOrder"
                            value="order=${param.sort ne 'price' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+
                     <c:set var="limits" value="&offset=0&records=${param.records}"/>
 
                     <th scope="col">
@@ -162,7 +165,7 @@
                         <td><c:out value="${tour.persons}"/></td>
                         <td><c:out value="${tour.price}"/></td>
                         <td><fmt:message key="${tour.type}"/></td>
-                        <td><c:out value="${tour.hotel}"/></td>
+                        <td><fmt:message key="${tour.hotel}"/></td>
                         <td>
                             <c:if test="${fn:contains(hot, 'hot')}">
                                 <img src="img/fire.png" height="17px" width="17px">
@@ -182,7 +185,7 @@
     </div>
 
     <c:set var="href"
-           value="controller?action=view-tours&type=${param.type}&sort=hot&order=DESC&sort=${param.sort}&order=${param.order}&persons=${requestScope.persons}&min_price=${requestScope.min_price}&max_price=${requestScope.max_price}&"
+           value="controller?action=view-tours&type=${param.type}&sort=${param.sort}&order=${param.order}&persons=${requestScope.persons}&min_price=${requestScope.min_price}&max_price=${requestScope.max_price}&"
            scope="request"/>
 
     <jsp:include page="/fragments/pagination.jsp"/>

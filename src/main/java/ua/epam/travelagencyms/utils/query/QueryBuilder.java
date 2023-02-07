@@ -1,7 +1,5 @@
 package ua.epam.travelagencyms.utils.query;
 
-import lombok.ToString;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
@@ -15,13 +13,12 @@ import static ua.epam.travelagencyms.controller.actions.constants.ParameterValue
  * @author Nadiia Rubantseva
  * @version 1.0
  */
-@ToString
 public abstract class QueryBuilder {
-    private final List<String> filters = new ArrayList<>();
-    private String sortField;
-    private String order = ASCENDING_ORDER;
-    private int offset = 0;
-    private int records = 5;
+    protected final List<String> filters = new ArrayList<>();
+    protected String sortField;
+    protected String order = ASCENDING_ORDER;
+    protected int offset = 0;
+    protected int records = 5;
 
     /**
      * @param sortField by default.
@@ -194,7 +191,7 @@ public abstract class QueryBuilder {
      */
     protected abstract String getGroupByQuery();
 
-    private String getSortQuery() {
+    protected String getSortQuery() {
         return " ORDER BY " + sortField + " " + order;
     }
 
