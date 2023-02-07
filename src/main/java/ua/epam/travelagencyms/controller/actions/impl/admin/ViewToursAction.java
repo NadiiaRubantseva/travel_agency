@@ -47,8 +47,8 @@ public class ViewToursAction implements Action {
         request.setAttribute(PERSONS, request.getParameter(PERSONS));
         request.setAttribute(MIN_PRICE, request.getParameter(MIN_PRICE));
         request.setAttribute(MAX_PRICE, request.getParameter(MAX_PRICE));
+
         QueryBuilder queryBuilder = getQueryBuilder(request);
-        System.out.println(queryBuilder.getQuery() + " <- query");
         request.setAttribute(TOURS, tourService.getSortedTours(queryBuilder.getQuery()));
         int numberOfRecords = tourService.getNumberOfRecords(queryBuilder.getRecordQuery());
         paginate(numberOfRecords, request);

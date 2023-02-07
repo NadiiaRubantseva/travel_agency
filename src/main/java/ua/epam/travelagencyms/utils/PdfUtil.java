@@ -42,7 +42,7 @@ public class PdfUtil {
     private static final String USER_TITLE = "users";
     private static final String TOUR_TITLE = "tours";
     private static final String[] USER_CELLS = new String[]{"id", "status", "email", "name", "surname", "discount", "role"};
-    private static final String[] TOUR_CELLS = new String[]{"id", "title", "persons", "price", "type"};
+    private static final String[] TOUR_CELLS = new String[]{"id", "title", "persons", "price", "tour.type", "hotel.type", "hot"};
 
     /**
      * @param servletContext to properly define way to font file
@@ -116,7 +116,7 @@ public class PdfUtil {
     }
 
     private Table getTourTable(List<TourDTO> tours, ResourceBundle resourceBundle) {
-        Table table = new Table(new float[]{4, 12, 6, 6, 6});
+        Table table = new Table(new float[]{4, 12, 6, 6, 6, 6, 4});
         table.setWidth(UnitValue.createPercentValue(100));
         addTableHeader(table, TOUR_CELLS, resourceBundle);
         addTourTableRows(table, tours);
@@ -152,11 +152,12 @@ public class PdfUtil {
         tours.forEach(tour ->
                 {
                     table.addCell(String.valueOf(tour.getId()));
-                    table.addCell(String.valueOf(tour.getId()));
                     table.addCell(tour.getTitle());
                     table.addCell(String.valueOf(tour.getPersons()));
                     table.addCell(String.valueOf(tour.getPrice()));
                     table.addCell(tour.getType());
+                    table.addCell(tour.getHotel());
+                    table.addCell(tour.getHot() == null ? "No" : "Yes");
                 }
         );
     }
