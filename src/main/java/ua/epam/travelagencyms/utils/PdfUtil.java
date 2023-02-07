@@ -18,6 +18,7 @@ import ua.epam.travelagencyms.dto.UserDTO;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 import java.io.*;
 import java.net.URL;
@@ -42,7 +43,7 @@ public class PdfUtil {
     private static final String USER_TITLE = "users";
     private static final String TOUR_TITLE = "tours";
     private static final String[] USER_CELLS = new String[]{"id", "status", "email", "name", "surname", "discount", "role"};
-    private static final String[] TOUR_CELLS = new String[]{"id", "title", "persons", "price", "tour.type", "hotel.type", "hot"};
+    private static final String[] TOUR_CELLS = new String[]{"numeration", "id", "title", "persons", "price", "tour.type", "hotel.type", "hot"};
 
     /**
      * @param servletContext to properly define way to font file
@@ -116,7 +117,7 @@ public class PdfUtil {
     }
 
     private Table getTourTable(List<TourDTO> tours, ResourceBundle resourceBundle) {
-        Table table = new Table(new float[]{4, 12, 6, 6, 6, 6, 4});
+        Table table = new Table(new float[]{4, 4, 12, 6, 6, 6, 6, 4});
         table.setWidth(UnitValue.createPercentValue(100));
         addTableHeader(table, TOUR_CELLS, resourceBundle);
         addTourTableRows(table, tours);
@@ -149,8 +150,10 @@ public class PdfUtil {
     }
 
     private void addTourTableRows(Table table, List<TourDTO> tours) {
+        AtomicInteger iterator = new AtomicInteger();
         tours.forEach(tour ->
                 {
+                    table.addCell(String.valueOf(iterator.incrementAndGet()));
                     table.addCell(String.valueOf(tour.getId()));
                     table.addCell(tour.getTitle());
                     table.addCell(String.valueOf(tour.getPersons()));
