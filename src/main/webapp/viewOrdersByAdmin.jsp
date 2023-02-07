@@ -20,7 +20,7 @@
 
 <jsp:include page="fragments/menuChoice.jsp"/>
 
-<div class="col-lg-10 mx-auto p-4 py-md-5">
+<div class="col-lg-11 mx-auto p-4 py-md-5">
         <h2 class="text-muted"><fmt:message key="orders"/></h2>
 
     <div class="row">
@@ -45,7 +45,19 @@
         </form>
 
         <form class="col-1 mt-3" method="GET" action="controller">
+            <input type="hidden" name="action" value="orders-pdf">
+            <input type="hidden" name="id" value="${param.id}">
+            <input type="hidden" name="date" value="${param.date}">
+            <input type="hidden" name="orderStatus" value="${param.orderStatus}">
             <input type="hidden" name="status" value="${param.status}">
+            <input type="hidden" name="userId" value="${param.userId}">
+            <input type="hidden" name="userName" value="${param.userName}">
+            <input type="hidden" name="userSurname" value="${param.userSurname}">
+            <input type="hidden" name="tourId" value="${param.tourId}">
+            <input type="hidden" name="tourTitle" value="${param.tourTitle}">
+            <input type="hidden" name="tourPrice" value="${param.tourPrice}">
+            <input type="hidden" name="discount" value="${param.discount}">
+            <input type="hidden" name="totalCost" value="${param.totalCost}">
             <input type="hidden" name="sort" value="${param.sort}">
             <input type="hidden" name="order" value="${param.order}">
             <button type="submit" class="icon-button"><img src="img/pdf-file.png" height="25"></button>
@@ -66,10 +78,13 @@
                         <fmt:message key="id"/>
                     </th>
                     <th scope="col">
+                        <fmt:message key="date"/>
+                    </th>
+                    <th scope="col">
                         <fmt:message key="status"/>
                     </th>
                     <th scope="col">
-                        <fmt:message key="user.id"/>
+                        <fmt:message key="user.id.w/br"/>
                     </th>
                     <th scope="col">
                         <fmt:message key="user.name"/>
@@ -78,7 +93,7 @@
                         <fmt:message key="surname"/>
                     </th>
                     <th scope="col">
-                        <fmt:message key="tour.id"/>
+                        <fmt:message key="tour.id.w/br"/>
                     </th>
                     <th scope="col">
                         <fmt:message key="tour.title"/>
@@ -99,15 +114,16 @@
                 <c:forEach var="order" items="${requestScope.orders}">
                     <tr>
                         <td><c:out value="${order.id}"/></td>
+                        <td><c:out value="${order.date}"/></td>
                         <c:choose>
                             <c:when test="${order.orderStatus eq 'REGISTERED'}">
-                                <td><div style=" text-align: center; background-color: #fdf66a; border-radius: 5px;"><c:out value="${order.orderStatus}"/></div></td>
+                                <td><div style=" text-align: center; background-color: #fdf66a; border-radius: 5px;"><fmt:message key="${order.orderStatus}"/></div></td>
                             </c:when>
                             <c:when test="${order.orderStatus eq 'PAID'}">
-                                <td><div style=" text-align: center; background-color: lightgreen; border-radius: 5px;"><c:out value="${order.orderStatus}"/></div></td>
+                                <td><div style=" text-align: center; background-color: lightgreen; border-radius: 5px;"><fmt:message key="${order.orderStatus}"/></div></td>
                             </c:when>
                             <c:when test="${order.orderStatus eq 'CANCELED'}">
-                                <td><div style=" text-align: center; background-color: lightgrey; border-radius: 5px;"><c:out value="${order.orderStatus}"/></div></td>
+                                <td><div style=" text-align: center; background-color: lightgrey; border-radius: 5px;"><fmt:message key="${order.orderStatus}"/></div></td>
                             </c:when>
                         </c:choose>
                         <td><c:out value="${order.userId}"/></td>

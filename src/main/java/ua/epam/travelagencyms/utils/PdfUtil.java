@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
+
 import com.itextpdf.kernel.font.*;
 import com.itextpdf.kernel.geom.*;
 import com.itextpdf.kernel.pdf.*;
@@ -13,6 +14,7 @@ import com.itextpdf.layout.*;
 import com.itextpdf.layout.borders.*;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.*;
+import ua.epam.travelagencyms.dto.OrderDTO;
 import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.dto.UserDTO;
 
@@ -35,15 +37,19 @@ public class PdfUtil {
     private static final Logger logger = LoggerFactory.getLogger(PdfUtil.class);
     private final ServletContext servletContext;
 
-    /** Use this font fo cyrillic */
+    /**
+     * Use this font fo cyrillic
+     */
     private static final String FONT = "css/fonts/arial.ttf";
     private static final Color LIGHT_GREY = new DeviceRgb(220, 220, 220);
     private static final int TITLE_SIZE = 20;
     private static final Paragraph LINE_SEPARATOR = new Paragraph(new Text("\n"));
     private static final String USER_TITLE = "users";
     private static final String TOUR_TITLE = "tours";
+    private static final String ORDER_TITLE = "orders";
     private static final String[] USER_CELLS = new String[]{"id", "status", "email", "name", "surname", "discount", "role"};
     private static final String[] TOUR_CELLS = new String[]{"numeration", "title", "id", "persons", "price", "tour.type", "hotel.type", "hot"};
+    private static final String[] ORDER_CELLS = new String[]{"numeration","date", "id", "status", "user.pdf.id", "user.name", "surname", "tour.pdf.id", "tour.title", "tour.price", "order.pdf.discount", "order.total"};
 
     /**
      * @param servletContext to properly define way to font file
@@ -54,7 +60,8 @@ public class PdfUtil {
 
     /**
      * Creates pdf document with Users' info. Creates resourceBundle to localize table fields
-     * @param users - list of users to be placed in the document
+     *
+     * @param users  - list of users to be placed in the document
      * @param locale - for localization purpose
      * @return outputStream to place in response
      */
@@ -71,7 +78,8 @@ public class PdfUtil {
 
     /**
      * Creates pdf document with Tours' info. Creates resourceBundle to localize table fields
-     * @param tours - list of tours to be placed in the document
+     *
+     * @param tours  - list of tours to be placed in the document
      * @param locale - for localization purpose
      * @return outputStream to place in response
      */
@@ -87,7 +95,26 @@ public class PdfUtil {
     }
 
     /**
+     * Creates pdf document with Orders' info. Creates resourceBundle to localize table fields
+     *
+     * @param orders - list of orders to be placed in the document
+     * @param locale - for localization purpose
+     * @return outputStream to place in response
+     */
+    public ByteArrayOutputStream createOrdersPdf(List<OrderDTO> orders, String locale) {
+        ResourceBundle resourceBundle = getBundle(locale);
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        Document document = getDocument(output);
+        document.add(getTableTitle(resourceBundle.getString(ORDER_TITLE).toUpperCase()));
+        document.add(LINE_SEPARATOR);
+        document.add(getOrderTable(orders, resourceBundle));
+        document.close();
+        return output;
+    }
+
+    /**
      * Will create document with album orientation and font that supports cyrillic
+     *
      * @param output to create Document based on output
      * @return Document
      */
@@ -117,10 +144,18 @@ public class PdfUtil {
     }
 
     private Table getTourTable(List<TourDTO> tours, ResourceBundle resourceBundle) {
-        Table table = new Table(new float[]{4,12, 4, 6, 6, 6, 6, 4});
+        Table table = new Table(new float[]{4, 12, 4, 6, 6, 6, 6, 4});
         table.setWidth(UnitValue.createPercentValue(100));
         addTableHeader(table, TOUR_CELLS, resourceBundle);
         addTourTableRows(table, tours);
+        return table;
+    }
+
+    private Table getOrderTable(List<OrderDTO> orders, ResourceBundle resourceBundle) {
+        Table table = new Table(new float[]{1,1,1,1,1,1,1,1,1,1,1,1});
+        table.setWidth(UnitValue.createPercentValue(100));
+        addTableHeader(table, ORDER_CELLS, resourceBundle);
+        addOrderTableRows(table, orders);
         return table;
     }
 
@@ -165,6 +200,26 @@ public class PdfUtil {
         );
     }
 
+    private void addOrderTableRows(Table table, List<OrderDTO> orders) {
+        AtomicInteger iterator = new AtomicInteger();
+        orders.forEach(order ->
+                {
+                    table.addCell(String.valueOf(iterator.incrementAndGet()));
+                    table.addCell(String.valueOf(order.getDate()));
+                    table.addCell(String.valueOf(order.getId()));
+                    table.addCell(order.getOrderStatus());
+                    table.addCell(String.valueOf(order.getUserId()));
+                    table.addCell(order.getUserName());
+                    table.addCell(order.getUserSurname());
+                    table.addCell(String.valueOf(order.getTourId()));
+                    table.addCell(order.getTourTitle());
+                    table.addCell(String.valueOf(order.getTourPrice()));
+                    table.addCell(String.valueOf(order.getDiscount()));
+                    table.addCell(String.valueOf(order.getTotalCost()));
+                }
+        );
+    }
+
     /**
      * @return font that support cyrillic or null if not able to load it
      */
@@ -181,6 +236,7 @@ public class PdfUtil {
 
     /**
      * Obtains ResourceBundle based on locale. Works for any type - short - 'en', long - 'uk_UA'
+     *
      * @param locale to set ResourceBundle
      * @return ResourceBundle
      */

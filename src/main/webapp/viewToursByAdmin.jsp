@@ -12,7 +12,7 @@
     <title><fmt:message key="travel.agency"/>. <fmt:message key="view.tours"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@include file="/fragments/import_CSS_and_JS.jsp"%>
+    <%@include file="/fragments/import_CSS_and_JS.jsp" %>
 </head>
 
 <body>
@@ -44,11 +44,11 @@
 
                 <label><fmt:message key="hotel.type"/>
                     <select name="hotel" class="form-select mt-2">
-                    <option><fmt:message key="select.type"/></option>
-                    <option value="3" ${param.hotel eq "3" ? "selected" : ""}><fmt:message key="MOTEL"/></option>
-                    <option value="2" ${param.hotel eq "2" ? "selected" : ""}><fmt:message key="HOSTEL"/></option>
-                    <option value="1" ${param.hotel eq "1" ? "selected" : ""}><fmt:message key="HOTEL"/></option>
-                </select>
+                        <option><fmt:message key="select.type"/></option>
+                        <option value="3" ${param.hotel eq "3" ? "selected" : ""}><fmt:message key="MOTEL"/></option>
+                        <option value="2" ${param.hotel eq "2" ? "selected" : ""}><fmt:message key="HOSTEL"/></option>
+                        <option value="1" ${param.hotel eq "1" ? "selected" : ""}><fmt:message key="HOTEL"/></option>
+                    </select>
                 </label>
                 &nbsp;&nbsp;
                 <label for="persons"><fmt:message key="select.persons"/></label>
@@ -69,7 +69,7 @@
                         key="submit"/></button>
             </form>
 
-            <form class="col-1 offset-1 justify-content-end"  method="GET" action="controller">
+            <form class="col-1 offset-1 justify-content-end" method="GET" action="controller">
                 <input type="hidden" name="action" value="tours-pdf">
                 <input type="hidden" name="id" value="${param.id}">
                 <input type="hidden" name="title" value="${param.title}">
@@ -143,7 +143,7 @@
                     </th>
                     <th scope="col"><fmt:message key="tour.type"/></th>
                     <th scope="col"><fmt:message key="hotel.type"/></th>
-<%--                    <th scope="col"><fmt:message key="hot"/></th>--%>
+                    <%--                    <th scope="col"><fmt:message key="hot"/></th>--%>
                     <th scope="col"><fmt:message key="details"/></th>
                 </tr>
                 </thead>
@@ -153,14 +153,14 @@
                     <c:set var="hot" value="${tour.hot}"/>
                     <tr>
                         <td><c:out value="${tour.id}"/></td>
-                            <c:choose>
-                                <c:when test="${fn:length(avatar) > 100 }">
-                                    <td><img src="${tour.decodedImage}" class="rounded" height="25"></td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td><img src="img/default_user_photo.png" class="rounded" height="25"></td>
-                                </c:otherwise>
-                            </c:choose>
+                        <c:choose>
+                            <c:when test="${fn:length(avatar) > 100 }">
+                                <td><img src="${tour.decodedImage}" class="rounded" height="25"></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td><img src="img/default_user_photo.png" class="rounded" height="25"></td>
+                            </c:otherwise>
+                        </c:choose>
                         <td><c:out value="${tour.title}"/>
                             <c:if test="${fn:contains(hot, 'hot')}">
                                 <img class="mx-1" src="img/fire.png" height="17px" width="17px">
@@ -170,11 +170,11 @@
                         <td><c:out value="${tour.price}"/></td>
                         <td><fmt:message key="${tour.type}"/></td>
                         <td><fmt:message key="${tour.hotel}"/></td>
-<%--                        <td>--%>
-<%--                            <c:if test="${fn:contains(hot, 'hot')}">--%>
-<%--                                <img src="img/fire.png" height="17px" width="17px">--%>
-<%--                            </c:if>--%>
-<%--                        </td>--%>
+                            <%--                        <td>--%>
+                            <%--                            <c:if test="${fn:contains(hot, 'hot')}">--%>
+                            <%--                                <img src="img/fire.png" height="17px" width="17px">--%>
+                            <%--                            </c:if>--%>
+                            <%--                        </td>--%>
                         <td>
                             <a class="link-dark" href=controller?action=search-tour&id=${tour.id}>
                                 <img src="img/info3.png" height="20px" width="20px">
