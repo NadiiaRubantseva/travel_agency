@@ -123,7 +123,7 @@
                         <%--                            <i class="bi bi-arrow-down-up link-dark"></i>--%>
                         <%--                        </a>--%>
                     </th>
-                    <th scope="col">
+                    <th scope="col" class="col-3">
                         <fmt:message key="title"/>
                         <a href="${base.concat(byTitle).concat(titleOrder).concat(limits)}">
                             <i class="bi bi-arrow-down-up link-dark"></i>
@@ -143,7 +143,7 @@
                     </th>
                     <th scope="col"><fmt:message key="tour.type"/></th>
                     <th scope="col"><fmt:message key="hotel.type"/></th>
-                    <th scope="col"><fmt:message key="hot"/></th>
+<%--                    <th scope="col"><fmt:message key="hot"/></th>--%>
                     <th scope="col"><fmt:message key="details"/></th>
                 </tr>
                 </thead>
@@ -161,17 +161,20 @@
                                     <td><img src="img/default_user_photo.png" class="rounded" height="25"></td>
                                 </c:otherwise>
                             </c:choose>
-                        <td><c:out value="${tour.title}"/></td>
+                        <td><c:out value="${tour.title}"/>
+                            <c:if test="${fn:contains(hot, 'hot')}">
+                                <img class="mx-1" src="img/fire.png" height="17px" width="17px">
+                            </c:if>
+                        </td>
                         <td><c:out value="${tour.persons}"/></td>
                         <td><c:out value="${tour.price}"/></td>
                         <td><fmt:message key="${tour.type}"/></td>
                         <td><fmt:message key="${tour.hotel}"/></td>
-                        <td>
-                            <c:if test="${fn:contains(hot, 'hot')}">
-                                <img src="img/fire.png" height="17px" width="17px">
-                            </c:if>
-
-                        </td>
+<%--                        <td>--%>
+<%--                            <c:if test="${fn:contains(hot, 'hot')}">--%>
+<%--                                <img src="img/fire.png" height="17px" width="17px">--%>
+<%--                            </c:if>--%>
+<%--                        </td>--%>
                         <td>
                             <a class="link-dark" href=controller?action=search-tour&id=${tour.id}>
                                 <img src="img/info3.png" height="20px" width="20px">
