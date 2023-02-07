@@ -8,7 +8,7 @@
 <html lang="${sessionScope.locale}">
 
 <head>
-    <title>Travel Agency <fmt:message key="view.orders"/></title>
+    <title><fmt:message key="travel.agency"/>. <fmt:message key="view.orders"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%@include file="/fragments/import_CSS_and_JS.jsp"%>
@@ -75,7 +75,7 @@
                         <fmt:message key="user.name"/>
                     </th>
                     <th scope="col">
-                        Surname
+                        <fmt:message key="surname"/>
                     </th>
                     <th scope="col">
                         <fmt:message key="tour.id"/>

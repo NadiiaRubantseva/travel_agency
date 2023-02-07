@@ -41,7 +41,7 @@
 
             <div class="row">
                 <div class="col-md-4 offset-1">
-                    <h2 class="text-muted"> View tour </h2>
+                    <h2 class="text-muted"><fmt:message key="view.tour"/></h2>
                     <br>
                     <div class="image">
                         <c:choose>
@@ -98,7 +98,7 @@
                     <%--                        <br>--%>
                     <%--                    </div>--%>
 
-                    <label>Tour Type
+                    <label><fmt:message key="tour.type"/>
                         <select name="type" class="form-select mt-2">
                             <option disabled value="REST" ${requestScope.tour.type eq 'REST' ? 'selected' : ''}>
                                 <fmt:message key="REST"/>
@@ -112,7 +112,7 @@
                         </select>
                     </label>
 
-                    <label>Hotel Type
+                    <label><fmt:message key="hotel.type"/>
                         <select name="hotel" class="form-select mt-2">
                             <option disabled value="HOTEL" ${requestScope.tour.hotel eq 'HOTEL' ? 'selected' : ''}>
                                 <fmt:message key="HOTEL"/>
@@ -136,7 +136,7 @@
                             </c:otherwise>
                         </c:choose>
                         <label class="form-check-label" for="hot">
-                            Hot
+                            <fmt:message key="hot"/>
                         </label>
                     </div>
                     <br>

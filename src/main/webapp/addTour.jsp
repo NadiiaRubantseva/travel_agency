@@ -99,7 +99,7 @@
                     <%--                        <br>--%>
                     <%--                    </div>--%>
 
-                    <label>Tour Type
+                    <label><fmt:message key="tour.type"/>
                         <select name="type" class="form-select mt-2">
                             <option value="REST" ${requestScope.tour.type eq 'REST' ? 'selected' : ''}>
                                 <fmt:message key="REST"/>
@@ -113,7 +113,7 @@
                         </select>
                     </label>
 
-                    <label>Hotel Type
+                    <label><fmt:message key="hotel.type"/>
                         <select name="hotel" class="form-select mt-2">
                             <option value="HOTEL" ${requestScope.tour.hotel eq 'HOTEL' ? 'selected' : ''}>
                                 <fmt:message key="HOTEL"/>
@@ -130,7 +130,7 @@
                                         <div class="form-group">
                                             <input class="form-check-label" type="checkbox" name="hot" id="hot">
                                             <label class="form-check-label" for="hot">
-                                                Hot
+                                                <fmt:message key="hot"/>
                                             </label>
                                         </div>
 

@@ -12,7 +12,7 @@
     <title><fmt:message key="travel.agency"/> <fmt:message key="edit.tour"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@include file="/fragments/import_CSS_and_JS.jsp"%>
+    <%@include file="/fragments/import_CSS_and_JS.jsp" %>
 </head>
 
 <body>
@@ -33,7 +33,7 @@
 
 
             <div class="col-md-4 offset-1"><br>
-                <h2 class="text-muted"> View tour </h2><br>
+                <h2 class="text-muted"><fmt:message key="edit.tour"/></h2><br>
                 <form method="POST" action="controller" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="upload-tour-image">
                     <input type="hidden" name="id" value=${requestScope.tour.id}>
@@ -111,7 +111,7 @@
                         <br>
                     </div>
 
-                    <label>Tour Type
+                    <label><fmt:message key="tour.type"/>
                         <select name="type" class="form-select mt-2">
                             <option value="REST" ${requestScope.tour.type eq 'REST' ? 'selected' : ''}>
                                 <fmt:message key="REST"/>
@@ -125,7 +125,7 @@
                         </select>
                     </label>
 
-                    <label>Hotel Type
+                    <label><fmt:message key="hotel.type"/>
                         <select name="hotel" class="form-select mt-2">
                             <option value="HOTEL" ${requestScope.tour.hotel eq 'HOTEL' ? 'selected' : ''}>
                                 <fmt:message key="HOTEL"/>
@@ -149,7 +149,7 @@
                             </c:otherwise>
                         </c:choose>
                         <label class="form-check-label" for="hot">
-                            Hot
+                            <fmt:message key="hot"/>
                         </label>
                     </div>
                     <br>
@@ -158,7 +158,8 @@
                         <button type="submit" class="btn col-5 btn-success"><fmt:message
                                 key="edit.tour"/></button>
                     </div>
-                </form><br>
+                </form>
+                <br>
 
                 <div class="row-cols-5">
                     <button type="button" class="col-5 btn btn-danger" data-toggle="modal"

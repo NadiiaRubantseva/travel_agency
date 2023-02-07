@@ -50,7 +50,8 @@
                             <a href="searchOrder.jsp" class="dropdown-item">
                                 <fmt:message key="search.order"/></a>
                             <a href="controller?action=search-loyalty-program" class="dropdown-item">
-                                Loyalty Program</a>
+                                <fmt:message key="loyalty.program"/></a>
+                            </a>
                         </div>
                     </div>
                 </li>
