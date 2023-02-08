@@ -44,16 +44,21 @@ public class ViewToursAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         transferStringFromSessionToRequest(request, MESSAGE);
+        UserDTO userDTO = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
+
         request.setAttribute(PERSONS, request.getParameter(PERSONS));
         request.setAttribute(MIN_PRICE, request.getParameter(MIN_PRICE));
         request.setAttribute(MAX_PRICE, request.getParameter(MAX_PRICE));
 
         QueryBuilder queryBuilder = getQueryBuilder(request);
+
         request.setAttribute(TOURS, tourService.getSortedTours(queryBuilder.getQuery()));
         int numberOfRecords = tourService.getNumberOfRecords(queryBuilder.getRecordQuery());
         paginate(numberOfRecords, request);
 
-        UserDTO userDTO = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
+        if (userDTO == null) {
+            return "viewTours.jsp";
+        }
         switch (userDTO.getRole()) {
             case ADMIN: return VIEW_TOURS_BY_ADMIN_PAGE;
             case USER: return VIEW_TOURS_BY_USER_PAGE;

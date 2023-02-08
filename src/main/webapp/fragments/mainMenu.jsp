@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mx-4 mb-4 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="index.jsp"><fmt:message key="main"/></a>
+                    <a class="nav-link" aria-current="page" href="controller?action=view-tours"><fmt:message key="main"/></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="about.jsp"><fmt:message key="about"/></a>

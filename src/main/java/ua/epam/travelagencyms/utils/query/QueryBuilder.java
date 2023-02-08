@@ -18,7 +18,7 @@ public abstract class QueryBuilder {
     protected String sortField;
     protected String order = ASCENDING_ORDER;
     protected int offset = 0;
-    protected int records = 5;
+    protected int records = 8;
 
     /**
      * @param sortField by default.
