@@ -97,20 +97,40 @@
         <input type="hidden" name="action" value="update-order-status">
         <input type="hidden" name="id" value=${requestScope.order.id}>
         <input type="hidden" name="user-id" value=${requestScope.order.userId}>
-        <label class="mx-3">
-            <select name="status" class="form-select mt-2">
-                <option value="REGISTERED" ${requestScope.order.orderStatus eq 'REGISTERED' ? 'selected' : ''}>
-                    <fmt:message key="REGISTERED"/>
-                </option>
-                <option value="PAID" ${requestScope.order.orderStatus eq 'PAID' ? 'selected' : ''}>
-                    <fmt:message key="PAID"/>
-                </option>
-                <option value="CANCELED" ${requestScope.order.orderStatus eq 'CANCELED' ? 'selected' : ''}>
-                    <fmt:message key="CANCELED"/>
-                </option>
-            </select>
-        </label>
-        <button type="submit" class="btn btn-success btn-sm btn-block"><fmt:message key="set.status"/></button>
+
+
+        <c:choose>
+            <c:when test="${requestScope.order.orderStatus eq 'REGISTERED'}">
+                <label class="mx-3">
+                    <select name="status" class="form-select mt-2">
+                        <option value="REGISTERED" ${requestScope.order.orderStatus eq 'REGISTERED' ? 'selected' : ''}>
+                            <fmt:message key="REGISTERED"/>
+                        </option>
+                        <option value="PAID" ${requestScope.order.orderStatus eq 'PAID' ? 'selected' : ''}>
+                            <fmt:message key="PAID"/>
+                        </option>
+                        <option value="CANCELED" ${requestScope.order.orderStatus eq 'CANCELED' ? 'selected' : ''}>
+                            <fmt:message key="CANCELED"/>
+                        </option>
+                    </select>
+                </label>
+                <button type="submit" class="btn btn-success btn-sm btn-block"><fmt:message key="set.status"/></button>
+            </c:when>
+
+            <c:when test="${requestScope.order.orderStatus eq 'PAID'}">
+                <label class="mx-3">
+                    <select name="status" class="form-select mt-2">
+                        <option value="PAID" ${requestScope.order.orderStatus eq 'PAID' ? 'selected' : ''}>
+                            <fmt:message key="PAID"/>
+                        </option>
+                        <option value="CANCELED" ${requestScope.order.orderStatus eq 'CANCELED' ? 'selected' : ''}>
+                            <fmt:message key="CANCELED"/>
+                        </option>
+                    </select>
+                </label>
+                <button type="submit" class="btn btn-success btn-sm btn-block"><fmt:message key="set.status"/></button>
+            </c:when>
+        </c:choose>
     </form>
     <br>
 
