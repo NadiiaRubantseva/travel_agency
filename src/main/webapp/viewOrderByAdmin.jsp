@@ -20,8 +20,11 @@
 
 <jsp:include page="fragments/menuChoice.jsp"/>
 
-<div class="col-lg-5 mx-auto py-md-5">
+<div class="col-lg-5 mx-auto py-md-4">
 
+    <c:if test="${not empty requestScope.message}">
+        <span class="mx-3 my-3 text-success"><fmt:message key="${requestScope.message}"/></span>
+    </c:if>
 
     <c:set var="order" value="${requestScope.order}"/>
 

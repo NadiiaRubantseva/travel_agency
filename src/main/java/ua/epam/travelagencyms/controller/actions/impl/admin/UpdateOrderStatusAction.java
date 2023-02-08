@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.util.List;
 
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
-import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SEARCH_ORDER_ACTION;
+import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
+import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.UPDATE_ORDER_STATUS_ACTION;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.VIEW_ORDER_BY_ADMIN_PAGE;
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.PAID;
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
 /**
@@ -40,6 +43,19 @@ public class UpdateOrderStatusAction implements Action {
         userService = appContext.getUserService();
     }
 
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        return isPostMethod(request) ? executePost(request) : executeGet(request);
+    }
+
+    private String executeGet(HttpServletRequest request) {
+            transferStringFromSessionToRequest(request, MESSAGE);
+            transferStringFromSessionToRequest(request, ERROR);
+            transferOrderDTOFromSessionToRequest(request);
+            return VIEW_ORDER_BY_ADMIN_PAGE;
+    }
+
+
     /**
      * Obtains required path and updates status of the order.
      * Sets error if status value is invalid.
@@ -48,21 +64,23 @@ public class UpdateOrderStatusAction implements Action {
      * @return path to redirect to executeGet method in Search order action through front-controller with required
      * parameters to find report.
      */
-    @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public String executePost(HttpServletRequest request) throws ServiceException {
         String orderStatus = request.getParameter(STATUS);
         String orderId = request.getParameter(ID);
         String userId = request.getParameter(USER_ID);
         orderService.setStatus(orderStatus, orderId);
-        if (orderStatus.equals("PAID")) {
+        request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
+
+        if (orderStatus.equals(PAID)) {
             LoyaltyProgram loyaltyProgram = loyaltyProgramService.get();
             List<OrderDTO> orders = orderService.viewUsersOrders(Long.parseLong(userId));
-            long count = orders.stream().filter(order -> order.getOrderStatus().equals("PAID")).count();
+            long count = orders.stream().filter(order -> order.getOrderStatus().equals(PAID)).count();
             int userDiscount = (int) ((count / loyaltyProgram.getStep()) * loyaltyProgram.getDiscount());
             userDiscount = Math.min(userDiscount, loyaltyProgram.getMaxDiscount());
             userService.setDiscount(userDiscount, Long.parseLong(userId));
         }
-        request.setAttribute(ORDER, orderService.getById(orderId));
-        return getActionToRedirect(SEARCH_ORDER_ACTION, ORDER_ID, request.getParameter(ID));
+
+        request.getSession().setAttribute(ORDER, orderService.getById(orderId));
+        return getActionToRedirect(UPDATE_ORDER_STATUS_ACTION);
     }
 }

@@ -29,6 +29,13 @@ public class ParameterValues {
 
 
     /**
+     * Representing order status
+     */
+    public static final String REGISTERED = "REGISTERED";
+    public static final String PAID = "PAID";
+    public static final String CANCELED = "CANCELED";
+
+    /**
      * Available parameters and attributes values for order
      */
     public static final String ASCENDING_ORDER = "ASC";

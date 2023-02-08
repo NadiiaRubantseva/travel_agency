@@ -1,5 +1,6 @@
 package ua.epam.travelagencyms.controller.actions;
 
+import ua.epam.travelagencyms.dto.OrderDTO;
 import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.dto.UserDTO;
 
@@ -60,6 +61,18 @@ public class ActionUtil {
         if (tour != null) {
             request.setAttribute(TOUR, tour);
             request.getSession().removeAttribute(TOUR);
+        }
+    }
+
+    /**
+     * Transfers sessions attributes to request. Delete then
+     * @param request passed by action
+     */
+    public static void transferOrderDTOFromSessionToRequest(HttpServletRequest request) {
+        OrderDTO order = (OrderDTO) request.getSession().getAttribute(ORDER);
+        if (order != null) {
+            request.setAttribute(ORDER, order);
+            request.getSession().removeAttribute(ORDER);
         }
     }
 
