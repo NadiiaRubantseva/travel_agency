@@ -11,7 +11,7 @@
     <title><fmt:message key="travel.agency"/> <fmt:message key="view.user"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@include file="/fragments/import_CSS_and_JS.jsp"%>
+    <%@include file="/fragments/import_CSS_and_JS.jsp" %>
 </head>
 
 <body>
@@ -20,28 +20,81 @@
 
 <jsp:include page="fragments/menuChoice.jsp"/>
 
-<div class="col-lg-5 mx-auto p-4 py-md-5">
-        <h2 class="text-muted"><fmt:message key="view.order"/></h2>
+<div class="col-lg-5 mx-auto py-md-5">
+
 
     <c:set var="order" value="${requestScope.order}"/>
 
-    <main class="border-success shadow-lg p-5 m-5">
-        <h5><fmt:message key="id"/>:${requestScope.order.id}</h5>
-        <h5><fmt:message key="order.status"/>: ${requestScope.order.orderStatus}</h5>
-        <h5><fmt:message key="user.id"/>: ${requestScope.order.userId}</h5>
-        <h5><fmt:message key="user.name"/>: ${requestScope.order.userName}</h5>
-        <h5><fmt:message key="tour.id"/>: ${requestScope.order.tourId}</h5>
-        <h5><fmt:message key="tour.title"/>: ${requestScope.order.tourTitle}</h5>
-        <h5><fmt:message key="tour.price"/>: ${requestScope.order.tourPrice}</h5>
-        <h5><fmt:message key="order.discount"/>: ${requestScope.order.discount}</h5>
-        <h5><fmt:message key="order.total"/>: ${requestScope.order.totalCost}</h5>
-    </main>
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-light text-dark">
+                <h3 class="text-center"><fmt:message key="order.information"/></h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p><strong><fmt:message key="order.id"/>:</strong> ${requestScope.order.id}</p>
+                        <p><strong><fmt:message key="order.status"/>:</strong></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p><strong><fmt:message key="date"/>:</strong> ${requestScope.order.date}</p>
+                        <c:choose>
+                            <c:when test="${requestScope.order.orderStatus eq 'REGISTERED'}">
+                                <p><strong class="text-warning">${requestScope.order.orderStatus}</strong></p>
+                            </c:when>
+                            <c:when test="${requestScope.order.orderStatus eq 'PAID'}">
+                                <p><strong class="text-success">${requestScope.order.orderStatus}</strong></p>
+                            </c:when>
+                            <c:when test="${requestScope.order.orderStatus eq 'CANCELED'}">
+                                <p><strong class="text-danger">${requestScope.order.orderStatus}</strong></p>
+                            </c:when>
+                        </c:choose>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p><strong><fmt:message key="customer.information"/></strong></p>
+                        <p><fmt:message key="user.id"/>: ${requestScope.order.userId} <br>
+                            ${requestScope.order.userName} ${requestScope.order.userSurname}<br>
+                            ${requestScope.order.userEmail}
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p><strong><fmt:message key="tour.information"/></strong></p>
+                        <p>
+                            <fmt:message key="tour.id"/>: ${requestScope.order.tourId}<br>
+                            <fmt:message key="tour.title.name"/>: ${requestScope.order.tourTitle}<br>
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p><strong><fmt:message key="tour.price.title"/>:</strong> ${requestScope.order.tourPrice}</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p><strong><fmt:message key="order.discount.title"/>:</strong> ${requestScope.order.discount}%
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-12 text-right">
+                        <p><strong class="text-uppercase"><fmt:message
+                                key="order.total"/>:</strong> ${requestScope.order.totalCost}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <form method="POST" action="controller">
         <input type="hidden" name="action" value="update-order-status">
         <input type="hidden" name="id" value=${requestScope.order.id}>
         <input type="hidden" name="user-id" value=${requestScope.order.userId}>
-        <label>
+        <label class="mx-3">
             <select name="status" class="form-select mt-2">
                 <option value="REGISTERED" ${requestScope.order.orderStatus eq 'REGISTERED' ? 'selected' : ''}>
                     <fmt:message key="REGISTERED"/>
@@ -55,42 +108,9 @@
             </select>
         </label>
         <button type="submit" class="btn btn-success btn-sm btn-block"><fmt:message key="set.status"/></button>
-    </form><br>
+    </form>
+    <br>
 
-    <c:choose>
-        <c:when test="${requestScope.order.orderStatus != 'PAID'}">
-            <form method="POST" action="controller">
-                <input type="hidden" name="action" value="update-order-discount">
-                <input type="hidden" name="id" value=${requestScope.order.id}>
-                <input type="hidden" name="tour-price" value=${requestScope.order.tourPrice}>
-                <div class="form-group">
-                    <label class="form-label fs-4" for="discount"><fmt:message key="discount"/>: </label>
-                    <input class="form-control" type="number" name="discount" id="discount"
-                           required value="${requestScope.order.discount}">
-                    <br>
-                </div>
-                <button type="submit" class="btn btn-success btn-sm btn-block"><fmt:message key="set.discount"/></button>
-            </form>
-        </c:when>
-    </c:choose>
-
-
-<%--    <form method="POST" action="controller">--%>
-<%--        <input type="hidden" name="action" value="update-order-discount">--%>
-<%--        <input type="hidden" name="id" value=${requestScope.order.id}>--%>
-<%--        <input type="hidden" name="tour-price" value=${requestScope.order.tourPrice}>--%>
-<%--        <div class="form-group">--%>
-<%--            <label class="form-label fs-4" for="discount"><fmt:message key="discount"/>: </label>--%>
-<%--            <input class="form-control" type="number" name="discount" id="discount"--%>
-<%--                   required value="${requestScope.order.discount}">--%>
-<%--            <br>--%>
-<%--        </div>--%>
-<%--        <button type="submit" class="btn btn-success btn-sm btn-block"><fmt:message key="set.discount"/></button>--%>
-<%--    </form>--%>
-
-<%--    <button class="btn btn-dark mt-4 mb-4" data-bs-toggle="modal" data-bs-target="#exampleModalDefault">--%>
-<%--        <fmt:message key="delete"/>--%>
-<%--    </button>--%>
 </div>
 
 <jsp:include page="fragments/footer.jsp"/>

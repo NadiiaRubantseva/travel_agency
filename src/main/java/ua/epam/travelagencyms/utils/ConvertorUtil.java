@@ -127,7 +127,7 @@ public final class ConvertorUtil {
                 .id(order.getId())
                 .orderStatus(order.getOrderStatus().name())
                 .userId(user.getId())
-                .userName(user.getEmail())
+                .userEmail(user.getEmail())
                 .userName(user.getName())
                 .userSurname(user.getSurname())
                 .tourId(tour.getId())
