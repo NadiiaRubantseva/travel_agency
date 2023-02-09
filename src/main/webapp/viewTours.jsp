@@ -113,18 +113,18 @@
 
                 </div>
                 <div class="col-2">
-                    <label class="col-form-label" for="min_price">Ціна (мін)</label>
+                    <label class="col-form-label" for="min_price"><fmt:message key="price.min"/></label>
                     <input type="number" min="1" name="min_price" id="min_price" class="form-control"
                            value="${not empty requestScope.min_price ? requestScope.min_price : ""}">
                 </div>
                 <div class="col-2">
-                    <label class="col-form-label" for="max_price">Ціна (макс) </label>
+                    <label class="col-form-label" for="max_price"><fmt:message key="price.max"/></label>
                     <input type="number" min="1" name="max_price" id="max_price" class="form-control"
-                           value="${not empty requestScope.min_price ? requestScope.min_price : ""}">
+                           value="${not empty requestScope.max_price ? requestScope.max_price : ""}">
                 </div>
             </div>
-            <button type="submit" class="col-2 mt-3 btn btn-success"><fmt:message
-                    key="submit"/>
+            <button type="submit" class="col-2 mt-3 btn btn-success">
+                <fmt:message key="submit"/>
             </button>
         </form>
     </div>
@@ -180,7 +180,7 @@
                     <div class="card-footer">
                         <a href="controller?action=search-tour&id=${tour.id}"
                            class="btn btn-outline-success btn-sm">
-                            Details
+                            <fmt:message key="details"/>
                         </a>
                         <a href="controller?action=book-tour&tour-id=${tour.id}&price=${tour.price}"
                            class="btn btn-outline-warning btn-sm">

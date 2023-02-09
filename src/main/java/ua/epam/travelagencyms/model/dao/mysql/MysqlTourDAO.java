@@ -276,6 +276,7 @@ public class MysqlTourDAO implements TourDAO {
                 .typeId(resultSet.getInt(TYPE_ID))
                 .hotelId(resultSet.getInt(HOTEL_ID))
                 .imageContent(resultSet.getBytes(IMAGE))
+                .description(resultSet.getString(DESCRIPTION))
                 .build();
     }
 

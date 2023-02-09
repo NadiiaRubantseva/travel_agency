@@ -41,6 +41,9 @@ public class SearchTourAction implements Action {
         String id = request.getParameter(ID);
         String purpose = request.getParameter("purpose");
         String path = VIEW_TOUR_BY_ADMIN_PAGE;
+        if (request.getParameter("user-id") == null || request.getParameter("user-id").isEmpty()) {
+            path = "viewTour.jsp";
+        }
         if (purpose != null && purpose.equals("edit")) {
             path = EDIT_TOUR_PAGE; }
         try {

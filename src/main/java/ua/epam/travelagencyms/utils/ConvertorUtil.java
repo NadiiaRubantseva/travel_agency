@@ -78,6 +78,7 @@ public final class ConvertorUtil {
                 .hotel(String.valueOf(Hotel.getHotel(tour.getHotelId())))
                 .image(tour.getImageContent())
                 .decodedImage(ImageEncoder.encode(tour.getImageContent()))
+                .description(tour.getDescription())
                 .build();
     }
 

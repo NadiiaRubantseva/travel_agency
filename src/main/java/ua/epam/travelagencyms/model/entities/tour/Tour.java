@@ -23,6 +23,7 @@ public class Tour implements Serializable {
     private double price;
     private byte hot;
     private byte[] imageContent;
+    private String description;
     @EqualsAndHashCode.Exclude private int typeId;
     @EqualsAndHashCode.Exclude private int hotelId;
 }

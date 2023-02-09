@@ -29,6 +29,7 @@ public class SQLFields {
     public static final String TYPE_ID = "type_id";
     public static final String HOTEL_ID = "hotel_id";
     public static final String IMAGE = "image";
+    public static final String DESCRIPTION = "description";
 
     /** Fields for order table */
     public static final String TOTAL_COST = "total_cost";

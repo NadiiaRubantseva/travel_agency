@@ -19,7 +19,7 @@ public final class PaginationUtil {
      * @param request - request to get offset, records and to set other attributes
      */
     public static void paginate(int totalRecords, HttpServletRequest request) {
-        int records = getInt(request.getParameter(RECORDS), 1, 5);
+        int records = getInt(request.getParameter(RECORDS), 1, 8);
         int offset = getInt(request.getParameter(OFFSET), 0, 0);
         setAttributes(request, totalRecords, records, offset);
     }
