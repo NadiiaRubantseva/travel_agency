@@ -27,7 +27,9 @@
     <tlib-version>1.0</tlib-version>
     <jsp-version>2.0</jsp-version>
     <short-name>orderstatus</short-name>
-    <uri>http://example.com/tags/orderstatus</uri>
+    <uri>http://ua.epam.travelagencyms.com/tags/orderstatus</uri>
+
+    // for viewOrderByAdmin.jsp page
     <tag>
         <name>orderstatus</name>
         <tag-class>ua.epam.travelagencyms.controller.tag.OrderStatusTag</tag-class>
