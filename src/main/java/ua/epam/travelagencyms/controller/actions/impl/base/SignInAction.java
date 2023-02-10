@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.isPostMethod;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SIGN_IN_ACTION;
+import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.VIEW_TOURS_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.utils.constants.Email.*;
@@ -91,7 +92,9 @@ public class SignInAction implements Action {
                 sendEmail(code, email);
                 return VERIFY_EMAIL_PAGE;
             }
-
+            if (user.getRole().equalsIgnoreCase(USER)) {
+                return getActionToRedirect(VIEW_TOURS_ACTION);
+            }
             return PROFILE_PAGE;
         } catch (NoSuchUserException | IncorrectPasswordException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());

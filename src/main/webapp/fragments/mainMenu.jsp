@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <fmt:setBundle basename="resources"/>
-
+<c:set var="role" value="${sessionScope.role}"/>
 
 <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container-fluid">
@@ -14,9 +15,10 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
+
             <ul class="navbar-nav me-auto mx-4 mb-4 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="controller?action=view-tours"><fmt:message key="main"/></a>
+                    <a class="nav-link" href="controller?action=view-tours"><fmt:message key="tours"/></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="about.jsp"><fmt:message key="about"/></a>
@@ -29,7 +31,13 @@
                         <a class="nav-link" href="profile.jsp"><fmt:message key="profile"/></a>
                     </li>
                 </c:if>
+                <c:if test="${fn:contains(role, 'USER')}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="controller?action=view-orders-of-user"><fmt:message key="orders"/></a>
+                    </li>
+                </c:if>
             </ul>
+
             <ul class="navbar-nav ml-auto mx-4 mb-4 mb-md-0">
                 <c:choose>
                     <c:when test="${sessionScope.loggedUser eq null}">
@@ -64,4 +72,4 @@
 </nav>
 <br><br>
 
-<script src="js/activation.js"></script>
+<script src="js/activeLink.js"></script>

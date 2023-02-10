@@ -56,6 +56,9 @@
 
                     <h5 class="text-muted"><fmt:message key="surname"/>:</h5>
                     <p>${sessionScope.loggedUser.surname}</p>
+
+                    <h5 class="text-muted"><fmt:message key="role"/>:</h5>
+                    <p>${sessionScope.loggedUser.role}</p>
                 </div>
             </div>
         </div>

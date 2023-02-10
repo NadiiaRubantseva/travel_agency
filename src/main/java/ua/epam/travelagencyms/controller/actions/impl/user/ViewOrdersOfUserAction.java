@@ -10,6 +10,7 @@ import ua.epam.travelagencyms.utils.query.QueryBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.VIEW_ORDERS_BY_USER_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.utils.PaginationUtil.paginate;
@@ -40,6 +41,7 @@ public class ViewOrdersOfUserAction implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        transferStringFromSessionToRequest(request, MESSAGE);
         UserDTO userDTO = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
         long userId = userDTO.getId();
         QueryBuilder queryBuilder = getQueryBuilder(request);

@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
-import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_DELETE;
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_BOOK;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
 /**
@@ -65,7 +65,7 @@ public class BookTourAction implements Action {
         try {
             orderService.addOrder(order);
             System.out.println("successfully added an order");
-            request.getSession().setAttribute(MESSAGE, SUCCEED_DELETE);
+            request.getSession().setAttribute(MESSAGE, SUCCEED_BOOK);
         } catch (Exception e) {
             request.setAttribute(ERROR, e.getMessage());
             System.out.println("unsuccessfully added an order");

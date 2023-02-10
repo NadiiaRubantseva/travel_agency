@@ -5,7 +5,4 @@
     <c:when test="${sessionScope.role eq 'ADMIN'}">
         <jsp:include page="adminMenu.jsp"/>
     </c:when>
-    <c:when test="${sessionScope.role eq 'USER'}">
-        <jsp:include page="userMenu.jsp"/>
-    </c:when>
 </c:choose>
