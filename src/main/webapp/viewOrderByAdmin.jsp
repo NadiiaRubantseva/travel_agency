@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://example.com/tags/orderstatus" prefix="os" %>
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <fmt:setBundle basename="resources"/>
 
@@ -41,17 +42,7 @@
                     </div>
                     <div class="col-sm-6">
                         <p><strong><fmt:message key="date"/>:</strong> ${requestScope.order.date}</p>
-                        <c:choose>
-                            <c:when test="${requestScope.order.orderStatus eq 'REGISTERED'}">
-                                <p><strong class="text-warning">${requestScope.order.orderStatus}</strong></p>
-                            </c:when>
-                            <c:when test="${requestScope.order.orderStatus eq 'PAID'}">
-                                <p><strong class="text-success">${requestScope.order.orderStatus}</strong></p>
-                            </c:when>
-                            <c:when test="${requestScope.order.orderStatus eq 'CANCELED'}">
-                                <p><strong class="text-danger">${requestScope.order.orderStatus}</strong></p>
-                            </c:when>
-                        </c:choose>
+                        <os:orderstatus orderStatus="${requestScope.order.orderStatus}" />
                     </div>
                 </div>
                 <hr>

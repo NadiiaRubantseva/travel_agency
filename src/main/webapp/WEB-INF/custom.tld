@@ -1,22 +1,41 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--<?xml version="1.0" encoding="ISO-8859-1" ?>-->
 
-<!DOCTYPE taglib
-        PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
-        "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<!--<!DOCTYPE taglib-->
+<!--        PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"-->
+<!--        "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">-->
+
+<!--<taglib>-->
+<!--    <tlibversion>1.0</tlibversion>-->
+<!--    <jspversion>1.1</jspversion>-->
+<!--    <shortname>custom</shortname>-->
+<!--    <info>-->
+<!--        Library of tags to use for date formatting.-->
+<!--    </info>-->
+
+<!--    <tag>-->
+<!--        <name>now</name>-->
+<!--        <tagclass>ua.java.conferences.controller.tag.NowTag</tagclass>-->
+<!--        <bodycontent>empty</bodycontent>-->
+<!--        <info>-->
+<!--            Will print current date for input date min.-->
+<!--        </info>-->
+<!--    </tag>-->
+
+<!--</taglib>-->
+
 <taglib>
-    <tlibversion>1.0</tlibversion>
-    <jspversion>1.1</jspversion>
-    <shortname>custom</shortname>
-    <info>
-        Library of tags to use for date formatting.
-    </info>
-
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.0</jsp-version>
+    <short-name>orderstatus</short-name>
+    <uri>http://example.com/tags/orderstatus</uri>
     <tag>
-        <name>now</name>
-        <tagclass>ua.java.conferences.controller.tag.NowTag</tagclass>
-        <bodycontent>empty</bodycontent>
-        <info>
-            Will print current date for input date min.
-        </info>
+        <name>orderstatus</name>
+        <tag-class>ua.epam.travelagencyms.controller.tag.OrderStatusTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>orderStatus</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 </taglib>

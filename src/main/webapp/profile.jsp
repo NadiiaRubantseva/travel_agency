@@ -44,6 +44,9 @@
                         </c:choose>
                     </div>
                     <br>
+                    <div id="button" class="form-group">
+                        <a href="editProfile.jsp" class="btn btn-success mt-0 mb-1"><fmt:message key="change"/></a>
+                    </div>
                 </div>
 
                 <div class="col-sm-4">
@@ -57,16 +60,14 @@
                     <h5 class="text-muted"><fmt:message key="surname"/>:</h5>
                     <p>${sessionScope.loggedUser.surname}</p>
 
-                    <h5 class="text-muted"><fmt:message key="role"/>:</h5>
-                    <p>${sessionScope.loggedUser.role}</p>
+                    <c:if test="${sessionScope.loggedUser.role != 'USER'}">
+                        <h5 class="text-muted"><fmt:message key="role"/>:</h5>
+                        <p><fmt:message key="${sessionScope.loggedUser.role}"/></p>
+                    </c:if>
                 </div>
             </div>
         </div>
     </main>
-
-    <div id="button" class="form-group">
-        <a href="editProfile.jsp" class="btn btn-success mt-0 mb-1"><fmt:message key="change"/></a>
-    </div>
 
 </div>
 <br><br>
