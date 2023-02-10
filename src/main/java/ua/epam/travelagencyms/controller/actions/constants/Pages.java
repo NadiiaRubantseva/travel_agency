@@ -32,6 +32,8 @@ public class Pages {
     public static final String EDIT_TOUR_PAGE = "editTour.jsp";
     public static final String VIEW_TOURS_BY_ADMIN_PAGE = "viewToursByAdmin.jsp";
     public static final String VIEW_TOUR_BY_ADMIN_PAGE = "viewTourByAdmin.jsp";
+    public static final String VIEW_TOURS_PAGE = "viewTours.jsp";
+    public static final String VIEW_TOUR_PAGE = "viewTour.jsp";
     public static final String VIEW_USERS_PAGE = "viewUsers.jsp";
     public static final String VIEW_ORDERS_BY_ADMIN_PAGE = "viewOrdersByAdmin.jsp";
     public static final String VIEW_USER_BY_ADMIN_PAGE = "viewUserByAdmin.jsp";

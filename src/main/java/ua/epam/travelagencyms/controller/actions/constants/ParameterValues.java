@@ -18,7 +18,9 @@ public class ParameterValues {
     public static final String UNSUCCESSFUL_UPDATE = "not.succeed.update";
     public static final String SUCCEED_DELETE = "succeed.delete";
 
-    /** Some common errors for user */
+    /**
+     * Some common errors for user
+     */
     public static final String ACCESS_DENIED = "access.denied";
 
     /**
@@ -47,4 +49,8 @@ public class ParameterValues {
     public static final String UA = "uk_UA";
     public static final String EN = "en";
 
+    /**
+     * Search attributes
+     */
+    public static final String EDIT = "edit";
 }

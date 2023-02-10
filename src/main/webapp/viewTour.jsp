@@ -23,15 +23,24 @@
             padding: 5px 10px;
             font-weight: bold;
         }
+
         .tour-details {
             padding-left: 20px;
         }
+
         .tour-description {
             margin-top: 20px;
         }
+
         .tour-image {
             position: relative;
         }
+
+        .red-italic {
+            color: #de0202;
+            font-style: italic;
+        }
+
     </style>
 </head>
 <body>
@@ -51,7 +60,7 @@
     <div class="container-fluid">
         <form method="GET" action="controller" enctype="multipart/form-data">
             <input type="hidden" name="action" value="book-tour">
-            <input type="hidden" name="user-id" value=${sessionScope.loggedUser.id}>
+            <input type="hidden" name="tour-id" value="${requestScope.tour.id}">
 
             <c:set var="error" value="${requestScope.error}"/>
             <c:set var="decodedImage" value="${requestScope.tour.decodedImage}"/>
@@ -68,12 +77,34 @@
                         <p class="text-danger text-opacity-75"><fmt:message key="loyalty.program.note"/></p>
                     </div>
                     <div class="col-md-6 tour-details">
-                        <p><strong><fmt:message key="tour.type"/>:&nbsp</strong><fmt:message key="${requestScope.tour.type}"/></p>
+                        <p><strong><fmt:message key="tour.type"/>:&nbsp</strong><fmt:message
+                                key="${requestScope.tour.type}"/></p>
                         <p><strong><fmt:message key="persons"/>:&nbsp</strong> ${requestScope.tour.persons}</p>
-                        <p><strong><fmt:message key="tour.price"/>:&nbsp</strong> ${requestScope.tour.price}<fmt:message key="uah"/> </p>
-                        <p><strong><fmt:message key="hotel"/>:&nbsp</strong> <fmt:message key="${requestScope.tour.hotel}"/></p>
-                        <p class="tour-description"><strong><fmt:message key="tour.description"/>:&nbsp</strong> ${requestScope.tour.description}</p>
-                        <br><button class="btn btn-success"><fmt:message key="order"/></button>
+                        <p><strong><fmt:message key="hotel"/>:&nbsp</strong> <fmt:message
+                                key="${requestScope.tour.hotel}"/></p>
+                        <p class=" tour-description"><strong><fmt:message
+                                key="tour.description"/>:&nbsp</strong> ${requestScope.tour.description}</p>
+                        <p><strong><fmt:message key="tour.price"/>:&nbsp</strong> ${requestScope.tour.price}
+                            <fmt:message key="uah"/></p>
+                        <c:choose>
+                            <c:when test="${empty requestScope.discount}">
+                                <p class="red-italic"><strong><fmt:message key="discount"/>*:&nbsp</strong>Увійдіть в
+                                    обліковий запис</p>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="red-italic"><strong><fmt:message
+                                        key="discount"/>*:&nbsp</strong>${requestScope.discount}%</p>
+                            </c:otherwise>
+                        </c:choose>
+                        <p><strong>Всього до сплати:&nbsp</strong>
+                            ${requestScope.tour.price} грн
+                        </p><br>
+                        <button class="btn btn-success" onclick="return checkSession()">
+                            <fmt:message key="order"/>
+                        </button>
+
+                        <!-- Modal -->
+                        <jsp:include page="fragments/loginModal.jsp"/>
                     </div>
                 </div>
             </div>
@@ -81,8 +112,24 @@
     </div>
 </div>
 <br>
-<jsp:include page="fragments/footer.jsp"/>
 
+
+<jsp:include page="fragments/footer.jsp"/>
+<jsp:include page="fragments/bookModal.jsp"/>
+
+<script type="text/javascript">
+    function checkSession() {
+        var userId = "${sessionScope.loggedUser.id}";
+
+        if (userId) {
+            $('#book').modal('show');
+            return false;
+        } else {
+            $('#loginModal').modal('show');
+            return false;
+        }
+    }
+</script>
 
 </body>
 </html>

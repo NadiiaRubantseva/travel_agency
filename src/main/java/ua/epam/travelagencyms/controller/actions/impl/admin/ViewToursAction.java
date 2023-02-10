@@ -2,7 +2,6 @@ package ua.epam.travelagencyms.controller.actions.impl.admin;
 
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
-import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.TourService;
 import ua.epam.travelagencyms.utils.query.QueryBuilder;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.ADMIN;
-import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.USER;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.utils.PaginationUtil.paginate;
 import static ua.epam.travelagencyms.utils.QueryBuilderUtil.tourQueryBuilder;
@@ -44,26 +42,23 @@ public class ViewToursAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         transferStringFromSessionToRequest(request, MESSAGE);
-        UserDTO userDTO = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
+        String path = VIEW_TOURS_PAGE;
+        String view = request.getParameter(VIEW);
+
+        if (view != null && view.equalsIgnoreCase(ADMIN)) {
+            path = VIEW_TOURS_BY_ADMIN_PAGE;
+        }
 
         request.setAttribute(PERSONS, request.getParameter(PERSONS));
         request.setAttribute(MIN_PRICE, request.getParameter(MIN_PRICE));
         request.setAttribute(MAX_PRICE, request.getParameter(MAX_PRICE));
 
         QueryBuilder queryBuilder = getQueryBuilder(request);
-
         request.setAttribute(TOURS, tourService.getSortedTours(queryBuilder.getQuery()));
         int numberOfRecords = tourService.getNumberOfRecords(queryBuilder.getRecordQuery());
         paginate(numberOfRecords, request);
 
-        if (userDTO == null) {
-            return "viewTours.jsp";
-        }
-        switch (userDTO.getRole()) {
-            case ADMIN: return VIEW_TOURS_BY_ADMIN_PAGE;
-            case USER: return VIEW_TOURS_BY_USER_PAGE;
-        }
-        return INDEX_PAGE;
+        return path;
     }
 
     private QueryBuilder getQueryBuilder(HttpServletRequest request) {

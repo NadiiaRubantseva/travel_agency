@@ -65,6 +65,7 @@ public class Parameters {
     public static final String ORDERS = "orders";
     public static final String DISCOUNT = "discount";
     public static final String DATE = "date";
+    public static final String TOTAL = "total";
 
 
     /**
@@ -104,6 +105,12 @@ public class Parameters {
      * Parameter and attribute to get or set locale
      */
     public static final String LOCALE = "locale";
-
     public static final String CURRENT_PATH = "currentPath";
+
+    /**
+     * Search parameter
+     */
+    public static final String PURPOSE = "purpose";
+    public static final String VIEW = "view";
+
 }

@@ -32,7 +32,7 @@
                                                                                                  height="25px"><fmt:message
                                 key="tours"/></a>
                         <div class="dropdown-menu">
-                            <a href="controller?action=view-tours" class="dropdown-item"><fmt:message
+                            <a href="controller?action=view-tours&view=admin" class="dropdown-item"><fmt:message
                                     key="view.tours"/></a>
                             <a href="searchTour.jsp" class="dropdown-item"><fmt:message key="search.tour"/></a>
                             <a href="addTour.jsp" class="dropdown-item"> <fmt:message key="add.tour"/></a>

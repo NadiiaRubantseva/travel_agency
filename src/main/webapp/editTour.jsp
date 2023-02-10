@@ -38,13 +38,13 @@
                     <input type="hidden" name="action" value="upload-tour-image">
                     <input type="hidden" name="id" value=${requestScope.tour.id}>
                     <c:set var="error" value="${requestScope.error}"/>
-                    <c:set var="decodedImage" value="${requestScope.image}"/>
+                    <c:set var="decodedImage" value="${requestScope.tour.decodedImage}"/>
 
                     <div class="row">
                         <div class="image col-md-2">
                             <c:choose>
                                 <c:when test="${fn:length(decodedImage) > 100}">
-                                    <img src="${requestScope.image}" class="rounded" width="200">
+                                    <img src="${requestScope.tour.decodedImage}" class="rounded" width="200">
                                 </c:when>
                                 <c:otherwise>
                                     <img src="img/no-tour-image.png" class="rounded" width="200">

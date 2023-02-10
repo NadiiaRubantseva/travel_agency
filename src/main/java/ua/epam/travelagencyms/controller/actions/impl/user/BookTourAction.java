@@ -3,10 +3,8 @@ package ua.epam.travelagencyms.controller.actions.impl.user;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.OrderDTO;
-import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.OrderService;
-import ua.epam.travelagencyms.model.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
+import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_DELETE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
@@ -27,14 +27,12 @@ import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
  */
 public class BookTourAction implements Action {
     private final OrderService orderService;
-    private final UserService userService;
 
     /**
      * @param appContext contains OrderService and UserService instances to use in action
      */
     public BookTourAction(AppContext appContext) {
         orderService = appContext.getOrderService();
-        userService = appContext.getUserService();
     }
 
     /**
@@ -47,33 +45,33 @@ public class BookTourAction implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String path = VIEW_TOURS_BY_USER_PAGE;
-        UserDTO user = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
+        String userId = request.getParameter(USER_ID);
         String tourId = request.getParameter(TOUR_ID);
         String tourPrice = request.getParameter(PRICE);
+        String discount = request.getParameter(DISCOUNT);
+        String total = request.getParameter(TOTAL);
+
+        OrderDTO order = OrderDTO.builder()
+                .userId(Long.parseLong(userId))
+                .tourId(Long.parseLong(tourId))
+                .tourPrice(Double.parseDouble(tourPrice))
+                .discount(Integer.parseInt(discount))
+                .totalCost(Double.parseDouble(total))
+                .date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
+                .build();
+
+        System.out.println(order);
+
         try {
-            int discount = userService.getDiscount(user.getId());
-            OrderDTO order = OrderDTO.builder()
-                    .userId(user.getId())
-                    .tourId(Long.parseLong(tourId))
-                    .tourPrice(Double.parseDouble(tourPrice))
-                    .discount(discount)
-                    .totalCost(calculateTotalPrice(Double.parseDouble(tourPrice), discount))
-                    .date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
-                    .build();
             orderService.addOrder(order);
+            System.out.println("successfully added an order");
+            request.getSession().setAttribute(MESSAGE, SUCCEED_DELETE);
         } catch (Exception e) {
             request.setAttribute(ERROR, e.getMessage());
-            path = SEARCH_TOUR_PAGE;
+            System.out.println("unsuccessfully added an order");
+            return VIEW_TOUR_PAGE;
         }
-        request.getSession().setAttribute(CURRENT_PATH, path);
-        request.getSession().setAttribute(MESSAGE, SUCCEED_DELETE);
-        return BOOK_TOUR_CONFIRMATION_PAGE;
-    }
-
-    private double calculateTotalPrice(double price, int discount) {
-        double discountValue = (price * discount) / 100;
-        return price - discountValue;
+        return getActionToRedirect(VIEW_ORDERS_OF_USER_ACTION);
     }
 
 }

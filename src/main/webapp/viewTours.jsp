@@ -123,7 +123,7 @@
                            value="${not empty requestScope.max_price ? requestScope.max_price : ""}">
                 </div>
             </div>
-            <button type="submit" class="col-2 mt-3 btn btn-success">
+            <button type="submit" class="col-2 mt-3 btn btn-success btn-sm">
                 <fmt:message key="submit"/>
             </button>
         </form>
@@ -177,14 +177,10 @@
                             <span style="float: right;"><fmt:message key="${tour.hotel}"/></span><br>
                         </p>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer text-center">
                         <a href="controller?action=search-tour&id=${tour.id}"
                            class="btn btn-outline-success btn-sm">
-                            <fmt:message key="details"/>
-                        </a>
-                        <a href="controller?action=book-tour&tour-id=${tour.id}&price=${tour.price}"
-                           class="btn btn-outline-warning btn-sm">
-                            <fmt:message key="order"/>
+                            <fmt:message key="see.tour"/>
                         </a>
                     </div>
                 </div>
