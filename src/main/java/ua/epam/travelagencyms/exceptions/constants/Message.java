@@ -15,6 +15,7 @@ public class Message {
     public static final String PASSWORD_MATCHING = "error.pass.match";
     public static final String WRONG_PASSWORD = "error.pass.wrong";
     public static final String DUPLICATE_EMAIL = "error.email.duplicate";
+    public static final String BAD_IMAGE = "error.image.bad";
     public static final String ENTER_CORRECT_NAME = "error.name.format";
     public static final String ENTER_CORRECT_SURNAME = "error.surname.format";
     public static final String ENTER_CORRECT_TITLE = "error.title.format";

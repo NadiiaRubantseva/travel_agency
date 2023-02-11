@@ -31,6 +31,7 @@ public class ConstantsForTest {
     public static final String HOTEL_VALUE = "HOSTEL";
     public static final byte[] IMAGE_VALUE = new byte[]{1,1,1,1,1};
     public static final String DECODED_IMAGE_VALUE = "DECODED IMAGE";
+    public static final String DESCRIPTION_VALUE = "My awesome description";
 
 
     // pdf

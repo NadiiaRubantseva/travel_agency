@@ -55,6 +55,7 @@ public class Parameters {
     public static final String TYPE = "type";
     public static final String HOTEL = "hotel";
     public static final String IMAGE = "image";
+    public static final String DESCRIPTION = "description";
 
 
     /**

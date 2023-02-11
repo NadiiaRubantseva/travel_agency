@@ -7,21 +7,17 @@ import ua.epam.travelagencyms.exceptions.DuplicateTitleException;
 import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.TourService;
-import ua.epam.travelagencyms.utils.ConvertorUtil;
 import ua.epam.travelagencyms.utils.ImageEncoder;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
-import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.EDIT;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
+import static ua.epam.travelagencyms.exceptions.constants.Message.BAD_IMAGE;
 
 /**
  * This is EditTourAction class. Accessible by admin. Allows to change tour's text information.
@@ -76,13 +72,13 @@ public class EditTourAction implements Action {
             isEmpty = request.getPart(IMAGE).getSize() == 0;
             tourImage = isEmpty ? tourService.getImage(request.getParameter(TOUR_ID)) : request.getPart(IMAGE).getInputStream().readAllBytes();
         } catch (Exception e) {
-            throw new ServiceException("failed to load an image");
+            request.getSession().setAttribute(ERROR, BAD_IMAGE);
+            return getActionToRedirect(EDIT_TOUR_ACTION);
         }
 
         String decodedImage = ImageEncoder.encode(tourImage);
 
         System.out.println("before parsing request.getParameter(TOUR_ID)");
-        request.getParameter(TOUR_ID);
 
         TourDTO tour = TourDTO.builder()
                 .id(Long.parseLong(request.getParameter(TOUR_ID)))
@@ -101,7 +97,7 @@ public class EditTourAction implements Action {
         try {
             tourService.update(tour);
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
-            return getActionToRedirect(SEARCH_TOUR_ACTION, ID, request.getParameter(TOUR_ID));
+            return getActionToRedirect(SEARCH_TOUR_ACTION, TOUR_ID, request.getParameter(TOUR_ID));
 
         } catch (IncorrectFormatException | DuplicateTitleException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());

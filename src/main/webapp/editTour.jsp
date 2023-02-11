@@ -23,6 +23,20 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+        $(document).ready(function() {
+            $("#image").change(function() {
+                var file = this.files[0];
+                var imagefile = file.type;
+                var match = ["image/jpeg", "image/png", "image/jpg"];
+                if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2])))
+                {
+                    $('#preview').attr('src', '');
+                    alert("Please select a valid image file (JPEG/JPG/PNG).");
+                    return false;
+                }
+            });
+        });
     </script>
 </head>
 
@@ -56,23 +70,32 @@
                     <div class="image">
                         <div class="form-group">
                             <img id="preview"
-                                 src="<c:if test="${not empty image}">${image}</c:if>
-                                        <c:if test="${fn:length(image) > 100}">img/no-tour-image.jpg</c:if>"
+                            <c:choose>
+                                <c:when test="${fn:length(image) > 100 }">
+                                    <img src="${image}"
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="img/no-tour-image.png"
+                                </c:otherwise>
+                            </c:choose>
                                  alt="Image Preview"
                                  style="max-width: 250px; max-height: 250px">
                         </div>
+                        <br>
                         <div class="form-group">
                             <label for="image"></label> <input type="file"
                                                                class="form-control-file" id="image"
                                                                name="image"
+                                                               accept="image/*"
                                                                onchange="readURL(this);">
                         </div>
                     </div>
 
+                    <br>
+
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" id="description" rows="3" name="description">
-                            ${requestScope.tour.description}</textarea>
+                        <textarea class="form-control" id="description" rows="3" name="description">${requestScope.tour.description}</textarea>
                     </div>
                 </div>
 
