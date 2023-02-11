@@ -46,13 +46,17 @@
                     <div class="image">
                         <c:choose>
                             <c:when test="${fn:length(decodedImage) > 100}">
-                                <img src="${requestScope.tour.decodedImage}" class="rounded" width="300">
+                                <img src="${requestScope.tour.decodedImage}" class="rounded" style="max-width: 250px; max-height: 250px">
                             </c:when>
                             <c:otherwise>
-                                <img src="img/no-tour-image.png" class="rounded" width="300">
+                                <img src="img/no-tour-image.png" class="rounded" style="max-width: 250px; max-height: 250px">
                             </c:otherwise>
                         </c:choose>
                     </div> <br>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" rows="3" name="description" disabled>${requestScope.tour.description}</textarea>
+                    </div>
                 </div>
 
                 <div class="col-md-5 offset-1">

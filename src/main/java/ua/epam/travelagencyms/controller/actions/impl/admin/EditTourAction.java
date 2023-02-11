@@ -8,13 +8,18 @@ import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.TourService;
 import ua.epam.travelagencyms.utils.ConvertorUtil;
+import ua.epam.travelagencyms.utils.ImageEncoder;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.EDIT;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
@@ -50,7 +55,6 @@ public class EditTourAction implements Action {
         transferStringFromSessionToRequest(request, MESSAGE);
         transferStringFromSessionToRequest(request, ERROR);
         transferTourDTOFromSessionToRequest(request);
-        transferTourImageFromSessionToRequest(request);
         return EDIT_TOUR_PAGE;
     }
 
@@ -62,18 +66,46 @@ public class EditTourAction implements Action {
      * @return viewTourByAdmin.jsp in case of successful edit, otherwise editTour.jsp.
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
-        String path = VIEW_TOUR_BY_ADMIN_PAGE;
-        TourDTO tour = ConvertorUtil.getFullTourDTOFromRequest(request);
+
+        System.out.println("in post method");
+
+        boolean isEmpty;
+        byte [] tourImage;
+
+        try {
+            isEmpty = request.getPart(IMAGE).getSize() == 0;
+            tourImage = isEmpty ? tourService.getImage(request.getParameter(TOUR_ID)) : request.getPart(IMAGE).getInputStream().readAllBytes();
+        } catch (Exception e) {
+            throw new ServiceException("failed to load an image");
+        }
+
+        String decodedImage = ImageEncoder.encode(tourImage);
+
+        System.out.println("before parsing request.getParameter(TOUR_ID)");
+        request.getParameter(TOUR_ID);
+
+        TourDTO tour = TourDTO.builder()
+                .id(Long.parseLong(request.getParameter(TOUR_ID)))
+                .title(request.getParameter(TITLE))
+                .persons(Integer.parseInt(request.getParameter(PERSONS)))
+                .price(Double.parseDouble(request.getParameter(PRICE)))
+                .hot(request.getParameter(HOT) == null ? null : HOT)
+                .type(request.getParameter(TYPE))
+                .hotel(request.getParameter(HOTEL))
+                .image(tourImage)
+                .decodedImage(decodedImage)
+                .build();
+
         request.getSession().setAttribute(TOUR, tour);
-        request.getSession().setAttribute(IMAGE, tour.getDecodedImage());
+
         try {
             tourService.update(tour);
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
+            return getActionToRedirect(SEARCH_TOUR_ACTION, ID, request.getParameter(TOUR_ID));
+
         } catch (IncorrectFormatException | DuplicateTitleException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
-            path = EDIT_TOUR_PAGE;
+            return getActionToRedirect(EDIT_TOUR_ACTION);
         }
-        request.getSession().setAttribute(CURRENT_PATH, path);
-        return getActionToRedirect(SEARCH_TOUR_ACTION, ID, String.valueOf(tour.getId()));
     }
 }

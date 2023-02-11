@@ -216,7 +216,7 @@ public class TourServiceImpl implements TourService {
     }
 
     private void checkExceptionType(DAOException e) throws ServiceException {
-        if (e.getMessage().contains("duplicate")) {
+        if (e.getMessage().contains("Duplicate")) {
             throw new DuplicateTitleException();
         } else {
             throw new ServiceException(e);

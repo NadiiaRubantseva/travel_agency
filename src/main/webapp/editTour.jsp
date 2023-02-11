@@ -13,6 +13,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%@include file="/fragments/import_CSS_and_JS.jsp" %>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -20,6 +31,7 @@
 <jsp:include page="fragments/mainMenu.jsp"/>
 
 <jsp:include page="fragments/menuChoice.jsp"/>
+
 <div class="col-lg-12 mx-auto p-1 py-md-1">
     <header class="d-flex align-items-center pb-0 mb-3 border-bottom offset-1">
         <c:if test="${not empty requestScope.message}">
@@ -27,64 +39,50 @@
         </c:if><br>
     </header>
 
+
     <div class="container-fluid">
-        <div class="row">
-            <%--            <h2 class="text-muted offset-md-1 pt-1 pb-0"> Edit tour </h2>--%>
+        <form method="POST" action="controller" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="edit-tour">
+            <input type="hidden" name="tour-id" value=${requestScope.tour.id}>
 
 
-            <div class="col-md-4 offset-1"><br>
-                <h2 class="text-muted"><fmt:message key="edit.tour"/></h2><br>
-                <form method="POST" action="controller" enctype="multipart/form-data">
-                    <input type="hidden" name="action" value="upload-tour-image">
-                    <input type="hidden" name="id" value=${requestScope.tour.id}>
-                    <c:set var="error" value="${requestScope.error}"/>
-                    <c:set var="decodedImage" value="${requestScope.tour.decodedImage}"/>
+            <c:set var="error" value="${requestScope.error}"/>
+            <c:set var="image" value="${requestScope.tour.decodedImage}"/>
 
-                    <div class="row">
-                        <div class="image col-md-2">
-                            <c:choose>
-                                <c:when test="${fn:length(decodedImage) > 100}">
-                                    <img src="${requestScope.tour.decodedImage}" class="rounded" width="200">
-                                </c:when>
-                                <c:otherwise>
-                                    <img src="img/no-tour-image.png" class="rounded" width="200">
-                                </c:otherwise>
-                            </c:choose>
+            <div class="row">
+                <div class="col-md-4 offset-1">
+                    <h2 class="text-muted"><fmt:message key="view.tour"/></h2>
+                    <br>
+                    <div class="image">
+                        <div class="form-group">
+                            <img id="preview"
+                                 src="<c:if test="${not empty image}">${image}</c:if>
+                                        <c:if test="${fn:length(image) > 100}">img/no-tour-image.jpg</c:if>"
+                                 alt="Image Preview"
+                                 style="max-width: 250px; max-height: 250px">
                         </div>
-                        <br>
-                        <div class="image col-md-2 offset-5"><br>
-                            <input type="file" name="image" accept="image/*" onchange="loadFile(event)">
-                            <br><br>
-                            <img id="output" height="100" width="100" class="rounded"/>
-                            <br><br>
-                            <script>
-                                var loadFile = function (event) {
-                                    var output = document.getElementById('output');
-                                    output.src = URL.createObjectURL(event.target.files[0]);
-                                    output.onload = function () {
-                                        URL.revokeObjectURL(output.src) // free memory
-                                    }
-                                };
-                            </script>
+                        <div class="form-group">
+                            <label for="image"></label> <input type="file"
+                                                               class="form-control-file" id="image"
+                                                               name="image"
+                                                               onchange="readURL(this);">
                         </div>
                     </div>
-                    <br>
-                    <button type="submit" class="btn col-3 btn-success">Upload</button>
-                </form>
-            </div>
 
-            <div class="col-md-4 offset-2">
-                <form method="POST" action="controller" enctype="multipart/form-data">
-                    <input type="hidden" name="action" value="edit-tour">
-                    <input type="hidden" name="id" value=${requestScope.tour.id}>
-                    <c:set var="error" value="${requestScope.error}"/>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" rows="3" name="description">
+                            ${requestScope.tour.description}</textarea>
+                    </div>
+                </div>
 
+                <div class="col-md-5 offset-1">
                     <div class="form-group">
                         <label class="form-label fs-5" for="title"><fmt:message key="title"/>*: </label>
                         <input class="form-control" type="text" name="title" id="title"
                                title="<fmt:message key="title.requirements"/>"
                                pattern="^[A-Za-zА-ЩЬЮЯҐІЇЄа-щьюяґіїє'\- ]{1,30}"
-                               required value="${requestScope.tour.title}">
+                               value="${requestScope.tour.title}">
                         <c:if test="${fn:contains(error, 'title')}">
                             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
                         </c:if>
@@ -94,7 +92,7 @@
                     <div class="form-group">
                         <label class="form-label fs-5" for="persons"><fmt:message key="persons"/>*: </label>
                         <input class="form-control" type="number" name="persons" id="persons"
-                               required value="${requestScope.tour.persons}">
+                               value="${requestScope.tour.persons}">
                         <c:if test="${fn:contains(error, 'persons')}">
                             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
                         </c:if>
@@ -104,7 +102,7 @@
                     <div class="form-group">
                         <label class="form-label fs-5" for="price"><fmt:message key="price"/>*: </label>
                         <input class="form-control" type="number" name="price" id="price"
-                               required value="${requestScope.tour.price}">
+                               value="${requestScope.tour.price}">
                         <c:if test="${fn:contains(error, 'price')}">
                             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
                         </c:if>
@@ -153,48 +151,39 @@
                         </label>
                     </div>
                     <br>
-
-                    <div class="row-cols-5">
-                        <button type="submit" class="btn col-5 btn-success"><fmt:message
-                                key="edit.tour"/></button>
-                    </div>
-                </form>
-                <br>
-
-                <div class="row-cols-5">
-                    <button type="button" class="col-5 btn btn-danger" data-toggle="modal"
-                            data-target="#delete-tour">
-                        <fmt:message key="delete"/>
-                    </button>
-                    <div id="delete-tour" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content rounded-4 shadow">
-                                <div class="modal-header border-bottom-0">
-                                    <h1 class="modal-title fs-5 text-md-center" id="exampleModalLabel">
-                                        <fmt:message
-                                                key="delete.tour"/></h1>
-                                    <button type="button" class="btn-close" data-dismiss="modal"></button>
-                                </div>
-                                <div class="modal-body py-0">
-                                    <p><fmt:message key="delete.tour.confirmation"/></p>
-                                </div>
-                                <div class="modal-footer flex-column border-top-0">
-                                    <form method="POST" action="controller">
-                                        <input type="hidden" name="action" value="delete-tour">
-                                        <input type="hidden" name="tour-id" value=${requestScope.tour.id}>
-                                        <button type="submit" class="btn btn-danger mt-0 mb-1"><fmt:message
-                                                key="yes"/></button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <button type="submit" class="btn btn-success mt-0 mb-1"><fmt:message key="edit.tour"/></button>
                 </div>
             </div>
-        </div>
+        </form>
+        <%--        <div>--%>
+        <%--            <button type="button" class="col-5 offset-6 btn btn-danger" data-toggle="modal" data-target="#delete-tour">--%>
+        <%--                <fmt:message key="delete"/>--%>
+        <%--            </button>--%>
+        <%--            <div id="delete-tour" class="modal fade"  role="dialog">--%>
+        <%--                <div class="modal-dialog">--%>
+        <%--                    <div class="modal-content rounded-4 shadow">--%>
+        <%--                        <div class="modal-header border-bottom-0">--%>
+        <%--                            <h1 class="modal-title fs-5 text-md-center" id="exampleModalLabel"><fmt:message--%>
+        <%--                                    key="delete.tour"/></h1>--%>
+        <%--                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>--%>
+        <%--                        </div>--%>
+        <%--                        <div class="modal-body py-0">--%>
+        <%--                            <p><fmt:message key="delete.tour.confirmation"/></p>--%>
+        <%--                        </div>--%>
+        <%--                        <div class="modal-footer flex-column border-top-0">--%>
+        <%--                            <form method="POST" action="controller">--%>
+        <%--                                <input type="hidden" name="action" value="delete-tour">--%>
+        <%--                                <input type="hidden" name="tour-id" value=${requestScope.tour.id}>--%>
+        <%--                                <button type="submit" class="btn btn-dark mt-4 mb-4"><fmt:message key="yes"/></button>--%>
+        <%--                            </form>--%>
+        <%--                        </div>--%>
+        <%--                    </div>--%>
+        <%--                </div>--%>
+        <%--            </div>--%>
+        <%--        </div>--%>
     </div>
 </div>
-
+<br>
 <jsp:include page="fragments/footer.jsp"/>
 
 

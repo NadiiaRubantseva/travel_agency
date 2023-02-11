@@ -13,6 +13,7 @@ import ua.epam.travelagencyms.model.services.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.ADMIN;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.EDIT;
@@ -44,6 +45,8 @@ public class SearchTourAction implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        transferStringFromSessionToRequest(request, MESSAGE);
+        transferStringFromSessionToRequest(request, ERROR);
         String path = VIEW_TOUR_PAGE;
         String id = request.getParameter(ID);
         String purpose = request.getParameter(PURPOSE);

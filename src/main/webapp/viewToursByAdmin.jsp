@@ -158,7 +158,7 @@
                                 <td><img src="${tour.decodedImage}" class="rounded" height="25"></td>
                             </c:when>
                             <c:otherwise>
-                                <td><img src="img/default_user_photo.png" class="rounded" height="25"></td>
+                                <td><img src="img/no-tour-image.png" class="rounded" height="25"></td>
                             </c:otherwise>
                         </c:choose>
                         <td><c:out value="${tour.title}"/>

@@ -53,7 +53,6 @@ public class ActionFactory {
         ACTION_MAP.put(DELETE_USER_ACTION, new DeleteUserAction(APP_CONTEXT));
         ACTION_MAP.put(VIEW_TOURS_ACTION, new ViewToursAction(APP_CONTEXT));
         ACTION_MAP.put(ADD_TOUR_ACTION, new AddTourAction(APP_CONTEXT));
-        ACTION_MAP.put(UPLOAD_IMAGE_TOUR_ACTION, new UploadTourImageAction(APP_CONTEXT));
         ACTION_MAP.put(SEARCH_TOUR_ACTION, new SearchTourAction(APP_CONTEXT));
         ACTION_MAP.put(EDIT_TOUR_ACTION, new EditTourAction(APP_CONTEXT));
         ACTION_MAP.put(DELETE_TOUR_ACTION, new DeleteTourAction(APP_CONTEXT));

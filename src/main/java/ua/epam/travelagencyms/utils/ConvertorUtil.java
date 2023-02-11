@@ -161,21 +161,4 @@ public final class ConvertorUtil {
                 .build();
     }
 
-    public static TourDTO getFullTourDTOFromRequest(HttpServletRequest request) throws ServiceException {
-        TourService tourService = AppContext.getAppContext().getTourService();
-        String id = request.getParameter(ID);
-        byte[]image = tourService.getImage(id);
-
-        return TourDTO.builder()
-                .id(Long.parseLong(request.getParameter(ID)))
-                .title(request.getParameter(TITLE))
-                .persons(Integer.parseInt(request.getParameter(PERSONS)))
-                .price(Double.parseDouble(request.getParameter(PRICE)))
-                .hot(request.getParameter(HOT) == null ? null : HOT)
-                .type(request.getParameter(TYPE))
-                .hotel(request.getParameter(HOTEL))
-                .image(image)
-                .decodedImage(ImageEncoder.encode(image))
-                .build();
-    }
 }
