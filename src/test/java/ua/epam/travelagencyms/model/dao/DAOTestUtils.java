@@ -24,9 +24,9 @@ public final class DAOTestUtils {
     public static Tour getTestTour() {
         return Tour.builder()
                 .id(ID_VALUE)
-                .title(TITLE)
+                .title(TITLE_VALUE)
                 .persons(PERSONS)
-                .price(PRICE)
+                .price(Double.parseDouble(PRICE_VALUE))
                 .hot((byte) 0)
                 .typeId(TYPE_ID)
                 .hotelId(HOTEL_ID)

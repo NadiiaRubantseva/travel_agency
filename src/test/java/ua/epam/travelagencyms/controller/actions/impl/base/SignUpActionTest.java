@@ -67,8 +67,8 @@ class SignUpActionTest {
         when(request.getParameter(EMAIL)).thenReturn(EMAIL_VALUE);
         when(request.getParameter(NAME)).thenReturn(NAME_VALUE);
         when(request.getParameter(SURNAME)).thenReturn(SURNAME_VALUE);
-        when(request.getParameter(PASSWORD)).thenReturn(PASS_VALUE);
-        when(request.getParameter(CONFIRM_PASSWORD)).thenReturn(PASS_VALUE);
+        when(request.getParameter(PASSWORD)).thenReturn(PASSWORD_VALUE);
+        when(request.getParameter(CONFIRM_PASSWORD)).thenReturn(PASSWORD_VALUE);
         when(request.getServletPath()).thenReturn(SERVLET_PATH);
         when(request.getRequestURL()).thenReturn(REQUEST_URL);
     }

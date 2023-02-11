@@ -41,7 +41,7 @@ class ResetPasswordActionTest {
         when(appContext.getEmailSender()).thenReturn(emailSender);
         doNothing().when(emailSender).send(isA(String.class), isA(String.class), isA(String.class));
         when(userService.getByEmail(EMAIL_VALUE)).thenReturn(getUserDTO());
-        when(userService.changePassword(getUserDTO().getId())).thenReturn(PASS_VALUE);
+        when(userService.changePassword(getUserDTO().getId())).thenReturn(PASSWORD_VALUE);
         String path = new ResetPasswordAction(appContext).execute(myRequest, response);
 
         assertEquals(getActionToRedirect(PASSWORD_RESET_ACTION), path);

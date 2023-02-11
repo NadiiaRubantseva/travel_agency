@@ -93,7 +93,7 @@
                 <tr>
 
                     <c:set var="base"
-                           value="controller?action=view-tours&type=${param.type}&hotel=${param.hotel}&persons=${param.persons}&price=${param.price}&"/>
+                           value="controller?action=view-tours&view=admin&type=${param.type}&hotel=${param.hotel}&persons=${param.persons}&price=${param.price}&"/>
 
                     <c:set var="byId" value="sort=id&"/>
                     <c:set var="byTitle" value="sort=title&"/>
@@ -188,7 +188,7 @@
     </div>
 
     <c:set var="href"
-           value="controller?action=view-tours&type=${param.type}&sort=${param.sort}&order=${param.order}&persons=${requestScope.persons}&min_price=${requestScope.min_price}&max_price=${requestScope.max_price}&"
+           value="controller?action=view-tours&view=admin&type=${param.type}&sort=${param.sort}&order=${param.order}&persons=${requestScope.persons}&min_price=${requestScope.min_price}&max_price=${requestScope.max_price}&"
            scope="request"/>
 
     <jsp:include page="/fragments/pagination.jsp"/>

@@ -53,15 +53,29 @@ public class MethodsForTest {
         return users;
     }
 
+    public static TourDTO getTourDTO() {
+        return TourDTO.builder()
+                .id(ID_VALUE)
+                .title(TITLE_VALUE)
+                .persons(Integer.parseInt(PERSONS_VALUE))
+                .price(Double.parseDouble(PRICE_VALUE))
+                .hot(HOT_VALUE)
+                .type(TYPE_VALUE)
+                .hotel(HOTEL_VALUE)
+                .image(IMAGE_VALUE)
+                .decodedImage(DECODED_IMAGE_VALUE)
+                .build();
+    }
+
     public static TourDTO getTestTourDTO() {
         return TourDTO.builder()
                 .id(ID_VALUE)
                 .title(TITLE_VALUE)
-                .persons(PERSONS_VALUE)
-                .price(PRICE_VALUE)
+                .persons(Integer.parseInt(PERSONS_VALUE))
+                .price(Double.parseDouble(PRICE_VALUE))
                 .hot(HOT_VALUE)
-                .type(TYPE_TOUR_VALUE)
-                .hotel(HOTEL_TOUR_VALUE)
+                .type(TYPE_VALUE)
+                .hotel(HOTEL_VALUE)
                 .build();
     }
 }

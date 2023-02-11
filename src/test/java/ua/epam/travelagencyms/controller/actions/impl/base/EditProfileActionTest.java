@@ -43,8 +43,8 @@ class EditProfileActionTest {
 
         assertEquals(getActionToRedirect(EDIT_PROFILE_ACTION), path);
         assertEquals(SUCCEED_UPDATE, myRequest.getSession().getAttribute(MESSAGE));
-        assertEquals(NEW_NAME, user.getName());
-        assertEquals(NEW_SURNAME, user.getSurname());
+        assertEquals(NEW_NAME_VALUE, user.getName());
+        assertEquals(NEW_SURNAME_VALUE, user.getSurname());
     }
 
     @Test
@@ -63,14 +63,14 @@ class EditProfileActionTest {
     }
 
     private static UserDTO getNewUserDTO() {
-        return UserDTO.builder().id(1).email(NEW_EMAIL).name(NEW_NAME).surname(NEW_SURNAME).build();
+        return UserDTO.builder().id(1).email(NEW_EMAIL_VALUE).name(NEW_NAME_VALUE).surname(NEW_SURNAME_VALUE).build();
     }
 
     void setPostRequest() {
         when(request.getMethod()).thenReturn(POST);
-        when(request.getParameter(EMAIL)).thenReturn(NEW_EMAIL);
-        when(request.getParameter(NAME)).thenReturn(NEW_NAME);
-        when(request.getParameter(SURNAME)).thenReturn(NEW_SURNAME);
+        when(request.getParameter(EMAIL)).thenReturn(NEW_EMAIL_VALUE);
+        when(request.getParameter(NAME)).thenReturn(NEW_NAME_VALUE);
+        when(request.getParameter(SURNAME)).thenReturn(NEW_SURNAME_VALUE);
     }
 
     void setGetRequest(MyRequest myRequest) {

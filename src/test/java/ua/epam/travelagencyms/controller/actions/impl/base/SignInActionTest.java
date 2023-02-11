@@ -36,7 +36,7 @@ class SignInActionTest {
         MyRequest myRequest = new MyRequest(request);
         setPostRequest();
         when(appContext.getUserService()).thenReturn(userService);
-        when(userService.signIn(EMAIL_VALUE, PASS_VALUE)).thenReturn(getUserDTO());
+        when(userService.signIn(EMAIL_VALUE, PASSWORD_VALUE)).thenReturn(getUserDTO());
         String path = new SignInAction(appContext).execute(myRequest, response);
 
         assertEquals(PROFILE_PAGE, path);
@@ -49,7 +49,7 @@ class SignInActionTest {
         MyRequest myRequest = new MyRequest(request);
         setPostRequest();
         when(appContext.getUserService()).thenReturn(userService);
-        when(userService.signIn(EMAIL_VALUE, PASS_VALUE)).thenThrow(new NoSuchUserException());
+        when(userService.signIn(EMAIL_VALUE, PASSWORD_VALUE)).thenThrow(new NoSuchUserException());
         String path = new SignInAction(appContext).execute(myRequest, response);
 
         assertEquals(getActionToRedirect(SIGN_IN_ACTION), path);
@@ -73,7 +73,7 @@ class SignInActionTest {
     void setPostRequest() {
         when(request.getMethod()).thenReturn(POST);
         when(request.getParameter(EMAIL)).thenReturn(EMAIL_VALUE);
-        when(request.getParameter(PASSWORD)).thenReturn(PASS_VALUE);
+        when(request.getParameter(PASSWORD)).thenReturn(PASSWORD_VALUE);
         when(request.getServletPath()).thenReturn(SERVLET_PATH);
         when(request.getRequestURL()).thenReturn(REQUEST_URL);
     }

@@ -14,21 +14,23 @@ public class ConstantsForTest {
 
     // User values
     public static final String EMAIL_VALUE = "user@mail.com";
-    public static final String NEW_EMAIL = "userNewEmail@mail.com";
+    public static final String NEW_EMAIL_VALUE = "userNewEmail@mail.com";
     public static final String NAME_VALUE = "Name";
-    public static final String NEW_NAME = "NewName";
+    public static final String NEW_NAME_VALUE = "NewName";
     public static final String SURNAME_VALUE = "Surname";
-    public static final String NEW_SURNAME = "NewSurname";
-    public static final String PASS_VALUE = "MyPassword1@";
+    public static final String NEW_SURNAME_VALUE = "NewSurname";
+    public static final String PASSWORD_VALUE = "MyPassword1@";
     public static final String ROLE_VALUE = "USER";
 
-    // Tour
+    // Tour values
     public static final String TITLE_VALUE = "Best Title";
-    public static final int PERSONS_VALUE = 2;
-    public static final int PRICE_VALUE = 1299;
+    public static final String PERSONS_VALUE = "2";
+    public static final String PRICE_VALUE = "1299";
     public static final String HOT_VALUE = "hot";
-    public static final String TYPE_TOUR_VALUE = "SHOPPING";
-    public static final String HOTEL_TOUR_VALUE = "HOSTEL";
+    public static final String TYPE_VALUE = "SHOPPING";
+    public static final String HOTEL_VALUE = "HOSTEL";
+    public static final byte[] IMAGE_VALUE = new byte[]{1,1,1,1,1};
+    public static final String DECODED_IMAGE_VALUE = "DECODED IMAGE";
 
 
     // pdf
@@ -37,6 +39,37 @@ public class ConstantsForTest {
     // servlet
     public static final String SERVLET_PATH = "somePath";
     public static final StringBuffer REQUEST_URL = new StringBuffer("someURL");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -62,9 +95,7 @@ public class ConstantsForTest {
     public static final String EMAIL_FIELD = "email";
     public static final String DESC = "DESC";
 
-    public static final String TITLE = "title";
     public static final int PERSONS = 2;
-    public static final double PRICE = 100;
     public static final String HOT = "Hot";
     public static final int TYPE_ID = 3;
     public static final int HOTEL_ID = 2;
@@ -77,7 +108,6 @@ public class ConstantsForTest {
     public static final String TYPE_TOUR = "REST";
     public static final String HOTEL_TOUR = "HOSTEL";
     public static final int ROLE_ID_VALUE = 2;
-    public static final String PASSWORD_VALUE = "Password1";
 
 
 

@@ -35,7 +35,7 @@ class ChangePasswordActionTest {
         myRequest.getSession().setAttribute(LOGGED_USER, UserDTO.builder().id(1).build());
         setPostRequest();
         when(appContext.getUserService()).thenReturn(userService);
-        doNothing().when(userService).changePassword(ID_VALUE, PASS_VALUE, PASS_VALUE, PASS_VALUE);
+        doNothing().when(userService).changePassword(ID_VALUE, PASSWORD_VALUE, PASSWORD_VALUE, PASSWORD_VALUE);
         String path = new ChangePasswordAction(appContext).execute(myRequest, response);
 
         assertEquals(getActionToRedirect(CHANGE_PASSWORD_ACTION), path);
@@ -70,9 +70,9 @@ class ChangePasswordActionTest {
 
     void setPostRequest() {
         when(request.getMethod()).thenReturn(POST);
-        when(request.getParameter(OLD_PASSWORD)).thenReturn(PASS_VALUE);
-        when(request.getParameter(PASSWORD)).thenReturn(PASS_VALUE);
-        when(request.getParameter(CONFIRM_PASSWORD)).thenReturn(PASS_VALUE);
+        when(request.getParameter(OLD_PASSWORD)).thenReturn(PASSWORD_VALUE);
+        when(request.getParameter(PASSWORD)).thenReturn(PASSWORD_VALUE);
+        when(request.getParameter(CONFIRM_PASSWORD)).thenReturn(PASSWORD_VALUE);
     }
 
     void setGetRequest(MyRequest myRequest) {

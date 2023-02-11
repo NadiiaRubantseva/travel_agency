@@ -67,14 +67,14 @@ public class TourServiceTest {
 
     @Test
     void testSearchTour() throws DAOException, ServiceException {
-        when(tourDAO.getByTitle(TITLE)).thenReturn(Optional.of(getTestTour()));
-        assertEquals(getTestTourDTO(), tourService.getByTitle(TITLE));
+        when(tourDAO.getByTitle(TITLE_VALUE)).thenReturn(Optional.of(getTestTour()));
+        assertEquals(getTestTourDTO(), tourService.getByTitle(TITLE_VALUE));
     }
 
     @Test
     void testSearchNoTour() throws DAOException {
-        when(tourDAO.getByTitle(TITLE)).thenReturn(Optional.empty());
-        assertThrows(NoSuchTourException.class,() -> tourService.getByTitle(TITLE));
+        when(tourDAO.getByTitle(TITLE_VALUE)).thenReturn(Optional.empty());
+        assertThrows(NoSuchTourException.class,() -> tourService.getByTitle(TITLE_VALUE));
     }
 
     @Test
@@ -98,9 +98,9 @@ public class TourServiceTest {
     private Tour getTestTour() {
         return Tour.builder()
                 .id(ONE)
-                .title(TITLE)
+                .title(TITLE_VALUE)
                 .persons(PERSONS)
-                .price(PRICE)
+                .price(Double.parseDouble(PRICE_VALUE))
                 .hot((byte) 0)
                 .typeId(1)
                 .hotelId(2)
@@ -110,9 +110,9 @@ public class TourServiceTest {
     private TourDTO getTestTourDTO() {
         return TourDTO.builder()
                 .id(ONE)
-                .title(TITLE)
+                .title(TITLE_VALUE)
                 .persons(PERSONS)
-                .price(PRICE)
+                .price(Double.parseDouble(PRICE_VALUE))
                 .hot(null)
                 .type(TYPE_TOUR)
                 .hotel(HOTEL_TOUR)
