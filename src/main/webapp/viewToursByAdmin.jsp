@@ -176,7 +176,7 @@
                             <%--                            </c:if>--%>
                             <%--                        </td>--%>
                         <td>
-                            <a class="link-dark" href=controller?action=search-tour&id=${tour.id}>
+                            <a class="link-dark" href=controller?action=search-tour&tour-id=${tour.id}>
                                 <img src="img/info3.png" height="20px" width="20px">
                             </a>
                         </td>

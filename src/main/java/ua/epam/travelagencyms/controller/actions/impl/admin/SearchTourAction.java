@@ -13,7 +13,6 @@ import ua.epam.travelagencyms.model.services.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.ADMIN;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.EDIT;
@@ -45,39 +44,38 @@ public class SearchTourAction implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        transferStringFromSessionToRequest(request, MESSAGE);
-        transferStringFromSessionToRequest(request, ERROR);
-        String path = VIEW_TOUR_PAGE;
-        String id = request.getParameter(ID);
+        String tourId = request.getParameter(TOUR_ID);
         String purpose = request.getParameter(PURPOSE);
         UserDTO user = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
 
+
         try {
-            TourDTO tour = tourService.getById(id);
+            TourDTO tour = tourService.getById(tourId);
             request.setAttribute(TOUR, tour);
 
-            if(user != null) {
+            if (purpose != null && purpose.equals(EDIT)) {
+                return EDIT_TOUR_PAGE;
+            }
+
+            if (user != null && user.getRole().equals(ADMIN)) {
+                return VIEW_TOUR_BY_ADMIN_PAGE;
+            }
+
+            if (user != null) {
                 int discount = userService.getDiscount(user.getId());
                 request.setAttribute(DISCOUNT, discount);
                 request.setAttribute(TOTAL, calculateTotalPrice(tour.getPrice(), discount));
+                return VIEW_TOUR_PAGE;
             }
 
         } catch (NoSuchTourException | IncorrectFormatException e) {
             request.setAttribute(ERROR, e.getMessage());
             if (user != null && user.getRole().equals(ADMIN)) {
-                path = SEARCH_TOUR_PAGE;
+                return SEARCH_TOUR_PAGE;
             }
         }
 
-        if (user != null && user.getRole().equals(ADMIN)) {
-            path = VIEW_TOUR_BY_ADMIN_PAGE;
-        }
-
-        if (purpose != null && purpose.equals(EDIT)) {
-            path = EDIT_TOUR_PAGE;
-        }
-
-        return path;
+        return VIEW_TOURS_PAGE;
     }
 
     private double calculateTotalPrice(double price, int discount) {

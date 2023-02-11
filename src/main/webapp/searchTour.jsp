@@ -32,8 +32,8 @@
                 <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
             </c:if><br>
 
-            <label class="form-label fs-5" for="id"><fmt:message key="search.tour.by.id"/></label>
-            <input class="form-control" type="text" name="id" id="id"
+            <label class="form-label fs-5" for="tour-id"><fmt:message key="search.tour.by.id"/></label>
+            <input class="form-control" type="text" name="tour-id" id="tour-id"
 <%--                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" required>--%>
             <c:if test="${not empty requestScope.error}">
                 <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>

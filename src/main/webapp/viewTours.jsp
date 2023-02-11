@@ -65,7 +65,7 @@
             <div class="col text-end">
                 <form method="GET" action="controller">
                     <input type="hidden" name="action" value="tours-pdf">
-                    <input type="hidden" name="id" value="${param.id}">
+                    <input type="hidden" name="tour-id" value="${param.id}">
                     <input type="hidden" name="title" value="${param.title}">
                     <input type="hidden" name="persons" value="${param.persons}">
                     <input type="hidden" name="price" value="${param.price}">
@@ -178,7 +178,7 @@
                         </p>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="controller?action=search-tour&id=${tour.id}"
+                        <a href="controller?action=search-tour&tour-id=${tour.id}"
                            class="btn btn-outline-success btn-sm">
                             <fmt:message key="see.tour"/>
                         </a>
