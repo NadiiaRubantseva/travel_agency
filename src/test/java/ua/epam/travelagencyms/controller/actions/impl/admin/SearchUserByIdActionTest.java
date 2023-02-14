@@ -18,6 +18,7 @@ import static ua.epam.travelagencyms.MethodsForTest.getTestUserDTO;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.SEARCH_USER_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.VIEW_USER_BY_ADMIN_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
+import static ua.epam.travelagencyms.controller.actions.constants.Parameters.ID;
 import static ua.epam.travelagencyms.exceptions.constants.Message.NO_USER;
 
 class SearchUserByIdActionTest {

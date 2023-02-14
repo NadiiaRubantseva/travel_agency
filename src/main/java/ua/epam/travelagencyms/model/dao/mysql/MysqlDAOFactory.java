@@ -59,7 +59,7 @@ public class MysqlDAOFactory extends DAOFactory {
      */
     public OrderDAO getOrderDAO() {
         if (orderDAO == null) {
-            orderDAO = new MySqlOrderDAO(dataSource);
+            orderDAO = new MysqlOrderDAO(dataSource);
         }
         return orderDAO;
     }

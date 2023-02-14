@@ -141,14 +141,14 @@
                 </thead>
                 <tbody>
                 <c:forEach var="tour" items="${requestScope.tours}">
-                    <c:set var="avatar" value="${tour.decodedImage}" />
+                    <c:set var="image" value="${tour.image}" />
                     <c:set var="hot" value="${tour.hot}"/>
                     <tr>
                         <td><c:out value="${tour.id}"/></td>
                         <div class="image">
                             <c:choose>
-                                <c:when test="${fn:length(avatar) > 100 }">
-                                    <td><img src="${tour.decodedImage}" class="rounded" height="25"></td>
+                                <c:when test="${fn:length(image) > 100 }">
+                                    <td><img src="${tour.image}" class="rounded" height="25"></td>
                                 </c:when>
                                 <c:otherwise>
                                     <td><img src="img/default_user_photo.png" class="rounded" height="25"></td>

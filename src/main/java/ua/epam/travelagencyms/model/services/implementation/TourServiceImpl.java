@@ -30,11 +30,11 @@ public class TourServiceImpl implements TourService {
     @Override
     public TourDTO getById(String tourIdString) throws ServiceException {
         TourDTO tourDTO;
-        long tourId = getTourId(tourIdString);
         try {
+            long tourId = getTourId(tourIdString);
             Tour tour = tourDAO.getById(tourId).orElseThrow(NoSuchTourException::new);
             tourDTO = convertTourToDTO(tour);
-        } catch (DAOException e) {
+        } catch (DAOException  | NumberFormatException e) {
             throw new ServiceException(e);
         }
         return tourDTO;
@@ -106,7 +106,7 @@ public class TourServiceImpl implements TourService {
         try {
             tourDAO.add(tour);
         } catch (DAOException e) {
-            throw new ServiceException();
+            checkExceptionType(e);
         }
     }
 
@@ -170,10 +170,10 @@ public class TourServiceImpl implements TourService {
      * @throws ServiceException - may wrap DAOException or be thrown by another mistakes
      */
     @Override
-    public void createImage(byte[] image, String tourId) throws ServiceException {
+    public void updateImage(byte[] image, String tourId) throws ServiceException {
         int id = Integer.parseInt(tourId);
         try {
-            tourDAO.createImageContent(image, id);
+            tourDAO.updateImage(image, id);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
@@ -187,7 +187,7 @@ public class TourServiceImpl implements TourService {
      */
     @Override
     public byte[] getImage(String tourId) throws ServiceException {
-        int id = Integer.parseInt(tourId);
+        long id = Long.parseLong(tourId);
         byte[] image;
         try {
             image = tourDAO.getImage(id);
@@ -195,20 +195,6 @@ public class TourServiceImpl implements TourService {
             throw new ServiceException(e);
         }
         return image;
-    }
-
-    private static long getTourId(String idString) throws ServiceException {
-        return checkId(idString, new NoSuchUserException());
-    }
-
-    private static long checkId(String idString, ServiceException exception) throws ServiceException {
-        long eventId;
-        try {
-            eventId = Long.parseLong(idString);
-        } catch (NumberFormatException e) {
-            throw exception;
-        }
-        return eventId;
     }
 
     private void validateTour(TourDTO tourDTO) throws IncorrectFormatException {

@@ -82,14 +82,14 @@ public interface UserService extends Service<UserDTO> {
      */
     int getNumberOfRecords(String filter) throws ServiceException;
 
-    /**
-     * Calls DAO to check if user email is verified.
-     * @param id - to find user by id
-     * @return True if the email is verified, False otherwise.
-     * @throws ServiceException - may wrap DAOException or be thrown by another mistakes
-     */
-    boolean isEmailVerified(long id) throws ServiceException;
-    boolean isEmailNotVerified(long id) throws ServiceException;
+//    /**
+//     * Calls DAO to check if user email is verified.
+//     * @param id - to find user by id
+//     * @return True if the email is verified, False otherwise.
+//     * @throws ServiceException - may wrap DAOException or be thrown by another mistakes
+//     */
+//    boolean isEmailVerified(long id) throws ServiceException;
+//    boolean isEmailNotVerified(long id) throws ServiceException;
 
 
     /**
@@ -133,5 +133,4 @@ public interface UserService extends Service<UserDTO> {
     void setStatus(long id, String status) throws ServiceException;
 
     void setDiscount(int discount, long userId) throws ServiceException;
-    int getDiscount(long userId) throws ServiceException;
 }

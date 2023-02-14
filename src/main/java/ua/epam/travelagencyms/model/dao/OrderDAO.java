@@ -2,7 +2,6 @@ package ua.epam.travelagencyms.model.dao;
 
 import ua.epam.travelagencyms.exceptions.DAOException;
 import ua.epam.travelagencyms.model.entities.order.Order;
-import ua.epam.travelagencyms.model.entities.order.OrderStatus;
 
 import java.util.List;
 
@@ -58,5 +57,5 @@ public interface OrderDAO extends EntityDAO<Order> {
      * @param orderId - value of order id
      * @throws DAOException is wrapper for SQLException
      */
-    void setOrderStatus(long orderId, OrderStatus status) throws DAOException;
+    void setOrderStatus(long orderId, int status) throws DAOException;
 }

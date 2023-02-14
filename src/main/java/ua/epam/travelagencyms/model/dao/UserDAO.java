@@ -54,12 +54,12 @@ public interface UserDAO extends EntityDAO<User>{
      */
     int getNumberOfRecords(String filter) throws DAOException;
 
-    /**
-     * Checks if email is verified by the user.
-     * @param id - value of user id
-     * @throws DAOException is wrapper for SQLException
-     */
-    boolean isEmailVerified(long id) throws DAOException;
+//    /**
+//     * Checks if email is verified by the user.
+//     * @param id - value of user id
+//     * @throws DAOException is wrapper for SQLException
+//     */
+//    boolean isEmailVerified(long id) throws DAOException;
 
     /**
      * Sets verification code in user table that is required for email verification.
@@ -106,6 +106,5 @@ public interface UserDAO extends EntityDAO<User>{
      * @throws DAOException is wrapper for SQLException
      */
     void setStatus(long userId, byte statusId) throws DAOException;
-    int getDiscount(long userId) throws DAOException;
     void setDiscount(int discount, long userId) throws DAOException;
 }

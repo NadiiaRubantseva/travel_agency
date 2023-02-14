@@ -25,7 +25,6 @@ public class TourDTO implements Serializable {
     private String hot;
     private String type;
     private String hotel;
-    private byte[] image;
-    private String decodedImage;
+    private String image;
     private String description;
 }

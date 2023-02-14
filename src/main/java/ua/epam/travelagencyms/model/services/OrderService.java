@@ -22,20 +22,22 @@ public interface OrderService extends Service<OrderDTO> {
 
     /**
      * Calls DAO to set order status
-     * @param status - order status value
+     *
      * @param orderId - order id
+     * @param status  - order status value
      * @throws ServiceException - may wrap DAOException or be thrown by another mistakes
      */
-    void setStatus(String status, String orderId) throws ServiceException;
+    void setOrderStatus(String orderId, String status) throws ServiceException;
 
     /**
      * Calls DAO to set order discount
-     * @param discount - order discount value
+     *
+     * @param orderId   - order id
+     * @param discount  - order discount value
      * @param tourPrice - tour price
-     * @param orderId - order id
      * @throws ServiceException - may wrap DAOException or be thrown by another mistakes
      */
-    void setDiscount(String discount, String tourPrice, String orderId) throws ServiceException;
+    void setOrderDiscount(String orderId, String discount, String tourPrice) throws ServiceException;
 
     /**
      * Calls DAO to get orders made for a specific tour

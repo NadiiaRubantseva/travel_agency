@@ -63,7 +63,7 @@
             <input type="hidden" name="tour-id" value="${requestScope.tour.id}">
 
             <c:set var="error" value="${requestScope.error}"/>
-            <c:set var="decodedImage" value="${requestScope.tour.decodedImage}"/>
+            <c:set var="image" value="${requestScope.tour.image}"/>
             <c:set var="hot" value="${requestScope.tour.hot}"/>
 
             <h2 class="col-md-4 offset-1 text-muted"><fmt:message key="view.tour"/></h2>
@@ -71,7 +71,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4 offset-1 tour-image">
-                        <img src="${requestScope.tour.decodedImage}" alt="Tour Image" class="img-fluid" width="300">
+                        <img src="${requestScope.tour.image}" alt="Tour Image" class="img-fluid" width="300">
                         <p class="hot-ribbon"><fmt:message key="hot.tour"/></p>
                         <br><br>
                         <p class="text-danger text-opacity-75"><fmt:message key="loyalty.program.note"/></p>
@@ -97,7 +97,7 @@
                             </c:otherwise>
                         </c:choose>
                         <p><strong>Всього до сплати:&nbsp</strong>
-                            ${requestScope.tour.price} грн
+                            ${requestScope.total} грн
                         </p><br>
                         <button class="btn btn-success" onclick="return checkSession()">
                             <fmt:message key="order"/>

@@ -1,10 +1,8 @@
 package ua.epam.travelagencyms.utils;
 
-import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.OrderDTO;
 import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.dto.UserDTO;
-import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.entities.order.Order;
 import ua.epam.travelagencyms.model.entities.order.OrderStatus;
 import ua.epam.travelagencyms.model.entities.tour.Hotel;
@@ -12,7 +10,6 @@ import ua.epam.travelagencyms.model.entities.tour.Tour;
 import ua.epam.travelagencyms.model.entities.tour.Type;
 import ua.epam.travelagencyms.model.entities.user.Role;
 import ua.epam.travelagencyms.model.entities.user.User;
-import ua.epam.travelagencyms.model.services.TourService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -41,6 +38,10 @@ public final class ConvertorUtil {
                 .email(userDTO.getEmail())
                 .name(userDTO.getName())
                 .surname(userDTO.getSurname())
+                .discount(userDTO.getDiscount())
+                .isBlocked(userDTO.getIsBlocked().equalsIgnoreCase("Blocked"))
+                .isEmailVerified(userDTO.getIsEmailVerified().equalsIgnoreCase("Yes"))
+                .roleId(Role.valueOf(userDTO.getRole()).getValue())
                 .build();
     }
 
@@ -57,8 +58,9 @@ public final class ConvertorUtil {
                 .surname(user.getSurname())
                 .role(String.valueOf(Role.getRole(user.getRoleId())))
                 .isBlocked(user.isBlocked() ? "Blocked" : "Active")
+                .isEmailVerified(user.isEmailVerified() ? "Yes" : "No")
                 .avatar(ImageEncoder.encode(user.getAvatar()))
-                .discount(String.valueOf(user.getDiscount()))
+                .discount(user.getDiscount())
                 .build();
     }
 
@@ -76,8 +78,7 @@ public final class ConvertorUtil {
                 .hot(tour.getHot() == 1 ? HOT : null)
                 .type(String.valueOf(Type.getType(tour.getTypeId())))
                 .hotel(String.valueOf(Hotel.getHotel(tour.getHotelId())))
-                .image(tour.getImageContent())
-                .decodedImage(ImageEncoder.encode(tour.getImageContent()))
+                .image(ImageEncoder.encode(tour.getImage()))
                 .description(tour.getDescription())
                 .build();
     }
@@ -96,7 +97,7 @@ public final class ConvertorUtil {
                 .hot((byte)(tourDTO.getHot() == null ? 0 : 1))
                 .typeId(Type.valueOf(tourDTO.getType()).getValue())
                 .hotelId(Hotel.valueOf(tourDTO.getHotel()).getValue())
-                .imageContent(tourDTO.getImage())
+                .description(tourDTO.getDescription())
                 .build();
     }
 
@@ -108,7 +109,7 @@ public final class ConvertorUtil {
     public static Order convertDTOToOrder(OrderDTO orderDTO) {
         return Order.builder()
                 .id(orderDTO.getId())
-                .orderStatus(OrderStatus.valueOf(orderDTO.getOrderStatus()))
+                .orderStatusId(OrderStatus.valueOf(orderDTO.getOrderStatus()).getValue())
                 .user(User.builder().id(orderDTO.getUserId()).build())
                 .tour(Tour.builder().id(orderDTO.getTourId()).price(orderDTO.getTourPrice()).title(orderDTO.getTourTitle()).build())
                 .discount(orderDTO.getDiscount())
@@ -126,7 +127,7 @@ public final class ConvertorUtil {
         Tour tour = order.getTour();
         return OrderDTO.builder()
                 .id(order.getId())
-                .orderStatus(order.getOrderStatus().name())
+                .orderStatus(OrderStatus.getOrderStatus(order.getOrderStatusId()).toString())
                 .userId(user.getId())
                 .userEmail(user.getEmail())
                 .userName(user.getName())
@@ -156,8 +157,6 @@ public final class ConvertorUtil {
                 .hot(request.getParameter(HOT) == null ? null : HOT)
                 .type(request.getParameter(TYPE))
                 .hotel(request.getParameter(HOTEL))
-                .image(ImageEncoder.getImage(request))
-                .decodedImage(ImageEncoder.encode(ImageEncoder.getImage(request)))
                 .build();
     }
 

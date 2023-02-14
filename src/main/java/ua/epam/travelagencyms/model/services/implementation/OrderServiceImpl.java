@@ -19,9 +19,12 @@ import java.util.List;
 
 import static ua.epam.travelagencyms.utils.ConvertorUtil.convertDTOToOrder;
 import static ua.epam.travelagencyms.utils.ConvertorUtil.convertOrderToDTO;
+import static ua.epam.travelagencyms.utils.ValidatorUtil.getOrderId;
 
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
+    private static final String DATE_PATTERN = "yyyy-MM-dd";
+
     /** Contains orderDAO field to work with OrderDAO */
     private final OrderDAO orderDAO;
 
@@ -37,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
                 .tour(Tour.builder().id(orderDTO.getTourId()).price(orderDTO.getTourPrice()).build())
                 .user(User.builder().id(orderDTO.getUserId()).discount(orderDTO.getDiscount()).build())
                 .totalCost(orderDTO.getTotalCost())
-                .date(LocalDate.parse(orderDTO.getDate(), DateTimeFormatter.ofPattern("dd.MM.yyyy")))
+                .date(LocalDate.parse(orderDTO.getDate(), DateTimeFormatter.ofPattern(DATE_PATTERN)))
                 .build();
         try {
             orderDAO.add(order);
@@ -48,14 +51,15 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * Calls DAO to set new order status
-     * @param status - new status for the order
+     *
      * @param orderId - order id
+     * @param status  - new status for the order
      * @throws ServiceException - may wrap DAOException
      */
     @Override
-    public void setStatus(String status, String orderId) throws ServiceException {
+    public void setOrderStatus(String orderId, String status) throws ServiceException {
         try {
-            OrderStatus orderStatus = OrderStatus.valueOf(status);
+            int orderStatus = OrderStatus.valueOf(status).getValue();
             long id = Long.parseLong(orderId);
             orderDAO.setOrderStatus(id, orderStatus);
         } catch (DAOException e) {
@@ -65,13 +69,14 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * Calls DAO to set order discount
-     * @param discount - discount value to be set
+     *
+     * @param orderId   - order id value.
+     * @param discount  - discount value to be set
      * @param tourPrice - tour price, required for establishing the total cose of the order.
-     * @param orderId - order id value.
      * @throws ServiceException - may wrap DAOException
      */
     @Override
-    public void setDiscount(String discount, String tourPrice, String orderId) throws ServiceException {
+    public void setOrderDiscount(String orderId, String discount, String tourPrice) throws ServiceException {
         try {
             long id = Long.parseLong(orderId);
             int d = Integer.parseInt(discount);
@@ -170,20 +175,6 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceException(e);
         }
         return orderDTO;
-    }
-
-    private static long getOrderId(String idString) throws ServiceException {
-        return checkId(idString, new NoSuchOrderException());
-    }
-
-    private static long checkId(String idString, ServiceException exception) throws ServiceException {
-        long orderId;
-        try {
-            orderId = Long.parseLong(idString);
-        } catch (NumberFormatException e) {
-            throw exception;
-        }
-        return orderId;
     }
 
     /**

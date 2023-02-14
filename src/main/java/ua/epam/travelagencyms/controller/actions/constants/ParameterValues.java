@@ -17,6 +17,7 @@ public class ParameterValues {
     public static final String SUCCEED_UPDATE = "succeed.update";
     public static final String UNSUCCESSFUL_UPDATE = "not.succeed.update";
     public static final String SUCCEED_DELETE = "succeed.delete";
+    public static final String SUCCEED_CANCEL = "succeed.cancel";
     public static final String SUCCEED_BOOK = "succeed.book";
 
     /**

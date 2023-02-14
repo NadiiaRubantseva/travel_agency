@@ -57,7 +57,7 @@ public class BookTourAction implements Action {
                 .tourPrice(Double.parseDouble(tourPrice))
                 .discount(Integer.parseInt(discount))
                 .totalCost(Double.parseDouble(total))
-                .date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
+                .date(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .build();
 
         System.out.println(order);

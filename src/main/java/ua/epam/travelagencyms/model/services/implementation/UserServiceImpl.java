@@ -260,24 +260,25 @@ public class UserServiceImpl implements UserService {
         return records;
     }
 
-    /**
-     * Calls DAO to check if user email is verified
-     * @param id - to find user by id
-     * @throws ServiceException - may wrap DAOException
-     */
-    @Override
-    public boolean isEmailVerified(long id) throws ServiceException {
-        try {
-            return userDAO.isEmailVerified(id);
-        } catch (DAOException e) {
-            throw new ServiceException(e);
-        }
-    }
+//    /**
+//     * Calls DAO to check if user email is verified
+//     * @param id - to find user by id
+//     * @throws ServiceException - may wrap DAOException
+//     */
+//    @Override
+//    public boolean isEmailVerified(long id) throws ServiceException {
+//        try {
+//            return userDAO.isEmailVerified(id);
+//        } catch (DAOException e) {
+//            throw new ServiceException(e);
+//        }
+//    }
+//
+//    @Override
+//    public boolean isEmailNotVerified(long id) throws ServiceException {
+//        return !isEmailVerified(id);
+//    }
 
-    @Override
-    public boolean isEmailNotVerified(long id) throws ServiceException {
-        return !isEmailVerified(id);
-    }
     private String getRandom() {
         Random rnd = new Random();
         int number = rnd.nextInt(999999);
@@ -348,7 +349,7 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.isBlocked(id);
         } catch (DAOException e) {
-            throw new ServiceException();
+            throw new ServiceException(e);
         }
     }
 
@@ -367,7 +368,7 @@ public class UserServiceImpl implements UserService {
         try {
             userDAO.setStatus(id, statusId);
         } catch (DAOException e) {
-            throw new ServiceException();
+            throw new ServiceException(e);
         }
     }
 
@@ -376,16 +377,7 @@ public class UserServiceImpl implements UserService {
         try {
             userDAO.setDiscount(discount, userId);
         } catch (DAOException e) {
-            throw new ServiceException();
-        }
-    }
-
-    @Override
-    public int getDiscount(long userId) throws ServiceException {
-        try {
-            return userDAO.getDiscount(userId);
-        } catch (DAOException e) {
-            throw new ServiceException();
+            throw new ServiceException(e);
         }
     }
 

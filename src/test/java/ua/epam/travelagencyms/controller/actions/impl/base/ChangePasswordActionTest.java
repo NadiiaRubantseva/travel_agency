@@ -1,6 +1,7 @@
 package ua.epam.travelagencyms.controller.actions.impl.base;
 
 import org.junit.jupiter.api.Test;
+import ua.epam.travelagencyms.ConstantsForTest;
 import ua.epam.travelagencyms.controller.actions.util.MyRequest;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
@@ -35,7 +36,7 @@ class ChangePasswordActionTest {
         myRequest.getSession().setAttribute(LOGGED_USER, UserDTO.builder().id(1).build());
         setPostRequest();
         when(appContext.getUserService()).thenReturn(userService);
-        doNothing().when(userService).changePassword(ID_VALUE, PASSWORD_VALUE, PASSWORD_VALUE, PASSWORD_VALUE);
+        doNothing().when(userService).changePassword(ConstantsForTest.ID, PASSWORD_VALUE, PASSWORD_VALUE, PASSWORD_VALUE);
         String path = new ChangePasswordAction(appContext).execute(myRequest, response);
 
         assertEquals(getActionToRedirect(CHANGE_PASSWORD_ACTION), path);

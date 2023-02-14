@@ -44,7 +44,7 @@ public interface TourDAO extends EntityDAO<Tour>{
      * @param tourId - value of tourID
      * @throws DAOException is wrapper for SQLException
      */
-    void createImageContent(byte[] image, int tourId) throws DAOException;
+    void updateImage(byte[] image, long tourId) throws DAOException;
 
     /**
      * Retrieves image from tour table

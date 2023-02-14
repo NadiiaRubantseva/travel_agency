@@ -9,10 +9,9 @@ public class ConstantsForTest {
     public static final String POST = "POST";
     public static final String GET = "GET";
 
-    // ID
-    public static final long ID_VALUE = 1L;
 
     // User values
+    public static final long ONE_VALUE = 1L;
     public static final String EMAIL_VALUE = "user@mail.com";
     public static final String NEW_EMAIL_VALUE = "userNewEmail@mail.com";
     public static final String NAME_VALUE = "Name";
@@ -40,6 +39,10 @@ public class ConstantsForTest {
     // servlet
     public static final String SERVLET_PATH = "somePath";
     public static final StringBuffer REQUEST_URL = new StringBuffer("someURL");
+
+
+    // Shared variable value
+    public static final long ID = 1L;
 
 
 

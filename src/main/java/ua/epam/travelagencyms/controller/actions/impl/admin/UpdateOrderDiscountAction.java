@@ -42,7 +42,7 @@ public class UpdateOrderDiscountAction implements Action {
         String orderDiscount = request.getParameter(DISCOUNT);
         String orderId = request.getParameter(ID);
         String tourPrice = request.getParameter(TOUR_PRICE);
-        orderService.setDiscount(orderDiscount, tourPrice, orderId);
+        orderService.setOrderDiscount(orderId, orderDiscount, tourPrice);
         request.setAttribute(ORDER, orderService.getById(orderId));
         return getActionToRedirect(SEARCH_ORDER_ACTION, ORDER_ID, request.getParameter(ID));
     }

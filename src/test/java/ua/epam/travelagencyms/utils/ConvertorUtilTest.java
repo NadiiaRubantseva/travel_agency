@@ -6,18 +6,29 @@ import ua.epam.travelagencyms.model.entities.tour.Tour;
 import ua.epam.travelagencyms.model.entities.user.User;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static ua.epam.travelagencyms.ConstantsForTest.*;
+import static ua.epam.travelagencyms.TestUtils.*;
+import static ua.epam.travelagencyms.TestUtils.EMAIL_VALUE;
+import static ua.epam.travelagencyms.TestUtils.NAME_VALUE;
+import static ua.epam.travelagencyms.TestUtils.ROLE_ID_VALUE;
+import static ua.epam.travelagencyms.TestUtils.SURNAME_VALUE;
 import static ua.epam.travelagencyms.utils.ConvertorUtil.*;
 
 class ConvertorUtilTest {
 
     @Test
     void testConvertDTOToUser() {
-        User testUser = getTestUser();
         User dtoToUser = convertDTOToUser(getTestUserDTO());
-        assertEquals(testUser, dtoToUser);
+        assertEquals(ID_VALUE, dtoToUser.getId());
+        assertEquals(EMAIL_VALUE, dtoToUser.getEmail());
         assertNull(dtoToUser.getPassword());
-        assertNotEquals(testUser.getPassword(), dtoToUser.getPassword());
+        assertEquals(NAME_VALUE, dtoToUser.getName());
+        assertEquals(SURNAME_VALUE, dtoToUser.getSurname());
+        assertNull(dtoToUser.getAvatar());
+        assertEquals(DISCOUNT_VALUE, dtoToUser.getDiscount());
+        assertEquals(IS_BLOCKED_VALUE, dtoToUser.isBlocked());
+        assertEquals(IS_EMAIL_VERIFIED_VALUE, dtoToUser.isEmailVerified());
+        assertNull(dtoToUser.getVerificationCode());
+        assertEquals(ROLE_ID_VALUE, dtoToUser.getRoleId());
     }
 
     @Test
@@ -29,33 +40,18 @@ class ConvertorUtilTest {
         assertEquals(testDTO.getRole(), userToDTO.getRole());
     }
 
-
-    private UserDTO getTestUserDTO() {
-        return UserDTO.builder()
-                .id(ID_VALUE)
-                .email(EMAIL_VALUE)
-                .name(NAME)
-                .surname(SURNAME)
-                .role(ROLE_USER)
-                .build();
-    }
-
-    private User getTestUser() {
-        return User.builder()
-                .id(ID_VALUE)
-                .email(EMAIL_VALUE)
-                .password(PASSWORD)
-                .name(NAME)
-                .surname(SURNAME)
-                .roleId(ROLE_ID)
-                .build();
-    }
-
     @Test
     void testConvertDTOToTour() {
-        Tour testTour = getTestTour();
         Tour dtoToTour = convertTourDTOToTour(getTestTourDTO());
-        assertEquals(testTour, dtoToTour);
+        assertEquals(ID_VALUE, dtoToTour.getId());
+        assertEquals(TITLE_VALUE, dtoToTour.getTitle());
+        assertEquals(PERSONS_VALUE, dtoToTour.getPersons());
+        assertEquals(PRICE_VALUE, dtoToTour.getPrice());
+        assertEquals(HOT_VALUE, dtoToTour.getHot());
+        assertNull(dtoToTour.getImage());
+        assertEquals(TYPE_ID_VALUE, dtoToTour.getTypeId());
+        assertEquals(HOTEL_ID_VALUE, dtoToTour.getHotelId());
+        assertEquals(DESCRIPTION_VALUE, dtoToTour.getDescription());
     }
 
     @Test
@@ -63,31 +59,17 @@ class ConvertorUtilTest {
         TourDTO testDTO = getTestTourDTO();
         TourDTO tourToDTO = convertTourToDTO(getTestTour());
         assertEquals(testDTO, tourToDTO);
-        assertEquals(testDTO.getId(), tourToDTO.getId());
-        assertEquals(testDTO.getType(), tourToDTO.getType());
     }
-
-    private Tour getTestTour() {
-        return Tour.builder()
-                .id(ID_VALUE)
-                .title(TITLE_VALUE)
-                .persons(PERSONS)
-                .price(Double.parseDouble(PRICE_VALUE))
-                .hot((byte) 0)
-                .typeId(TYPE_ID)
-                .hotelId(HOTEL_ID)
-                .build();
-    }
-
-    private TourDTO getTestTourDTO() {
-        return TourDTO.builder()
-                .id(ID_VALUE)
-                .title(TITLE_VALUE)
-                .persons(PERSONS)
-                .price(Double.parseDouble(PRICE_VALUE))
-                .hot(HOT)
-                .type(TYPE_TOUR)
-                .hotel(HOTEL_TOUR)
-                .build();
-    }
+//
+//    public static OrderDTO getTestOrderDTO() {
+//        return OrderDTO.builder()
+//                .id(1)
+//                .orderStatus(OrderStatus.REGISTERED.toString())
+//                .userId(1)
+//                .tourId(1)
+//                .discount(0)
+//                .totalCost(100)
+//                .date("27.01.2023")
+//                .build();
+//    }
 }

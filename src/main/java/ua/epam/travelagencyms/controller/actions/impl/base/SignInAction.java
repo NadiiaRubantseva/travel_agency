@@ -87,7 +87,7 @@ public class SignInAction implements Action {
             logger.atLevel(Level.INFO).log(String.format("%s entered web app", user.getEmail()));
 
             long userId = user.getId();
-            if (userService.isEmailNotVerified(userId)) {
+            if (user.getIsEmailVerified().equalsIgnoreCase("No")) {
                 String code = userService.setVerificationCode(userId);
                 sendEmail(code, email);
                 return VERIFY_EMAIL_PAGE;

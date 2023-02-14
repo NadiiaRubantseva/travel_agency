@@ -16,15 +16,15 @@ public class UserSQLQueries {
     public static final String UPDATE_PASSWORD = "UPDATE user SET password=? WHERE id=?";
     public static final String SET_ROLE = "UPDATE user SET role_id=? WHERE id=?";
     public static final String SET_AVATAR = "UPDATE user SET avatar=? WHERE id=?";
-    public static final String SET_STATUS = "UPDATE user SET blocked=? WHERE id=?";
+    public static final String SET_STATUS = "UPDATE user SET is_blocked=? WHERE id=?";
     public static final String SET_DISCOUNT = "UPDATE user SET discount=? WHERE id=?";
     public static final String SET_VERIFICATION_CODE = "UPDATE user SET verification_code=? WHERE id=?";
-    public static final String SET_EMAIL_VERIFIED = "UPDATE user SET email_verified=1 WHERE id=?";
+    public static final String SET_EMAIL_VERIFIED = "UPDATE user SET is_email_verified=1 WHERE id=?";
     public static final String GET_VERIFICATION_CODE = "SELECT verification_code FROM user WHERE id=?";
     public static final String UPDATE_USER = "UPDATE user SET name=?, surname=? WHERE id=?";
     public static final String GET_SORTED = "SELECT * FROM user %s";
-    public static final String IS_EMAIL_VERIFIED = "SELECT email_verified FROM user WHERE id=?";
-    public static final String IS_USER_BLOCKED = "SELECT blocked FROM user WHERE id=?";
+    public static final String GET_IS_EMAIl_VERIFIED = "SELECT is_email_verified FROM user WHERE id=?";
+    public static final String GET_IS_USER_BLOCKED = "SELECT is_blocked FROM user WHERE id=?";
     public static final String GET_DISCOUNT = "SELECT discount FROM user WHERE id=?";
     public static final String GET_NUMBER_OF_RECORDS = "SELECT COUNT(id) AS numberOfRecords FROM user %s";
 

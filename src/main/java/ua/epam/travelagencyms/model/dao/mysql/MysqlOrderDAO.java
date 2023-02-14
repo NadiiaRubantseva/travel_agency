@@ -3,7 +3,6 @@ package ua.epam.travelagencyms.model.dao.mysql;
 import ua.epam.travelagencyms.exceptions.DAOException;
 import ua.epam.travelagencyms.model.dao.OrderDAO;
 import ua.epam.travelagencyms.model.entities.order.Order;
-import ua.epam.travelagencyms.model.entities.order.OrderStatus;
 import ua.epam.travelagencyms.model.entities.tour.Tour;
 import ua.epam.travelagencyms.model.entities.user.User;
 
@@ -23,12 +22,12 @@ import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.NUMBER_
  * @author Nadiia Rubantseva
  * @version 1.0
  */
-public class MySqlOrderDAO implements OrderDAO {
+public class MysqlOrderDAO implements OrderDAO {
 
     /** An instance of datasource to provide connection to database */
     private final DataSource dataSource;
 
-    public MySqlOrderDAO(DataSource dataSource) {
+    public MysqlOrderDAO(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -104,11 +103,11 @@ public class MySqlOrderDAO implements OrderDAO {
      * @throws DAOException is wrapper for SQLException
      */
     @Override
-    public void setOrderStatus(long orderId, OrderStatus status) throws DAOException {
+    public void setOrderStatus(long orderId, int status) throws DAOException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SET_STATUS)) {
             int k = 0;
-            preparedStatement.setInt(++k, status.getValue());
+            preparedStatement.setInt(++k, status);
             preparedStatement.setLong(++k, orderId);
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -145,7 +144,7 @@ public class MySqlOrderDAO implements OrderDAO {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ORDER)) {
             int k = 0;
-            preparedStatement.setInt(++k, order.getOrderStatus().getValue());
+            preparedStatement.setInt(++k, order.getOrderStatusId());
             preparedStatement.setInt(++k, order.getDiscount());
             preparedStatement.setDouble(++k, calculateTotalPrice(order.getTour().getPrice(), order.getDiscount()));
             preparedStatement.setLong(++k, order.getId());
@@ -264,13 +263,13 @@ public class MySqlOrderDAO implements OrderDAO {
         Tour tour = getTour(resultSet);
         User user = getUser(resultSet);
         return Order.builder()
-                .id(resultSet.getInt(ID))
-                .orderStatus(OrderStatus.getOrderStatus(resultSet.getInt(ORDER_STATUS_ID)))
+                .id(resultSet.getLong(ID))
+                .orderStatusId(resultSet.getInt(ORDER_STATUS_ID))
                 .tour(tour)
                 .user(user)
                 .discount(resultSet.getInt(DISCOUNT))
                 .totalCost(resultSet.getDouble(TOTAL_COST))
-                .date(resultSet.getDate("date").toLocalDate())
+                .date(resultSet.getDate(DATE).toLocalDate())
                 .build();
     }
 

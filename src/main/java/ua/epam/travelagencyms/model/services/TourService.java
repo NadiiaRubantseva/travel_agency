@@ -44,7 +44,7 @@ public interface TourService extends Service<TourDTO>{
      * @param tourId - tour id.
      * @throws ServiceException - may wrap DAOException
      */
-    void createImage(byte[] image, String tourId) throws ServiceException;
+    void updateImage(byte[] image, String tourId) throws ServiceException;
 
     /**
      * Calls DAO to retrieve tour image

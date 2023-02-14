@@ -61,7 +61,7 @@
 
 
             <c:set var="error" value="${requestScope.error}"/>
-            <c:set var="image" value="${requestScope.tour.decodedImage}"/>
+            <c:set var="image" value="${requestScope.tour.image}"/>
 
             <div class="row">
                 <div class="col-md-4 offset-1">

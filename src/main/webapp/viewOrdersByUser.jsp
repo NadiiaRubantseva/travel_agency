@@ -21,7 +21,7 @@
 <jsp:include page="fragments/menuChoice.jsp"/>
 
 <c:if test="${not empty requestScope.message}">
-    <div class="text-bg-success text-center"><fmt:message key="${requestScope.message}"/></div>
+    <div class="text-bg-success text-center mt-2 mb-2"><fmt:message key="${requestScope.message}"/></div>
 </c:if>
 
 <div class="col-lg-10 mx-auto p-4 py-md-4">

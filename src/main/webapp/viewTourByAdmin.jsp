@@ -37,7 +37,7 @@
             <c:set var="error" value="${requestScope.error}"/>
 
 
-            <c:set var="decodedImage" value="${requestScope.tour.decodedImage}" />
+            <c:set var="image" value="${requestScope.tour.image}" />
 
             <div class="row">
                 <div class="col-md-4 offset-1">
@@ -45,8 +45,8 @@
                     <br>
                     <div class="image">
                         <c:choose>
-                            <c:when test="${fn:length(decodedImage) > 100}">
-                                <img src="${requestScope.tour.decodedImage}" class="rounded" style="max-width: 250px; max-height: 250px">
+                            <c:when test="${fn:length(image) > 100}">
+                                <img src="${requestScope.tour.image}" class="rounded" style="max-width: 250px; max-height: 250px">
                             </c:when>
                             <c:otherwise>
                                 <img src="img/no-tour-image.png" class="rounded" style="max-width: 250px; max-height: 250px">

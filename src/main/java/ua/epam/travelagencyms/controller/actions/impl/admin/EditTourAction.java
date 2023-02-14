@@ -88,8 +88,7 @@ public class EditTourAction implements Action {
                 .hot(request.getParameter(HOT) == null ? null : HOT)
                 .type(request.getParameter(TYPE))
                 .hotel(request.getParameter(HOTEL))
-                .image(tourImage)
-                .decodedImage(decodedImage)
+                .image(decodedImage)
                 .build();
 
         request.getSession().setAttribute(TOUR, tour);

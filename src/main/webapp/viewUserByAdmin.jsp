@@ -35,7 +35,7 @@
                 <div class="col-sm-4">
                     <br><br>
                     <div class="image">
-                        <c:set var="avatar" value="${requestScope.user.avatar}"/>
+                        <c:set var="image" value="${requestScope.user.avatar}"/>
                         <c:choose>
                             <c:when test="${fn:length(avatar) > 100 }">
                                 <img src="${requestScope.user.avatar}" class="rounded" width="155">

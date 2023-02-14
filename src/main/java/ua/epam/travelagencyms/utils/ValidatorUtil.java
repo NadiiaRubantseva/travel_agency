@@ -1,7 +1,6 @@
 package ua.epam.travelagencyms.utils;
 
-import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
-import ua.epam.travelagencyms.exceptions.PasswordMatchingException;
+import ua.epam.travelagencyms.exceptions.*;
 import ua.epam.travelagencyms.utils.constants.Regex;
 
 import static ua.epam.travelagencyms.exceptions.constants.Message.ENTER_CORRECT_EMAIL;
@@ -42,5 +41,48 @@ public final class ValidatorUtil {
     public static void validatePrice(double price, String message) throws IncorrectFormatException {
         validateFormat(String.valueOf(price), Regex.NATURAL_NUMBER_REGEX, message);
     }
+
+    public static long getUserId(String idString) throws ServiceException {
+        return checkId(idString, new NoSuchUserException());
+    }
+
+    public static long getTourId(String idString) throws ServiceException {
+        return checkId(idString, new NoSuchTourException());
+    }
+
+    public static long getOrderId(String idString) throws ServiceException {
+        return checkId(idString, new NoSuchOrderException());
+    }
+
+    private static long checkId(String idString, ServiceException exception) throws ServiceException {
+        long id;
+        try {
+            id = Long.parseLong(idString);
+        } catch (NumberFormatException e) {
+            throw exception;
+        }
+        return id;
+    }
+
+    public static long getLong(String longString) throws ServiceException {
+        long result;
+        try {
+            result = Long.parseLong(longString);
+        } catch (NumberFormatException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    public static int getInt(String intString) throws ServiceException {
+        int result;
+        try {
+            result = Integer.parseInt(intString);
+        } catch (NumberFormatException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
     private ValidatorUtil() {}
 }

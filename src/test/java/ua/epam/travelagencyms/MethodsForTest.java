@@ -25,7 +25,7 @@ public class MethodsForTest {
     // Get entity dto
     public static UserDTO getTestUserDTO() {
         return UserDTO.builder()
-                .id(ID_VALUE)
+                .id(ID)
                 .email(EMAIL_VALUE)
                 .name(NAME_VALUE)
                 .surname(SURNAME_VALUE)
@@ -35,7 +35,7 @@ public class MethodsForTest {
 
     public static UserDTO getUserDTO() {
         return UserDTO.builder()
-                .id(ID_VALUE)
+                .id(ID)
                 .email(EMAIL_VALUE)
                 .name(NAME_VALUE)
                 .surname(SURNAME_VALUE)
@@ -55,21 +55,20 @@ public class MethodsForTest {
 
     public static TourDTO getTourDTO() {
         return TourDTO.builder()
-                .id(ID_VALUE)
+                .id(ID)
                 .title(TITLE_VALUE)
                 .persons(Integer.parseInt(PERSONS_VALUE))
                 .price(Double.parseDouble(PRICE_VALUE))
                 .hot(HOT_VALUE)
                 .type(TYPE_VALUE)
                 .hotel(HOTEL_VALUE)
-                .image(IMAGE_VALUE)
-                .decodedImage(DECODED_IMAGE_VALUE)
+                .image(DECODED_IMAGE_VALUE)
                 .build();
     }
 
     public static TourDTO getTestTourDTO() {
         return TourDTO.builder()
-                .id(ID_VALUE)
+                .id(ID)
                 .title(TITLE_VALUE)
                 .persons(Integer.parseInt(PERSONS_VALUE))
                 .price(Double.parseDouble(PRICE_VALUE))

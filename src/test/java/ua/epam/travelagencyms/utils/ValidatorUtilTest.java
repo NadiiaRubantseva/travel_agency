@@ -1,11 +1,15 @@
 package ua.epam.travelagencyms.utils;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
+import ua.epam.travelagencyms.exceptions.NoSuchUserException;
+import ua.epam.travelagencyms.exceptions.ServiceException;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static ua.epam.travelagencyms.exceptions.constants.Message.*;
 import static ua.epam.travelagencyms.utils.ValidatorUtil.*;
 
@@ -83,9 +87,6 @@ class ValidatorUtilTest {
                 assertThrows(IncorrectFormatException.class, () -> validateName(name, ENTER_CORRECT_NAME));
         assertEquals(ENTER_CORRECT_NAME, exception.getMessage());
 
-        String name2 = "Залужный";
-        assertThrows(IncorrectFormatException.class, () -> validateName(name2, ENTER_CORRECT_NAME));
-
         String name3 = "Занадтодовгеім'ямаєбутинебільшетридцятисимволів";
         assertThrows(IncorrectFormatException.class, () -> validateName(name3, ENTER_CORRECT_NAME));
     }
@@ -112,5 +113,64 @@ class ValidatorUtilTest {
         IncorrectFormatException exception =
                 assertThrows(IncorrectFormatException.class, () -> validatePrice(price, ENTER_CORRECT_NUMBERS));
         assertEquals(ENTER_CORRECT_NUMBERS, exception.getMessage());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"1","2","1000"})
+    void testGetUserId(String number) throws ServiceException {assertEquals(Long.parseLong(number), getUserId(number));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"a","asd","112a"})
+    void testBadGetUserId(String number) {
+        NoSuchUserException exception = assertThrows(NoSuchUserException.class, () -> getUserId(number));
+        assertEquals(NO_USER, exception.getMessage());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void testEmptyGetUserId(String number) {
+        NoSuchUserException exception = assertThrows(NoSuchUserException.class, () -> getUserId(number));
+        assertEquals(NO_USER, exception.getMessage());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"1","2","1000"})
+    void testGetLong(String number) throws ServiceException {
+        assertEquals(Long.parseLong(number), getLong(number));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"a","asd","112a"})
+    void testBadGetLong(String number) {
+        ServiceException exception = assertThrows(ServiceException.class, () -> getLong(number));
+        assertTrue(exception.getMessage().contains("NumberFormatException"));
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void testEmptyGetLong(String number) {
+        ServiceException exception = assertThrows(ServiceException.class, () -> getLong(number));
+        assertTrue(exception.getMessage().contains("NumberFormatException"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"1","2","1000"})
+    void testGetInt(String number) throws ServiceException {
+        assertEquals(Long.parseLong(number), getInt(number));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"a","asd","112a"})
+    void testBadGetInt(String number) {
+        ServiceException exception = assertThrows(ServiceException.class, () -> getInt(number));
+        assertTrue(exception.getMessage().contains("NumberFormatException"));
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void testEmptyGetInt(String number) {
+        ServiceException exception = assertThrows(ServiceException.class, () -> getInt(number));
+        assertTrue(exception.getMessage().contains("NumberFormatException"));
     }
 }

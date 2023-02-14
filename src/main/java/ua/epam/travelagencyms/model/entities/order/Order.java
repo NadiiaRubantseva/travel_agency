@@ -21,7 +21,7 @@ import java.time.LocalDate;
 public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
     private long id;
-    private OrderStatus orderStatus;
+    private int orderStatusId;
     @EqualsAndHashCode.Exclude private User user;
     @EqualsAndHashCode.Exclude private Tour tour;
     private int discount;

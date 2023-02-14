@@ -141,7 +141,7 @@
             <div class="col-md-3">
                 <div class="card"
                      style="background-color: #f8f9fa; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); transition: all 0.3s ease-in-out;">
-                    <c:set var="avatar" value="${tour.decodedImage}"/>
+                    <c:set var="image" value="${tour.image}"/>
                     <c:set var="hot" value="${tour.hot}"/>
 
                     <c:if test="${fn:contains(hot, 'hot')}">
@@ -151,8 +151,8 @@
                     <div class="card-body" style="cursor: pointer; transition: all 0.3s ease-in-out;">
                         <div class="card-img-top">
                             <c:choose>
-                                <c:when test="${fn:length(avatar) > 100 }">
-                                    <img class="card-img-top" src="${tour.decodedImage}">
+                                <c:when test="${fn:length(image) > 100 }">
+                                    <img class="card-img-top" src="${tour.image}">
                                 </c:when>
                                 <c:otherwise>
                                     <img class="card-img-top" src="img/default_user_photo.png">

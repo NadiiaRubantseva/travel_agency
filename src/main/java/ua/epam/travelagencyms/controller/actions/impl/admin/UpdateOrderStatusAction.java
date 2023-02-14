@@ -68,7 +68,7 @@ public class UpdateOrderStatusAction implements Action {
         String orderStatus = request.getParameter(STATUS);
         String orderId = request.getParameter(ID);
         String userId = request.getParameter(USER_ID);
-        orderService.setStatus(orderStatus, orderId);
+        orderService.setOrderStatus(orderId, orderStatus);
         request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
 
         if (orderStatus.equals(PAID)) {
