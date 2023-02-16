@@ -147,7 +147,6 @@ public class MysqlTourDAO implements TourDAO {
             preparedStatement.setByte(++k, tour.getHot());
             preparedStatement.setInt(++k, tour.getTypeId());
             preparedStatement.setInt(++k, tour.getHotelId());
-            preparedStatement.setBytes(++k, tour.getImage());
             preparedStatement.setLong(++k, tour.getId());
             preparedStatement.execute();
         } catch (SQLException e) {

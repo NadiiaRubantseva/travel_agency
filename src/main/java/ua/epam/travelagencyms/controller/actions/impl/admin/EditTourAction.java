@@ -7,7 +7,6 @@ import ua.epam.travelagencyms.exceptions.DuplicateTitleException;
 import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.TourService;
-import ua.epam.travelagencyms.utils.ImageEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,23 +61,16 @@ public class EditTourAction implements Action {
      * @return viewTourByAdmin.jsp in case of successful edit, otherwise editTour.jsp.
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
-
-        System.out.println("in post method");
-
-        boolean isEmpty;
-        byte [] tourImage;
-
         try {
-            isEmpty = request.getPart(IMAGE).getSize() == 0;
-            tourImage = isEmpty ? tourService.getImage(request.getParameter(TOUR_ID)) : request.getPart(IMAGE).getInputStream().readAllBytes();
+            byte[] tourImage = request.getPart(IMAGE).getSize() == 0
+                    ? tourService.getImage(request.getParameter(TOUR_ID))
+                    : request.getPart(IMAGE).getInputStream().readAllBytes();
+
+            tourService.updateImage(tourImage, request.getParameter(TOUR_ID));
         } catch (Exception e) {
             request.getSession().setAttribute(ERROR, BAD_IMAGE);
             return getActionToRedirect(EDIT_TOUR_ACTION);
         }
-
-        String decodedImage = ImageEncoder.encode(tourImage);
-
-        System.out.println("before parsing request.getParameter(TOUR_ID)");
 
         TourDTO tour = TourDTO.builder()
                 .id(Long.parseLong(request.getParameter(TOUR_ID)))
@@ -88,7 +80,6 @@ public class EditTourAction implements Action {
                 .hot(request.getParameter(HOT) == null ? null : HOT)
                 .type(request.getParameter(TYPE))
                 .hotel(request.getParameter(HOTEL))
-                .image(decodedImage)
                 .build();
 
         request.getSession().setAttribute(TOUR, tour);

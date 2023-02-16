@@ -24,13 +24,12 @@
             }
         }
 
-        $(document).ready(function() {
-            $("#image").change(function() {
+        $(document).ready(function () {
+            $("#image").change(function () {
                 var file = this.files[0];
                 var imagefile = file.type;
                 var match = ["image/jpeg", "image/png", "image/jpg"];
-                if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2])))
-                {
+                if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2]))) {
                     $('#preview').attr('src', '');
                     alert("Please select a valid image file (JPEG/JPG/PNG).");
                     return false;
@@ -71,12 +70,12 @@
                         <div class="form-group">
                             <img id="preview"
                             <c:choose>
-                                <c:when test="${fn:length(image) > 100 }">
-                                    <img src="${image}"
-                                </c:when>
-                                <c:otherwise>
-                                    <img src="img/no-tour-image.png"
-                                </c:otherwise>
+                            <c:when test="${fn:length(image) > 100 }">
+                                <img src="${image}"
+                            </c:when>
+                            <c:otherwise>
+                            <img src="img/no-tour-image.png"
+                            </c:otherwise>
                             </c:choose>
                                  alt="Image Preview"
                                  style="max-width: 250px; max-height: 250px">
@@ -95,7 +94,8 @@
 
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" id="description" rows="3" name="description">${requestScope.tour.description}</textarea>
+                        <textarea class="form-control" id="description" rows="3"
+                                  name="description">${requestScope.tour.description}</textarea>
                     </div>
                 </div>
 
@@ -178,32 +178,32 @@
                 </div>
             </div>
         </form>
-        <%--        <div>--%>
-        <%--            <button type="button" class="col-5 offset-6 btn btn-danger" data-toggle="modal" data-target="#delete-tour">--%>
-        <%--                <fmt:message key="delete"/>--%>
-        <%--            </button>--%>
-        <%--            <div id="delete-tour" class="modal fade"  role="dialog">--%>
-        <%--                <div class="modal-dialog">--%>
-        <%--                    <div class="modal-content rounded-4 shadow">--%>
-        <%--                        <div class="modal-header border-bottom-0">--%>
-        <%--                            <h1 class="modal-title fs-5 text-md-center" id="exampleModalLabel"><fmt:message--%>
-        <%--                                    key="delete.tour"/></h1>--%>
-        <%--                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>--%>
-        <%--                        </div>--%>
-        <%--                        <div class="modal-body py-0">--%>
-        <%--                            <p><fmt:message key="delete.tour.confirmation"/></p>--%>
-        <%--                        </div>--%>
-        <%--                        <div class="modal-footer flex-column border-top-0">--%>
-        <%--                            <form method="POST" action="controller">--%>
-        <%--                                <input type="hidden" name="action" value="delete-tour">--%>
-        <%--                                <input type="hidden" name="tour-id" value=${requestScope.tour.id}>--%>
-        <%--                                <button type="submit" class="btn btn-dark mt-4 mb-4"><fmt:message key="yes"/></button>--%>
-        <%--                            </form>--%>
-        <%--                        </div>--%>
-        <%--                    </div>--%>
-        <%--                </div>--%>
-        <%--            </div>--%>
-        <%--        </div>--%>
+        <div class="col-2 offset-6 px-3">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-tour">
+                <fmt:message key="delete"/>
+            </button>
+            <div id="delete-tour" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content rounded-4 shadow">
+                        <div class="modal-header border-bottom-0">
+                            <h1 class="modal-title fs-5 text-md-center" id="exampleModalLabel"><fmt:message
+                                    key="delete.tour"/></h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body py-0">
+                            <p><fmt:message key="delete.tour.confirmation"/></p>
+                        </div>
+                        <div class="modal-footer flex-column border-top-0">
+                            <form method="POST" action="controller">
+                                <input type="hidden" name="action" value="delete-tour">
+                                <input type="hidden" name="tour-id" value=${requestScope.tour.id}>
+                                <button type="submit" class="btn btn-danger mt-4 mb-4"><fmt:message key="yes"/></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <br>

@@ -1,7 +1,7 @@
 package ua.epam.travelagencyms.model.dao.mysql;
 
 import ua.epam.travelagencyms.exceptions.DAOException;
-import ua.epam.travelagencyms.model.entities.LoyaltyProgram;
+import ua.epam.travelagencyms.model.entities.loyaltyProgram.LoyaltyProgram;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -11,12 +11,13 @@ import java.sql.SQLException;
 
 import static ua.epam.travelagencyms.model.dao.mysql.constants.LoyaltyProgramSQLQueries.GET;
 import static ua.epam.travelagencyms.model.dao.mysql.constants.LoyaltyProgramSQLQueries.UPDATE;
+import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.*;
 
-public class MySqlLoyaltyProgramDAO {
+public class MysqlLoyaltyProgramDAO {
 
     private final DataSource dataSource;
 
-    public MySqlLoyaltyProgramDAO(DataSource dataSource) {
+    public MysqlLoyaltyProgramDAO(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -41,16 +42,15 @@ public class MySqlLoyaltyProgramDAO {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     loyaltyProgram = LoyaltyProgram.builder()
-                            .step(resultSet.getInt(1))
-                            .discount(resultSet.getInt(2))
-                            .maxDiscount(resultSet.getInt(3))
+                            .step(resultSet.getInt(STEP))
+                            .discount(resultSet.getInt(DISCOUNT))
+                            .maxDiscount(resultSet.getInt(MAX_DISCOUNT))
                             .build();
                 }
             }
         } catch (SQLException e) {
             throw new DAOException(e);
         }
-        if (loyaltyProgram == null) throw new DAOException("Loyalty Program: null");
-        return loyaltyProgram;
+       return loyaltyProgram;
     }
 }
