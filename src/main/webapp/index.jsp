@@ -7,7 +7,7 @@
 <html lang="${sessionScope.locale}">
 
 <head>
-    <title><fmt:message key="travel.agency"/>. <fmt:message key="main"/></title>
+    <title><fmt:message key="main"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%-- import of CSS & JS resources --%>
