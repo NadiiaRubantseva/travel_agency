@@ -7,25 +7,31 @@
 <html lang="${sessionScope.locale}">
 
 <head>
-    <title><fmt:message key="travel.agency"/> <fmt:message key="main"/></title>
+    <title><fmt:message key="travel.agency"/>. <fmt:message key="main"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@include file="/fragments/import_CSS_and_JS.jsp"%>
+    <%-- import of CSS & JS resources --%>
+    <jsp:include page="${pageContext.request.contextPath}/fragments/import_CSS_and_JS.jsp"/>
 </head>
 
 <body>
 
-<jsp:include page="fragments/mainMenu.jsp"/>
+<%-- main navbar --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/mainMenu.jsp"/>
 
-<jsp:include page="fragments/menuChoice.jsp"/><br>
+<%-- additional navbar for different roles --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/menuChoice.jsp"/><br>
 
+<%-- welcome image and tag line --%>
 <figure class="text-center">
-    <img src="img/index.jpg" class="figure-img img-fluid" alt="<fmt:message key="pic"/>">
+    <img src="${pageContext.request.contextPath}/img/index.jpg" class="figure-img img-fluid" alt="<fmt:message key="travel.agency"/>">
     <figcaption class="figure-caption"><fmt:message key="pic.description"/></figcaption>
 </figure>
 
 <br>
-<jsp:include page="fragments/footer.jsp"/>
+
+<%-- footer --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 </body>
 </html>
