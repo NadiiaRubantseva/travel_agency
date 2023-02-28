@@ -27,6 +27,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.*;
+import static ua.epam.travelagencyms.utils.NumbersUtil.roundUpToInteger;
+import static ua.epam.travelagencyms.utils.ResourceBundleUtil.getValue;
+
 /**
  * Create required pdf docs with itext pdf library
  *
@@ -48,7 +52,7 @@ public class PdfUtil {
     private static final String TOUR_TITLE = "tours";
     private static final String ORDER_TITLE = "orders";
     private static final String[] USER_CELLS = new String[]{"id", "status", "email", "name", "surname", "discount", "role"};
-    private static final String[] TOUR_CELLS = new String[]{"numeration", "title", "id", "persons", "price", "tour.type", "hotel.type", "hot"};
+    private static final String[] TOUR_CELLS = new String[]{"numeration", "id", "title", "tour.type", "hotel.type", "hot", "persons", "price.uah"};
     private static final String[] ORDER_CELLS = new String[]{"numeration","date", "id", "status", "user.pdf.id", "user.name", "surname", "tour.pdf.id", "tour.title", "tour.price", "order.pdf.discount", "order.total"};
 
     /**
@@ -144,10 +148,10 @@ public class PdfUtil {
     }
 
     private Table getTourTable(List<TourDTO> tours, ResourceBundle resourceBundle) {
-        Table table = new Table(new float[]{4, 12, 4, 6, 6, 6, 6, 4});
+        Table table = new Table(new float[]{1,1,4,2,2,2,2,2});
         table.setWidth(UnitValue.createPercentValue(100));
         addTableHeader(table, TOUR_CELLS, resourceBundle);
-        addTourTableRows(table, tours);
+        addTourTableRows(table, tours, resourceBundle);
         return table;
     }
 
@@ -184,18 +188,20 @@ public class PdfUtil {
         );
     }
 
-    private void addTourTableRows(Table table, List<TourDTO> tours) {
+    private void addTourTableRows(Table table, List<TourDTO> tours, ResourceBundle resourceBundle) {
         AtomicInteger iterator = new AtomicInteger();
         tours.forEach(tour ->
                 {
+
                     table.addCell(String.valueOf(iterator.incrementAndGet()));
-                    table.addCell(tour.getTitle());
                     table.addCell(String.valueOf(tour.getId()));
+                    table.addCell(tour.getTitle());
+                    table.addCell(getValue(resourceBundle, tour.getType()));
+                    table.addCell(getValue(resourceBundle, tour.getHotel()));
+                    table.addCell(getValue(resourceBundle, tour.getHot().equals(TRUE) ? YES : NO));
                     table.addCell(String.valueOf(tour.getPersons()));
-                    table.addCell(String.valueOf(tour.getPrice()));
-                    table.addCell(tour.getType());
-                    table.addCell(tour.getHotel());
-                    table.addCell(tour.getHot() == null ? "No" : "Yes");
+                    table.addCell(roundUpToInteger(tour.getPrice()));
+
                 }
         );
     }

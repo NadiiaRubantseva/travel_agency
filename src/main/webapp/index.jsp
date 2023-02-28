@@ -24,7 +24,7 @@
 
 <%-- welcome image and tag line --%>
 <figure class="text-center">
-    <img src="${pageContext.request.contextPath}/img/index.jpg" class="figure-img img-fluid" alt="<fmt:message key="travel.agency"/>">
+    <img src="${pageContext.request.contextPath}/img/index.jpg" class="figure-img img-fluid" alt="<fmt:message key="pic"/>">
     <figcaption class="figure-caption"><fmt:message key="pic.description"/></figcaption>
 </figure>
 
