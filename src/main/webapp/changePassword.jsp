@@ -11,7 +11,7 @@
     <title><fmt:message key="travel.agency"/> <fmt:message key="change.password"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@include file="/fragments/import_CSS_and_JS.jsp"%>
+    <jsp:include page="${pageContext.request.contextPath}/fragments/import_CSS_and_JS.jsp"/>
     <script src="js/showPass.js"></script>
 </head>
 

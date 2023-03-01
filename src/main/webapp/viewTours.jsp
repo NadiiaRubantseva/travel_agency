@@ -214,7 +214,7 @@
 
                             <img src="${pageContext.request.contextPath}/img/price.png" height="17px" width="17px"
                                  style="float: left;">
-                            <span style="float: right;"><c:out value="${tour.price}"/> грн</span><br>
+                            <span style="float: right;"><c:out value="${tour.price}"/> <fmt:message key="uah"/></span><br>
 
                             <img src="${pageContext.request.contextPath}/img/type.png" height="17px" width="17px"
                                  style="float: left;">

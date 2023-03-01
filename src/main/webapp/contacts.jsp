@@ -10,7 +10,7 @@
     <title><fmt:message key="travel.agency"/> <fmt:message key="main"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@include file="/fragments/import_CSS_and_JS.jsp"%>
+    <jsp:include page="${pageContext.request.contextPath}/fragments/import_CSS_and_JS.jsp"/>
 </head>
 
 <body>
@@ -25,7 +25,7 @@
             <span><fmt:message key="signature"/></span><br>
             <span style="color: #f04f01">nadyafranko@gmail.com</span><br>
             <span>LinkedIn</span><br>
-            <span style="color: #f04f01">https://www.linkedin.com/in/nadiia-rubantseva-16a79b253/</span><br>
+            <span style="color: #f04f01"><a href="https://www.linkedin.com/in/nadiia-rubantseva-16a79b253/">https://www.linkedin.com/in/nadiia-rubantseva-16a79b253/ </a></span><br>
         </p>
         <br>
     </div>

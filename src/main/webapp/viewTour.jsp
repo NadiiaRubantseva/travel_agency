@@ -12,7 +12,7 @@
     <title><fmt:message key="travel.agency"/> View tour</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@include file="/fragments/import_CSS_and_JS.jsp" %>
+    <jsp:include page="${pageContext.request.contextPath}/fragments/import_CSS_and_JS.jsp"/>
     <style>
         .hot-ribbon {
             position: absolute;

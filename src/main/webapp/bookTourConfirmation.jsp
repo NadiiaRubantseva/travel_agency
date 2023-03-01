@@ -9,7 +9,7 @@
 
 <head>
     <title>Travel Agency MS Successfully booked tour</title>
-    <%@include file="/fragments/import_CSS_and_JS.jsp"%>
+    <jsp:include page="${pageContext.request.contextPath}/fragments/import_CSS_and_JS.jsp"/>
 </head>
 
 <body>
