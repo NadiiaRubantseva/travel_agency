@@ -9,8 +9,7 @@
 <html lang="${sessionScope.locale}">
 
 <head>
-    <title>
-        <fmt:message key="travel.agency"/> <fmt:message key="add.tour"/></title>
+    <title><fmt:message key="add.tour"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <jsp:include page="${pageContext.request.contextPath}/fragments/import_CSS_and_JS.jsp"/>
