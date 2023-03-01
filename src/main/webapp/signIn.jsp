@@ -17,20 +17,28 @@
 </head>
 
 <body>
-<jsp:include page="fragments/mainMenu.jsp"/>
+
+<%-- main navbar --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/mainMenu.jsp"/>
 <br>
+
+<%-- sign in form --%>
 <div class="signup-form">
+
     <h2><fmt:message key="sign.in"/></h2>
 
-
-    <form method="POST" action="controller">
+    <form method="POST" action="${pageContext.request.contextPath}/controller">
         <input type="hidden" name="action" value="sign-in">
         <c:set var="error" value="${requestScope.error}"/>
 
         <div id="fg" class="form-group">
+
+            <%-- message --%>
             <c:if test="${not empty requestScope.message}">
                 <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
             </c:if><br>
+
+            <%-- email field --%>
             <input type="email"
                    class="form-control"
                    name="email"
@@ -43,6 +51,7 @@
             </c:if>
         </div>
 
+        <%-- password fields --%>
         <div class="form-group">
             <input type="password"
                    class="form-control"
@@ -71,15 +80,24 @@
     </form>
     <br>
 
-    <div class="text-center text-muted"><fmt:message key="forgot.password"/> <a href="resetPassword.jsp"><fmt:message
-            key="reset.password"/></a>
+    <%-- reset password link --%>
+    <div class="text-center text-muted"><fmt:message key="forgot.password"/>
+        <a href="${pageContext.request.contextPath}/resetPassword.jsp">
+            <fmt:message key="reset.password"/>
+        </a>
     </div>
 
-    <div class="text-center text-muted"><fmt:message key="no.account"/> <a href="signUp.jsp"><fmt:message key="sign.up"/></a>
+    <%-- sign up link --%>
+    <div class="text-center text-muted"><fmt:message key="no.account"/>
+        <a href="${pageContext.request.contextPath}/signUp.jsp">
+            <fmt:message key="sign.up"/>
+        </a>
     </div>
 
 </div>
 <br>
-<jsp:include page="fragments/footer.jsp"/>
+
+<%-- footer field --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 </body>
 </html>

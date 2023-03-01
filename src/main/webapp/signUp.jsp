@@ -15,17 +15,21 @@
     <jsp:include page="${pageContext.request.contextPath}/fragments/import_CSS_and_JS.jsp"/>
     <script src="js/showPass.js"></script>
 </head>
-<jsp:include page="fragments/mainMenu.jsp"/>
 
+<%-- main navbar --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/mainMenu.jsp"/>
+
+<%-- sign up form --%>
 <body class="signup-form">
-<form method="POST" action="controller">
+<form method="POST" action="${pageContext.request.contextPath}/controller">
     <input type="hidden" name="action" value="sign-up">
     <c:set var="error" value="${requestScope.error}"/>
-    <h2><fmt:message key="register"/></h2>
-    <p class="hint-text">
-        <fmt:message key="account.invitation"/>
-    </p>
 
+    <h2><fmt:message key="register"/></h2>
+
+    <p class="hint-text"><fmt:message key="account.invitation"/></p>
+
+    <%-- first name field --%>
     <div class="form-group">
         <input type="text"
                class="form-control"
@@ -40,6 +44,7 @@
     </div>
     <br>
 
+    <%-- last name field --%>
     <div class="form-group">
         <input type="text"
                class="form-control"
@@ -54,6 +59,7 @@
     </div>
     <br>
 
+    <%-- email name field --%>
     <div class="form-group">
         <input type="email"
                class="form-control"
@@ -67,6 +73,7 @@
     </div>
     <br>
 
+    <%-- password field --%>
     <div class="form-group">
         <input type="password"
                class="form-control"
@@ -81,6 +88,7 @@
     </div>
     <br>
 
+    <%-- confirm password field --%>
     <div class="form-group">
         <input type="password"
                class="form-control"
@@ -92,6 +100,7 @@
     </div>
     <br>
 
+    <%-- show password button --%>
     <div class="form-group">
         <label class="form-check-label">
             <input type="checkbox" id="flexCheckDefault"
@@ -103,16 +112,23 @@
     </div>
     <br>
 
+    <%-- submit button --%>
     <div class="form-group text-center">
         <button type="submit" class="btn btn-success btn-block"><fmt:message key="sign.up"/></button>
     </div>
     <br>
+
 </form>
 
-<div class="text-center text-muted"><fmt:message key="have.account"/> <a href="signIn.jsp"><fmt:message key="sign.in"/></a>
+<%-- sign in link --%>
+<div class="text-center text-muted"><fmt:message key="have.account"/>
+    <a href="${pageContext.request.contextPath}/signIn.jsp">
+        <fmt:message key="sign.in"/>
+    </a>
 </div>
 
-<jsp:include page="fragments/footer.jsp"/>
+<%-- footer --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 </body>
 </html>
