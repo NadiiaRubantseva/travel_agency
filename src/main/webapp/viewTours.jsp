@@ -112,7 +112,7 @@
 
                     <label class="col-form-label" for="persons"><fmt:message key="select.persons"/></label>
                     <input type="number" min="1" name="persons" id="persons" class="form-control"
-                           value="${not empty requestScope.persons ? requestScope.persons : ""}">
+                           value="${not empty param.persons ? param.persons : ""}">
 
                 </div>
 
@@ -121,7 +121,7 @@
 
                     <label class="col-form-label" for="min_price"><fmt:message key="price.min"/></label>
                     <input type="number" min="1" name="min_price" id="min_price" class="form-control"
-                           value="${not empty requestScope.min_price ? requestScope.min_price : ""}">
+                           value="${not empty param.min_price ? param.min_price : ""}">
 
                 </div>
 
@@ -130,7 +130,7 @@
 
                     <label class="col-form-label" for="max_price"><fmt:message key="price.max"/></label>
                     <input type="number" min="1" name="max_price" id="max_price" class="form-control"
-                           value="${not empty requestScope.max_price ? requestScope.max_price : ""}">
+                           value="${not empty param.max_price ? param.max_price : ""}">
 
                 </div>
 

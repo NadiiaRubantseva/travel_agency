@@ -43,15 +43,12 @@ public class ViewToursAction implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         transferStringFromSessionToRequest(request, MESSAGE);
         String path = VIEW_TOURS_PAGE;
+
         String view = request.getParameter(VIEW);
 
         if (view != null && view.equalsIgnoreCase(ADMIN)) {
             path = VIEW_TOURS_BY_ADMIN_PAGE;
         }
-
-        request.setAttribute(PERSONS, request.getParameter(PERSONS));
-        request.setAttribute(MIN_PRICE, request.getParameter(MIN_PRICE));
-        request.setAttribute(MAX_PRICE, request.getParameter(MAX_PRICE));
 
         QueryBuilder queryBuilder = getQueryBuilder(request);
         request.setAttribute(TOURS, tourService.getSortedTours(queryBuilder.getQuery()));
