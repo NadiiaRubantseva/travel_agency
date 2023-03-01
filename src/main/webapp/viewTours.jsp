@@ -73,7 +73,7 @@
     <div class="container">
 
         <%-- Search bar --%>
-        <form method="GET" action="${pageContext.request.contextPath}/controller">
+        <form method="GET" id="searchForm" action="${pageContext.request.contextPath}/controller">
             <input type="hidden" name="action" value="view-tours">
             <input type="hidden" name="offset" value="0">
 
@@ -136,9 +136,23 @@
 
             </div>
 
-            <button type="submit" class="col-2 mt-3 btn btn-success btn-sm">
-                <fmt:message key="submit"/>
-            </button>
+            <div class="row">
+
+                <div class="col-12 mt-2">
+
+                    <%-- Submit search button --%>
+                    <button type="submit" class="col-2 btn btn-success btn-sm">
+                        <fmt:message key="submit"/>
+                    </button>
+
+                    <%-- Reset search button --%>
+                    <input type="button" class="col-1 btn btn-outline-secondary btn-sm"
+                           onclick="window.location='${pageContext.request.contextPath}/controller?action=view-tours'"
+                           value="<fmt:message key="reset"/>"/>
+
+                </div>
+
+            </div>
 
         </form>
 
