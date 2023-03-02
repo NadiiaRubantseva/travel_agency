@@ -186,9 +186,9 @@ public class TourServiceImpl implements TourService {
      * @throws ServiceException - may wrap DAOException or be thrown by another mistakes
      */
     @Override
-    public byte[] getImage(String tourId) throws ServiceException {
+    public String getImage(String tourId) throws ServiceException {
         long id = Long.parseLong(tourId);
-        byte[] image;
+        String image;
         try {
             image = tourDAO.getImage(id);
         } catch (DAOException e) {

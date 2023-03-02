@@ -1,8 +1,10 @@
 package ua.epam.travelagencyms.utils;
 
+import ua.epam.travelagencyms.dto.LoyaltyProgramDTO;
 import ua.epam.travelagencyms.dto.OrderDTO;
 import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.dto.UserDTO;
+import ua.epam.travelagencyms.model.entities.loyaltyProgram.LoyaltyProgram;
 import ua.epam.travelagencyms.model.entities.order.Order;
 import ua.epam.travelagencyms.model.entities.order.OrderStatus;
 import ua.epam.travelagencyms.model.entities.tour.Hotel;
@@ -11,11 +13,13 @@ import ua.epam.travelagencyms.model.entities.tour.Type;
 import ua.epam.travelagencyms.model.entities.user.Role;
 import ua.epam.travelagencyms.model.entities.user.User;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import java.io.IOException;
 
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.HOTEL;
 
 /**
  * Converts DTO to Entities and vise versa
@@ -74,11 +78,11 @@ public final class ConvertorUtil {
                 .id(tour.getId())
                 .title(tour.getTitle())
                 .persons(tour.getPersons())
-                .price(tour.getPrice())
-                .hot(tour.getHot() == 1 ? HOT : null)
+                .price(NumbersUtil.roundUpToInteger(tour.getPrice()))
+                .hot(tour.getHot() == 1 ? TRUE : FALSE)
                 .type(String.valueOf(Type.getType(tour.getTypeId())))
                 .hotel(String.valueOf(Hotel.getHotel(tour.getHotelId())))
-                .image(ImageEncoder.encode(tour.getImage()))
+                .image(tour.getImage())
                 .description(tour.getDescription())
                 .build();
     }
@@ -93,11 +97,12 @@ public final class ConvertorUtil {
                 .id(tourDTO.getId())
                 .title(tourDTO.getTitle())
                 .persons(tourDTO.getPersons())
-                .price(tourDTO.getPrice())
-                .hot((byte)(tourDTO.getHot() == null ? 0 : 1))
+                .price(Double.parseDouble(tourDTO.getPrice()))
+                .hot((byte)(tourDTO.getHot().equals(TRUE) ? 1 : 0))
                 .typeId(Type.valueOf(tourDTO.getType()).getValue())
                 .hotelId(Hotel.valueOf(tourDTO.getHotel()).getValue())
                 .description(tourDTO.getDescription())
+                .image(tourDTO.getImage())
                 .build();
     }
 
@@ -141,6 +146,22 @@ public final class ConvertorUtil {
                 .build();
     }
 
+    public static LoyaltyProgram convertDTOToLoyaltyProgram(LoyaltyProgramDTO loyaltyProgramDTO) {
+        return LoyaltyProgram.builder()
+                .step(loyaltyProgramDTO.getStep())
+                .discount(loyaltyProgramDTO.getDiscount())
+                .maxDiscount(loyaltyProgramDTO.getMaxDiscount())
+                .build();
+    }
+
+    public static LoyaltyProgramDTO convertLoyaltyProgramToDTO(LoyaltyProgram loyaltyProgram) {
+        return LoyaltyProgramDTO.builder()
+                .step(loyaltyProgram.getStep())
+                .discount(loyaltyProgram.getDiscount())
+                .maxDiscount(loyaltyProgram.getMaxDiscount())
+                .build();
+    }
+
     public static UserDTO getUserDTO(HttpServletRequest request) {
         return UserDTO.builder()
                 .email(request.getParameter(EMAIL))
@@ -149,14 +170,16 @@ public final class ConvertorUtil {
                 .build();
     }
 
-    public static TourDTO getTourDTOFromAddRequest(HttpServletRequest request) {
+    public static TourDTO getTourDTOFromAddRequest(HttpServletRequest request) throws ServletException, IOException {
         return TourDTO.builder()
                 .title(request.getParameter(TITLE))
                 .persons(Integer.parseInt(request.getParameter(PERSONS)))
-                .price(Double.parseDouble(request.getParameter(PRICE)))
+                .price(request.getParameter(PRICE))
                 .hot(request.getParameter(HOT) == null ? null : HOT)
                 .type(request.getParameter(TYPE))
                 .hotel(request.getParameter(HOTEL))
+                .image(ImageEncoder.encode(request.getPart(IMAGE).getInputStream().readAllBytes()))
+                .description(request.getParameter(DESCRIPTION))
                 .build();
     }
 

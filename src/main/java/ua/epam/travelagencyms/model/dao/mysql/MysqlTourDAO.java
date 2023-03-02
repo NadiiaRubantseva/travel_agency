@@ -51,7 +51,8 @@ public class MysqlTourDAO implements TourDAO {
             preparedStatement.setByte(++k, tour.getHot());
             preparedStatement.setInt(++k, tour.getTypeId());
             preparedStatement.setInt(++k, tour.getHotelId());
-            preparedStatement.setBytes(++k, tour.getImage());
+            preparedStatement.setString(++k, tour.getImage());
+            preparedStatement.setString(++k, tour.getDescription());
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new DAOException(e);
@@ -147,6 +148,8 @@ public class MysqlTourDAO implements TourDAO {
             preparedStatement.setByte(++k, tour.getHot());
             preparedStatement.setInt(++k, tour.getTypeId());
             preparedStatement.setInt(++k, tour.getHotelId());
+            preparedStatement.setString(++k, tour.getImage());
+            preparedStatement.setString(++k, tour.getDescription());
             preparedStatement.setLong(++k, tour.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -189,7 +192,7 @@ public class MysqlTourDAO implements TourDAO {
                     tours.add(createTour(resultSet));
                 }
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return tours;
@@ -213,7 +216,7 @@ public class MysqlTourDAO implements TourDAO {
                     numberOfRecords = resultSet.getInt(NUMBER_OF_RECORDS);
                 }
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return numberOfRecords;
@@ -222,7 +225,7 @@ public class MysqlTourDAO implements TourDAO {
     /**
      * Updates tour's image in database
      *
-     * @param image - tour's image, uploaded by user
+     * @param image  - tour's image, uploaded by user
      * @param tourId - tour id
      * @throws DAOException is wrapper for SQLException
      */
@@ -234,7 +237,7 @@ public class MysqlTourDAO implements TourDAO {
             preparedStatement.setBytes(++k, image);
             preparedStatement.setLong(++k, tourId);
             preparedStatement.execute();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
@@ -247,15 +250,15 @@ public class MysqlTourDAO implements TourDAO {
      * @throws DAOException is wrapper for SQLException
      */
     @Override
-    public byte[] getImage(long id) throws DAOException {
-        byte[] image = null;
+    public String getImage(long id) throws DAOException {
+        String image = null;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_IMAGE_BY_ID)) {
             int k = 0;
             preparedStatement.setLong(++k, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    image = resultSet.getBytes(IMAGE);
+                    image = resultSet.getString(IMAGE);
                 }
             }
         } catch (SQLException e) {
@@ -274,7 +277,7 @@ public class MysqlTourDAO implements TourDAO {
                 .hot(resultSet.getByte(HOT))
                 .typeId(resultSet.getInt(TYPE_ID))
                 .hotelId(resultSet.getInt(HOTEL_ID))
-                .image(resultSet.getBytes(IMAGE))
+                .image(resultSet.getString(IMAGE))
                 .description(resultSet.getString(DESCRIPTION))
                 .build();
     }

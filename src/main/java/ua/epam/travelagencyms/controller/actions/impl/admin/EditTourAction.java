@@ -7,16 +7,19 @@ import ua.epam.travelagencyms.exceptions.DuplicateTitleException;
 import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.TourService;
+import ua.epam.travelagencyms.utils.ImageEncoder;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
-import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
-import static ua.epam.travelagencyms.exceptions.constants.Message.BAD_IMAGE;
 
 /**
  * This is EditTourAction class. Accessible by admin. Allows to change tour's text information.
@@ -27,6 +30,7 @@ import static ua.epam.travelagencyms.exceptions.constants.Message.BAD_IMAGE;
  */
 public class EditTourAction implements Action {
     private final TourService tourService;
+
     /**
      * @param appContext contains TourService instance to use in action
      */
@@ -61,37 +65,47 @@ public class EditTourAction implements Action {
      * @return viewTourByAdmin.jsp in case of successful edit, otherwise editTour.jsp.
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
-        try {
-            byte[] tourImage = request.getPart(IMAGE).getSize() == 0
-                    ? tourService.getImage(request.getParameter(TOUR_ID))
-                    : request.getPart(IMAGE).getInputStream().readAllBytes();
-
-            tourService.updateImage(tourImage, request.getParameter(TOUR_ID));
-        } catch (Exception e) {
-            request.getSession().setAttribute(ERROR, BAD_IMAGE);
-            return getActionToRedirect(EDIT_TOUR_ACTION);
-        }
-
-        TourDTO tour = TourDTO.builder()
-                .id(Long.parseLong(request.getParameter(TOUR_ID)))
-                .title(request.getParameter(TITLE))
-                .persons(Integer.parseInt(request.getParameter(PERSONS)))
-                .price(Double.parseDouble(request.getParameter(PRICE)))
-                .hot(request.getParameter(HOT) == null ? null : HOT)
-                .type(request.getParameter(TYPE))
-                .hotel(request.getParameter(HOTEL))
-                .build();
-
-        request.getSession().setAttribute(TOUR, tour);
 
         try {
+
+            TourDTO tour = getTourDTO(request);
+            request.getSession().setAttribute(TOUR, tour);
             tourService.update(tour);
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
             return getActionToRedirect(SEARCH_TOUR_ACTION, TOUR_ID, request.getParameter(TOUR_ID));
 
-        } catch (IncorrectFormatException | DuplicateTitleException e) {
+        } catch (ServletException | IOException | IncorrectFormatException | DuplicateTitleException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
             return getActionToRedirect(EDIT_TOUR_ACTION);
         }
+    }
+
+    private TourDTO getTourDTO(HttpServletRequest request) throws IOException, ServletException, ServiceException {
+        return TourDTO.builder()
+                .id(Long.parseLong(request.getParameter(TOUR_ID)))
+                .title(request.getParameter(TITLE))
+                .persons(Integer.parseInt(request.getParameter(PERSONS)))
+                .price(request.getParameter(PRICE))
+                .hot(request.getParameter(HOT) == null ? FALSE : TRUE)
+                .type(request.getParameter(TYPE))
+                .hotel(request.getParameter(HOTEL))
+                .image(getImage(request))
+                .description(request.getParameter(DESCRIPTION))
+                .build();
+    }
+
+    private String getImage(HttpServletRequest request) throws IOException, ServletException, ServiceException {
+        byte[] image = request.getPart(IMAGE).getInputStream().readAllBytes();
+        String encodedImage;
+
+        if (image.length == 0) {
+            System.out.println("inside if statement");
+            encodedImage = tourService.getImage(request.getParameter(TOUR_ID));
+        } else {
+            System.out.println("inside else statement");
+            encodedImage = ImageEncoder.encode(image);
+        }
+
+        return encodedImage;
     }
 }

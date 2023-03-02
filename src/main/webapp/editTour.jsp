@@ -13,6 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <jsp:include page="${pageContext.request.contextPath}/fragments/import_CSS_and_JS.jsp"/>
+    <%-- preview image script --%>
     <script>
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -41,11 +42,15 @@
 
 <body>
 
+<%-- main menu --%>
 <jsp:include page="fragments/mainMenu.jsp"/>
 
+<%-- additional menu based on role --%>
 <jsp:include page="fragments/menuChoice.jsp"/>
 
 <div class="col-lg-12 mx-auto p-1 py-md-1">
+
+    <%-- message --%>
     <header class="d-flex align-items-center pb-0 mb-3 border-bottom offset-1">
         <c:if test="${not empty requestScope.message}">
             <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
@@ -58,15 +63,20 @@
             <input type="hidden" name="action" value="edit-tour">
             <input type="hidden" name="tour-id" value=${requestScope.tour.id}>
 
-
             <c:set var="error" value="${requestScope.error}"/>
             <c:set var="image" value="${requestScope.tour.image}"/>
 
             <div class="row">
+
                 <div class="col-md-4 offset-1">
-                    <h2 class="text-muted"><fmt:message key="view.tour"/></h2>
+
+                    <%-- Edit tour title --%>
+                    <h2 class="text-muted"><fmt:message key="edit.tour"/></h2>
                     <br>
+
+                    <%-- tour image --%>
                     <div class="image">
+
                         <div class="form-group">
                             <img id="preview"
                             <c:choose>
@@ -81,6 +91,7 @@
                                  style="max-width: 250px; max-height: 250px">
                         </div>
                         <br>
+
                         <div class="form-group">
                             <label for="image"></label> <input type="file"
                                                                class="form-control-file" id="image"
@@ -88,19 +99,25 @@
                                                                accept="image/*"
                                                                onchange="readURL(this);">
                         </div>
+
                     </div>
 
                     <br>
 
+                    <%-- tour description --%>
                     <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea class="form-control" id="description" rows="3"
+                        <label for="description"><fmt:message key="tour.description"/></label>
+                        <textarea class="form-control" id="description" rows="5"
                                   name="description">${requestScope.tour.description}</textarea>
                     </div>
+
                 </div>
 
-                <div class="col-md-5 offset-1">
+                <div class="col-md-5 offset-1 pt-4">
+
                     <div class="form-group">
+
+                        <%-- tour title --%>
                         <label class="form-label fs-5" for="title"><fmt:message key="title"/>*: </label>
                         <input class="form-control" type="text" name="title" id="title"
                                title="<fmt:message key="title.requirements"/>"
@@ -112,9 +129,10 @@
                         <br>
                     </div>
 
+                    <%-- tour persons --%>
                     <div class="form-group">
                         <label class="form-label fs-5" for="persons"><fmt:message key="persons"/>*: </label>
-                        <input class="form-control" type="number" name="persons" id="persons"
+                        <input class="form-control" type="number" min="1" name="persons" id="persons"
                                value="${requestScope.tour.persons}">
                         <c:if test="${fn:contains(error, 'persons')}">
                             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
@@ -122,9 +140,10 @@
                         <br>
                     </div>
 
+                    <%-- tour price --%>
                     <div class="form-group">
                         <label class="form-label fs-5" for="price"><fmt:message key="price"/>*: </label>
-                        <input class="form-control" type="number" name="price" id="price"
+                        <input class="form-control" type="number" min="1" name="price" id="price"
                                value="${requestScope.tour.price}">
                         <c:if test="${fn:contains(error, 'price')}">
                             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
@@ -132,6 +151,7 @@
                         <br>
                     </div>
 
+                    <%-- tour type --%>
                     <label><fmt:message key="tour.type"/>
                         <select name="type" class="form-select mt-2">
                             <option value="REST" ${requestScope.tour.type eq 'REST' ? 'selected' : ''}>
@@ -146,6 +166,7 @@
                         </select>
                     </label>
 
+                    <%-- hotel type --%>
                     <label><fmt:message key="hotel.type"/>
                         <select name="hotel" class="form-select mt-2">
                             <option value="HOTEL" ${requestScope.tour.hotel eq 'HOTEL' ? 'selected' : ''}>
@@ -160,9 +181,10 @@
                         </select>
                     </label> <br> <br>
 
+                    <%-- hot tour --%>
                     <div class="form-group">
                         <c:choose>
-                            <c:when test="${requestScope.tour.hot eq 'hot'}">
+                            <c:when test="${requestScope.tour.hot eq 'true'}">
                                 <input class="form-check-label" type="checkbox" name="hot" id="hot" checked>
                             </c:when>
                             <c:otherwise>
@@ -170,29 +192,41 @@
                             </c:otherwise>
                         </c:choose>
                         <label class="form-check-label" for="hot">
-                            <fmt:message key="hot"/>
+                            <fmt:message key="hot.tour"/>
                         </label>
                     </div>
                     <br>
+
+                    <%-- submit button --%>
                     <button type="submit" class="btn btn-success mt-0 mb-1"><fmt:message key="edit.tour"/></button>
+
                 </div>
             </div>
         </form>
-        <div class="col-2 offset-6 px-3">
+
+        <br>
+
+        <div class="col-2 offset-1">
+
+            <%-- delete tour button --%>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-tour">
-                <fmt:message key="delete"/>
+                <fmt:message key="tour.delete"/>
             </button>
+
             <div id="delete-tour" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content rounded-4 shadow">
+
                         <div class="modal-header border-bottom-0">
-                            <h1 class="modal-title fs-5 text-md-center" id="exampleModalLabel"><fmt:message
-                                    key="delete.tour"/></h1>
+                            <h1 class="modal-title fs-5 text-md-center" id="exampleModalLabel">
+                                <fmt:message key="delete.tour"/></h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
+
                         <div class="modal-body py-0">
                             <p><fmt:message key="delete.tour.confirmation"/></p>
                         </div>
+
                         <div class="modal-footer flex-column border-top-0">
                             <form method="POST" action="controller">
                                 <input type="hidden" name="action" value="delete-tour">
@@ -200,6 +234,7 @@
                                 <button type="submit" class="btn btn-danger mt-4 mb-4"><fmt:message key="yes"/></button>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -207,8 +242,9 @@
     </div>
 </div>
 <br>
-<jsp:include page="fragments/footer.jsp"/>
 
+<%-- footer --%>
+<jsp:include page="fragments/footer.jsp"/>
 
 </body>
 </html>

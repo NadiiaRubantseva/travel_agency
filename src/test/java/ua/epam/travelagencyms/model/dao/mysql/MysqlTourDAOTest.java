@@ -217,9 +217,9 @@ public class MysqlTourDAOTest {
             ResultSet resultSet = mock(ResultSet.class);
             when(preparedStatement.executeQuery()).thenReturn(resultSet);
             when(resultSet.next()).thenReturn(true);
-            when(resultSet.getBytes(IMAGE)).thenReturn(IMAGE_VALUE);
-            byte[] image = tourDAO.getImage(ID_VALUE);
-            assertEquals(IMAGE_VALUE, image);
+            when(resultSet.getString(IMAGE)).thenReturn("image");
+            String image = tourDAO.getImage(ID_VALUE);
+            assertEquals("image", image);
         }
     }
 
@@ -231,7 +231,7 @@ public class MysqlTourDAOTest {
             ResultSet resultSet = mock(ResultSet.class);
             when(preparedStatement.executeQuery()).thenReturn(resultSet);
             when(resultSet.next()).thenReturn(false);
-            byte[] image = tourDAO.getImage(ID_VALUE);
+            String image = tourDAO.getImage(ID_VALUE);
             assertNull(image);
         }
     }

@@ -5,7 +5,6 @@ import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.TourService;
-import ua.epam.travelagencyms.utils.ConvertorUtil;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +16,7 @@ import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
+import static ua.epam.travelagencyms.utils.ConvertorUtil.getTourDTOFromAddRequest;
 
 /**
  * This is AddTourAction class. Accessible by admin. Allows to add a new tour. Implements PRG pattern
@@ -67,11 +67,15 @@ public class AddTourAction implements Action {
      * @param request to get tour fields and sets some attributes to session
      * @return ViewTourByAdmin page if successful or AddTour page if not.
      */
-    private String executePost(HttpServletRequest request) throws ServiceException {
+    private String executePost(HttpServletRequest request) {
+
+        System.out.println("in execute post of add tour action");
+
         String path = VIEW_TOUR_BY_ADMIN_PAGE;
-        TourDTO tour = ConvertorUtil.getTourDTOFromAddRequest(request);
-        request.getSession().setAttribute(TOUR, tour);
+
         try {
+            TourDTO tour = getTourDTOFromAddRequest(request);
+            request.getSession().setAttribute(TOUR, tour);
             tourService.add(tour);
             tour.setId(tourService.getByTitle(tour.getTitle()).getId());
             request.getSession().setAttribute(MESSAGE, SUCCEED_ADDED);

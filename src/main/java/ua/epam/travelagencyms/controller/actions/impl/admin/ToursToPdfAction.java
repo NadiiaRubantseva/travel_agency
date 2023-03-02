@@ -52,6 +52,7 @@ public class ToursToPdfAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         QueryBuilder queryBuilder = getQueryBuilder(request);
+        System.out.println("MIN PRICE -> " + request.getParameter(MIN_PRICE));
         List<TourDTO> tours = tourService.getSortedTours(queryBuilder.getQuery());
         String locale = (String) request.getSession().getAttribute(LOCALE);
         ByteArrayOutputStream toursPdf = pdfUtil.createToursPdf(tours, locale);

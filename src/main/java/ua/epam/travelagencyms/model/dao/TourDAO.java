@@ -51,6 +51,6 @@ public interface TourDAO extends EntityDAO<Tour>{
      * @param id- value of tourID
      * @throws DAOException is wrapper for SQLException
      */
-    byte[] getImage(long id) throws DAOException;
+    String getImage(long id) throws DAOException;
 
 }

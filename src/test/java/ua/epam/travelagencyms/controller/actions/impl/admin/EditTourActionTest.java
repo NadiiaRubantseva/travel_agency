@@ -42,7 +42,7 @@ class EditTourActionTest {
         MyRequest myRequest = new MyRequest(request);
         setPostRequest();
         when(appContext.getTourService()).thenReturn(tourService);
-        when(tourService.getImage(isA(String.class))).thenReturn(IMAGE_VALUE);
+        when(tourService.getImage(isA(String.class))).thenReturn("image");
         doNothing().when(tourService).update(isA(TourDTO.class));
         String path = new EditTourAction(appContext).execute(myRequest, response);
 
@@ -55,7 +55,7 @@ class EditTourActionTest {
         MyRequest myRequest = new MyRequest(request);
         setPostRequest();
         when(appContext.getTourService()).thenReturn(tourService);
-        when(tourService.getImage(isA(String.class))).thenReturn(IMAGE_VALUE);
+        when(tourService.getImage(isA(String.class))).thenReturn("image");
         doThrow(new DuplicateTitleException()).when(tourService).update(getTourDTO());
         String path = new EditTourAction(appContext).execute(myRequest, response);
 
@@ -79,7 +79,7 @@ class EditTourActionTest {
         MyRequest myRequest = new MyRequest(request);
         setGetRequest(myRequest, getTourDTO());
         when(appContext.getTourService()).thenReturn(tourService);
-        when(tourService.getImage(isA(String.class))).thenReturn(IMAGE_VALUE);
+        when(tourService.getImage(isA(String.class))).thenReturn("image");
         String path = new EditTourAction(appContext).execute(myRequest, response);
 
         assertEquals(EDIT_TOUR_PAGE, path);

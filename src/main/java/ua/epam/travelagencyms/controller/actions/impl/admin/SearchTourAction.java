@@ -61,7 +61,7 @@ public class SearchTourAction implements Action {
             if (user != null) {
                 int discount = user.getDiscount();
                 request.setAttribute(DISCOUNT, discount);
-                request.setAttribute(TOTAL, calculateTotalPrice(tour.getPrice(), discount));
+                request.setAttribute(TOTAL, calculateTotalPrice(Double.parseDouble(tour.getPrice()), discount));
                 return VIEW_TOUR_PAGE;
             }
 

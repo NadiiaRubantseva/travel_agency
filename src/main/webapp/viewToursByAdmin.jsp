@@ -162,7 +162,7 @@
                             </c:otherwise>
                         </c:choose>
                         <td><c:out value="${tour.title}"/>
-                            <c:if test="${fn:contains(hot, 'hot')}">
+                            <c:if test="${fn:contains(hot, 'true')}">
                                 <img class="mx-1" src="img/fire.png" height="17px" width="17px">
                             </c:if>
                         </td>

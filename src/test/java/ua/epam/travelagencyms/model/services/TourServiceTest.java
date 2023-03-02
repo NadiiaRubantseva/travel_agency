@@ -216,8 +216,8 @@ public class TourServiceTest {
 
     @Test
     void testGetImage() throws DAOException, ServiceException {
-        when(tourDAO.getImage(ID_VALUE)).thenReturn(IMAGE_VALUE);
-        assertEquals(IMAGE_VALUE, tourService.getImage(ID_STRING_VALUE));
+        when(tourDAO.getImage(ID_VALUE)).thenReturn("image");
+        assertEquals("image", tourService.getImage(ID_STRING_VALUE));
     }
 
     @Test

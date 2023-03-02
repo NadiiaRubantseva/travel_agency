@@ -52,6 +52,6 @@ public interface TourService extends Service<TourDTO>{
      * @return image - image in byte array representation.
      * @throws ServiceException - may wrap DAOException
      */
-    byte[] getImage(String id) throws ServiceException;
+    String getImage(String id) throws ServiceException;
 
 }
