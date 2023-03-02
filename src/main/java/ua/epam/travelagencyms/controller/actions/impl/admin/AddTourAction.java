@@ -69,8 +69,6 @@ public class AddTourAction implements Action {
      */
     private String executePost(HttpServletRequest request) {
 
-        System.out.println("in execute post of add tour action");
-
         String path = VIEW_TOUR_BY_ADMIN_PAGE;
 
         try {

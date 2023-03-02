@@ -99,10 +99,8 @@ public class EditTourAction implements Action {
         String encodedImage;
 
         if (image.length == 0) {
-            System.out.println("inside if statement");
             encodedImage = tourService.getImage(request.getParameter(TOUR_ID));
         } else {
-            System.out.println("inside else statement");
             encodedImage = ImageEncoder.encode(image);
         }
 

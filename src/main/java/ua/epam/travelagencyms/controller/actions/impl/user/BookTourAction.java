@@ -60,15 +60,11 @@ public class BookTourAction implements Action {
                 .date(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .build();
 
-        System.out.println(order);
-
         try {
             orderService.addOrder(order);
-            System.out.println("successfully added an order");
             request.getSession().setAttribute(MESSAGE, SUCCEED_BOOK);
         } catch (Exception e) {
             request.setAttribute(ERROR, e.getMessage());
-            System.out.println("unsuccessfully added an order");
             return VIEW_TOUR_PAGE;
         }
         return getActionToRedirect(VIEW_ORDERS_OF_USER_ACTION);

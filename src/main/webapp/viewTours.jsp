@@ -202,7 +202,7 @@
 
                         <hr>
 
-                        <h5 class="card-title text-center">${tour.title}</h5>
+                        <h6 class="card-title text-center">${tour.title}</h6>
 
                         <hr>
 

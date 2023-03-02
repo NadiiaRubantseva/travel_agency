@@ -24,7 +24,8 @@
     <header class="d-flex align-items-center pb-0 mb-3 border-bottom">
         <c:if test="${not empty requestScope.message}">
             <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
-        </c:if><br>
+        </c:if>
+        <br>
     </header>
 
     <div class="container-fluid">
