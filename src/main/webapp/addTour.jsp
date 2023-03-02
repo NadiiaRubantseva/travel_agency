@@ -50,7 +50,15 @@
                                                     }
                                                 };
                                             </script>
-                                            <br><br>
+                                            <br>
+
+                                            <%-- tour description --%>
+                                            <div class="form-group">
+                                                <label for="description"><fmt:message key="tour.description"/></label>
+                                                <textarea class="form-control" id="description" rows="5"
+                                                          name="description">${requestScope.tour.description}</textarea>
+                                            </div>
+
                                         </div>
                     <br>
                 </div>

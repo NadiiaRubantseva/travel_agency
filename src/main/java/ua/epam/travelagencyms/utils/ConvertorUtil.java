@@ -175,7 +175,7 @@ public final class ConvertorUtil {
                 .title(request.getParameter(TITLE))
                 .persons(Integer.parseInt(request.getParameter(PERSONS)))
                 .price(request.getParameter(PRICE))
-                .hot(request.getParameter(HOT) == null ? null : HOT)
+                .hot(request.getParameter(HOT) == null ? FALSE : TRUE)
                 .type(request.getParameter(TYPE))
                 .hotel(request.getParameter(HOTEL))
                 .image(ImageEncoder.encode(request.getPart(IMAGE).getInputStream().readAllBytes()))
