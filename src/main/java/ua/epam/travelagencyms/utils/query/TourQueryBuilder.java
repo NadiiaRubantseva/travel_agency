@@ -52,7 +52,7 @@ public class TourQueryBuilder extends QueryBuilder {
 
     @Override
     protected String getSortQuery() {
-        return " ORDER BY hot DESC, " + sortField + " " + order;
+        return " ORDER BY " + HOT + " " + "DESC, " + sortField + " " + order;
     }
 }
 

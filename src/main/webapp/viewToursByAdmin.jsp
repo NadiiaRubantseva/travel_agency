@@ -22,69 +22,143 @@
 <jsp:include page="fragments/menuChoice.jsp"/>
 
 <div class="col-lg-10 mx-auto p-4 py-md-4">
+
+    <%-- message-success --%>
     <c:if test="${not empty requestScope.message}">
         <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
-    </c:if><br>
+    </c:if>
 
-    <h2 class="text-muted pb-3"><fmt:message key="tours"/></h2>
+    <div class="container">
 
-    <div class="container-fluid">
+        <%--top row --%>
         <div class="row">
-            <form class="col-10" method="GET" action="controller">
-                <input type="hidden" name="action" value="view-tours">
-                <input type="hidden" name="offset" value="0">
 
-                <label><fmt:message key="tour.type"/><select name="type" class="form-select mt-2">
-                    <option><fmt:message key="select.type"/></option>
-                    <option value="3" ${param.type eq "3" ? "selected" : ""}><fmt:message key="SHOPPING"/></option>
-                    <option value="2" ${param.type eq "2" ? "selected" : ""}><fmt:message key="EXCURSION"/></option>
-                    <option value="1" ${param.type eq "1" ? "selected" : ""}><fmt:message key="REST"/></option>
-                </select>
-                </label>&nbsp;&nbsp;
+            <%-- Tours label --%>
+            <div class="col text-start">
 
-                <label><fmt:message key="hotel.type"/>
-                    <select name="hotel" class="form-select mt-2">
+                <h2 class="text-muted"><fmt:message key="tours"/></h2>
+
+            </div>
+
+            <%-- PDF icon --%>
+            <div class="col text-end">
+
+                <form method="GET" action="${pageContext.request.contextPath}/controller">
+
+                    <input type="hidden" name="action" value="tours-pdf">
+                    <input type="hidden" name="tour-id" value="${param.id}">
+                    <input type="hidden" name="title" value="${param.title}">
+                    <input type="hidden" name="persons" value="${param.persons}">
+                    <input type="hidden" name="price" value="${param.price}">
+                    <input type="hidden" name="type" value="${param.type}">
+                    <input type="hidden" name="hotel" value="${param.hotel}">
+                    <input type="hidden" name="min_price" value="${param.min_price}">
+                    <input type="hidden" name="max_price" value="${param.max_price}">
+                    <input type="hidden" name="sort" value="${param.sort}">
+                    <input type="hidden" name="order" value="${param.order}">
+
+                    <button type="submit" class="icon-button">
+                        <img src="${pageContext.request.contextPath}/img/pdf-file.png" height="25" alt="<fmt:message key="pdf.image"/>">
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="container">
+
+        <%-- Search bar --%>
+        <form method="GET" id="searchForm" action="${pageContext.request.contextPath}/controller">
+            <input type="hidden" name="action" value="view-tours">
+            <input type="hidden" name="offset" value="0">
+            <input type="hidden" name="view" value="admin">
+
+            <div class="row">
+
+                <%-- Tour type --%>
+                <div class="col-2">
+
+                    <label class="col-form-label"><fmt:message key="tour.type"/></label>
+
+                    <select name="type" class="form-select form-control">
+                        <option><fmt:message key="select.type"/></option>
+                        <option value="3" ${param.type eq "3" ? "selected" : ""}><fmt:message key="SHOPPING"/></option>
+                        <option value="2" ${param.type eq "2" ? "selected" : ""}><fmt:message key="EXCURSION"/></option>
+                        <option value="1" ${param.type eq "1" ? "selected" : ""}><fmt:message key="REST"/></option>
+                    </select>
+
+                </div>
+
+                <%-- Hotel type --%>
+                <div class="col-2">
+
+                    <label class="col-form-label"><fmt:message key="hotel.type"/></label>
+
+                    <select name="hotel" class="form-select form-control">
                         <option><fmt:message key="select.type"/></option>
                         <option value="3" ${param.hotel eq "3" ? "selected" : ""}><fmt:message key="MOTEL"/></option>
                         <option value="2" ${param.hotel eq "2" ? "selected" : ""}><fmt:message key="HOSTEL"/></option>
                         <option value="1" ${param.hotel eq "1" ? "selected" : ""}><fmt:message key="HOTEL"/></option>
                     </select>
-                </label>
-                &nbsp;&nbsp;
-                <label for="persons"><fmt:message key="select.persons"/></label>
-                <input class="col-1" type="number" min="1" name="persons" id="persons"
-                       value="${not empty requestScope.persons ? requestScope.persons : ""}">&nbsp;&nbsp;
-                <label for="min_price"><fmt:message key="select.price.min"/></label>
-                <input class="col-2" type="number" min="1" name="min_price" id="min_price"
-                       value="${not empty requestScope.min_price ? requestScope.min_price : ""}">
-                <label for="max_price"><fmt:message key="select.price.max"/></label>
-                <input class="col-2" type="number" min="1" name="max_price" id="max_price"
-                       value="${not empty requestScope.max_price ? requestScope.max_price : ""}">
-                <br><br>
 
-                <label for="records"><fmt:message key="number.records"/></label>
-                <input class="col-1" type="number" min="1" name="records" id="records"
-                       value="${not empty requestScope.records ? requestScope.records : "5"}">
-                <button type="submit" class="btn btn-success btn-sm mt-0 mb-1"><fmt:message
-                        key="submit"/></button>
-            </form>
+                </div>
 
-            <form class="col-1 offset-1 justify-content-end" method="GET" action="controller">
-                <input type="hidden" name="action" value="tours-pdf">
-                <input type="hidden" name="id" value="${param.id}">
-                <input type="hidden" name="title" value="${param.title}">
-                <input type="hidden" name="persons" value="${param.persons}">
-                <input type="hidden" name="price" value="${param.price}">
-                <input type="hidden" name="type" value="${param.type}">
-                <input type="hidden" name="hotel" value="${param.hotel}">
-                <input type="hidden" name="min_price" value="${param.minPrice}">
-                <input type="hidden" name="max_price" value="${param.maxPrice}">
-                <input type="hidden" name="sort" value="${param.sort}">
-                <input type="hidden" name="order" value="${param.order}">
-                <button type="submit" class="icon-button"><img src="img/pdf-file.png" height="25" alt="<fmt:message key="pdf.image"/>"></button>
-            </form>
-        </div>
+                <%-- Persons --%>
+                <div class="col-1">
+
+                    <label class="col-form-label" for="persons"><fmt:message key="select.persons"/></label>
+                    <input type="number" min="1" name="persons" id="persons" class="form-control"
+                           value="${not empty param.persons ? param.persons : ""}">
+
+                </div>
+
+                <%-- Price min --%>
+                <div class="col-2">
+
+                    <label class="col-form-label" for="min_price"><fmt:message key="price.min"/></label>
+                    <input type="number" min="1" name="min_price" id="min_price" class="form-control"
+                           value="${not empty param.min_price ? param.min_price : ""}">
+
+                </div>
+
+                <%-- Price max --%>
+                <div class="col-2">
+
+                    <label class="col-form-label" for="max_price"><fmt:message key="price.max"/></label>
+                    <input type="number" min="1" name="max_price" id="max_price" class="form-control"
+                           value="${not empty param.max_price ? param.max_price : ""}">
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-12 mt-2">
+
+                    <%-- Submit search button --%>
+                    <button type="submit" class="col-2 btn btn-success btn-sm">
+                        <fmt:message key="submit"/>
+                    </button>
+
+                    <%-- Reset search button --%>
+                    <input type="button" class="col-1 btn btn-outline-secondary btn-sm"
+                           onclick="window.location='${pageContext.request.contextPath}/controller?action=view-tours&view=admin'"
+                           value="<fmt:message key="reset"/>"/>
+
+                </div>
+
+            </div>
+
+        </form>
+
     </div>
+
+    <hr>
 
     <div class="bd-example-snippet bd-code-snippet pt-2">
         <div class="bd-example">
@@ -143,7 +217,6 @@
                     </th>
                     <th scope="col"><fmt:message key="tour.type"/></th>
                     <th scope="col"><fmt:message key="hotel.type"/></th>
-                    <%--                    <th scope="col"><fmt:message key="hot"/></th>--%>
                     <th scope="col"><fmt:message key="details"/></th>
                 </tr>
                 </thead>
@@ -170,11 +243,6 @@
                         <td><c:out value="${tour.price}"/></td>
                         <td><fmt:message key="${tour.type}"/></td>
                         <td><fmt:message key="${tour.hotel}"/></td>
-                            <%--                        <td>--%>
-                            <%--                            <c:if test="${fn:contains(hot, 'hot')}">--%>
-                            <%--                                <img src="img/fire.png" height="17px" width="17px">--%>
-                            <%--                            </c:if>--%>
-                            <%--                        </td>--%>
                         <td>
                             <a class="link-dark" href=controller?action=search-tour&tour-id=${tour.id}>
                                 <img src="img/info3.png" height="20px" width="20px" alt="<fmt:message key="info.image"/>">

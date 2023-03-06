@@ -20,7 +20,7 @@ import java.util.List;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.VIEW_USERS_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
-import static ua.epam.travelagencyms.utils.QueryBuilderUtil.userQueryBuilder;
+import static ua.epam.travelagencyms.utils.QueryBuilderUtil.tourQueryBuilder;
 
 /**
  * This is ToursToPdfAction class. Accessible by admin. Allows to download list of all users that match demands
@@ -46,7 +46,7 @@ public class ToursToPdfAction implements Action {
      * Builds required query for service, sets tours list in response to download. Checks for locale to set up
      * locale for pdf document
      *
-     * @param request to get queries parameters
+     * @param request  to get queries parameters
      * @param response to set tours list there
      */
     @Override
@@ -62,7 +62,7 @@ public class ToursToPdfAction implements Action {
     private QueryBuilder getQueryBuilder(HttpServletRequest request) {
         String zero = "0";
         String max = String.valueOf(Integer.MAX_VALUE);
-        return userQueryBuilder()
+        return tourQueryBuilder()
                 .setTypeFilter(request.getParameter(TYPE))
                 .setHotelFilter(request.getParameter(HOTEL))
                 .setPriceFilter(request.getParameter(MIN_PRICE), request.getParameter(MAX_PRICE))
@@ -76,7 +76,7 @@ public class ToursToPdfAction implements Action {
      * Sets tours list in response to download. Configure response to download pdf document
      *
      * @param response to set tours list there
-     * @param output - output stream that contains pdf document
+     * @param output   - output stream that contains pdf document
      */
     private void setResponse(HttpServletResponse response, ByteArrayOutputStream output) {
         response.setContentType("application/pdf");
