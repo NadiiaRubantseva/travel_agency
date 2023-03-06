@@ -84,7 +84,7 @@
                                 <img src="${image}"
                             </c:when>
                             <c:otherwise>
-                            <img src="img/no-tour-image.png"
+                            <img src="img/no-tour-image.svg"
                             </c:otherwise>
                             </c:choose>
                                  alt="Image Preview"
@@ -220,7 +220,7 @@
                         <div class="modal-header border-bottom-0">
                             <h1 class="modal-title fs-5 text-md-center" id="exampleModalLabel">
                                 <fmt:message key="delete.tour"/></h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            <button type="button" class="btn-close" data-dismiss="modal"></button>
                         </div>
 
                         <div class="modal-body py-0">
