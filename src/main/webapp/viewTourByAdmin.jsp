@@ -52,11 +52,11 @@
                     <div class="image">
                         <c:choose>
                             <c:when test="${fn:length(image) > 100}">
-                                <img src="${requestScope.tour.image}" class="rounded" style="max-width: 250px; max-height: 250px">
+                                <img src="${requestScope.tour.image}" class="rounded" style="max-width: 250px; max-height: 250px" alt="<fmt:message key="tour.image"/>">
                             </c:when>
                             <c:otherwise>
-                                <img src="img/no-tour-image.png" class="rounded"
-                                     style="max-width: 250px; max-height: 250px">
+                                <img src="img/no-tour-image.svg" class="rounded"
+                                     style="max-width: 250px; max-height: 250px" alt="<fmt:message key="tour.image"/>">
                             </c:otherwise>
                         </c:choose>
                     </div>

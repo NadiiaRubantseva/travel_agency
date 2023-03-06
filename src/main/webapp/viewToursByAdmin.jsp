@@ -81,7 +81,7 @@
                 <input type="hidden" name="max_price" value="${param.maxPrice}">
                 <input type="hidden" name="sort" value="${param.sort}">
                 <input type="hidden" name="order" value="${param.order}">
-                <button type="submit" class="icon-button"><img src="img/pdf-file.png" height="25"></button>
+                <button type="submit" class="icon-button"><img src="img/pdf-file.png" height="25" alt="<fmt:message key="pdf.image"/>"></button>
             </form>
         </div>
     </div>
@@ -155,15 +155,15 @@
                         <td><c:out value="${tour.id}"/></td>
                         <c:choose>
                             <c:when test="${fn:length(image) > 100 }">
-                                <td><img src="${tour.image}" class="rounded" height="25"></td>
+                                <td><img src="${tour.image}" class="rounded" height="25" alt="<fmt:message key="tour.image"/>"></td>
                             </c:when>
                             <c:otherwise>
-                                <td><img src="img/no-tour-image.png" class="rounded" height="25"></td>
+                                <td><img src="img/no-tour-image.svg" class="rounded" height="25" alt="<fmt:message key="tour.image"/>"></td>
                             </c:otherwise>
                         </c:choose>
                         <td><c:out value="${tour.title}"/>
                             <c:if test="${fn:contains(hot, 'true')}">
-                                <img class="mx-1" src="img/fire.png" height="17px" width="17px">
+                                <img class="mx-1" src="img/fire.png" height="17px" width="17px" alt="<fmt:message key="fire.image"/>">
                             </c:if>
                         </td>
                         <td><c:out value="${tour.persons}"/></td>
@@ -177,7 +177,7 @@
                             <%--                        </td>--%>
                         <td>
                             <a class="link-dark" href=controller?action=search-tour&tour-id=${tour.id}>
-                                <img src="img/info3.png" height="20px" width="20px">
+                                <img src="img/info3.png" height="20px" width="20px" alt="<fmt:message key="info.image"/>">
                             </a>
                         </td>
                     </tr>

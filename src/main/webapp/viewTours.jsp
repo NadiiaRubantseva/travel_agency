@@ -59,7 +59,7 @@
                     <input type="hidden" name="order" value="${param.order}">
 
                     <button type="submit" class="icon-button">
-                        <img src="${pageContext.request.contextPath}/img/pdf-file.png" height="25">
+                        <img src="${pageContext.request.contextPath}/img/pdf-file.png" height="25" alt="<fmt:message key="pdf.image"/>">
                     </button>
 
                 </form>
@@ -190,11 +190,11 @@
 
                             <c:choose>
                                 <c:when test="${fn:length(image) > 100 }">
-                                    <img class="card-img-top" src="${tour.image}">
+                                    <img class="card-img-top" src="${tour.image}" alt="<fmt:message key="tour.image"/>">
                                 </c:when>
                                 <c:otherwise>
                                     <img class="card-img-top"
-                                         src="${pageContext.request.contextPath}/img/default_user_photo.png">
+                                         src="${pageContext.request.contextPath}/img/no-tour-image.svg" alt="<fmt:message key="tour.image"/>">
                                 </c:otherwise>
                             </c:choose>
 
@@ -209,19 +209,19 @@
                         <p class="card-text text-end">
 
                             <img src="${pageContext.request.contextPath}/img/persons.png" height="17px" width="17px"
-                                 style="float: left;">
+                                 style="float: left;" alt="<fmt:message key="persons.image"/>">
                             <span style="float: right;"><c:out value="${tour.persons}"/></span><br>
 
                             <img src="${pageContext.request.contextPath}/img/price.png" height="17px" width="17px"
-                                 style="float: left;">
+                                 style="float: left;" alt="<fmt:message key="price.image"/>">
                             <span style="float: right;"><c:out value="${tour.price}"/> <fmt:message key="uah"/></span><br>
 
                             <img src="${pageContext.request.contextPath}/img/type.png" height="17px" width="17px"
-                                 style="float: left;">
+                                 style="float: left;" alt="<fmt:message key="type.image"/>">
                             <span style="float: right;"><fmt:message key="${tour.type}"/></span><br>
 
                             <img src="${pageContext.request.contextPath}/img/hotel.png" height="17px" width="17px"
-                                 style="float: left;">
+                                 style="float: left;" alt="<fmt:message key="hotel.image"/>">
                             <span style="float: right;"><fmt:message key="${tour.hotel}"/></span><br>
 
                         </p>
