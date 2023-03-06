@@ -13,19 +13,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <jsp:include page="${pageContext.request.contextPath}/fragments/import_CSS_and_JS.jsp"/>
+    <script src="${pageContext.request.contextPath}/js/previewImage.js"></script>
 </head>
 
 <body>
 
+<%-- main menu --%>
 <jsp:include page="fragments/mainMenu.jsp"/>
+
+<%-- additional menu based on role --%>
 <jsp:include page="fragments/menuChoice.jsp"/>
 
 <div class="col-lg-12 mx-auto p-1 py-md-1">
-    <header class="d-flex align-items-center pb-0 mb-3 border-bottom">
+
+    <%-- message --%>
+    <header class="d-flex align-items-center pb-0 mb-3 border-bottom offset-1">
         <c:if test="${not empty requestScope.message}">
             <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
-        </c:if>
-        <br>
+        </c:if><br>
     </header>
 
     <div class="container-fluid">
@@ -34,79 +39,91 @@
             <c:set var="error" value="${requestScope.error}"/>
 
             <div class="row">
+
                 <div class="col-md-4 offset-1">
+
+                    <%-- Add tour title --%>
                     <h2 class="text-muted"><fmt:message key="add.tour"/></h2>
                     <br>
-                                        <div class="image">
-                                            <input type="file" name="image" accept="image/*" onchange="loadFile(event)">
-                                            <br><br>
-                                            <img id="output" width="300" class="rounded"/>
-                                            <br><br>
-                                            <script>
-                                                var loadFile = function (event) {
-                                                    var output = document.getElementById('output');
-                                                    output.src = URL.createObjectURL(event.target.files[0]);
-                                                    output.onload = function () {
-                                                        URL.revokeObjectURL(output.src) // free memory
-                                                    }
-                                                };
-                                            </script>
-                                            <br>
 
-                                            <%-- tour description --%>
-                                            <div class="form-group">
-                                                <label for="description"><fmt:message key="tour.description"/></label>
-                                                <textarea class="form-control" id="description" rows="5"
-                                                          name="description">${requestScope.tour.description}</textarea>
-                                            </div>
+                    <%-- tour image --%>
+                    <div class="image">
 
-                                        </div>
+                        <div class="form-group">
+                            <img id="preview"
+                            <c:choose>
+                            <c:when test="${fn:length(image) > 100 }">
+                                <img src="${image}"
+                            </c:when>
+                            <c:otherwise>
+                            <img src="img/no-tour-image.svg"
+                            </c:otherwise>
+                            </c:choose>
+                                 alt="Image Preview"
+                                 style="max-width: 250px; max-height: 250px">
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label for="image"></label> <input type="file"
+                                                               class="form-control-file" id="image"
+                                                               name="image"
+                                                               accept="image/*"
+                                                               onchange="readURL(this);">
+                        </div>
+
+                    </div>
+
                     <br>
+
+                    <%-- tour description --%>
+                    <div class="form-group">
+                        <label for="description"><fmt:message key="tour.description"/></label>
+                        <textarea class="form-control" id="description" rows="5"
+                                  name="description">${requestScope.tour.description}</textarea>
+                    </div>
+
                 </div>
 
-                <div class="col-md-5 offset-1">
+                <div class="col-md-5 offset-1 pt-4">
+
                     <div class="form-group">
+
+                        <%-- tour title --%>
                         <label class="form-label fs-5" for="title"><fmt:message key="title"/>*: </label>
                         <input class="form-control" type="text" name="title" id="title"
                                title="<fmt:message key="title.requirements"/>"
                                pattern="^[A-Za-zА-ЩЬЮЯҐІЇЄа-щьюяґіїє'\- ]{1,30}"
-                               required value="${requestScope.tour.title}">
+                               value="${requestScope.tour.title}">
                         <c:if test="${fn:contains(error, 'title')}">
                             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
                         </c:if>
                         <br>
                     </div>
 
+                    <%-- tour persons --%>
                     <div class="form-group">
                         <label class="form-label fs-5" for="persons"><fmt:message key="persons"/>*: </label>
-                        <input class="form-control" type="number" name="persons" id="persons"
-                               required value="${requestScope.tour.persons}">
+                        <input class="form-control" type="number" min="1" name="persons" id="persons"
+                               value="${requestScope.tour.persons}">
                         <c:if test="${fn:contains(error, 'persons')}">
                             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
                         </c:if>
                         <br>
                     </div>
 
+                    <%-- tour price --%>
                     <div class="form-group">
                         <label class="form-label fs-5" for="price"><fmt:message key="price"/>*: </label>
-                        <input class="form-control" type="number" name="price" id="price"
-                               required value="${requestScope.tour.price}">
+                        <input class="form-control" type="number" min="1" name="price" id="price"
+                               value="${requestScope.tour.price}">
                         <c:if test="${fn:contains(error, 'price')}">
                             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
                         </c:if>
                         <br>
                     </div>
 
-                    <%--                    <div class="form-group">--%>
-                    <%--                        <label class="form-label fs-5" for="discount"><fmt:message key="discount"/>*: </label>--%>
-                    <%--                        <input class="form-control" type="number" name="discount" id="discount"--%>
-                    <%--                               required value="${requestScope.tour.discount}">--%>
-                    <%--                        <c:if test="${fn:contains(error, 'discount')}">--%>
-                    <%--                            <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>--%>
-                    <%--                        </c:if>--%>
-                    <%--                        <br>--%>
-                    <%--                    </div>--%>
-
+                    <%-- tour type --%>
                     <label><fmt:message key="tour.type"/>
                         <select name="type" class="form-select mt-2">
                             <option value="REST" ${requestScope.tour.type eq 'REST' ? 'selected' : ''}>
@@ -121,6 +138,7 @@
                         </select>
                     </label>
 
+                    <%-- hotel type --%>
                     <label><fmt:message key="hotel.type"/>
                         <select name="hotel" class="form-select mt-2">
                             <option value="HOTEL" ${requestScope.tour.hotel eq 'HOTEL' ? 'selected' : ''}>
@@ -135,22 +153,36 @@
                         </select>
                     </label> <br> <br>
 
-                                        <div class="form-group">
-                                            <input class="form-check-label" type="checkbox" name="hot" id="hot">
-                                            <label class="form-check-label" for="hot">
-                                                <fmt:message key="hot"/>
-                                            </label>
-                                        </div>
-
+                    <%-- hot tour --%>
+                    <div class="form-group">
+                        <c:choose>
+                            <c:when test="${requestScope.tour.hot eq 'true'}">
+                                <input class="form-check-label" type="checkbox" name="hot" id="hot" checked>
+                            </c:when>
+                            <c:otherwise>
+                                <input class="form-check-label" type="checkbox" name="hot" id="hot">
+                            </c:otherwise>
+                        </c:choose>
+                        <label class="form-check-label" for="hot">
+                            <fmt:message key="hot.tour"/>
+                        </label>
+                    </div>
                     <br>
 
+                    <%-- submit button --%>
                     <button type="submit" class="btn btn-success mt-0 mb-1"><fmt:message key="add.tour"/></button>
+
                 </div>
             </div>
         </form>
+
+        <br>
+
     </div>
 </div>
 <br>
+
+<%-- footer --%>
 <jsp:include page="fragments/footer.jsp"/>
 
 </body>

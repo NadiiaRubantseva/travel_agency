@@ -1,3 +1,4 @@
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -13,31 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <jsp:include page="${pageContext.request.contextPath}/fragments/import_CSS_and_JS.jsp"/>
-    <%-- preview image script --%>
-    <script>
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#preview').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $(document).ready(function () {
-            $("#image").change(function () {
-                var file = this.files[0];
-                var imagefile = file.type;
-                var match = ["image/jpeg", "image/png", "image/jpg"];
-                if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2]))) {
-                    $('#preview').attr('src', '');
-                    alert("Please select a valid image file (JPEG/JPG/PNG).");
-                    return false;
-                }
-            });
-        });
-    </script>
+    <script src="${pageContext.request.contextPath}/js/previewImage.js"></script>
 </head>
 
 <body>
@@ -56,7 +33,6 @@
             <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
         </c:if><br>
     </header>
-
 
     <div class="container-fluid">
         <form method="POST" action="controller" enctype="multipart/form-data">
