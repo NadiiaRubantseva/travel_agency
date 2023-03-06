@@ -22,7 +22,7 @@ public class User implements Serializable {
     private transient String password;
     private String name;
     private String surname;
-    private byte[] avatar;
+    private String avatar;
     private int discount;
     private boolean isBlocked;
     private boolean isEmailVerified;

@@ -24,7 +24,6 @@
 <div class="col-lg-10 mx-auto p-2 py-md-2">
 
     <c:set var="user" value="${requestScope.user}"/>
-    <br>
     <main>
         <div class="container-fluid offset-1">
             <c:if test="${not empty requestScope.message}">
@@ -35,13 +34,13 @@
                 <div class="col-sm-4">
                     <br><br>
                     <div class="image">
-                        <c:set var="image" value="${requestScope.user.avatar}"/>
+                        <c:set var="avatar" value="${requestScope.user.avatar}"/>
                         <c:choose>
                             <c:when test="${fn:length(avatar) > 100 }">
-                                <img src="${requestScope.user.avatar}" class="rounded" width="155">
+                                <img src="${requestScope.user.avatar}" class="rounded" width="250">
                             </c:when>
                             <c:otherwise>
-                                <img src="img/default_user_photo.png" class="rounded" width="155">
+                                <img src="img/default_user_photo.png" class="rounded" width="250">
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -94,10 +93,10 @@
                         <label>
                             <select name="user-status" class="form-select">
                                 <option value="Active" ${requestScope.user.isBlocked eq 'Active' ? 'selected' : ''}>
-                                    <fmt:message key="active"/>
+                                    <fmt:message key="Active"/>
                                 </option>
                                 <option value="Blocked" ${requestScope.user.isBlocked eq 'Blocked' ? 'selected' : ''}>
-                                    <fmt:message key="blocked"/>
+                                    <fmt:message key="Blocked"/>
                                 </option>
                             </select>
                         </label>
@@ -106,10 +105,6 @@
                         </button>
                     </form>
                     <br>
-
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#delete">
-                        <fmt:message key="delete"/>
-                    </button>
                 </div>
             </div>
         </div>
@@ -119,9 +114,6 @@
 </div>
 
 <jsp:include page="fragments/footer.jsp"/>
-
-<jsp:include page="fragments/deleteUserModal.jsp"/>
-
 
 </body>
 </html>

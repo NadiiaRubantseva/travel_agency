@@ -46,6 +46,7 @@ public final class ConvertorUtil {
                 .isBlocked(userDTO.getIsBlocked().equalsIgnoreCase("Blocked"))
                 .isEmailVerified(userDTO.getIsEmailVerified().equalsIgnoreCase("Yes"))
                 .roleId(Role.valueOf(userDTO.getRole()).getValue())
+                .avatar(userDTO.getAvatar())
                 .build();
     }
 
@@ -63,7 +64,7 @@ public final class ConvertorUtil {
                 .role(String.valueOf(Role.getRole(user.getRoleId())))
                 .isBlocked(user.isBlocked() ? "Blocked" : "Active")
                 .isEmailVerified(user.isEmailVerified() ? "Yes" : "No")
-                .avatar(ImageEncoder.encode(user.getAvatar()))
+                .avatar(user.getAvatar())
                 .discount(user.getDiscount())
                 .build();
     }

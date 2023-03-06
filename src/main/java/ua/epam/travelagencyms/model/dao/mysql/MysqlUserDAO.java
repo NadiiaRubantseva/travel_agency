@@ -237,6 +237,7 @@ public class MysqlUserDAO implements UserDAO {
             int k = 0;
             preparedStatement.setString(++k, user.getName());
             preparedStatement.setString(++k, user.getSurname());
+            preparedStatement.setString(++k, user.getAvatar());
             preparedStatement.setLong(++k, user.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -342,6 +343,24 @@ public class MysqlUserDAO implements UserDAO {
         }
     }
 
+    @Override
+    public String getAvatar(long id) throws DAOException {
+        String avatar = null;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_AVATAR_BY_ID)) {
+            int k = 0;
+            preparedStatement.setLong(++k, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    avatar = resultSet.getString(AVATAR);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return avatar;
+    }
+
 
     /**
      * Sets new user's role
@@ -401,7 +420,7 @@ public class MysqlUserDAO implements UserDAO {
                 .password(resultSet.getString(PASSWORD))
                 .name(resultSet.getString(NAME))
                 .surname(resultSet.getString(SURNAME))
-                .avatar(resultSet.getBytes(AVATAR))
+                .avatar(resultSet.getString(AVATAR))
                 .discount(resultSet.getInt(DISCOUNT))
                 .isBlocked(resultSet.getByte(IS_BLOCKED) == 1)
                 .isEmailVerified(resultSet.getByte(IS_EMAIL_VERIFIED) == 1)

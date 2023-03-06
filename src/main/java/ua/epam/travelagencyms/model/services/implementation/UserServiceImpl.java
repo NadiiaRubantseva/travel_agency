@@ -79,7 +79,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(UserDTO userDTO) throws ServiceException {
         validateUser(userDTO);
-        User user = convertDTOToUser(userDTO);
+        User user = User.builder()
+                .id(userDTO.getId())
+                .name(userDTO.getName())
+                .surname(userDTO.getSurname())
+                .avatar(userDTO.getAvatar())
+                .build();
         try {
             userDAO.update(user);
         } catch (DAOException e) {
@@ -260,25 +265,6 @@ public class UserServiceImpl implements UserService {
         return records;
     }
 
-//    /**
-//     * Calls DAO to check if user email is verified
-//     * @param id - to find user by id
-//     * @throws ServiceException - may wrap DAOException
-//     */
-//    @Override
-//    public boolean isEmailVerified(long id) throws ServiceException {
-//        try {
-//            return userDAO.isEmailVerified(id);
-//        } catch (DAOException e) {
-//            throw new ServiceException(e);
-//        }
-//    }
-//
-//    @Override
-//    public boolean isEmailNotVerified(long id) throws ServiceException {
-//        return !isEmailVerified(id);
-//    }
-
     private String getRandom() {
         Random rnd = new Random();
         int number = rnd.nextInt(999999);
@@ -336,6 +322,18 @@ public class UserServiceImpl implements UserService {
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
+    }
+
+    @Override
+    public String getAvatar(String userId) throws ServiceException {
+        long id = Long.parseLong(userId);
+        String avatar;
+        try {
+            avatar = userDAO.getAvatar(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return avatar;
     }
 
     /**

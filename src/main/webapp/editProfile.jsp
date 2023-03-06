@@ -13,56 +13,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <jsp:include page="${pageContext.request.contextPath}/fragments/import_CSS_and_JS.jsp"/>
+    <script src="${pageContext.request.contextPath}/js/previewImage.js"></script>
 </head>
 
 <body>
 
+<%-- main menu --%>
 <jsp:include page="fragments/mainMenu.jsp"/>
 
+<%-- additional menu based on role --%>
 <jsp:include page="fragments/menuChoice.jsp"/>
 
-<div class="col-lg-12 mx-auto p-4 py-md-5">
+<div class="col-lg-12 mx-auto p-1 py-md-1">
 
-        <c:set var="error" value="${requestScope.error}"/>
-        <c:set var="email" value="${requestScope.user.email eq null ?
-                                sessionScope.loggedUser.email : requestScope.user.email}"/>
-        <c:set var="nameValue" value="${requestScope.user.name eq null ?
-                                sessionScope.loggedUser.name : requestScope.user.name}"/>
-        <c:set var="surnameValue" value="${requestScope.user.surname eq null ?
-                                sessionScope.loggedUser.surname : requestScope.user.surname}"/>
-        <div class="container-fluid">
+    <%-- message --%>
+    <header class="d-flex align-items-center pb-0 mb-3 border-bottom offset-1">
+        <c:if test="${not empty requestScope.message}">
+            <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
+        </c:if><br>
+    </header>
+
+    <div class="container-fluid">
+        <form method="POST" action="controller" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="edit-profile">
+
+            <c:set var="error" value="${requestScope.error}"/>
+            <c:set var="error" value="${requestScope.error}"/>
+            <c:set var="email"
+                   value="${requestScope.user.email eq null ? sessionScope.loggedUser.email : requestScope.user.email}"/>
+            <c:set var="nameValue"
+                   value="${requestScope.user.name eq null ? sessionScope.loggedUser.name : requestScope.user.name}"/>
+            <c:set var="surnameValue"
+                   value="${requestScope.user.surname eq null ? sessionScope.loggedUser.surname : requestScope.user.surname}"/>
+            <c:set var="avatar"
+                   value="${requestScope.user.avatar eq null ? sessionScope.loggedUser.avatar : requestScope.user.avatar}"/>
+
             <div class="row">
+
                 <div class="col-md-4 offset-2">
+
+                    <%-- Edit profile title --%>
                     <h2 class="text-muted"><fmt:message key="edit.profile"/></h2>
-                    <br><br>
+                    <br>
+
+                    <%-- user image --%>
                     <div class="image">
-                        <c:set var="avatar" value="${sessionScope.loggedUser.avatar}" />
-                        <c:choose>
+
+                        <div class="form-group">
+                            <img id="preview"
+                            <c:choose>
                             <c:when test="${fn:length(avatar) > 100 }">
-                                <img src="${sessionScope.loggedUser.avatar}" class="rounded" width="155">
+                                <img src="${avatar}"
                             </c:when>
                             <c:otherwise>
-                                <img src="img/default_user_photo.png" class="rounded" width="155">
+                            <img src="img/default_user_photo.png"
                             </c:otherwise>
-                        </c:choose>
-                    </div> <br>
-                    <form method="post" action="controller" enctype="multipart/form-data">
-                        <input type="hidden" name="action" value="update-avatar" >
-                        <input type="hidden" name="id" value="${sessionScope.loggedUser.id}">
-                        <div class="input-group mb-3">
-                            <input type="file" name="avatar" class="form-control">
-                            <button type="submit" class="btn btn-outline-secondary"><fmt:message key="upload"/></button>
+                            </c:choose>
+                                 alt="Image Preview"
+                                 style="max-width: 250px; max-height: 250px">
                         </div>
-                    </form>
+                        <br>
+
+                        <div class="form-group">
+                            <label for="avatar"></label> <input type="file"
+                                                                class="form-control-file" id="avatar"
+                                                                name="avatar"
+                                                                accept="image/*"
+                                                                onchange="readURL(this);">
+                        </div>
+
+                    </div>
+
                     <br>
-                    <p class="fs-6 col-md-8">
+
+                    <%-- change password link --%>
+                    <p class="fs-6 col-md-4">
                         <a href="changePassword.jsp" class="link-dark"><fmt:message key="change.password"/></a>
                     </p>
+
                 </div>
 
-                <div class="col-md-5">
-                    <form method="POST" action="controller">
-                        <input type="hidden" name="action" value="edit-profile">
+                <div class="col-md-4 pt-4">
+
+                    <%-- user email --%>
                     <div class="form-group">
                         <c:if test="${not empty requestScope.message}">
                             <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
@@ -75,6 +108,7 @@
                         </c:if><br>
                     </div>
 
+                    <%-- use name --%>
                     <div class="form-group">
                         <label class="form-label fs-5" for="name"><fmt:message key="name"/>*: </label>
                         <input class="form-control" name="name" id="name"
@@ -85,24 +119,31 @@
                         </c:if><br>
                     </div>
 
+                    <%-- user surname --%>
                     <div class="form-group">
                         <label class="form-label fs-5" for="surname"><fmt:message key="surname"/>*: </label>
                         <input class="form-control" name="surname" id="surname"
                                pattern="^[A-Za-zА-ЩЬЮЯҐІЇЄа-щьюяґіїє'\- ]{1,30}"
-                               title="<fmt:message key="surname.requirements"/>" required value="${surnameValue}">
+                               title="<fmt:message key="surname.requirements"/>" required
+                               value="${surnameValue}">
                         <c:if test="${fn:contains(error, 'surname')}">
                             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
                         </c:if><br>
                     </div>
-                    <div id="button" class="form-group">
-                        <button type="submit" class="btn btn-success mt-0 mb-1"><fmt:message key="submit"/></button>
-                    </div>
-                    </form>
+
+                    <br>
+
+                    <%-- submit button --%>
+                    <button type="submit" class="btn btn-success mt-0 mb-1"><fmt:message key="submit"/></button>
+
                 </div>
             </div>
-        </div>
+        </form>
+    </div>
 </div>
+<br>
 
+<%-- footer --%>
 <jsp:include page="fragments/footer.jsp"/>
 
 </body>

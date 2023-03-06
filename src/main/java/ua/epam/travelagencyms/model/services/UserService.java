@@ -116,6 +116,8 @@ public interface UserService extends Service<UserDTO> {
      */
     void setAvatar(String userId, byte[] avatar) throws ServiceException;
 
+    String getAvatar(String userId) throws ServiceException;
+
     /**
      * Calls DAO to check either user is blocked or not.
      * @param id - to find user by id

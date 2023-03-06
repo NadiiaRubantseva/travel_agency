@@ -1,5 +1,6 @@
 package ua.epam.travelagencyms.controller.actions.impl.base;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,14 +9,14 @@ import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.exceptions.*;
 import ua.epam.travelagencyms.model.services.*;
+import ua.epam.travelagencyms.utils.ImageEncoder;
 
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.isPostMethod;
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferUserDTOFromSessionToRequest;
+import java.io.IOException;
+
+import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.EDIT_PROFILE_ACTION;
-import static ua.epam.travelagencyms.controller.actions.constants.Pages.EDIT_PROFILE_PAGE;
-import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.SURNAME;
 
@@ -59,7 +60,7 @@ public class EditProfileAction implements Action {
         transferStringFromSessionToRequest(request, MESSAGE);
         transferStringFromSessionToRequest(request, ERROR);
         transferUserDTOFromSessionToRequest(request);
-        return EDIT_PROFILE_PAGE;
+        return getPath(request);
     }
 
     /**
@@ -72,27 +73,49 @@ public class EditProfileAction implements Action {
      * @return path to redirect to executeGet method through front-controller
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
-
-        UserDTO sessionUser = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
-
-        UserDTO user = UserDTO.builder()
-                .id(sessionUser.getId())
-                .email(sessionUser.getEmail())
-                .name(request.getParameter(NAME))
-                .surname(request.getParameter(SURNAME))
-                .build();
+        String path = PROFILE_PAGE;
 
         try {
+
+            UserDTO user = getUserDTO(request);
+            request.getSession().setAttribute(LOGGED_USER, user);
             userService.update(user);
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
-            sessionUser.setName(user.getName());
-            sessionUser.setSurname(user.getSurname());
 
-        } catch (IncorrectFormatException | DuplicateEmailException e) {
-            request.getSession().setAttribute(USER, user);
+        } catch (IncorrectFormatException | DuplicateEmailException | IOException |ServletException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
+            path = EDIT_PROFILE_PAGE;
         }
 
+        request.getSession().setAttribute(CURRENT_PATH, path);
         return getActionToRedirect(EDIT_PROFILE_ACTION);
     }
+
+    private UserDTO getUserDTO(HttpServletRequest request) throws IOException, ServletException, ServiceException {
+        UserDTO sessionUser = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
+
+        return UserDTO.builder()
+                .id(sessionUser.getId())
+                .email(sessionUser.getEmail())
+                .role(sessionUser.getRole())
+                .name(request.getParameter(NAME))
+                .surname(request.getParameter(SURNAME))
+                .avatar(getAvatar(request, String.valueOf(sessionUser.getId())))
+                .build();
+
+    }
+
+    private String getAvatar(HttpServletRequest request, String id) throws IOException, ServletException, ServiceException {
+        byte[] avatar = request.getPart(AVATAR).getInputStream().readAllBytes();
+        String encodedImage;
+
+        if (avatar.length == 0) {
+            encodedImage = userService.getAvatar(id);
+        } else {
+            encodedImage = ImageEncoder.encode(avatar);
+        }
+
+        return encodedImage;
+    }
+
 }

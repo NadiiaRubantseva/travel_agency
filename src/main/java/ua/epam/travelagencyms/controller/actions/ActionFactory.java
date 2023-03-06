@@ -42,7 +42,6 @@ public class ActionFactory {
         ACTION_MAP.put(VERIFY_CODE_ACTION, new VerifyCodeAction(APP_CONTEXT));
         ACTION_MAP.put(ERROR_ACTION, new ErrorAction());
         ACTION_MAP.put(EDIT_PROFILE_ACTION, new EditProfileAction(APP_CONTEXT));
-        ACTION_MAP.put(UPLOAD_AVATAR_ACTION, new UploadAvatarAction(APP_CONTEXT));
 
         // ADMIN
         ACTION_MAP.put(VIEW_USERS_ACTION, new ViewUsersAction(APP_CONTEXT));

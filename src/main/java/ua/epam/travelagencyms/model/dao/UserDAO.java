@@ -107,4 +107,5 @@ public interface UserDAO extends EntityDAO<User>{
      */
     void setStatus(long userId, byte statusId) throws DAOException;
     void setDiscount(int discount, long userId) throws DAOException;
+    String getAvatar(long id) throws DAOException;
 }

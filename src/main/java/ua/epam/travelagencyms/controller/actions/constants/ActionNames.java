@@ -21,6 +21,7 @@ public class ActionNames {
     public static final String VERIFY_CODE_ACTION = "verify-code";
     public static final String EDIT_PROFILE_ACTION = "edit-profile";
     public static final String UPLOAD_AVATAR_ACTION = "update-avatar";
+    public static final String SEARCH_LOYALTY_PROGRAM_ACTION = "search-loyalty-program";
 
     /** Admin's actions */
     public static final String VIEW_USERS_ACTION = "view-users";

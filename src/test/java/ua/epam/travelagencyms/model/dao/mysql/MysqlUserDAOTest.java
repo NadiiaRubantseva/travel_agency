@@ -69,9 +69,9 @@ class MysqlUserDAOTest {
     @Test
     void testSqlExceptionGetById() throws SQLException {
         DataSource dataSource = mock(DataSource.class);
-        UserDAO userDAO = new MysqlUserDAO(dataSource);
+        MysqlLoyaltyProgramDAO mysqlLoyaltyProgramDAO = new MysqlLoyaltyProgramDAO(dataSource);
         when(dataSource.getConnection()).thenThrow(new SQLException());
-        assertThrows(DAOException.class, () -> userDAO.getById(ID_VALUE));
+        assertThrows(DAOException.class, mysqlLoyaltyProgramDAO::get);
     }
 
     @Test
