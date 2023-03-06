@@ -54,6 +54,7 @@
             <button type="submit" class="icon-button"><img src="img/pdf-file.png" height="25"></button>
         </form>
     </div>
+    <br>
 
     <div class="bd-example-snippet bd-code-snippet">
         <div class="bd-example">
@@ -116,10 +117,10 @@
                         <td>
                             <c:choose>
                                 <c:when test="${user.isBlocked eq 'Blocked'}">
-                                    <div class="text-danger">Blocked</div>
+                                    <div class="text-danger"><fmt:message key="${user.isBlocked}"/></div>
                                 </c:when>
                                 <c:otherwise>
-                                    <div class="text-success">Active</div>
+                                    <div class="text-success"><fmt:message key="${user.isBlocked}"/></div>
                                 </c:otherwise>
                             </c:choose>
                         </td>

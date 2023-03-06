@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Locale;
 
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.*;
-import static ua.epam.travelagencyms.utils.NumbersUtil.roundUpToInteger;
 import static ua.epam.travelagencyms.utils.ResourceBundleUtil.getValue;
 
 /**
@@ -143,7 +142,7 @@ public class PdfUtil {
         Table table = new Table(new float[]{4, 6, 10, 8, 8, 4, 4});
         table.setWidth(UnitValue.createPercentValue(100));
         addTableHeader(table, USER_CELLS, resourceBundle);
-        addUserTableRows(table, users);
+        addUserTableRows(table, users, resourceBundle);
         return table;
     }
 
@@ -174,16 +173,16 @@ public class PdfUtil {
                 });
     }
 
-    private void addUserTableRows(Table table, List<UserDTO> users) {
+    private void addUserTableRows(Table table, List<UserDTO> users, ResourceBundle resourceBundle) {
         users.forEach(user ->
                 {
                     table.addCell(String.valueOf(user.getId()));
-                    table.addCell(user.getIsBlocked());
+                    table.addCell(getValue(resourceBundle, user.getIsBlocked()));
                     table.addCell(user.getEmail());
                     table.addCell(user.getName());
                     table.addCell(user.getSurname());
                     table.addCell(user.getDiscount() + "%");
-                    table.addCell(user.getRole());
+                    table.addCell(getValue(resourceBundle, user.getRole()));
                 }
         );
     }
@@ -200,7 +199,7 @@ public class PdfUtil {
                     table.addCell(getValue(resourceBundle, tour.getHotel()));
                     table.addCell(getValue(resourceBundle, tour.getHot().equals(TRUE) ? YES : NO));
                     table.addCell(String.valueOf(tour.getPersons()));
-                    table.addCell(roundUpToInteger(tour.getPrice()));
+                    table.addCell(tour.getPrice());
 
                 }
         );
