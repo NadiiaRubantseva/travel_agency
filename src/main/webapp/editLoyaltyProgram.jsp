@@ -29,13 +29,13 @@
         <input type="hidden" name="action" value="edit-loyalty-program">
         <div class="form-group row">
             <div class="text-center text-muted">
-                <h3>Loyalty Program Discount</h3>
+                <h3><fmt:message key="loyalty.program"/></h3>
             </div>
         </div>
         <br>
         <div class="form-group row">
             <div class="col-sm-3 mx-auto">
-                <label for="step">Step</label>
+                <label for="step"><fmt:message key="step"/></label>
                 <input type="number" class="form-control" id="step" name="step" required
                        value="${requestScope.loyaltyProgram.step}">
             </div>
@@ -43,7 +43,7 @@
         <br>
         <div class="form-group row">
             <div class="col-sm-3 mx-auto">
-                <label for="discount">+ discount %</label>
+                <label for="discount">+ <fmt:message key="discount"/> %</label>
                 <input type="number" class="form-control" id="discount" name="discount" required
                        value="${requestScope.loyaltyProgram.discount}">
             </div>
@@ -51,7 +51,7 @@
         <br>
         <div class="form-group row">
             <div class="col-sm-3 mx-auto">
-                <label for="max-discount">Maximum discount</label>
+                <label for="max-discount"><fmt:message key="max.discount"/></label>
                 <input type="number" class="form-control" id="max-discount" name="max-discount" required
                        value="${requestScope.loyaltyProgram.maxDiscount}">
             </div>

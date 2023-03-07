@@ -84,7 +84,8 @@
                                 key="${requestScope.tour.hotel}"/></p>
                         <p class=" tour-description"><strong><fmt:message
                                 key="tour.description"/>:&nbsp</strong> ${requestScope.tour.description}</p>
-                        <p><strong><fmt:message key="tour.price"/>:&nbsp</strong> ${requestScope.tour.price}
+                        <p><strong><fmt:message key="tour.price"/>:&nbsp</strong>
+                            <fmt:formatNumber value="${requestScope.tour.price}" pattern="###0" />
                             <fmt:message key="uah"/></p>
                         <c:choose>
                             <c:when test="${empty requestScope.discount}">
@@ -97,7 +98,7 @@
                             </c:otherwise>
                         </c:choose>
                         <p><strong>Всього до сплати:&nbsp</strong>
-                            ${requestScope.total} грн
+                            <fmt:formatNumber value="${requestScope.total}" pattern="###0" /> грн
                         </p><br>
                         <button class="btn btn-success" onclick="return checkSession()">
                             <fmt:message key="order"/>

@@ -157,7 +157,7 @@
                         </div>
                         <td><c:out value="${tour.title}"/></td>
                         <td><c:out value="${tour.persons}"/></td>
-                        <td><c:out value="${tour.price}"/></td>
+                        <td><fmt:formatNumber value="${tour.price}" pattern="###0" /></td>
                         <td><fmt:message key="${tour.type}"/></td>
                         <td><c:out value="${tour.hotel}"/></td>
                         <td>
