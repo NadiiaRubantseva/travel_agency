@@ -48,4 +48,6 @@ public class Pages {
     public static final String VIEW_ORDERS_BY_USER_PAGE = "viewOrdersByUser.jsp";
     public static final String BOOK_TOUR_CONFIRMATION_PAGE = "bookTourConfirmation.jsp";
 
+    public static final String VIEW_LOYALTY_PROGRAM_PAGE = "";
+
 }

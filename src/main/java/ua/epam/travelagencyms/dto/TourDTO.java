@@ -21,7 +21,7 @@ public class TourDTO implements Serializable {
     private long id;
     private String title;
     private int persons;
-    private String price;
+    private double price;
     private String hot;
     private String type;
     private String hotel;

@@ -2,8 +2,8 @@ package ua.epam.travelagencyms.controller.actions.impl.admin;
 
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
+import ua.epam.travelagencyms.dto.LoyaltyProgramDTO;
 import ua.epam.travelagencyms.exceptions.ServiceException;
-import ua.epam.travelagencyms.model.entities.LoyaltyProgram;
 import ua.epam.travelagencyms.model.services.implementation.LoyaltyProgramService;
 
 
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
-import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SEARCH_TOUR_ACTION;
+import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SEARCH_LOYALTY_PROGRAM_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
@@ -35,16 +35,15 @@ public class EditLoyaltyProgramAction implements Action {
     private String executeGet(HttpServletRequest request) {
         transferStringFromSessionToRequest(request, MESSAGE);
         transferStringFromSessionToRequest(request, ERROR);
-
-        return "viewLoyaltyProgram.jsp";
+        return VIEW_LOYALTY_PROGRAM_PAGE;
     }
 
-    private String executePost(HttpServletRequest request) throws ServiceException {
-        String path = "viewLoyaltyProgram.jsp";
-        LoyaltyProgram loyaltyProgram = LoyaltyProgram.builder()
-                .step(Integer.parseInt(request.getParameter("step")))
-                .discount(Integer.parseInt(request.getParameter("discount")))
-                .maxDiscount(Integer.parseInt(request.getParameter("max-discount")))
+    private String executePost(HttpServletRequest request) {
+        String path = VIEW_LOYALTY_PROGRAM_PAGE;
+        LoyaltyProgramDTO loyaltyProgram = LoyaltyProgramDTO.builder()
+                .step(Integer.parseInt(request.getParameter(STEP)))
+                .discount(Integer.parseInt(request.getParameter(DISCOUNT)))
+                .maxDiscount(Integer.parseInt(request.getParameter(MAX_DISCOUNT)))
                 .build();
         try {
             loyaltyProgramService.update(loyaltyProgram);
@@ -54,6 +53,6 @@ public class EditLoyaltyProgramAction implements Action {
             path = INDEX_PAGE;
         }
         request.getSession().setAttribute(CURRENT_PATH, path);
-        return getActionToRedirect("search-loyalty-program");
+        return getActionToRedirect(SEARCH_LOYALTY_PROGRAM_ACTION);
     }
 }

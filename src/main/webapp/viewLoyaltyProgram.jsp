@@ -28,10 +28,11 @@
     <form class="mx-auto" method="GET" action="controller">
         <input type="hidden" name="action" value="search-loyalty-program">
         <input type="hidden" name="purpose" value="edit">
-        <c:if test="${not empty requestScope.message}">
-            <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
-        </c:if><br>
+
         <div class="form-group row">
+            <c:if test="${not empty requestScope.message}">
+                <span class="text-center text-success"><fmt:message key="${requestScope.message}"/></span>
+            </c:if><br>
             <div class="text-center text-muted">
                 <h3>Loyalty Program Discount</h3>
             </div>

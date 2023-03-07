@@ -2,9 +2,9 @@ package ua.epam.travelagencyms.controller.actions.impl.admin;
 
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
+import ua.epam.travelagencyms.dto.LoyaltyProgramDTO;
 import ua.epam.travelagencyms.dto.OrderDTO;
 import ua.epam.travelagencyms.exceptions.ServiceException;
-import ua.epam.travelagencyms.model.entities.LoyaltyProgram;
 import ua.epam.travelagencyms.model.services.OrderService;
 import ua.epam.travelagencyms.model.services.UserService;
 import ua.epam.travelagencyms.model.services.implementation.LoyaltyProgramService;
@@ -72,7 +72,7 @@ public class UpdateOrderStatusAction implements Action {
         request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
 
         if (orderStatus.equals(PAID)) {
-            LoyaltyProgram loyaltyProgram = loyaltyProgramService.get();
+            LoyaltyProgramDTO loyaltyProgram = loyaltyProgramService.get();
             List<OrderDTO> orders = orderService.viewUsersOrders(Long.parseLong(userId));
             long count = orders.stream().filter(order -> order.getOrderStatus().equals(PAID)).count();
             int userDiscount = (int) ((count / loyaltyProgram.getStep()) * loyaltyProgram.getDiscount());

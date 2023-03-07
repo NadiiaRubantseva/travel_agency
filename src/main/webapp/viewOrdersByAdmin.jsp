@@ -31,22 +31,23 @@
 
                 <label><fmt:message key="order.status"/><select name="status" class="form-select">
                     <option><fmt:message key="select.status"/></option>
-                    <option value="3" ${param.status eq "3" ? "selected" : ""}><fmt:message
-                            key="CANCELED"/></option>
-                    <option value="2" ${param.status eq "2" ? "selected" : ""}><fmt:message key="PAID"/></option>
-                    <option value="1" ${param.status eq "1" ? "selected" : ""}><fmt:message
-                            key="REGISTERED"/></option>
+                    <option value="3" ${param.status eq "3" ? "selected" : ""}>
+                        <fmt:message key="CANCELED"/></option>
+                    <option value="2" ${param.status eq "2" ? "selected" : ""}>
+                        <fmt:message key="PAID"/></option>
+                    <option value="1" ${param.status eq "1" ? "selected" : ""}>
+                        <fmt:message key="REGISTERED"/></option>
                 </select>
                 </label>
 
                 <div class="form-group">
-                    <label for="start-date"><fmt:message key="start.date"/></label>
-                    <input type="date" class="form-control" id="start-date" name="start-date">
+                    <label for="start_date"><fmt:message key="start.date"/></label>
+                    <input type="date" class="form-control" id="start_date" name="start_date" value="${param.start_date}">
                 </div>
 
                 <div class="form-group">
-                    <label for="end-date"><fmt:message key="end.date"/></label>
-                    <input type="date" class="form-control" id="end-date" name="end-date">
+                    <label for="end_date"><fmt:message key="end.date"/></label>
+                    <input type="date" class="form-control" id="end_date" name="end_date" value="${param.end_date}">
                 </div>
 
             </div>
@@ -77,6 +78,8 @@
         </form>
     </div>
 
+    <br>
+
     <div class="bd-example-snippet bd-code-snippet">
         <div class="bd-example">
             <table class="table table-striped" aria-label="order-table">
@@ -97,16 +100,7 @@
                         <fmt:message key="status"/>
                     </th>
                     <th scope="col">
-                        <fmt:message key="user.id.w/br"/>
-                    </th>
-                    <th scope="col">
-                        <fmt:message key="user.name"/>
-                    </th>
-                    <th scope="col">
-                        <fmt:message key="surname"/>
-                    </th>
-                    <th scope="col">
-                        <fmt:message key="tour.id.w/br"/>
+                        <fmt:message key="fullname"/>
                     </th>
                     <th scope="col">
                         <fmt:message key="tour.title"/>
@@ -148,17 +142,14 @@
                                 </td>
                             </c:when>
                         </c:choose>
-                        <td><c:out value="${order.userId}"/></td>
-                        <td><c:out value="${order.userName}"/></td>
-                        <td><c:out value="${order.userSurname}"/></td>
-                        <td><c:out value="${order.tourId}"/></td>
+                        <td><c:out value="${order.userName}"/> <c:out value="${order.userSurname}"/></td>
                         <td><c:out value="${order.tourTitle}"/></td>
-                        <td><c:out value="${order.tourPrice}"/> грн</td>
+                        <td><fmt:formatNumber value="${order.tourPrice}" pattern="###0" /><fmt:message key="uah"/></td>
                         <td><c:out value="${order.discount}"/>%</td>
-                        <td><c:out value="${order.totalCost}"/> грн</td>
+                        <td><fmt:formatNumber value="${order.tourPrice}" pattern="###0" /><fmt:message key="uah"/></td>
                         <td>
                             <a class="link-dark" href=controller?action=search-order&order-id=${order.id}>
-                                <fmt:message key="edit"/>
+                                <img src="img/edit.png" width="20">
                             </a>
                         </td>
                     </tr>

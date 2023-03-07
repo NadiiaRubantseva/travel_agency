@@ -58,14 +58,14 @@
                         <p><strong><fmt:message key="tour.information"/></strong></p>
                         <p>
                             <fmt:message key="tour.id"/>: ${requestScope.order.tourId}<br>
-                            <fmt:message key="tour.title.name"/>: ${requestScope.order.tourTitle}<br>
+                            <fmt:message key="tour.title.name"/>:<br> ${requestScope.order.tourTitle}<br>
                         </p>
                     </div>
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-sm-6">
-                        <p><strong><fmt:message key="tour.price.title"/>:</strong> ${requestScope.order.tourPrice}</p>
+                        <p><strong><fmt:message key="tour.price.title"/>:</strong> <fmt:formatNumber value="${requestScope.order.tourPrice}" pattern="###0" /><fmt:message key="uah"/></p>
                     </div>
                     <div class="col-sm-6">
                         <p><strong><fmt:message key="order.discount.title"/>:</strong> ${requestScope.order.discount}%
@@ -74,9 +74,9 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-sm-12 text-right">
+                    <div class="col-sm-12 text-end">
                         <p><strong class="text-uppercase"><fmt:message
-                                key="order.total"/>:</strong> ${requestScope.order.totalCost}</p>
+                                key="order.total"/>:</strong> <fmt:formatNumber value="${requestScope.order.totalCost}" pattern="###0" /><fmt:message key="uah"/> </p>
                     </div>
                 </div>
             </div>

@@ -68,6 +68,12 @@ public class Parameters {
     public static final String DATE = "date";
     public static final String TOTAL = "total";
 
+    /**
+     * Parameters and attributes to work with LoyaltyProgramDTO
+     */
+    public static final String STEP = "step";
+    public static final String MAX_DISCOUNT = "max-discount";
+
 
     /**
      * Parameters and attributes to work with sorting, ordering and pagination
@@ -85,8 +91,8 @@ public class Parameters {
     public static final String PERSONS = "persons";
     public static final String PRICE = "price";
     public static final String TOUR_PRICE = "tour-price";
-    public static final String START_DATE = "start-date";
-    public static final String END_DATE = "start-date";
+    public static final String START_DATE = "start_date";
+    public static final String END_DATE = "end_date";
 
 
     /**

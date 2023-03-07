@@ -184,6 +184,33 @@ small {
     margin-top: 3px;
 }
 
+.card-img-top {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    object-fit: contain;
+}
+
+img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.ribbon {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    background-color: rgb(255, 53, 53);
+    color: white;
+    padding: 5px 10px;
+    /*transform: rotate(-45deg);*/
+}
+
+.ribbon-top-left {
+    top: 0;
+    left: 0;
+}
+
 #fg, #pass {
     padding-bottom: 20px;
     padding-top: 20px;

@@ -193,9 +193,6 @@
                     </th>
                     <th scope="col">
                         <fmt:message key="photo"/>
-                        <%--                        <a href="${base.concat(byId).concat(idOrder).concat(limits)}">--%>
-                        <%--                            <i class="bi bi-arrow-down-up link-dark"></i>--%>
-                        <%--                        </a>--%>
                     </th>
                     <th scope="col" class="col-3">
                         <fmt:message key="title"/>
@@ -240,7 +237,7 @@
                             </c:if>
                         </td>
                         <td><c:out value="${tour.persons}"/></td>
-                        <td><c:out value="${tour.price}"/></td>
+                        <td><fmt:formatNumber value="${tour.price}" pattern="###0" /></td>
                         <td><fmt:message key="${tour.type}"/></td>
                         <td><fmt:message key="${tour.hotel}"/></td>
                         <td>

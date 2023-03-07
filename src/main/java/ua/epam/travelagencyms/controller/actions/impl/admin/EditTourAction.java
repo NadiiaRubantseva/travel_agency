@@ -85,7 +85,7 @@ public class EditTourAction implements Action {
                 .id(Long.parseLong(request.getParameter(TOUR_ID)))
                 .title(request.getParameter(TITLE))
                 .persons(Integer.parseInt(request.getParameter(PERSONS)))
-                .price(request.getParameter(PRICE))
+                .price(Double.parseDouble(request.getParameter(PRICE)))
                 .hot(request.getParameter(HOT) == null ? FALSE : TRUE)
                 .type(request.getParameter(TYPE))
                 .hotel(request.getParameter(HOTEL))

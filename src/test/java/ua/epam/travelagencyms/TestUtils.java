@@ -1,13 +1,16 @@
 package ua.epam.travelagencyms;
 
+import ua.epam.travelagencyms.dto.LoyaltyProgramDTO;
 import ua.epam.travelagencyms.dto.OrderDTO;
 import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.dto.UserDTO;
+import ua.epam.travelagencyms.model.entities.loyaltyProgram.LoyaltyProgram;
 import ua.epam.travelagencyms.model.entities.order.Order;
 import ua.epam.travelagencyms.model.entities.tour.Tour;
 import ua.epam.travelagencyms.model.entities.user.User;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public final class TestUtils {
 
@@ -32,8 +35,8 @@ public final class TestUtils {
     public static final String INCORRECT_SURNAME_VALUE = "My @ 1Surname";
     public static final int DISCOUNT_VALUE = 10;
     public static final String DISCOUNT_STRING_VALUE = "10";
-    public static final byte[] AVATAR_VALUE = new byte[]{1};
-    public static final String AVATAR_ENCODED_VALUE = "Avatar image decoded";
+    public static final byte[] AVATAR_VALUE = new byte[]{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+    public static final String AVATAR_ENCODED_VALUE = Arrays.toString(AVATAR_VALUE);
     public static final boolean IS_BLOCKED_VALUE = false;
     public static final String IS_BLOCKED_STRING_VALUE = "Active";
     public static final boolean IS_EMAIL_VERIFIED_VALUE = true;
@@ -68,6 +71,13 @@ public final class TestUtils {
     public static final LocalDate DATE_VALUE = LocalDate.of(2023,2,12);
     public static final String DATE_STRING_VALUE = "2023-02-12";
 
+    // Loyalty Program
+    public static final int STEP_VALUE = 2;
+    public static final String STEP_STRING_VALUE = "2";
+    public static final int LOYALTY_PROGRAM_DISCOUNT_VALUE = 5;
+    public static final String LOYALTY_PROGRAM_DISCOUNT_STRING_VALUE = "5";
+    public static final int MAX_DISCOUNT_VALUE = 30;
+    public static final String MAX_DISCOUNT_STRING_VALUE = "30";
 
     public static User getTestUser() {
         return User.builder()
@@ -77,7 +87,7 @@ public final class TestUtils {
                 .name(NAME_VALUE)
                 .surname(SURNAME_VALUE)
                 .discount(DISCOUNT_VALUE)
-                .avatar(AVATAR_VALUE)
+                .avatar("avatar")
                 .isBlocked(IS_BLOCKED_VALUE)
                 .isEmailVerified(IS_EMAIL_VERIFIED_VALUE)
                 .verificationCode(VERIFICATION_CODE_VALUE)
@@ -108,7 +118,7 @@ public final class TestUtils {
                 .hot(HOT_VALUE)
                 .typeId(TYPE_ID_VALUE)
                 .hotelId(HOTEL_ID_VALUE)
-                .image(IMAGE_VALUE)
+                .image("image")
                 .description(DESCRIPTION_VALUE)
                 .build();
     }
@@ -156,4 +166,19 @@ public final class TestUtils {
                 .build();
     }
 
+    public static LoyaltyProgram getTestLoyaltyProgram() {
+        return LoyaltyProgram.builder()
+                .step(STEP_VALUE)
+                .discount(LOYALTY_PROGRAM_DISCOUNT_VALUE)
+                .maxDiscount(MAX_DISCOUNT_VALUE)
+                .build();
+    }
+
+    public static LoyaltyProgramDTO getTestLoyaltyProgramDTO() {
+        return LoyaltyProgramDTO.builder()
+                .step(STEP_VALUE)
+                .discount(LOYALTY_PROGRAM_DISCOUNT_VALUE)
+                .maxDiscount(MAX_DISCOUNT_VALUE)
+                .build();
+    }
 }

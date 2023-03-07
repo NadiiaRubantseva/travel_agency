@@ -14,7 +14,6 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 import static ua.epam.travelagencyms.exceptions.constants.Message.*;
-import static ua.epam.travelagencyms.utils.ConvertorUtil.convertDTOToUser;
 import static ua.epam.travelagencyms.utils.ConvertorUtil.convertUserToDTO;
 import static ua.epam.travelagencyms.utils.PasswordHashUtil.encode;
 import static ua.epam.travelagencyms.utils.PasswordHashUtil.verify;
@@ -121,7 +120,11 @@ public class UserServiceImpl implements UserService {
         validateUser(userDTO);
         validatePassword(password);
         checkPasswordMatching(password, confirmPassword);
-        User user = convertDTOToUser(userDTO);
+        User user = User.builder()
+                .name(userDTO.getName())
+                .surname(userDTO.getSurname())
+                .email(userDTO.getEmail())
+                .build();
         user.setPassword(encode(password));
         try {
             userDAO.add(user);

@@ -158,7 +158,7 @@ public class PdfUtil {
         Table table = new Table(new float[]{1,1,1,1,1,1,1,1,1,1,1,1});
         table.setWidth(UnitValue.createPercentValue(100));
         addTableHeader(table, ORDER_CELLS, resourceBundle);
-        addOrderTableRows(table, orders);
+        addOrderTableRows(table, orders, resourceBundle);
         return table;
     }
 
@@ -199,20 +199,20 @@ public class PdfUtil {
                     table.addCell(getValue(resourceBundle, tour.getHotel()));
                     table.addCell(getValue(resourceBundle, tour.getHot().equals(TRUE) ? YES : NO));
                     table.addCell(String.valueOf(tour.getPersons()));
-                    table.addCell(tour.getPrice());
+                    table.addCell(String.valueOf(tour.getPrice()));
 
                 }
         );
     }
 
-    private void addOrderTableRows(Table table, List<OrderDTO> orders) {
+    private void addOrderTableRows(Table table, List<OrderDTO> orders, ResourceBundle resourceBundle) {
         AtomicInteger iterator = new AtomicInteger();
         orders.forEach(order ->
                 {
                     table.addCell(String.valueOf(iterator.incrementAndGet()));
                     table.addCell(String.valueOf(order.getDate()));
                     table.addCell(String.valueOf(order.getId()));
-                    table.addCell(order.getOrderStatus());
+                    table.addCell(getValue(resourceBundle,order.getOrderStatus()));
                     table.addCell(String.valueOf(order.getUserId()));
                     table.addCell(order.getUserName());
                     table.addCell(order.getUserSurname());

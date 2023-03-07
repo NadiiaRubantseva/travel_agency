@@ -24,7 +24,7 @@ public class MysqlDAOFactory extends DAOFactory {
     /** A single instance of the orderDAO (Singleton pattern) */
     private OrderDAO orderDAO;
 
-    private MySqlLoyaltyProgramDAO loyaltyProgramDAO;
+    private MysqlLoyaltyProgramDAO loyaltyProgramDAO;
 
     private final DataSource dataSource;
     public MysqlDAOFactory(DataSource dataSource) {
@@ -65,9 +65,9 @@ public class MysqlDAOFactory extends DAOFactory {
     }
 
     @Override
-    public MySqlLoyaltyProgramDAO getLoyaltyProgramDAO() {
+    public MysqlLoyaltyProgramDAO getLoyaltyProgramDAO() {
         if (loyaltyProgramDAO == null) {
-            loyaltyProgramDAO = new MySqlLoyaltyProgramDAO(dataSource);
+            loyaltyProgramDAO = new MysqlLoyaltyProgramDAO(dataSource);
         }
         return loyaltyProgramDAO;
     }
