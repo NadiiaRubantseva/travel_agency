@@ -13,8 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
-import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.ADMIN;
-import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.EDIT;
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
 /**
@@ -54,7 +53,7 @@ public class SearchTourAction implements Action {
                 return EDIT_TOUR_PAGE;
             }
 
-            if (user != null && user.getRole().equals(ADMIN)) {
+            if (user != null && (user.getRole().equals(ADMIN) || user.getRole().equals(MANAGER))) {
                 return VIEW_TOUR_BY_ADMIN_PAGE;
             }
 

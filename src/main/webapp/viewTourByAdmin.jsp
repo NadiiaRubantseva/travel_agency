@@ -153,8 +153,12 @@
                     </div>
                     <br>
 
-                    <%-- submit button --%>
-                    <button type="submit" class="btn btn-success mt-0 mb-1"><fmt:message key="edit.tour"/></button>
+                    <c:choose>
+                        <c:when test="${sessionScope.role eq 'ADMIN'}">
+                            <%-- submit button --%>
+                            <button type="submit" class="btn btn-success mt-0 mb-1"><fmt:message key="edit.tour"/></button>
+                        </c:when>
+                    </c:choose>
 
                 </div>
             </div>

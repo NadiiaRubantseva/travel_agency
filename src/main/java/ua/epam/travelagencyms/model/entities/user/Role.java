@@ -6,7 +6,7 @@ package ua.epam.travelagencyms.model.entities.user;
  * @author Nadiia Rubantseva
  * @version 1.0
  */
-public enum Role {ADMIN(1), USER(2);
+public enum Role {ADMIN(1), USER(2), MANAGER(3);
     private final int value;
 
     Role(int value) {

@@ -5,4 +5,7 @@
     <c:when test="${sessionScope.role eq 'ADMIN'}">
         <jsp:include page="adminMenu.jsp"/>
     </c:when>
+    <c:when test="${sessionScope.role eq 'MANAGER'}">
+        <jsp:include page="managerMenu.jsp"/>
+    </c:when>
 </c:choose>

@@ -112,7 +112,11 @@
 
                     <th scope="col"><fmt:message key="role"/></th>
 
-                    <th scope="col"><fmt:message key="action"/></th>
+                    <c:choose>
+                        <c:when test="${sessionScope.role eq 'ADMIN'}">
+                            <th scope="col"><fmt:message key="action"/></th>
+                        </c:when>
+                    </c:choose>
 
                 </tr>
 
@@ -157,11 +161,15 @@
 
                         <td><fmt:message key="${user.role}"/></td>
 
-                        <td>
-                            <a class="link-dark" href=controller?action=search-user-by-id&id=${user.id}>
-                                <img src="img/edit.png" width="20">
-                            </a>
-                        </td>
+                        <c:choose>
+                            <c:when test="${sessionScope.role eq 'ADMIN'}">
+                                <td>
+                                    <a class="link-dark" href=controller?action=search-user-by-id&id=${user.id}>
+                                        <img src="img/edit.png" width="20">
+                                    </a>
+                                </td>
+                            </c:when>
+                        </c:choose>
 
                     </tr>
 

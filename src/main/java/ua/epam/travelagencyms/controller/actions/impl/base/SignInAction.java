@@ -65,7 +65,7 @@ public class SignInAction implements Action {
         transferStringFromSessionToRequest(request, EMAIL);
         transferStringFromSessionToRequest(request, MESSAGE);
         transferStringFromSessionToRequest(request, ERROR);
-        return SIGN_IN_PAGE;
+        return getPath(request);
     }
 
     /**
@@ -77,6 +77,7 @@ public class SignInAction implements Action {
      * @return profile page if successful, verify email page if email is not confirmed or path to redirect to executeGet method through front-controller if not
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
+        String path = PROFILE_PAGE;
         String email = request.getParameter(EMAIL);
         String password = request.getParameter(PASSWORD);
 
@@ -90,16 +91,19 @@ public class SignInAction implements Action {
             if (user.getIsEmailVerified().equalsIgnoreCase("No")) {
                 String code = userService.setVerificationCode(userId);
                 sendEmail(code, email);
-                return VERIFY_EMAIL_PAGE;
+                path = VERIFY_EMAIL_PAGE;
             }
+
             if (user.getRole().equalsIgnoreCase(USER)) {
                 return getActionToRedirect(VIEW_TOURS_ACTION);
             }
-            return PROFILE_PAGE;
+
         } catch (NoSuchUserException | IncorrectPasswordException e) {
             request.getSession().setAttribute(ERROR, e.getMessage());
             request.getSession().setAttribute(EMAIL, email);
         }
+
+        request.getSession().setAttribute(CURRENT_PATH, path);
         return getActionToRedirect(SIGN_IN_ACTION);
     }
 

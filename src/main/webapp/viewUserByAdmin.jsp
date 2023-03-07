@@ -72,14 +72,7 @@
                     <p>${requestScope.user.surname}</p>
 
                     <h5 class="text-muted"><fmt:message key="role"/>:</h5>
-                    <c:choose>
-                        <c:when test="${requestScope.user.role eq 'ADMIN'}">
-                            <p><fmt:message key="ADMIN"/></p>
-                        </c:when>
-                        <c:when test="${requestScope.user.role eq 'USER'}">
-                            <p><fmt:message key="USER"/></p>
-                        </c:when>
-                    </c:choose>
+                    <p><fmt:message key="${requestScope.user.role}"/></p>
 
                 </div>
 
