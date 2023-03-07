@@ -27,6 +27,7 @@
 
     <h2><fmt:message key="sign.in"/></h2>
 
+    <%-- sign in form --%>
     <form method="POST" action="${pageContext.request.contextPath}/controller">
         <input type="hidden" name="action" value="sign-in">
         <c:set var="error" value="${requestScope.error}"/>
@@ -46,9 +47,11 @@
                    placeholder="<fmt:message key="email"/>"
                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" required
                    value="${requestScope.email}">
+
             <c:if test="${fn:contains(error, 'email')}">
                 <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
             </c:if>
+
         </div>
 
         <%-- password fields --%>
@@ -59,6 +62,7 @@
                    id="password"
                    placeholder="<fmt:message key="password"/>"
                    required>
+
             <c:if test="${fn:contains(error, 'pass')}">
                 <span class="text-danger text-center"><fmt:message key="${requestScope.error}"/></span>
             </c:if>
@@ -73,11 +77,14 @@
                 </label>
             </div>
 
+            <%-- submit button --%>
             <div class="form-group text-center">
                 <button type="submit" class="btn btn-success btn-block col-3"><fmt:message key="sign.in"/></button>
             </div>
+
         </div>
     </form>
+
     <br>
 
     <%-- reset password link --%>
@@ -95,9 +102,11 @@
     </div>
 
 </div>
+
 <br>
 
 <%-- footer field --%>
 <jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
+
 </body>
 </html>

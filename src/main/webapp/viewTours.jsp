@@ -17,10 +17,11 @@
 
 <body>
 
+<%-- main navbar --%>
 <jsp:include page="${pageContext.request.contextPath}/fragments/mainMenu.jsp"/>
 
+<%-- additional navbar for different roles --%>
 <jsp:include page="${pageContext.request.contextPath}/fragments/menuChoice.jsp"/>
-
 
 <div class="col-lg-10 mx-auto p-4 py-md-4">
 
@@ -260,7 +261,7 @@
 
 </div>
 
-<%-- Footer  --%>
+<%-- footer --%>
 <jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 </body>

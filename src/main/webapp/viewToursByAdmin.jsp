@@ -17,9 +17,11 @@
 
 <body>
 
-<jsp:include page="fragments/mainMenu.jsp"/>
+<%-- main navbar --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/mainMenu.jsp"/>
 
-<jsp:include page="fragments/menuChoice.jsp"/>
+<%-- additional navbar for different roles --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/menuChoice.jsp"/>
 
 <div class="col-lg-10 mx-auto p-4 py-md-4">
 
@@ -166,22 +168,15 @@
                 <thead>
                 <tr>
 
-                    <c:set var="base"
-                           value="controller?action=view-tours&view=admin&type=${param.type}&hotel=${param.hotel}&persons=${param.persons}&price=${param.price}&"/>
-
+                    <c:set var="base" value="controller?action=view-tours&view=admin&type=${param.type}&hotel=${param.hotel}&persons=${param.persons}&price=${param.price}&"/>
                     <c:set var="byId" value="sort=id&"/>
                     <c:set var="byTitle" value="sort=title&"/>
                     <c:set var="byPersons" value="sort=persons&"/>
                     <c:set var="byPrice" value="sort=price&"/>
-
-                    <c:set var="idOrder"
-                           value="order=${empty param.sort ? 'DESC' : param.sort ne 'id' || empty param.order || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
-                    <c:set var="titleOrder"
-                           value="order=${param.sort ne 'title' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
-                    <c:set var="personsOrder"
-                           value="order=${param.sort ne 'persons' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
-                    <c:set var="priceOrder"
-                           value="order=${param.sort ne 'price' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+                    <c:set var="idOrder" value="order=${empty param.sort ? 'DESC' : param.sort ne 'id' || empty param.order || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+                    <c:set var="titleOrder" value="order=${param.sort ne 'title' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+                    <c:set var="personsOrder" value="order=${param.sort ne 'persons' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+                    <c:set var="priceOrder" value="order=${param.sort ne 'price' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
 
                     <c:set var="limits" value="&offset=0&records=${param.records}"/>
 
@@ -259,8 +254,8 @@
     <jsp:include page="/fragments/pagination.jsp"/>
 </div>
 
-<jsp:include page="fragments/footer.jsp"/>
-<jsp:include page="fragments/bookOrderModal.jsp"/>
+<%-- footer --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 </body>
 </html>

@@ -16,29 +16,41 @@
 
 <body>
 
+<%-- main navbar --%>
 <jsp:include page="fragments/mainMenu.jsp"/>
-
-<%--<jsp:include page="fragments/menuChoice.jsp"/>--%>
 
 <br>
 <div class="col-lg-7 mx-auto p-2 py-md-2">
 
+    <%-- profile title --%>
     <h2 class="text-muted"><fmt:message key="profile.info"/></h2>
-    <span class="text-opacity-75 text-danger">You are blocked. Please contact customer support.</span>
 
+    <%-- blocked user message --%>
+    <span class="text-opacity-75 text-danger"><fmt:message key="blocked.message"/></span>
+
+    <%-- user information --%>
     <main>
         <div class="container-fluid">
 
             <div class="row">
                 <div class="col-sm-4">
+
                     <br><br>
+
+                    <%-- user default picture --%>
                     <div class="image">
-                                <img src="img/default_user_photo.png" class="rounded" height="155">
+                        <img src="img/default_user_photo.png" class="rounded" height="155">
                     </div>
+
                     <br>
+
                 </div>
 
-                <div class="col-sm-4"><br>
+                <%-- user contact information --%>
+                <div class="col-sm-4">
+
+                    <br>
+
                     <h5><fmt:message key="email"/>:</h5>
                     <p>${requestScope.blockedUser.email}</p>
 
@@ -48,13 +60,16 @@
                     <h5><fmt:message key="surname"/>:</h5>
                     <p>${requestScope.blockedUser.surname}</p>
                 </div>
+
             </div>
         </div>
     </main>
 </div>
+
 <br><br><br><br>
 
-<jsp:include page="fragments/footer.jsp"/>
+<%-- footer --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 </body>
 </html>

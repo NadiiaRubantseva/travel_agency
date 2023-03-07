@@ -25,8 +25,10 @@
     <input type="hidden" name="action" value="sign-up">
     <c:set var="error" value="${requestScope.error}"/>
 
+    <%-- register title --%>
     <h2><fmt:message key="register"/></h2>
 
+    <%-- register invitation text --%>
     <p class="hint-text"><fmt:message key="account.invitation"/></p>
 
     <%-- first name field --%>
@@ -38,10 +40,13 @@
                title="<fmt:message key="name.requirements"/>"
                pattern="^\p{L}[\p{L}'’]{0,29}$"
                required="required" value="${requestScope.user.name}">
+
         <c:if test="${fn:contains(error, 'name')}">
             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
         </c:if>
+
     </div>
+
     <br>
 
     <%-- last name field --%>
@@ -53,10 +58,13 @@
                title="<fmt:message key="surname.requirements"/>"
                pattern="^\p{L}[\p{L}'’]{0,29}$"
                value="${requestScope.user.surname}">
+
         <c:if test="${fn:contains(error, 'surname')}">
             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
         </c:if>
+
     </div>
+
     <br>
 
     <%-- email name field --%>
@@ -67,10 +75,13 @@
                placeholder="<fmt:message key="email"/>"
                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" required
                value="${requestScope.user.email}">
+
         <c:if test="${fn:contains(error, 'email')}">
             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
         </c:if>
+
     </div>
+
     <br>
 
     <%-- password field --%>
@@ -82,10 +93,13 @@
                placeholder="<fmt:message key="password"/>"
                title="<fmt:message key="password.requirements"/>"
                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,20}$" required>
+
         <c:if test="${fn:contains(error, 'pass')}">
             <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
         </c:if>
+
     </div>
+
     <br>
 
     <%-- confirm password field --%>
@@ -98,6 +112,7 @@
                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,20}$"
                title="<fmt:message key="password.requirements"/>" required>
     </div>
+
     <br>
 
     <%-- show password button --%>
@@ -110,12 +125,14 @@
             </label>
         </label>
     </div>
+
     <br>
 
     <%-- submit button --%>
     <div class="form-group text-center">
         <button type="submit" class="btn btn-success btn-block"><fmt:message key="sign.up"/></button>
     </div>
+
     <br>
 
 </form>

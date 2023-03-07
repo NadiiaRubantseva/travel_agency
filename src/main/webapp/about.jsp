@@ -15,31 +15,50 @@
 
 <body>
 
-<jsp:include page="fragments/mainMenu.jsp"/>
+<%-- main navbar --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/mainMenu.jsp"/>
 
-<jsp:include page="fragments/menuChoice.jsp"/><br>
+<%-- additional navbar for different roles --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/menuChoice.jsp"/><br>
+
+<%-- About us description --%>
 <figure class="text-start navbar col-8 offset-2 opacity-75">
+
     <div><br>
+
         <h2 class="form-label text-center text-success"><fmt:message key="lead.title"/></h2><br>
+
         <p class="lead">
             <strong style="color: #f04f01"><fmt:message key="travel.agency"/>&nbsp</strong><fmt:message key="lead.2"/><strong style="color: #f04f01"><fmt:message key="lead.3"/></strong><fmt:message key="lead.4"/>
             <strong style="color: #f04f01"><fmt:message key="lead.5"/></strong><fmt:message key="lead.6"/><strong style="color: #f04f01"><fmt:message key="lead.7"/></strong>
             <fmt:message key="lead.8"/>
         </p>
+
         <p class="lead">
             <strong style="color: #f04f01"><fmt:message key="lead.9"/></strong> <fmt:message key="lead.10"/>
         </p>
+
     </div>
+
 </figure>
+
 <br>
 
+<%-- About us footer picture --%>
 <div class="text-center">
-    <footer class="img-fluid">
-        <img src="img/aboutUs.png" height=150>
-    </footer>
-</div><br>
 
-<jsp:include page="fragments/footer.jsp"/>
+    <footer class="img-fluid">
+
+        <img src="img/aboutUs.png" height=150>
+
+    </footer>
+
+</div>
+
+<br>
+
+<%-- footer --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 </body>
 </html>

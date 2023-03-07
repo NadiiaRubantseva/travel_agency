@@ -17,14 +17,18 @@
 
 <body>
 
-<jsp:include page="fragments/mainMenu.jsp"/>
+<%-- main navbar --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/mainMenu.jsp"/>
 
-<jsp:include page="fragments/menuChoice.jsp"/>
+<%-- additional navbar for different roles --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/menuChoice.jsp"/>
 
 <div class="col-lg-10 mx-auto p-4 py-md-5">
+
     <c:if test="${not empty requestScope.message}">
         <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
     </c:if>
+
     <h2 class="text-muted"><fmt:message key="users"/></h2>
 
     <div class="row">
@@ -41,9 +45,10 @@
             </label>&nbsp&nbsp&nbsp&nbsp&nbsp
 
             <label for="records"><fmt:message key="number.records"/></label>
-            <input class="col-2" type="number" min="1" name="records" id="records"
-                   value="${not empty requestScope.records ? requestScope.records : "5"}">&nbsp&nbsp&nbsp
+            <input class="col-2" type="number" min="1" name="records" id="records" value="${not empty requestScope.records ? requestScope.records : "5"}">&nbsp&nbsp&nbsp
+
             <button type="submit" class="btn btn-success btn-sm mt-0 mb-1"><fmt:message key="submit"/></button>
+
         </form>
 
         <form class="col-1 mt-3" method="GET" action="controller">
@@ -53,7 +58,9 @@
             <input type="hidden" name="order" value="${param.order}">
             <button type="submit" class="icon-button"><img src="img/pdf-file.png" height="25"></button>
         </form>
+
     </div>
+
     <br>
 
     <div class="bd-example-snippet bd-code-snippet">
@@ -66,14 +73,10 @@
                     <c:set var="byEmail" value="sort=email&"/>
                     <c:set var="byName" value="sort=name&"/>
                     <c:set var="bySurname" value="sort=surname&"/>
-                    <c:set var="idOrder" value="order=${empty param.sort ? 'DESC' :
-                            param.sort ne 'id' || empty param.order || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
-                    <c:set var="emailOrder"
-                           value="order=${param.sort ne 'email' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
-                    <c:set var="nameOrder"
-                           value="order=${param.sort ne 'name' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
-                    <c:set var="surnameOrder"
-                           value="order=${param.sort ne 'surname' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+                    <c:set var="idOrder" value="order=${empty param.sort ? 'DESC' : param.sort ne 'id' || empty param.order || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+                    <c:set var="emailOrder" value="order=${param.sort ne 'email' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+                    <c:set var="nameOrder" value="order=${param.sort ne 'name' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
+                    <c:set var="surnameOrder" value="order=${param.sort ne 'surname' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
                     <c:set var="limits" value="&offset=0&records=${param.records}"/>
 
                     <th scope="col">
@@ -82,38 +85,48 @@
                             <i class="bi bi-arrow-down-up link-dark"></i>
                         </a>
                     </th>
+
                     <th scope="col"><fmt:message key="status"/></th>
-                    <th scope="col">
-                        <fmt:message key="photo"/>
-                    </th>
-                    <th scope="col">
-                        <fmt:message key="email"/>
+
+                    <th scope="col"><fmt:message key="photo"/></th>
+
+                    <th scope="col"><fmt:message key="email"/>
                         <a href="${base.concat(byEmail).concat(emailOrder).concat(limits)}">
                             <i class="bi bi-arrow-down-up link-dark"></i>
                         </a>
                     </th>
-                    <th scope="col">
-                        <fmt:message key="name"/>
+
+                    <th scope="col"><fmt:message key="name"/>
                         <a href="${base.concat(byName).concat(nameOrder).concat(limits)}">
                             <i class="bi bi-arrow-down-up link-dark"></i>
                         </a>
                     </th>
-                    <th scope="col">
-                        <fmt:message key="surname"/>
+
+                    <th scope="col"><fmt:message key="surname"/>
                         <a href="${base.concat(bySurname).concat(surnameOrder).concat(limits)}">
                             <i class="bi bi-arrow-down-up link-dark"></i>
                         </a>
                     </th>
+
                     <th scope="col"><fmt:message key="discount"/></th>
+
                     <th scope="col"><fmt:message key="role"/></th>
+
                     <th scope="col"><fmt:message key="action"/></th>
+
                 </tr>
+
                 </thead>
+
                 <tbody>
+
                 <c:forEach var="user" items="${requestScope.users}">
+
                     <c:set var="avatar" value="${user.avatar}"/>
+
                     <tr>
                         <td><c:out value="${user.id}"/></td>
+
                         <td>
                             <c:choose>
                                 <c:when test="${user.isBlocked eq 'Blocked'}">
@@ -124,6 +137,7 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
+
                             <c:choose>
                                 <c:when test="${fn:length(avatar) > 100 }">
                                     <td><img src="${user.avatar}" class="rounded" height="25"></td>
@@ -132,20 +146,31 @@
                                     <td><img src="img/default_user_photo.png" class="rounded" height="25"></td>
                                 </c:otherwise>
                             </c:choose>
+
                         <td><c:out value="${user.email}"/></td>
+
                         <td><c:out value="${user.name}"/></td>
+
                         <td><c:out value="${user.surname}"/></td>
+
                         <td><c:out value="${user.discount}"/>%</td>
+
                         <td><fmt:message key="${user.role}"/></td>
+
                         <td>
                             <a class="link-dark" href=controller?action=search-user-by-id&id=${user.id}>
                                 <img src="img/edit.png" width="20">
                             </a>
                         </td>
+
                     </tr>
+
                 </c:forEach>
+
                 </tbody>
+
             </table>
+
         </div>
     </div>
 
@@ -153,9 +178,11 @@
            scope="request"/>
 
     <jsp:include page="/fragments/pagination.jsp"/>
+
 </div>
 
-<jsp:include page="fragments/footer.jsp"/>
+<%-- footer --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 </body>
 </html>

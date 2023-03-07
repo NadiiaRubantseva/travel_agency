@@ -16,21 +16,31 @@
 
 <body>
 
-<jsp:include page="fragments/mainMenu.jsp"/>
+<%-- main navbar --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/mainMenu.jsp"/>
 
-<jsp:include page="fragments/menuChoice.jsp"/>
+<%-- additional navbar for different roles --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/menuChoice.jsp"/>
 
+<%-- success message --%>
 <c:if test="${not empty requestScope.message}">
     <div class="text-bg-success text-center mt-2 mb-2"><fmt:message key="${requestScope.message}"/></div>
 </c:if>
 
+
 <div class="col-lg-10 mx-auto p-4 py-md-4">
+
+    <%-- orders title --%>
     <h2 class="text-muted"><fmt:message key="orders"/></h2>
 
     <div class="row">
+
+        <%-- orders search form --%>
         <form class="col-11" method="GET" action="controller">
             <input type="hidden" name="action" value="view-orders-of-user">
             <input type="hidden" name="offset" value="0">
+
+            <%-- order status --%>
             <label><fmt:message key="order.status"/>
                 <select name="status" class="form-select mt-2" onchange='submit();'>
                     <option><fmt:message key="select.status"/></option>
@@ -39,19 +49,25 @@
                     <option value="1" ${param.status eq "1" ? "selected" : ""}><fmt:message key="REGISTERED"/></option>
                 </select>
             </label>
+
         </form>
 
+        <%-- orders pdf --%>
         <form class="col-1 mt-3" method="GET" action="controller">
             <input type="hidden" name="status" value="${param.status}">
             <input type="hidden" name="sort" value="${param.sort}">
             <input type="hidden" name="order" value="${param.order}">
             <button type="submit" class="icon-button"><img src="img/pdf-file.png" height="25"></button>
         </form>
+
     </div>
 
+    <%-- orders table --%>
     <div class="bd-example-snippet bd-code-snippet">
         <div class="bd-example">
+
             <table class="table table-striped" aria-label="order-table">
+
                 <thead>
                 <tr>
 
@@ -59,33 +75,29 @@
                     <c:set var="byId" value="sort=id&"/>
                     <c:set var="limits" value="&offset=0&records=${param.records}"/>
 
-                    <th scope="col" class="col-md-2">
-                        <fmt:message key="status"/>
-                    </th>
-                    <th scope="col" class="col-md-1">
-                        <fmt:message key="order.date"/>
-                    </th>
-                    <th scope="col" class="col-md-2">
-                        <fmt:message key="tour.title"/>
-                    </th>
-                    <th scope="col" class="col-md-1">
-                        <fmt:message key="tour.price"/>
-                    </th>
-                    <th scope="col" class="col-md-1">
-                        <fmt:message key="order.discount"/>
-                    </th>
-                    <th scope="col" class="col-md-1">
-                        <fmt:message key="order.total"/>
-                    </th>
-                    <th scope="col" class="col-md-1">
-                        <fmt:message key="action"/>
-                    </th>
+                    <th scope="col" class="col-md-2"><fmt:message key="status"/></th>
+
+                    <th scope="col" class="col-md-1"><fmt:message key="order.date"/></th>
+
+                    <th scope="col" class="col-md-2"><fmt:message key="tour.title"/></th>
+
+                    <th scope="col" class="col-md-1"><fmt:message key="tour.price"/></th>
+
+                    <th scope="col" class="col-md-1"><fmt:message key="order.discount"/></th>
+
+                    <th scope="col" class="col-md-1"><fmt:message key="order.total"/></th>
+
+                    <th scope="col" class="col-md-1"><fmt:message key="action"/></th>
+
                 </tr>
                 </thead>
+
                 <tbody>
 
                 <c:forEach var="order" items="${requestScope.orders}">
+
                     <tr>
+
                         <c:choose>
                             <c:when test="${order.orderStatus eq 'REGISTERED'}">
                                 <td>
@@ -106,18 +118,26 @@
                                 </td>
                             </c:when>
                         </c:choose>
+
                         <td><c:out value="${order.date}"/></td>
+
                         <td><c:out value="${order.tourTitle}"/></td>
-                        <td><c:out value="${order.tourPrice}"/> грн</td>
+
+                        <td><c:out value="${order.tourPrice}"/><fmt:message key="uah"/></td>
+
                         <td><c:out value="${order.discount}"/>%</td>
-                        <td><c:out value="${order.totalCost}"/> грн</td>
+
+                        <td><c:out value="${order.totalCost}"/><fmt:message key="uah"/></td>
+
                         <td>
                             <c:choose>
+
                                 <c:when test="${order.orderStatus == 'CANCELED'}">
                                     <button type="button" class="disabled btn btn-sm btn-danger">
                                         <fmt:message key="CANCELED"/>
                                     </button>
                                 </c:when>
+
                                 <c:otherwise>
 
                                     <%--                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"--%>
@@ -132,7 +152,9 @@
                                             <fmt:message key="cancel"/>
                                         </button>
                                     </form>
+
                                 </c:otherwise>
+
                             </c:choose>
 
                                 <%--                            <div id="cancel-order" class="modal fade" role="dialog">--%>
@@ -161,17 +183,30 @@
                                 <%--                            </div>--%>
 
                         </td>
+
                     </tr>
+
                 </c:forEach>
+
                 </tbody>
+
             </table>
+
         </div>
     </div>
+
+    <%-- link for pagination --%>
     <c:set var="href"
            value="controller?action=view-orders-of-user&status=${param.status}&sort=${param.sort}&order=${param.order}&"
            scope="request"/>
+
+    <%-- pagination --%>
     <jsp:include page="/fragments/pagination.jsp"/>
+
 </div>
-<jsp:include page="fragments/footer.jsp"/>
+
+<%-- footer --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
+
 </body>
 </html>

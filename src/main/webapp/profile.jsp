@@ -17,13 +17,20 @@
 
 <body>
 
-<jsp:include page="fragments/mainMenu.jsp"/>
+<%-- main navbar --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/mainMenu.jsp"/>
 
-<jsp:include page="fragments/menuChoice.jsp"/>
+<%-- additional navbar for different roles --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/menuChoice.jsp"/>
+<br>
 
 <br>
-<div class="col-lg-7 mx-auto p-2 py-md-2"><br>
 
+<div class="col-lg-7 mx-auto p-2 py-md-2">
+
+    <br>
+
+    <%-- profile info title --%>
     <h2 class="text-muted"><fmt:message key="profile.info"/></h2>
 
     <main>
@@ -32,47 +39,62 @@
             <div class="row">
                 <div class="col-sm-4">
                     <br><br>
+
+                    <%-- avatar --%>
                     <div class="image">
-                        <c:set var="avatar" value="${sessionScope.loggedUser.avatar}" />
+                        <c:set var="avatar" value="${sessionScope.loggedUser.avatar}"/>
                         <c:choose>
                             <c:when test="${fn:length(avatar) > 100 }">
-                                <img src="${sessionScope.loggedUser.avatar}" class="rounded" width="155">
+                                <img src="${sessionScope.loggedUser.avatar}" class="rounded" width="155"
+                                     alt="<fmt:message key="avatar"/>">
                             </c:when>
                             <c:otherwise>
-                                <img src="img/default_user_photo.png" class="rounded" height="155">
+                                <img src="img/default_user_photo.png" class="rounded" height="155"
+                                     alt="<fmt:message key="avatar"/>">
                             </c:otherwise>
                         </c:choose>
                     </div>
+
                     <br>
+
+                    <%-- edit profile button --%>
                     <div id="button" class="form-group">
                         <a href="editProfile.jsp" class="btn btn-success mt-0 mb-1"><fmt:message key="change"/></a>
                     </div>
+
                 </div>
 
+                <%-- user information --%>
                 <div class="col-sm-4">
-                    <p>
-                    <h5 class="text-muted"><fmt:message key="email"/>:</h5></p>
+
+                    <%-- email --%>
+                    <h5 class="text-muted"><fmt:message key="email"/>:</h5>
                     <p>${sessionScope.loggedUser.email}</p>
 
+                    <%-- name --%>
                     <h5 class="text-muted"><fmt:message key="name"/>:</h5>
                     <p>${sessionScope.loggedUser.name}</p>
 
+                    <%-- surname --%>
                     <h5 class="text-muted"><fmt:message key="surname"/>:</h5>
                     <p>${sessionScope.loggedUser.surname}</p>
 
+                    <%-- user role --%>
                     <c:if test="${sessionScope.loggedUser.role != 'USER'}">
                         <h5 class="text-muted"><fmt:message key="role"/>:</h5>
                         <p><fmt:message key="${sessionScope.loggedUser.role}"/></p>
                     </c:if>
+
                 </div>
             </div>
         </div>
     </main>
-
 </div>
+
 <br><br>
 
-<jsp:include page="fragments/footer.jsp"/>
+<%-- footer --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 </body>
 </html>

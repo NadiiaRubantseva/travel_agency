@@ -18,29 +18,44 @@
 <body>
 <c:set var="error" value="${requestScope.error}"/>
 
-<jsp:include page="fragments/mainMenu.jsp"/>
+<%-- main navbar --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/mainMenu.jsp"/>
 
 <div class="col-lg-7 mx-auto p-4 py-md-5">
 
+    <%-- email verification title --%>
     <header class="d-flex align-items-center pb-3 mb-4 border-bottom">
         <span class="fs-4 text-muted"><fmt:message key="email.verification"/></span>
     </header>
 
+    <%-- check email message --%>
     <span class="text-success"><fmt:message key="email.verification.invitation"/></span>
 
+    <%-- security code form --%>
     <form action="controller" method="post">
         <input type="hidden" name="action" value="verify-code">
-        <input type="text" name="security-code">
+
+        <%-- security code input --%>
+        <label>
+            <input type="text" name="security-code" pattern="^[1-9][0-9]{5}$" required="required">
+        </label>
+
+        <%-- submit button --%>
         <input type="submit" value=<fmt:message key="verify"/>>
+
     </form>
 
+    <%-- error message --%>
     <c:if test="${fn:contains(error, 'code')}">
         <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
     </c:if>
 
-</div><br><br><br><br><br><br><br><br><br><br><br
+</div>
 
-<jsp:include page="fragments/footer.jsp"/>
+<br><br><br><br><br><br><br><br><br><br><br
+
+<%-- footer --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 </body>
 </html>

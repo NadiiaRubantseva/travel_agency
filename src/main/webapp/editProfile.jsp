@@ -39,14 +39,10 @@
 
             <c:set var="error" value="${requestScope.error}"/>
             <c:set var="error" value="${requestScope.error}"/>
-            <c:set var="email"
-                   value="${requestScope.user.email eq null ? sessionScope.loggedUser.email : requestScope.user.email}"/>
-            <c:set var="nameValue"
-                   value="${requestScope.user.name eq null ? sessionScope.loggedUser.name : requestScope.user.name}"/>
-            <c:set var="surnameValue"
-                   value="${requestScope.user.surname eq null ? sessionScope.loggedUser.surname : requestScope.user.surname}"/>
-            <c:set var="avatar"
-                   value="${requestScope.user.avatar eq null ? sessionScope.loggedUser.avatar : requestScope.user.avatar}"/>
+            <c:set var="email" value="${requestScope.user.email eq null ? sessionScope.loggedUser.email : requestScope.user.email}"/>
+            <c:set var="nameValue" value="${requestScope.user.name eq null ? sessionScope.loggedUser.name : requestScope.user.name}"/>
+            <c:set var="surnameValue" value="${requestScope.user.surname eq null ? sessionScope.loggedUser.surname : requestScope.user.surname}"/>
+            <c:set var="avatar" value="${requestScope.user.avatar eq null ? sessionScope.loggedUser.avatar : requestScope.user.avatar}"/>
 
             <div class="row">
 
@@ -144,7 +140,7 @@
 <br>
 
 <%-- footer --%>
-<jsp:include page="fragments/footer.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 </body>
 </html>

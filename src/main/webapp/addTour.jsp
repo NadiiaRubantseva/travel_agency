@@ -183,7 +183,7 @@
 <br>
 
 <%-- footer --%>
-<jsp:include page="fragments/footer.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 </body>
 </html>

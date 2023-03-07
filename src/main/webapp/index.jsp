@@ -10,7 +10,6 @@
     <title><fmt:message key="main"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%-- import of CSS & JS resources --%>
     <jsp:include page="${pageContext.request.contextPath}/fragments/import_CSS_and_JS.jsp"/>
 </head>
 

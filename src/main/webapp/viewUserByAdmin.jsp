@@ -17,22 +17,31 @@
 
 <body>
 
-<jsp:include page="fragments/mainMenu.jsp"/>
+<%-- main navbar --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/mainMenu.jsp"/>
 
-<jsp:include page="fragments/menuChoice.jsp"/>
+<%-- additional navbar for different roles --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/menuChoice.jsp"/>
 
 <div class="col-lg-10 mx-auto p-2 py-md-2">
 
     <c:set var="user" value="${requestScope.user}"/>
     <main>
         <div class="container-fluid offset-1">
+
             <c:if test="${not empty requestScope.message}">
                 <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
-            </c:if><br>
+            </c:if>
+
+            <br>
+
             <h2 class="text-muted"><fmt:message key="view.user"/></h2>
+
             <div class="row">
                 <div class="col-sm-4">
+
                     <br><br>
+
                     <div class="image">
                         <c:set var="avatar" value="${requestScope.user.avatar}"/>
                         <c:choose>
@@ -44,11 +53,15 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
+
                     <br>
+
                 </div>
 
                 <div class="col-sm-4">
+
                     <br>
+
                     <h5 class="text-muted"><fmt:message key="email"/>:</h5>
                     <p>${requestScope.user.email}</p>
 
@@ -67,12 +80,14 @@
                             <p><fmt:message key="USER"/></p>
                         </c:when>
                     </c:choose>
+
                 </div>
 
                 <div class="col-sm-10">
                     <form method="POST" action="controller">
                         <input type="hidden" name="action" value="set-role">
                         <input type="hidden" name="id" value=${requestScope.user.id}>
+
                         <label>
                             <select name="role" class="form-select mt-2">
                                 <option value="USER" ${requestScope.user.role eq 'USER' ? 'selected' : ''}>
@@ -83,13 +98,17 @@
                                 </option>
                             </select>
                         </label>
+
                         <button type="submit" class="btn btn-success mt-0"><fmt:message key="set.role"/></button>
+
                     </form>
+
                     <br>
 
                     <form method="POST" action="controller">
                         <input type="hidden" name="action" value="set-user-status">
                         <input type="hidden" name="user-id" value=${requestScope.user.id}>
+
                         <label>
                             <select name="user-status" class="form-select">
                                 <option value="Active" ${requestScope.user.isBlocked eq 'Active' ? 'selected' : ''}>
@@ -100,20 +119,24 @@
                                 </option>
                             </select>
                         </label>
+
                         <button type="submit" class="btn btn-success">
                             <fmt:message key="set.user.status"/>
                         </button>
+
                     </form>
+
                     <br>
+
                 </div>
             </div>
         </div>
     </main>
 
-
 </div>
 
-<jsp:include page="fragments/footer.jsp"/>
+<%-- footer --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 </body>
 </html>

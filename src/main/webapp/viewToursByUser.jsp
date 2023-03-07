@@ -17,15 +17,21 @@
 
 <body>
 
-<jsp:include page="fragments/mainMenu.jsp"/>
+<%-- main navbar --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/mainMenu.jsp"/>
 
-<jsp:include page="fragments/menuChoice.jsp"/>
+<%-- additional navbar for different roles --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/menuChoice.jsp"/>
 
 <div class="col-lg-10 mx-auto p-4 py-md-4">
+
+    <%-- tours title --%>
     <h2 class="text-muted pb-3"><fmt:message key="tours"/></h2>
 
     <div class="container-fluid">
         <div class="row">
+
+            <%-- tours search form --%>
             <form class="col-10" method="GET" action="controller">
                 <input type="hidden" name="action" value="view-tours">
                 <input type="hidden" name="offset" value="0">
@@ -48,25 +54,28 @@
                 </label>
 
                 <label for="persons"><fmt:message key="select.persons"/></label>
-                <input class="col-1" type="number" min="1" name="persons" id="persons"
-                       value="${not empty requestScope.persons ? requestScope.persons : ""}">
+                <input class="col-1" type="number" min="1" name="persons" id="persons" value="${not empty requestScope.persons ? requestScope.persons : ""}">
 
                 <label for="min_price"><fmt:message key="select.price.min"/></label>
-                <input class="col-2" type="number" min="1" name="min_price" id="min_price"
-                       value="${not empty requestScope.min_price ? requestScope.min_price : ""}">
+                <input class="col-2" type="number" min="1" name="min_price" id="min_price" value="${not empty requestScope.min_price ? requestScope.min_price : ""}">
+
                 <label for="max_price"><fmt:message key="select.price.max"/></label>
-                <input class="col-2" type="number" min="1" name="max_price" id="max_price"
-                       value="${not empty requestScope.max_price ? requestScope.max_price : ""}">
+                <input class="col-2" type="number" min="1" name="max_price" id="max_price" value="${not empty requestScope.max_price ? requestScope.max_price : ""}">
+
                 <br><br>
 
                 <label for="records"><fmt:message key="number.records"/></label>
-                <input class="col-1" type="number" min="1" name="records" id="records"
-                       value="${not empty requestScope.records ? requestScope.records : "5"}">
+                <input class="col-1" type="number" min="1" name="records" id="records" value="${not empty requestScope.records ? requestScope.records : "5"}">
+
+                <%-- submit search button --%>
                 <button type="submit" class="btn btn-success btn-sm mt-0 mb-1"><fmt:message
-                        key="submit"/></button>
+                        key="submit"/>
+                </button>
+
             </form>
 
-            <form class="col-1 offset-1 justify-content-end"  method="GET" action="controller">
+            <%-- tours to pdf --%>
+            <form class="col-1 offset-1 justify-content-end" method="GET" action="controller">
                 <input type="hidden" name="action" value="tours-pdf">
                 <input type="hidden" name="id" value="${param.id}">
                 <input type="hidden" name="title" value="${param.title}">
@@ -84,14 +93,16 @@
         </div>
     </div>
 
+    <%-- tours table --%>
     <div class="bd-example-snippet bd-code-snippet pt-2">
         <div class="bd-example">
+
             <table class="table table-striped" aria-label="user-table">
+
                 <thead>
                 <tr>
 
-                    <c:set var="base"
-                           value="controller?action=view-tours&type=${param.type}&hotel=${param.hotel}&persons=${param.persons}&price=${param.min_price}&"/>
+                    <c:set var="base" value="controller?action=view-tours&type=${param.type}&hotel=${param.hotel}&persons=${param.persons}&price=${param.min_price}&"/>
                     <c:set var="byId" value="sort=id&"/>
                     <c:set var="byTitle" value="sort=title&"/>
                     <c:set var="byPersons" value="sort=persons&"/>
@@ -102,47 +113,52 @@
                     <c:set var="priceOrder" value="order=${param.sort ne 'price' || param.order eq 'DESC' ? 'ASC' : 'DESC'}"/>
                     <c:set var="limits" value="&offset=0&records=${param.records}"/>
 
-                    <th scope="col">
-                        <fmt:message key="id"/>
+                    <th scope="col"><fmt:message key="id"/>
                         <a href="${base.concat(byId).concat(idOrder).concat(limits)}">
                             <i class="bi bi-arrow-down-up link-dark"></i>
                         </a>
                     </th>
-                    <th scope="col">
-                        <fmt:message key="photo"/>
-<%--                        <a href="${base.concat(byId).concat(idOrder).concat(limits)}">--%>
-<%--                            <i class="bi bi-arrow-down-up link-dark"></i>--%>
-<%--                        </a>--%>
-                    </th>
-                    <th scope="col">
-                        <fmt:message key="title"/>
+
+                    <th scope="col"><fmt:message key="photo"/></th>
+
+                    <th scope="col"><fmt:message key="title"/>
                         <a href="${base.concat(byTitle).concat(titleOrder).concat(limits)}">
                             <i class="bi bi-arrow-down-up link-dark"></i>
                         </a>
                     </th>
-                    <th scope="col">
-                        <fmt:message key="persons"/>
+
+                    <th scope="col"><fmt:message key="persons"/>
                         <a href="${base.concat(byPersons).concat(personsOrder).concat(limits)}">
                             <i class="bi bi-arrow-down-up link-dark"></i>
                         </a>
                     </th>
-                    <th scope="col">
-                        <fmt:message key="price"/>
+
+                    <th scope="col"><fmt:message key="price"/>
                         <a href="${base.concat(byPrice).concat(priceOrder).concat(limits)}">
                             <i class="bi bi-arrow-down-up link-dark"></i>
                         </a>
                     </th>
+
                     <th scope="col"><fmt:message key="tour.type"/></th>
+
                     <th scope="col"><fmt:message key="hotel.type"/></th>
+
                     <th scope="col"><fmt:message key="hot"/></th>
+
                     <th scope="col"><fmt:message key="details"/></th>
+
                     <th scope="col"><fmt:message key="order"/></th>
+
                 </tr>
                 </thead>
+
                 <tbody>
+
                 <c:forEach var="tour" items="${requestScope.tours}">
-                    <c:set var="image" value="${tour.image}" />
+
+                    <c:set var="image" value="${tour.image}"/>
                     <c:set var="hot" value="${tour.hot}"/>
+
                     <tr>
                         <td><c:out value="${tour.id}"/></td>
                         <div class="image">
@@ -155,28 +171,39 @@
                                 </c:otherwise>
                             </c:choose>
                         </div>
+
                         <td><c:out value="${tour.title}"/></td>
+
                         <td><c:out value="${tour.persons}"/></td>
-                        <td><fmt:formatNumber value="${tour.price}" pattern="###0" /></td>
+
+                        <td><fmt:formatNumber value="${tour.price}" pattern="###0"/></td>
+
                         <td><fmt:message key="${tour.type}"/></td>
+
                         <td><c:out value="${tour.hotel}"/></td>
+
                         <td>
                             <c:if test="${fn:contains(hot, 'hot')}">
                                 <img src="img/fire.png" height="17px" width="17px">
                             </c:if>
 
                         </td>
+
                         <td>
                             <a class="link-dark" href=controller?action=search-tour&id=${tour.id}>
                                 <img src="img/info3.png" height="20px" width="20px">
                             </a>
                         </td>
+
                         <td>
-                            <a class="link-dark" href=controller?action=book-tour&tour-id=${tour.id}&price=${tour.price}>
+                            <a class="link-dark"
+                               href=controller?action=book-tour&tour-id=${tour.id}&price=${tour.price}>
                                 <fmt:message key="order"/>
                             </a>
                         </td>
+
                     </tr>
+
                 </c:forEach>
                 </tbody>
             </table>
@@ -190,8 +217,8 @@
     <jsp:include page="/fragments/pagination.jsp"/>
 </div>
 
-<jsp:include page="fragments/footer.jsp"/>
-<jsp:include page="fragments/bookOrderModal.jsp"/>
+<%-- footer --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 </body>
 </html>

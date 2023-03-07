@@ -66,6 +66,5 @@ public final class DomainPagesSets {
         userPages.addAll(loggedUserPages);
         userPages.add(VIEW_TOURS_BY_USER_PAGE);
         userPages.add(VIEW_ORDERS_BY_USER_PAGE);
-        userPages.add(BOOK_TOUR_CONFIRMATION_PAGE);
     }
 }

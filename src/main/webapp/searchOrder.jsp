@@ -16,34 +16,54 @@
 
 <body>
 
-<jsp:include page="fragments/mainMenu.jsp"/>
+<%-- main navbar --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/mainMenu.jsp"/>
 
-<jsp:include page="fragments/menuChoice.jsp"/>
+<%-- additional navbar for different roles --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/menuChoice.jsp"/>
+
+<br>
 
 <div class="col-lg-5 mx-auto p-4 py-md-5">
-        <h2 class="text-muted"><fmt:message key="search.order"/></h2>
+
+    <%-- search order title --%>
+    <h2 class="text-muted"><fmt:message key="search.order"/></h2>
 
     <form method="GET" action="controller">
         <input type="hidden" name="action" value="search-order">
 
         <div class="form-group">
+
+            <%-- success message --%>
             <c:if test="${not empty requestScope.message}">
                 <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
-            </c:if><br>
+            </c:if>
 
+            <br>
+
+            <%-- order id input field --%>
             <label class="form-label" for="id"><fmt:message key="search.order.by.ID"/></label>
-            <input class="form-control" type="text" name="order-id" id="id"
-<%--                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" required>--%>
+            <input class="form-control" type="text" name="order-id" id="id" pattern="^[1-9][0-9]*$" required>
+
+            <%-- error message --%>
             <c:if test="${not empty requestScope.error}">
                 <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
-            </c:if><br>
-        </div><br>
+            </c:if>
 
+            <br>
+
+        </div>
+
+        <br>
+
+        <%-- submit button --%>
         <button type="submit" class="btn btn-success btn-sm btn-block"><fmt:message key="search"/></button>
+
     </form>
 </div>
 
-<jsp:include page="fragments/footer.jsp"/>
+<%-- footer --%>
+<jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 </body>
 </html>

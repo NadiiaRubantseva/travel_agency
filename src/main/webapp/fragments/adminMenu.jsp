@@ -5,8 +5,8 @@
 
 <nav class="navbar navbar-expand-md navbar-light bg-light">
     <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarCollapse2" aria-controls="navbarCollapse"
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarCollapse2" aria-controls="navbarCollapse"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
