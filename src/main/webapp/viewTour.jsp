@@ -67,6 +67,7 @@
         <form method="GET" action="controller" enctype="multipart/form-data">
             <input type="hidden" name="action" value="book-tour">
             <input type="hidden" name="tour-id" value="${requestScope.tour.id}">
+            <input type="hidden" id="userId" value="${sessionScope.loggedUser.id}">
 
             <c:set var="error" value="${requestScope.error}"/>
             <c:set var="image" value="${requestScope.tour.image}"/>
@@ -130,7 +131,7 @@
                         </button>
 
                         <!-- login modal -->
-                        <jsp:include page="fragments/loginModal.jsp"/>
+                        <jsp:include page="${pageContext.request.contextPath}/fragments/loginModal.jsp"/>
 
                     </div>
                 </div>
@@ -144,7 +145,7 @@
 <jsp:include page="${pageContext.request.contextPath}/fragments/footer.jsp"/>
 
 <%-- book tour modal --%>
-<jsp:include page="fragments/bookModal.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/fragments/bookModal.jsp"/>
 
 </body>
 </html>

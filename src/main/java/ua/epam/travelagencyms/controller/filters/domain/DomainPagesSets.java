@@ -25,6 +25,8 @@ public final class DomainPagesSets {
     @Getter
     private static final Set<String> adminPages = new HashSet<>();
     @Getter
+    private static final Set<String> managerPages = new HashSet<>();
+    @Getter
     private static final Set<String> userPages = new HashSet<>();
 
     static {
@@ -38,6 +40,8 @@ public final class DomainPagesSets {
         anonymousUserPages.add(SIGN_UP_PAGE);
         anonymousUserPages.add(RESET_PASSWORD_PAGE);
         anonymousUserPages.add(BLOCKED_USER_PAGE);
+        anonymousUserPages.add(VIEW_TOURS_PAGE);
+        anonymousUserPages.add(VIEW_TOUR_PAGE);
     }
 
     static {
@@ -60,6 +64,19 @@ public final class DomainPagesSets {
         adminPages.add(SEARCH_TOUR_PAGE);
         adminPages.add(SEARCH_ORDER_PAGE);
         adminPages.add(SEARCH_USER_PAGE);
+    }
+
+    static {
+        managerPages.addAll(loggedUserPages);
+        managerPages.add(VIEW_TOURS_BY_ADMIN_PAGE);
+        managerPages.add(VIEW_TOUR_BY_ADMIN_PAGE);
+        managerPages.add(VIEW_USERS_PAGE);
+        managerPages.add(VIEW_ORDERS_BY_ADMIN_PAGE);
+        managerPages.add(VIEW_ORDER_BY_ADMIN_PAGE);
+        managerPages.add(VIEW_USER_BY_ADMIN_PAGE);
+        managerPages.add(SEARCH_TOUR_PAGE);
+        managerPages.add(SEARCH_ORDER_PAGE);
+        managerPages.add(SEARCH_USER_PAGE);
     }
 
     static {

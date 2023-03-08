@@ -78,6 +78,10 @@ public class Domain {
                 domainPages = DomainPagesSets.getAdminPages();
                 domainActions = DomainActionsSets.getAdminActions();
                 break;
+            case MANAGER:
+                domainPages = DomainPagesSets.getManagerPages();
+                domainActions = DomainActionsSets.getManagerActions();
+                break;
             case USER:
                 domainPages = DomainPagesSets.getUserPages();
                 domainActions = DomainActionsSets.getUserActions();

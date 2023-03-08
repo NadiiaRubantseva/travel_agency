@@ -1,5 +1,5 @@
 function checkSession() {
-    var userId = "${sessionScope.loggedUser.id}";
+    var userId = document.getElementById("userId").value;
 
     if (userId) {
         $('#book').modal('show');

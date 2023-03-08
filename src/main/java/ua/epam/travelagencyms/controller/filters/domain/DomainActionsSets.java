@@ -20,6 +20,7 @@ public final class DomainActionsSets {
     @Getter private static final Set<String> anonymousUserActions = new HashSet<>();
     private static final Set<String> loggedUserActions = new HashSet<>();
     @Getter private static final Set<String> adminActions = new HashSet<>();
+    @Getter private static final Set<String> managerActions = new HashSet<>();
     @Getter private static final Set<String> userActions = new HashSet<>();
 
     static {
@@ -29,6 +30,8 @@ public final class DomainActionsSets {
         anonymousUserActions.add(PASSWORD_RESET_ACTION);
         anonymousUserActions.add(ERROR_ACTION);
         anonymousUserActions.add(SIGN_OUT_ACTION);
+        anonymousUserActions.add(VIEW_TOURS_ACTION);
+        anonymousUserActions.add(SEARCH_TOUR_ACTION);
     }
 
     static {
@@ -59,6 +62,22 @@ public final class DomainActionsSets {
         adminActions.add(USERS_PDF_ACTION);
         adminActions.add(TOURS_PDF_ACTION);
         adminActions.add(SEARCH_ORDER_ACTION);
+    }
+
+    static {
+        managerActions.addAll(loggedUserActions);
+        managerActions.add(SEARCH_USER_BY_ID_ACTION);
+        managerActions.add(SEARCH_USER_BY_EMAIL_ACTION);
+        managerActions.add(SEARCH_TOUR_ACTION);
+        managerActions.add(VIEW_TOURS_ACTION);
+        managerActions.add(VIEW_TOUR_ACTION);
+        managerActions.add(VIEW_USERS_ACTION);
+        managerActions.add(VIEW_ORDERS_ACTION);
+        managerActions.add(UPDATE_ORDER_STATUS_ACTION);
+        managerActions.add(UPDATE_ORDER_DISCOUNT_ACTION);
+        managerActions.add(USERS_PDF_ACTION);
+        managerActions.add(TOURS_PDF_ACTION);
+        managerActions.add(SEARCH_ORDER_ACTION);
     }
 
     static {

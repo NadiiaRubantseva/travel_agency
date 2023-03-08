@@ -48,6 +48,7 @@ public class SearchTourAction implements Action {
         try {
             TourDTO tour = tourService.getById(tourId);
             request.setAttribute(TOUR, tour);
+            request.setAttribute(TOTAL, tour.getPrice());
 
             if (purpose != null && purpose.equals(EDIT)) {
                 return EDIT_TOUR_PAGE;
@@ -70,8 +71,7 @@ public class SearchTourAction implements Action {
                 return SEARCH_TOUR_PAGE;
             }
         }
-
-        return VIEW_TOURS_PAGE;
+        return VIEW_TOUR_PAGE;
     }
 
     private double calculateTotalPrice(double price, int discount) {
