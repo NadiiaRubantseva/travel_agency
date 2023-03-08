@@ -23,7 +23,7 @@ class ConvertorUtilTest {
         assertNull(dtoToUser.getPassword());
         assertEquals(NAME_VALUE, dtoToUser.getName());
         assertEquals(SURNAME_VALUE, dtoToUser.getSurname());
-        assertNull(dtoToUser.getAvatar());
+        assertEquals(IMAGE_ENCODED_VALUE, dtoToUser.getAvatar());
         assertEquals(DISCOUNT_VALUE, dtoToUser.getDiscount());
         assertEquals(IS_BLOCKED_VALUE, dtoToUser.isBlocked());
         assertEquals(IS_EMAIL_VERIFIED_VALUE, dtoToUser.isEmailVerified());
@@ -48,7 +48,7 @@ class ConvertorUtilTest {
         assertEquals(PERSONS_VALUE, dtoToTour.getPersons());
         assertEquals(PRICE_VALUE, dtoToTour.getPrice());
         assertEquals(HOT_VALUE, dtoToTour.getHot());
-        assertNull(dtoToTour.getImage());
+        assertEquals(IMAGE_ENCODED_VALUE, dtoToTour.getImage());
         assertEquals(TYPE_ID_VALUE, dtoToTour.getTypeId());
         assertEquals(HOTEL_ID_VALUE, dtoToTour.getHotelId());
         assertEquals(DESCRIPTION_VALUE, dtoToTour.getDescription());

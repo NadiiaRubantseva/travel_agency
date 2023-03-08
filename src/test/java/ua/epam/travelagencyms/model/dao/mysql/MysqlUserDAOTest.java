@@ -441,7 +441,7 @@ class MysqlUserDAOTest {
         when(resultSet.getString(PASSWORD)).thenReturn(PASSWORD_VALUE);
         when(resultSet.getString(NAME)).thenReturn(NAME_VALUE);
         when(resultSet.getString(SURNAME)).thenReturn(SURNAME_VALUE);
-        when(resultSet.getBytes(AVATAR)).thenReturn(AVATAR_VALUE);
+        when(resultSet.getString(AVATAR)).thenReturn(IMAGE_ENCODED_VALUE);
         when(resultSet.getInt(DISCOUNT)).thenReturn(DISCOUNT_VALUE);
         when(resultSet.getByte(IS_BLOCKED)).thenReturn((byte) (IS_BLOCKED_VALUE ? 1 : 0));
         when(resultSet.getByte(IS_EMAIL_VERIFIED)).thenReturn((byte) (IS_EMAIL_VERIFIED_VALUE ? 1 : 0));

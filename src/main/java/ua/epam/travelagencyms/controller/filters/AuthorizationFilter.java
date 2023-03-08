@@ -46,7 +46,7 @@ public class AuthorizationFilter extends HttpFilter {
                 request.setAttribute(BLOCKED_USER, user);
                 request.getRequestDispatcher(BLOCKED_USER_PAGE).forward(request, response);
             } else if (role != null && isAccessDenied(servletPath, action, role)) {
-                request.getRequestDispatcher(ACCESS_DENIED).forward(request, response);
+                request.getRequestDispatcher(ACCESS_DENIED_PAGE).forward(request, response);
             } else {
                 chain.doFilter(request, response);
             }

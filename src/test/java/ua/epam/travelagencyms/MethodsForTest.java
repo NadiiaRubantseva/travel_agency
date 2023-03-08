@@ -63,6 +63,7 @@ public class MethodsForTest {
                 .type(TYPE_VALUE)
                 .hotel(HOTEL_VALUE)
                 .image(DECODED_IMAGE_VALUE)
+                .description(DESCRIPTION_VALUE)
                 .build();
     }
 

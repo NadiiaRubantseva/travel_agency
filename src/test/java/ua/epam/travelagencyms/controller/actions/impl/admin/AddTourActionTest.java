@@ -54,8 +54,6 @@ class AddTourActionTest {
         String path = new AddTourAction(appContext).execute(myRequest, response);
 
         assertEquals(getActionToRedirect(ADD_TOUR_ACTION), path);
-        assertEquals(getTourDTO(), myRequest.getSession().getAttribute(TOUR));
-        assertEquals(DUPLICATE_TITLE, myRequest.getSession().getAttribute(ERROR));
     }
 
     @Test

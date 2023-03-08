@@ -11,7 +11,7 @@ public class Pages {
     /** Basic actions */
     public static final String CONTROLLER_PAGE = "controller";
     public static final String INDEX_PAGE = "index.jsp";
-    public static final String ACCESS_DENIED = "accessDenied.jsp";
+    public static final String ACCESS_DENIED_PAGE = "accessDenied.jsp";
     public static final String ABOUT_PAGE = "about.jsp";
     public static final String CONTACTS_PAGE = "contacts.jsp";
     public static final String ERROR_PAGE = "error.jsp";

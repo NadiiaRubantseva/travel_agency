@@ -305,7 +305,7 @@ public class MysqlTourDAOTest {
         when(resultSet.getInt(PERSONS)).thenReturn(PERSONS_VALUE);
         when(resultSet.getDouble(PRICE)).thenReturn(PRICE_VALUE);
         when(resultSet.getByte(HOT)).thenReturn(HOT_VALUE);
-        when(resultSet.getBytes(IMAGE)).thenReturn(IMAGE_VALUE);
+        when(resultSet.getString(IMAGE)).thenReturn(IMAGE_ENCODED_VALUE);
         when(resultSet.getString(DESCRIPTION)).thenReturn(DESCRIPTION_VALUE);
         when(resultSet.getInt(TYPE_ID)).thenReturn(TYPE_ID_VALUE);
         when(resultSet.getInt(HOTEL_ID)).thenReturn(HOTEL_ID_VALUE);

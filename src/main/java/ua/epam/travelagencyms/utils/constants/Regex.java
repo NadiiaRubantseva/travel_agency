@@ -24,12 +24,15 @@ public class Regex {
 
     /** Use it for names and surnames.
      *  Explanation:
-     *      1) ^ matches the start of the string;
-     *      2) \p{L} matches any Unicode letter;
-     *      3) [\p{L}'’]{0,29} matches 0 to 29 additional Unicode letters or apostrophes (single or double);
-     *      4) $ matches the end of the string.
+     *      1) ^ and $ anchor the regex to the start and end of the string respectively.
+     *      2) [\p{Lu}\p{Ll}'’-]{1,30} matches between 1 and 30 uppercase or lowercase letters, apostrophes, or dashes.
+     *      3) ([\p{Zs}\-][\p{Lu}\p{Ll}'’-]{1,29})? matches an optional occurrence of a space or dash followed by between 1 and 29 uppercase or lowercase letters, apostrophes, or dashes.
+     *      This allows for the possibility of a two-word name with a dash or space between them.
+     *      4) \p{Lu} matches any uppercase letter in the Unicode character set, including those used in the Ukrainian alphabet.
+     *      5) \p{Ll} matches any lowercase letter in the Unicode character set, including those used in the Ukrainian alphabet.
+     *      6) \p{Zs} matches any Unicode whitespace character, including spaces used in the Ukrainian language.
      */
-    public static final String NAME_REGEX = "^\\p{L}[\\p{L}'’]{0,29}$";
+    public static final String NAME_REGEX = "^[\\p{Lu}\\p{Ll}'’-]{1,30}([\\p{Zs}\\-][\\p{Lu}\\p{Ll}'’-]{1,29})?$";
 
     /** Use it for titles*/
     public static final String COMPLEX_NAME_REGEX = "^[\\wА-ЩЬЮЯҐІЇЄа-щьюяґіїє'.,;:+\\-~`!@#$^&*()={}| ]{2,70}";

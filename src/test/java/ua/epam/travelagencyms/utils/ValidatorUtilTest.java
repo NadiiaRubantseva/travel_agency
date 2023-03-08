@@ -70,7 +70,7 @@ class ValidatorUtilTest {
 
     @Test
     void testValidateName() {
-        String name = "Joe Biden";
+        String name = "Biden Jr";
         assertDoesNotThrow(() -> validateName(name, ENTER_CORRECT_NAME));
 
         String name2 = "Залужний";

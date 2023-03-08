@@ -54,7 +54,7 @@ public final class TestUtils {
     public static final double PRICE_VALUE = 1000;
     public static final String PRICE_STRING_VALUE = "1000";
     public static final byte HOT_VALUE = 1;
-    public static final String HOT_STRING_VALUE = "hot";
+    public static final String HOT_STRING_VALUE = "true";
     public static final int TYPE_ID_VALUE = 3;
     public static final String TYPE_VALUE = "SHOPPING";
     public static final int HOTEL_ID_VALUE = 2;
@@ -87,7 +87,7 @@ public final class TestUtils {
                 .name(NAME_VALUE)
                 .surname(SURNAME_VALUE)
                 .discount(DISCOUNT_VALUE)
-                .avatar("avatar")
+                .avatar(IMAGE_ENCODED_VALUE)
                 .isBlocked(IS_BLOCKED_VALUE)
                 .isEmailVerified(IS_EMAIL_VERIFIED_VALUE)
                 .verificationCode(VERIFICATION_CODE_VALUE)
@@ -102,7 +102,7 @@ public final class TestUtils {
                 .name(NAME_VALUE)
                 .surname(SURNAME_VALUE)
                 .discount(DISCOUNT_VALUE)
-                .avatar(AVATAR_ENCODED_VALUE)
+                .avatar(IMAGE_ENCODED_VALUE)
                 .isBlocked(IS_BLOCKED_STRING_VALUE)
                 .isEmailVerified(IS_EMAIL_VERIFIED_STRING_VALUE)
                 .role(ROLE_VALUE)
@@ -118,7 +118,7 @@ public final class TestUtils {
                 .hot(HOT_VALUE)
                 .typeId(TYPE_ID_VALUE)
                 .hotelId(HOTEL_ID_VALUE)
-                .image("image")
+                .image(IMAGE_ENCODED_VALUE)
                 .description(DESCRIPTION_VALUE)
                 .build();
     }

@@ -42,6 +42,7 @@ public final class DomainPagesSets {
         anonymousUserPages.add(BLOCKED_USER_PAGE);
         anonymousUserPages.add(VIEW_TOURS_PAGE);
         anonymousUserPages.add(VIEW_TOUR_PAGE);
+        anonymousUserPages.add(ACCESS_DENIED_PAGE);
     }
 
     static {
@@ -49,6 +50,7 @@ public final class DomainPagesSets {
         loggedUserPages.add(PROFILE_PAGE);
         loggedUserPages.add(EDIT_PROFILE_PAGE);
         loggedUserPages.add(CHANGE_PASSWORD_PAGE);
+        loggedUserPages.add(VERIFY_EMAIL_PAGE);
     }
 
     static {

@@ -64,8 +64,8 @@ class PaginationUtilTest {
         MyRequest myRequest = new MyRequest(request);
         paginate(100, myRequest);
         assertEquals(0, myRequest.getAttribute(OFFSET));
-        assertEquals(5, myRequest.getAttribute(RECORDS));
-        assertEquals(20, myRequest.getAttribute(PAGES));
+        assertEquals(8, myRequest.getAttribute(RECORDS));
+        assertEquals(13, myRequest.getAttribute(PAGES));
         assertEquals(1, myRequest.getAttribute(CURRENT_PAGE));
         assertEquals(1, myRequest.getAttribute(START));
         assertEquals(3, myRequest.getAttribute(END));
@@ -92,8 +92,8 @@ class PaginationUtilTest {
         MyRequest myRequest = new MyRequest(request);
         paginate(100, myRequest);
         assertEquals(0, myRequest.getAttribute(OFFSET));
-        assertEquals(5, myRequest.getAttribute(RECORDS));
-        assertEquals(20, myRequest.getAttribute(PAGES));
+        assertEquals(8, myRequest.getAttribute(RECORDS));
+        assertEquals(13, myRequest.getAttribute(PAGES));
         assertEquals(1, myRequest.getAttribute(CURRENT_PAGE));
         assertEquals(1, myRequest.getAttribute(START));
         assertEquals(3, myRequest.getAttribute(END));
@@ -106,8 +106,8 @@ class PaginationUtilTest {
         MyRequest myRequest = new MyRequest(request);
         paginate(100, myRequest);
         assertEquals(0, myRequest.getAttribute(OFFSET));
-        assertEquals(5, myRequest.getAttribute(RECORDS));
-        assertEquals(20, myRequest.getAttribute(PAGES));
+        assertEquals(8, myRequest.getAttribute(RECORDS));
+        assertEquals(13, myRequest.getAttribute(PAGES));
         assertEquals(1, myRequest.getAttribute(CURRENT_PAGE));
         assertEquals(1, myRequest.getAttribute(START));
         assertEquals(3, myRequest.getAttribute(END));
@@ -120,8 +120,8 @@ class PaginationUtilTest {
         MyRequest myRequest = new MyRequest(request);
         paginate(100, myRequest);
         assertEquals(0, myRequest.getAttribute(OFFSET));
-        assertEquals(5, myRequest.getAttribute(RECORDS));
-        assertEquals(20, myRequest.getAttribute(PAGES));
+        assertEquals(8, myRequest.getAttribute(RECORDS));
+        assertEquals(13, myRequest.getAttribute(PAGES));
         assertEquals(1, myRequest.getAttribute(CURRENT_PAGE));
         assertEquals(1, myRequest.getAttribute(START));
         assertEquals(3, myRequest.getAttribute(END));

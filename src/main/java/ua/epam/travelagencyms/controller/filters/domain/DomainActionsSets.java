@@ -27,9 +27,9 @@ public final class DomainActionsSets {
         anonymousUserActions.add(DEFAULT_ACTION);
         anonymousUserActions.add(SIGN_IN_ACTION);
         anonymousUserActions.add(SIGN_UP_ACTION);
+        anonymousUserActions.add(SIGN_OUT_ACTION);
         anonymousUserActions.add(PASSWORD_RESET_ACTION);
         anonymousUserActions.add(ERROR_ACTION);
-        anonymousUserActions.add(SIGN_OUT_ACTION);
         anonymousUserActions.add(VIEW_TOURS_ACTION);
         anonymousUserActions.add(SEARCH_TOUR_ACTION);
     }
@@ -81,7 +81,7 @@ public final class DomainActionsSets {
     }
 
     static {
-        loggedUserActions.addAll(anonymousUserActions);
+        userActions.addAll(loggedUserActions);
         userActions.add(BOOK_TOUR_ACTION);
         userActions.add(VIEW_ORDERS_OF_USER_ACTION);
         userActions.add(CANCEL_ORDER_ACTION);
