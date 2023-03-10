@@ -1,7 +1,9 @@
 package ua.epam.travelagencyms.controller.filters;
 
 
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;

@@ -3,24 +3,22 @@ package ua.epam.travelagencyms.controller.actions.impl.base;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
-import ua.epam.travelagencyms.exceptions.*;
-import ua.epam.travelagencyms.model.services.*;
+import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
+import ua.epam.travelagencyms.exceptions.NoSuchUserException;
+import ua.epam.travelagencyms.exceptions.ServiceException;
+import ua.epam.travelagencyms.model.services.UserService;
 import ua.epam.travelagencyms.utils.EmailSender;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.getURL;
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.isPostMethod;
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
+import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.PASSWORD_RESET_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.RESET_PASSWORD_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.CHECK_EMAIL;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.EMAIL;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.ERROR;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.MESSAGE;
-import static ua.epam.travelagencyms.utils.constants.Email.*;
+import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
+import static ua.epam.travelagencyms.utils.constants.Email.MESSAGE_RESET_PASSWORD;
+import static ua.epam.travelagencyms.utils.constants.Email.PASSWORD_RESET;
 
 /**
  * This is ResetPasswordAction class. Accessible by any user. Allows to reset user's password.

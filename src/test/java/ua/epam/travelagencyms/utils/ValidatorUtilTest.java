@@ -9,7 +9,6 @@ import ua.epam.travelagencyms.exceptions.NoSuchUserException;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static ua.epam.travelagencyms.exceptions.constants.Message.*;
 import static ua.epam.travelagencyms.utils.ValidatorUtil.*;
 

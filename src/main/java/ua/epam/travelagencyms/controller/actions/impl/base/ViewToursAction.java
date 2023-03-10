@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
-import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.VIEW_TOURS_BY_ADMIN_PAGE;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.VIEW_TOURS_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.ADMIN;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.utils.PaginationUtil.paginate;
@@ -41,20 +42,34 @@ public class ViewToursAction implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        // transferring any messages from session to request
         transferStringFromSessionToRequest(request, MESSAGE);
+        transferStringFromSessionToRequest(request, ERROR);
+
+        // page to display tours
         String path = VIEW_TOURS_PAGE;
 
+        // getting view option
         String view = request.getParameter(VIEW);
 
+        // setting special view tours page for admin and manager
         if (view != null && view.equalsIgnoreCase(ADMIN)) {
             path = VIEW_TOURS_BY_ADMIN_PAGE;
         }
 
+        // getting query according to submitted search criteria
         QueryBuilder queryBuilder = getQueryBuilder(request);
+
+        // setting tours as an attribute
         request.setAttribute(TOURS, tourService.getSortedTours(queryBuilder.getQuery()));
+
+        // retrieving number of records (for pagination)
         int numberOfRecords = tourService.getNumberOfRecords(queryBuilder.getRecordQuery());
+
+        // setting attributes for pagination
         paginate(numberOfRecords, request);
 
+        // returning path
         return path;
     }
 

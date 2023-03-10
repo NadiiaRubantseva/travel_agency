@@ -1,8 +1,8 @@
 package ua.epam.travelagencyms.model.dao;
 
 import ua.epam.travelagencyms.model.dao.constants.DbImplementations;
-import ua.epam.travelagencyms.model.dao.mysql.MysqlLoyaltyProgramDAO;
 import ua.epam.travelagencyms.model.dao.mysql.MysqlDAOFactory;
+import ua.epam.travelagencyms.model.dao.mysql.MysqlLoyaltyProgramDAO;
 
 import javax.sql.DataSource;
 

@@ -1,6 +1,6 @@
 package ua.epam.travelagencyms.exceptions;
 
-import static ua.epam.travelagencyms.exceptions.constants.Message.*;
+import static ua.epam.travelagencyms.exceptions.constants.Message.WRONG_PASSWORD;
 
 /**
  * If password does not match database password

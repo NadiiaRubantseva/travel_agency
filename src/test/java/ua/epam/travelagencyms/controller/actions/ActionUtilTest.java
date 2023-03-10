@@ -6,17 +6,17 @@ import ua.epam.travelagencyms.controller.actions.util.MyRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-import static ua.epam.travelagencyms.ConstantsForTest.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static ua.epam.travelagencyms.ConstantsForTest.GET;
+import static ua.epam.travelagencyms.ConstantsForTest.POST;
 import static ua.epam.travelagencyms.MethodsForTest.getTestTourDTO;
 import static ua.epam.travelagencyms.MethodsForTest.getTestUserDTO;
+import static ua.epam.travelagencyms.TestUtils.getTestOrderDTO;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.DELETE_USER_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.MESSAGE;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.USER;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.TOUR;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.ID;
+import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
 
 class ActionUtilTest {
@@ -86,6 +86,23 @@ class ActionUtilTest {
     }
 
     @Test
+    void testTransferOrderDTOFromSessionToRequest() {
+        MyRequest myRequest = new MyRequest(request);
+        myRequest.getSession().setAttribute(ORDER, getTestOrderDTO());
+        transferOrderDTOFromSessionToRequest(myRequest);
+        assertEquals(getTestOrderDTO(), myRequest.getAttribute(ORDER));
+        assertNull(myRequest.getSession().getAttribute(ORDER));
+    }
+
+    @Test
+    void testTransferOrderDTOFromSessionToRequestNoOrder() {
+        MyRequest myRequest = new MyRequest(request);
+        transferOrderDTOFromSessionToRequest(myRequest);
+        assertNull(myRequest.getAttribute(ORDER));
+        assertNull(myRequest.getSession().getAttribute(ORDER));
+    }
+
+    @Test
     void testGetActionToRedirectNoParameters() {
         String result = "controller?action=delete-user";
         assertEquals(result, getActionToRedirect(DELETE_USER_ACTION));
@@ -97,6 +114,11 @@ class ActionUtilTest {
         assertEquals(result, getActionToRedirect(DELETE_USER_ACTION, ID, "1"));
     }
 
+    @Test
+    void testGetActionToRedirectWithParameters() {
+        String result = "controller?action=delete-user&user-id=1&order-id=1";
+        assertEquals(result, getActionToRedirect(DELETE_USER_ACTION, USER_ID, "1", ORDER_ID, "1"));
+    }
 
     @Test
     void testGetURL() {

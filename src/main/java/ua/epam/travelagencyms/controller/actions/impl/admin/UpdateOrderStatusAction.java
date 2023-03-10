@@ -3,7 +3,7 @@ package ua.epam.travelagencyms.controller.actions.impl.admin;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.LoyaltyProgramDTO;
-import ua.epam.travelagencyms.dto.OrderDTO;
+import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.OrderService;
 import ua.epam.travelagencyms.model.services.UserService;
@@ -12,13 +12,9 @@ import ua.epam.travelagencyms.model.services.implementation.LoyaltyProgramServic
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.List;
-
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
-import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.UPDATE_ORDER_STATUS_ACTION;
-import static ua.epam.travelagencyms.controller.actions.constants.Pages.VIEW_ORDER_BY_ADMIN_PAGE;
-import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.PAID;
-import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
+import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
+import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SEARCH_ORDER_ACTION;
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
 /**
@@ -45,42 +41,54 @@ public class UpdateOrderStatusAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        return isPostMethod(request) ? executePost(request) : executeGet(request);
-    }
-
-    private String executeGet(HttpServletRequest request) {
-            transferStringFromSessionToRequest(request, MESSAGE);
-            transferStringFromSessionToRequest(request, ERROR);
-            transferOrderDTOFromSessionToRequest(request);
-            return VIEW_ORDER_BY_ADMIN_PAGE;
-    }
-
-
-    /**
-     * Obtains required path and updates status of the order.
-     * Sets error if status value is invalid.
-     *
-     * @param request to get order fields
-     * @return path to redirect to executeGet method in Search order action through front-controller with required
-     * parameters to find report.
-     */
-    public String executePost(HttpServletRequest request) throws ServiceException {
+        // getting new order status from request
         String orderStatus = request.getParameter(STATUS);
-        String orderId = request.getParameter(ID);
-        String userId = request.getParameter(USER_ID);
-        orderService.setOrderStatus(orderId, orderStatus);
-        request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
 
-        if (orderStatus.equals(PAID)) {
-            LoyaltyProgramDTO loyaltyProgram = loyaltyProgramService.get();
-            List<OrderDTO> orders = orderService.viewUsersOrders(Long.parseLong(userId));
-            long count = orders.stream().filter(order -> order.getOrderStatus().equals(PAID)).count();
-            int userDiscount = (int) ((count / loyaltyProgram.getStep()) * loyaltyProgram.getDiscount());
-            userDiscount = Math.min(userDiscount, loyaltyProgram.getMaxDiscount());
-            userService.setDiscount(userDiscount, Long.parseLong(userId));
+        // getting order id from request
+        String orderId = request.getParameter(ID);
+
+        // getting user id from request
+        String userId = request.getParameter(USER_ID);
+
+        try {
+            // updating order status in db
+            orderService.setOrderStatus(orderId, orderStatus);
+
+            // updating personal user discount accordingly
+            if (!orderStatus.equals(REGISTERED)) {
+               updateUserDiscount(userId);
+            }
+
+            // setting success message
+            request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
+
+        } catch (IncorrectFormatException e) {
+            // setting error message
+            request.getSession().setAttribute(ERROR, e.getMessage());
         }
 
         request.getSession().setAttribute(ORDER, orderService.getById(orderId));
-        return getActionToRedirect(UPDATE_ORDER_STATUS_ACTION);
+        return getActionToRedirect(SEARCH_ORDER_ACTION, ORDER_ID, orderId);
+    }
+
+    private void updateUserDiscount(String userId) throws ServiceException {
+        // getting loyalty program information
+        LoyaltyProgramDTO loyaltyProgram = loyaltyProgramService.get();
+
+        // counting how many paid orders user have
+        long count = orderService.viewUsersOrders(Long.parseLong(userId))
+                .stream()
+                .filter(order -> order.getOrderStatus().equals(PAID))
+                .count();
+
+        // counting user discount according to loyalty program
+        int userDiscount = (int) ((count / loyaltyProgram.getStep()) * loyaltyProgram.getDiscount());
+
+        // If the user's discount exceeds the maximum discount, the maximum discount will be set
+        userDiscount = Math.min(userDiscount, loyaltyProgram.getMaxDiscount());
+
+        // updating user discount
+        userService.setDiscount(userDiscount, userId);
+
     }
 }

@@ -41,14 +41,32 @@ public class ViewOrdersOfUserAction implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        // transfer attributes from session to request if any
         transferStringFromSessionToRequest(request, MESSAGE);
+        transferStringFromSessionToRequest(request, ERROR);
+
+        // getting logged userDTO from request
         UserDTO userDTO = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
+
+        // getting user id
         long userId = userDTO.getId();
+
+        // getting query according to request
         QueryBuilder queryBuilder = getQueryBuilder(request);
+
+        // setting user id filter
         queryBuilder.setUserIdFilter(userId);
+
+        // setting orders list according to search criteria (query)
         request.setAttribute(ORDERS, orderService.getSortedOrders(queryBuilder.getQuery()));
+
+        // getting number of records for pagination
         int numberOfRecords = orderService.getNumberOfRecords(queryBuilder.getRecordQuery());
+
+        // setting attributes for pagination
         paginate(numberOfRecords, request);
+
+        // return view orders for user page
         return VIEW_ORDERS_BY_USER_PAGE;
     }
 

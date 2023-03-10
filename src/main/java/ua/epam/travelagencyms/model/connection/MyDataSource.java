@@ -1,6 +1,8 @@
 package ua.epam.travelagencyms.model.connection;
 
-import com.zaxxer.hikari.*;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import javax.sql.DataSource;
 import java.util.Properties;
 

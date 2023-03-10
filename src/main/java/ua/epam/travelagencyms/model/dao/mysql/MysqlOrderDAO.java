@@ -14,7 +14,6 @@ import java.util.Optional;
 
 import static ua.epam.travelagencyms.model.dao.mysql.constants.OrderSQLQueries.*;
 import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.*;
-import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.NUMBER_OF_RECORDS;
 
 /**
  * Order DAO class for My SQL database. Matches table 'order' in database.
@@ -114,6 +113,11 @@ public class MysqlOrderDAO implements OrderDAO {
             throw new DAOException(e);
         }
     }
+
+    @Override
+    public void setOrderStatus(long orderId, int status, long userId) throws DAOException {
+    }
+
 
     /**
      * Updates status field for order

@@ -16,7 +16,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
 import static ua.epam.travelagencyms.TestUtils.*;
 import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.*;
 

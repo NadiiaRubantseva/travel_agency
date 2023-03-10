@@ -5,7 +5,7 @@ import ua.epam.travelagencyms.utils.query.UserQueryBuilder;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static ua.epam.travelagencyms.ConstantsForTest.*;
-import static ua.epam.travelagencyms.utils.QueryBuilderUtil.*;
+import static ua.epam.travelagencyms.utils.QueryBuilderUtil.userQueryBuilder;
 
 class QueryBuilderTest {
 

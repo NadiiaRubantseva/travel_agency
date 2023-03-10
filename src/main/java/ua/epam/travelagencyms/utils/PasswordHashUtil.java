@@ -1,6 +1,7 @@
 package ua.epam.travelagencyms.utils;
 
-import de.mkammerer.argon2.*;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import ua.epam.travelagencyms.exceptions.IncorrectPasswordException;
 
 /**

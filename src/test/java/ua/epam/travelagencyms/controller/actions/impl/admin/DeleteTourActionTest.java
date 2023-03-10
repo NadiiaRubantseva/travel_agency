@@ -9,7 +9,7 @@ import ua.epam.travelagencyms.model.services.TourService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static ua.epam.travelagencyms.ConstantsForTest.ONE;
 import static ua.epam.travelagencyms.ConstantsForTest.POST;
@@ -28,13 +28,17 @@ class DeleteTourActionTest {
 
     @Test
     void testExecutePost() throws ServiceException {
+        // arrange
         MyRequest myRequest = new MyRequest(request);
         when(request.getMethod()).thenReturn(POST);
         when(request.getParameter(TOUR_ID)).thenReturn(ONE);
         when(appContext.getTourService()).thenReturn(tourService);
         doNothing().when(tourService).delete(ONE);
+
+        // act
         String path = new DeleteTourAction(appContext).execute(myRequest, response);
 
+        // assert
         assertEquals(getActionToRedirect(VIEW_TOURS_ACTION), path);
         assertEquals(SUCCEED_DELETE, myRequest.getSession().getAttribute(MESSAGE));
     }

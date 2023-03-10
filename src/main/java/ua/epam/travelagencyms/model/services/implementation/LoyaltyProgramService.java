@@ -7,7 +7,8 @@ import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.dao.mysql.MysqlLoyaltyProgramDAO;
 import ua.epam.travelagencyms.model.entities.loyaltyProgram.LoyaltyProgram;
 
-import static ua.epam.travelagencyms.utils.ConvertorUtil.*;
+import static ua.epam.travelagencyms.utils.ConvertorUtil.convertDTOToLoyaltyProgram;
+import static ua.epam.travelagencyms.utils.ConvertorUtil.convertLoyaltyProgramToDTO;
 
 @RequiredArgsConstructor
 public class LoyaltyProgramService {

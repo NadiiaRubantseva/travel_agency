@@ -1,6 +1,9 @@
 package ua.epam.travelagencyms.utils;
 
-import ua.epam.travelagencyms.utils.query.*;
+import ua.epam.travelagencyms.utils.query.OrderQueryBuilder;
+import ua.epam.travelagencyms.utils.query.QueryBuilder;
+import ua.epam.travelagencyms.utils.query.TourQueryBuilder;
+import ua.epam.travelagencyms.utils.query.UserQueryBuilder;
 
 /**
  * Factory to return concrete query builders

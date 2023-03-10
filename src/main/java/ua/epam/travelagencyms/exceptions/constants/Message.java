@@ -11,6 +11,7 @@ public class Message {
     public static final String NO_ORDER = "error.order.absent";
     public static final String NO_TOUR = "error.tour.absent";
     public static final String ENTER_CORRECT_EMAIL = "error.email.format";
+    public static final String ENTER_CORRECT_ID = "error.id.format";
     public static final String ENTER_CORRECT_PASSWORD = "error.pass.format";
     public static final String PASSWORD_MATCHING = "error.pass.match";
     public static final String WRONG_PASSWORD = "error.pass.wrong";

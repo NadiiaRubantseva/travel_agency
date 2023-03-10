@@ -8,7 +8,25 @@ package ua.epam.travelagencyms.utils.constants;
  */
 public class Regex {
 
-    /** Use it for email only*/
+    /** Use it for id
+     * Explanation:
+     *      1) ^ matches the start of the string
+     *      2) [1-9] matches any digit from 1 to 9 (to exclude zero)
+     *      3) [0-9]* matches any number of digits (0-9)
+     *      4) $ matches the end of the string
+     * */
+    public static final String ID_REGEX = "^[1-9][0-9]*$";
+
+    /** Use it for email only
+     * Explanation:
+     *      1) ^ matches the start of the string
+     *      2) [\w.%+-]+ matches one or more of the following characters: letters, digits, underscore (_), percent (%), plus (+), hyphen (-), or period (.) This is the username portion of an email address.
+     *      3) @ matches the at symbol, separating the username from the domain name
+     *      4) [\w.-]+ matches one or more of the following characters: letters, digits, underscore (_), hyphen (-), or period (.) This is the domain name portion of an email address.
+     *      5) \. matches a literal period (.) character. This is used to separate the domain name from the top-level domain (TLD).
+     *      6) [a-zA-Z]{2,6} matches two to six consecutive letters (uppercase or lowercase), which represent the TLD of the email address.
+     *      7) $ matches the end of the string.
+     * */
     public static final String EMAIL_REGEX = "^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
 
     /** Use it for passwords only.

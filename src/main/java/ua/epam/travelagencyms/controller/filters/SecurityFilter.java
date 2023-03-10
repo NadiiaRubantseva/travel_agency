@@ -5,13 +5,15 @@ import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.UserService;
 
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.ACCESS_DENIED_PAGE;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.BLOCKED_USER_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.controller.filters.domain.Domain.getDomain;
 
@@ -21,7 +23,7 @@ import static ua.epam.travelagencyms.controller.filters.domain.Domain.getDomain;
  * @author Nadiia Rubantseva
  * @version 1.0
  */
-public class AuthorizationFilter extends HttpFilter {
+public class SecurityFilter extends HttpFilter {
 
     UserService userService = AppContext.getAppContext().getUserService();
 

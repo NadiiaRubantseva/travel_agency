@@ -37,6 +37,7 @@
         <form method="POST" action="controller" enctype="multipart/form-data">
             <input type="hidden" name="action" value="add-tour">
             <c:set var="error" value="${requestScope.error}"/>
+            <c:set var="image" value="${requestScope.tour.image}"/>
 
             <div class="row">
 
@@ -66,7 +67,8 @@
 
                         <div class="form-group">
                             <label for="image"></label> <input type="file"
-                                                               class="form-control-file" id="image"
+                                                               class="form-control-file"
+                                                               id="image"
                                                                name="image"
                                                                accept="image/*"
                                                                onchange="readURL(this);">

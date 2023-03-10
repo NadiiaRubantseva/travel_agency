@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
 import static ua.epam.travelagencyms.TestUtils.*;
-import static ua.epam.travelagencyms.TestUtils.TITLE_VALUE;
 import static ua.epam.travelagencyms.exceptions.constants.Message.DUPLICATE_TITLE;
 import static ua.epam.travelagencyms.utils.QueryBuilderUtil.tourQueryBuilder;
 
@@ -50,7 +49,7 @@ public class TourServiceTest {
     @Test
     void NoSuchTourExceptionForGetById() {
         String tourId = "invalid_id";
-        assertThrows(NoSuchTourException.class, () -> tourService.getById(tourId));
+        assertThrows(IncorrectFormatException.class, () -> tourService.getById(tourId));
     }
 
     @Test

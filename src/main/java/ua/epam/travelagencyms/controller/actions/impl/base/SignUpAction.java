@@ -16,12 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
-import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SIGN_IN_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SIGN_UP_ACTION;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.SIGN_IN_PAGE;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.SIGN_UP_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_REGISTER;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
-import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
-import static ua.epam.travelagencyms.utils.ConvertorUtil.getUserDTO;
 
 /**
  * This is SignUpAction class. Accessible by any user. Allows to create account. Implements PRG pattern
@@ -64,7 +63,7 @@ public class SignUpAction implements Action {
         transferStringFromSessionToRequest(request, MESSAGE);
         transferStringFromSessionToRequest(request, ERROR);
         transferUserDTOFromSessionToRequest(request);
-        return SIGN_UP_PAGE;
+        return getPath(request);
     }
 
     /**
@@ -75,17 +74,44 @@ public class SignUpAction implements Action {
      * @return path to redirect to executeGet method
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
+        String path = SIGN_IN_PAGE;
+
+        // mapping user dto from request
         UserDTO user = getUserDTO(request);
         try {
+
+            // add new user in db
             userService.add(user, request.getParameter(PASSWORD), request.getParameter(CONFIRM_PASSWORD));
+
+            // setting success message
             request.getSession().setAttribute(MESSAGE, SUCCEED_REGISTER);
-            request.getSession().setAttribute(EMAIL, user.getEmail());
+
+            // logging new user
             logger.atLevel(Level.INFO).log(String.format("New user registered - %s", user.getEmail()));
-            return getActionToRedirect(SIGN_IN_ACTION);
+
         } catch (IncorrectFormatException | PasswordMatchingException | DuplicateEmailException e) {
+            // setting user dto to session
             request.getSession().setAttribute(USER, user);
+
+            // setting error message
             request.getSession().setAttribute(ERROR, e.getMessage());
-            return getActionToRedirect(SIGN_UP_ACTION);
+
+            // setting page, so user keep staying on the same page
+            path = SIGN_UP_PAGE;
         }
+
+        // setting current path
+        request.getSession().setAttribute(CURRENT_PATH, path);
+
+        // redirecting
+        return getActionToRedirect(SIGN_UP_ACTION);
+    }
+
+    public static UserDTO getUserDTO(HttpServletRequest request) {
+        return UserDTO.builder()
+                .email(request.getParameter(EMAIL))
+                .name(request.getParameter(NAME))
+                .surname(request.getParameter(SURNAME))
+                .build();
     }
 }

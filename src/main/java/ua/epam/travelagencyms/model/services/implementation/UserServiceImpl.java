@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import static ua.epam.travelagencyms.exceptions.constants.Message.*;
+import static ua.epam.travelagencyms.exceptions.constants.Message.ENTER_CORRECT_NAME;
+import static ua.epam.travelagencyms.exceptions.constants.Message.ENTER_CORRECT_SURNAME;
 import static ua.epam.travelagencyms.utils.ConvertorUtil.convertUserToDTO;
 import static ua.epam.travelagencyms.utils.PasswordHashUtil.encode;
 import static ua.epam.travelagencyms.utils.PasswordHashUtil.verify;
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserDTO getById(String userIdString) throws ServiceException {
+        validateId(userIdString);
         UserDTO userDTO;
         long userId = getUserId(userIdString);
         try {
@@ -224,6 +226,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void setRole(String userId, int roleId) throws ServiceException {
+        validateId(userId);
+        validateId(String.valueOf(roleId));
         try {
             long id = Long.parseLong(userId);
             Role role = Role.getRole(roleId);
@@ -361,22 +365,24 @@ public class UserServiceImpl implements UserService {
      * @throws ServiceException - may wrap DAOException
      */
     @Override
-    public void setStatus(long id, String status) throws ServiceException {
+    public void setStatus(String id, String status) throws ServiceException {
+        validateId(id);
+
         byte statusId = 0;
         if (status.equals("Blocked")) {
             statusId = 1;
         }
         try {
-            userDAO.setStatus(id, statusId);
+            userDAO.setStatus(Long.parseLong(id), statusId);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
     }
 
     @Override
-    public void setDiscount(int discount, long userId) throws ServiceException {
+    public void setDiscount(int discount, String userId) throws ServiceException {
         try {
-            userDAO.setDiscount(discount, userId);
+            userDAO.setDiscount(discount, Long.parseLong(userId));
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

@@ -14,6 +14,10 @@ import java.util.Arrays;
 
 public final class TestUtils {
 
+    // http
+    public static final String POST = "POST";
+    public static final String GET = "GET";
+
     // shared
     public static final int ZERO = 0;
     public static final int ONE = 1;
@@ -45,12 +49,14 @@ public final class TestUtils {
     public static final String INCORRECT_VERIFICATION_CODE_VALUE = "654321";
     public static final int ROLE_ID_VALUE = 2;
     public static final String ROLE_VALUE = "USER";
+    public static final String STATUS_STRING_VALUE = "Blocked";
 
 
     // Tour
 
     public static final String TITLE_VALUE = "AWESOME_TITLE";
     public static final int PERSONS_VALUE = 2;
+    public static final String PERSONS_STRING_VALUE = "2";
     public static final double PRICE_VALUE = 1000;
     public static final String PRICE_STRING_VALUE = "1000";
     public static final byte HOT_VALUE = 1;
@@ -68,6 +74,7 @@ public final class TestUtils {
     public static final int ORDER_STATUS_ID_VALUE = 2;
     public static final String ORDER_STATUS_VALUE = "PAID";
     public static final double TOTAL_COST_VALUE = 900;
+    public static final String TOTAL_STRING_VALUE = "900";
     public static final LocalDate DATE_VALUE = LocalDate.of(2023,2,12);
     public static final String DATE_STRING_VALUE = "2023-02-12";
 

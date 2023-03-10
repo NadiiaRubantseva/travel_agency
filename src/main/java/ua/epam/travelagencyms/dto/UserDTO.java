@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @version 1.0
  */
 @Data
-@EqualsAndHashCode(of = {"email", "name", "surname"})
+@EqualsAndHashCode
 @Builder
 public class UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;

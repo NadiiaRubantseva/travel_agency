@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static ua.epam.travelagencyms.ConstantsForTest.EMAIL_VALUE;
@@ -33,49 +34,73 @@ class SearchUserByEmailActionTest {
 
     @Test
     void testExecute() throws ServiceException {
-        String email = EMAIL_VALUE;
-        when(request.getParameter(EMAIL)).thenReturn(email);
+        // arrange
+        when(request.getParameter(EMAIL)).thenReturn(EMAIL_VALUE);
         MyRequest myRequest = new MyRequest(request);
         when(appContext.getUserService()).thenReturn(userService);
-        when(userService.getByEmail(email)).thenReturn(getTestUserDTO());
+        when(userService.getByEmail(isA(String.class))).thenReturn(getTestUserDTO());
 
-        assertEquals(VIEW_USER_BY_ADMIN_PAGE, new SearchUserByEmailAction(appContext).execute(myRequest, response));
+        // act
+        String path = new SearchUserByEmailAction(appContext).execute(myRequest, response);
+
+        // assert
+        assertEquals(VIEW_USER_BY_ADMIN_PAGE, path);
         assertEquals(getTestUserDTO(), myRequest.getAttribute(USER));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"email.com", "@email.com", "email@email"})
     void testExecuteBadEmails(String email) throws ServiceException {
+        // arrange
         when(request.getParameter(EMAIL)).thenReturn(email);
         MyRequest myRequest = new MyRequest(request);
         when(appContext.getUserService()).thenReturn(userService);
-        when(userService.getByEmail(email)).thenThrow(new IncorrectFormatException(ENTER_CORRECT_EMAIL));
+        when(userService.getByEmail(isA(String.class))).thenThrow(new IncorrectFormatException(ENTER_CORRECT_EMAIL));
 
-        assertEquals(SEARCH_USER_PAGE, new SearchUserByEmailAction(appContext).execute(myRequest, response));
+        // act
+        String path = new SearchUserByEmailAction(appContext).execute(myRequest, response);
+
+        // assert
+        assertEquals(SEARCH_USER_PAGE, path);
         assertEquals(ENTER_CORRECT_EMAIL, myRequest.getAttribute(ERROR));
     }
 
     @ParameterizedTest
     @NullAndEmptySource
     void testExecuteNoEmails(String email) throws ServiceException {
+        // arrange
         when(request.getParameter(EMAIL)).thenReturn(email);
         MyRequest myRequest = new MyRequest(request);
         when(appContext.getUserService()).thenReturn(userService);
-        when(userService.getByEmail(email)).thenThrow(new IncorrectFormatException(ENTER_CORRECT_EMAIL));
 
-        assertEquals(SEARCH_USER_PAGE, new SearchUserByEmailAction(appContext).execute(myRequest, response));
+        if (email==null) {
+            when(userService.getByEmail(null)).thenThrow(new IncorrectFormatException(ENTER_CORRECT_EMAIL));
+        } else {
+            when(userService.getByEmail(isA(String.class))).thenThrow(new IncorrectFormatException(ENTER_CORRECT_EMAIL));
+        }
+
+        // act
+        String path = new SearchUserByEmailAction(appContext).execute(myRequest, response);
+
+        // assert
+        assertEquals(SEARCH_USER_PAGE, path);
         assertEquals(ENTER_CORRECT_EMAIL, myRequest.getAttribute(ERROR));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"noUser@epam.com", "noUser2@epam.com"})
     void testExecuteNoUser(String email) throws ServiceException {
+        // arrange
         when(request.getParameter(EMAIL)).thenReturn(email);
         MyRequest myRequest = new MyRequest(request);
         when(appContext.getUserService()).thenReturn(userService);
-        when(userService.getByEmail(email)).thenThrow(new NoSuchUserException());
+        when(userService.getByEmail(isA(String.class))).thenThrow(new NoSuchUserException());
 
-        assertEquals(SEARCH_USER_PAGE, new SearchUserByEmailAction(appContext).execute(myRequest, response));
+        // act
+        String path = new SearchUserByEmailAction(appContext).execute(myRequest, response);
+
+        // assert
+        assertEquals(SEARCH_USER_PAGE, path);
         assertEquals(NO_USER, myRequest.getAttribute(ERROR));
     }
 }

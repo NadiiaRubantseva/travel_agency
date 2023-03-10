@@ -56,12 +56,11 @@ public class ActionFactory {
         ACTION_MAP.put(EDIT_TOUR_ACTION, new EditTourAction(APP_CONTEXT));
         ACTION_MAP.put(DELETE_TOUR_ACTION, new DeleteTourAction(APP_CONTEXT));
         ACTION_MAP.put(UPDATE_ORDER_STATUS_ACTION, new UpdateOrderStatusAction(APP_CONTEXT));
-        ACTION_MAP.put(UPDATE_ORDER_DISCOUNT_ACTION, new UpdateOrderDiscountAction(APP_CONTEXT));
         ACTION_MAP.put(VIEW_ORDERS_ACTION, new ViewOrdersAction(APP_CONTEXT));
         ACTION_MAP.put(USERS_PDF_ACTION, new UsersToPdfAction(APP_CONTEXT));
         ACTION_MAP.put(TOURS_PDF_ACTION, new ToursToPdfAction(APP_CONTEXT));
         ACTION_MAP.put(ORDERS_PDF_ACTION, new OrdersToPdfAction(APP_CONTEXT));
-        ACTION_MAP.put("search-loyalty-program", new SearchLoyaltyProgramAction(APP_CONTEXT));
+        ACTION_MAP.put(SEARCH_LOYALTY_PROGRAM_ACTION, new SearchLoyaltyProgramAction(APP_CONTEXT));
         ACTION_MAP.put("edit-loyalty-program", new EditLoyaltyProgramAction(APP_CONTEXT));
 
         // USER

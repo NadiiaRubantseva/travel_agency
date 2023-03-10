@@ -12,6 +12,7 @@ import ua.epam.travelagencyms.model.services.TourService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
@@ -40,24 +41,40 @@ public class SearchTourAction implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        // transfer attributes from session to request if any
+        transferStringFromSessionToRequest(request, MESSAGE);
+        transferStringFromSessionToRequest(request, ERROR);
+
+
+        // getting tour id from request
         String tourId = request.getParameter(TOUR_ID);
+
+        // checking if tour needed for edit purpose
         String purpose = request.getParameter(PURPOSE);
+
+        // getting user from request
         UserDTO user = (UserDTO) request.getSession().getAttribute(LOGGED_USER);
 
-
         try {
+            // retrieving tour record by id
             TourDTO tour = tourService.getById(tourId);
+
+            // setting tour information to request
             request.setAttribute(TOUR, tour);
             request.setAttribute(TOTAL, tour.getPrice());
 
+            // returning edit page if purpose of search is edit tour
             if (purpose != null && purpose.equals(EDIT)) {
                 return EDIT_TOUR_PAGE;
             }
 
+            // returning view tour page by admin otherwise
             if (user != null && (user.getRole().equals(ADMIN) || user.getRole().equals(MANAGER))) {
                 return VIEW_TOUR_BY_ADMIN_PAGE;
             }
 
+            // calculating user discount and setting to request as an attribute,
+            // updating total attribute, returning view tour page
             if (user != null) {
                 int discount = user.getDiscount();
                 request.setAttribute(DISCOUNT, discount);
@@ -66,14 +83,26 @@ public class SearchTourAction implements Action {
             }
 
         } catch (NoSuchTourException | IncorrectFormatException e) {
+            // setting error message
             request.setAttribute(ERROR, e.getMessage());
-            if (user != null && user.getRole().equals(ADMIN)) {
+
+            // returning search tour if role is not user
+            if (user != null && (user.getRole().equals(ADMIN) || user.getRole().equals(MANAGER))) {
                 return SEARCH_TOUR_PAGE;
+            } else {
+                return VIEW_TOURS_PAGE;
             }
         }
-        return VIEW_TOUR_PAGE;
+        return VIEW_TOURS_PAGE;
     }
 
+    /**
+     * Calculating final tour price based on tour price and personal discount
+     *
+     * @param price tour price
+     * @param discount user personal discount
+     * @return final tour price that was calculated based on tour price and user discount
+     */
     private double calculateTotalPrice(double price, int discount) {
         if (discount == 0) {
             return price;

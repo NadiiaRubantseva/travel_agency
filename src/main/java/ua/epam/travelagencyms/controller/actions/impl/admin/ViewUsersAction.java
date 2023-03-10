@@ -1,12 +1,13 @@
 package ua.epam.travelagencyms.controller.actions.impl.admin;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.exceptions.ServiceException;
-import ua.epam.travelagencyms.model.services.*;
+import ua.epam.travelagencyms.model.services.UserService;
 import ua.epam.travelagencyms.utils.query.QueryBuilder;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.VIEW_USERS_PAGE;
@@ -39,11 +40,23 @@ public class ViewUsersAction implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        // transfer attributes from session to request if any
         transferStringFromSessionToRequest(request, MESSAGE);
+        transferStringFromSessionToRequest(request, ERROR);
+
+        // getting query according to request
         QueryBuilder queryBuilder = getQueryBuilder(request);
+
+        // setting users list according to search criteria (query)
         request.setAttribute(USERS, userService.getSortedUsers(queryBuilder.getQuery()));
+
+        // getting number of records for pagination
         int numberOfRecords = userService.getNumberOfRecords(queryBuilder.getRecordQuery());
+
+        // setting attributes for pagination
         paginate(numberOfRecords, request);
+
+        // return view orders page
         return VIEW_USERS_PAGE;
     }
 

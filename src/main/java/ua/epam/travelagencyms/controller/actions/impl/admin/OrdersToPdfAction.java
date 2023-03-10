@@ -31,7 +31,6 @@ import static ua.epam.travelagencyms.utils.QueryBuilderUtil.orderQueryBuilder;
 
 public class OrdersToPdfAction implements Action {
     private static final Logger logger = LoggerFactory.getLogger(OrdersToPdfAction.class);
-
     private final OrderService orderService;
     private final PdfUtil pdfUtil;
 
@@ -44,30 +43,34 @@ public class OrdersToPdfAction implements Action {
     }
 
     /**
-     * Builds required query for service, sets order list in response to download. Checks for locale to set up
-     * locale for pdf document
+     * Builds required query for service, sets order list in response to download.
+     * Checks for locale to set it up for pdf document
      *
      * @param request to get queries parameters
      * @param response to set orders list there
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        // preparing query for db
         QueryBuilder queryBuilder = getQueryBuilder(request);
-        List<OrderDTO> orders = orderService.getSortedOrders(queryBuilder.getQuery());
-        String locale = (String) request.getSession().getAttribute(LOCALE);
-        ByteArrayOutputStream ordersPDF = pdfUtil.createOrdersPdf(orders, locale);
-        setResponse(response, ordersPDF);
-        return getActionToRedirect(VIEW_ORDERS_ACTION);
-    }
 
-    private QueryBuilder getQueryBuilder(HttpServletRequest request) {
-        String zero = "0";
-        String max = String.valueOf(Integer.MAX_VALUE);
-        return orderQueryBuilder()
-                .setStatusFilter(request.getParameter(ORDER_STATUS_ID))
-                .setSortField(request.getParameter(SORT))
-                .setOrder(request.getParameter(ORDER))
-                .setLimits(zero, max);
+        // getting orders according to query
+        List<OrderDTO> orders = orderService.getSortedOrders(queryBuilder.getQuery());
+
+        // getting user locale
+        String locale = (String) request.getSession().getAttribute(LOCALE);
+
+        // getting stream for pdf document output
+        ByteArrayOutputStream ordersPDF = pdfUtil.createOrdersPdf(orders, locale);
+
+        // setting pdf document as a response
+        setResponse(response, ordersPDF);
+
+        // logging
+        logger.info("Pdf document of orders successfully generated");
+
+        // redirecting to the same page
+        return getActionToRedirect(VIEW_ORDERS_ACTION);
     }
 
     /**
@@ -87,4 +90,15 @@ public class OrdersToPdfAction implements Action {
             logger.error(e.getMessage());
         }
     }
+
+    private QueryBuilder getQueryBuilder(HttpServletRequest request) {
+        String zero = "0";
+        String max = String.valueOf(Integer.MAX_VALUE);
+        return orderQueryBuilder()
+                .setStatusFilter(request.getParameter(ORDER_STATUS_ID))
+                .setSortField(request.getParameter(SORT))
+                .setOrder(request.getParameter(ORDER))
+                .setLimits(zero, max);
+    }
+
 }

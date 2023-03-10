@@ -42,11 +42,12 @@ public class Pages {
     public static final String SEARCH_USER_PAGE = "searchUser.jsp";
     public static final String SEARCH_TOUR_PAGE = "searchTour.jsp";
     public static final String SEARCH_ORDER_PAGE = "searchOrder.jsp";
+    public static final String VIEW_LOYALTY_PROGRAM_BY_ADMIN_PAGE = "viewLoyaltyProgramByAdmin.jsp";
+    public static final String EDIT_LOYALTY_PROGRAM_PAGE = "editLoyaltyProgram.jsp";
 
 
     /** User's pages */
     public static final String VIEW_TOURS_BY_USER_PAGE = "viewToursByUser.jsp";
     public static final String VIEW_ORDERS_BY_USER_PAGE = "viewOrdersByUser.jsp";
-    public static final String VIEW_LOYALTY_PROGRAM_PAGE = "";
 
 }

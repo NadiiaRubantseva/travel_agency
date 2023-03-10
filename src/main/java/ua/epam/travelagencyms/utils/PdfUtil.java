@@ -2,30 +2,34 @@ package ua.epam.travelagencyms.utils;
 
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.SolidBorder;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.servlet.ServletContext;
-
-import com.itextpdf.kernel.font.*;
-import com.itextpdf.kernel.geom.*;
-import com.itextpdf.kernel.pdf.*;
-import com.itextpdf.layout.*;
-import com.itextpdf.layout.borders.*;
-import com.itextpdf.layout.element.*;
-import com.itextpdf.layout.properties.*;
 import ua.epam.travelagencyms.dto.OrderDTO;
 import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.dto.UserDTO;
 
+import javax.servlet.ServletContext;
 import java.io.ByteArrayOutputStream;
-import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Stream;
-import java.io.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.*;
 import static ua.epam.travelagencyms.utils.ResourceBundleUtil.getValue;

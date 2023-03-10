@@ -1,8 +1,9 @@
 package ua.epam.travelagencyms.utils;
 
-import javax.servlet.http.*;
 import org.junit.jupiter.api.Test;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.HashMap;
 import java.util.Map;
 

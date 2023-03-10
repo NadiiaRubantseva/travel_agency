@@ -1,7 +1,10 @@
 package ua.epam.travelagencyms.controller.actions.impl.base;
 
-import javax.servlet.http.*;
 import ua.epam.travelagencyms.controller.actions.Action;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.SIGN_IN_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.LOCALE;

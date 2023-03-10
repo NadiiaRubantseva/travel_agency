@@ -62,6 +62,9 @@ public final class DomainActionsSets {
         adminActions.add(USERS_PDF_ACTION);
         adminActions.add(TOURS_PDF_ACTION);
         adminActions.add(SEARCH_ORDER_ACTION);
+        adminActions.add(ADD_TOUR_ACTION);
+        adminActions.add(SEARCH_LOYALTY_PROGRAM_ACTION);
+        adminActions.add(EDIT_LOYALTY_PROGRAM_ACTION);
     }
 
     static {

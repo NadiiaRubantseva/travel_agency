@@ -1,12 +1,12 @@
 package ua.epam.travelagencyms.controller.actions.impl.admin;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.exceptions.ServiceException;
-import ua.epam.travelagencyms.model.services.*;
+import ua.epam.travelagencyms.model.services.UserService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.VIEW_USERS_ACTION;
@@ -40,8 +40,14 @@ public class DeleteUserAction implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+
+        // deleting user from database
         userService.delete(request.getParameter(USER_ID));
+
+        // setting success message
         request.getSession().setAttribute(MESSAGE, SUCCEED_DELETE);
+
+        // redirecting to all users page
         return getActionToRedirect(VIEW_USERS_ACTION);
     }
 }

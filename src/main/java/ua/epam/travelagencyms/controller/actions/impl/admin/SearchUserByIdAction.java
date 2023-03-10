@@ -1,14 +1,18 @@
 package ua.epam.travelagencyms.controller.actions.impl.admin;
 
+import ua.epam.travelagencyms.controller.actions.Action;
+import ua.epam.travelagencyms.controller.context.AppContext;
+import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
+import ua.epam.travelagencyms.exceptions.NoSuchUserException;
+import ua.epam.travelagencyms.exceptions.ServiceException;
+import ua.epam.travelagencyms.model.services.UserService;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.epam.travelagencyms.controller.actions.Action;
-import ua.epam.travelagencyms.controller.context.AppContext;
-import ua.epam.travelagencyms.exceptions.*;
-import ua.epam.travelagencyms.model.services.*;
-
-import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
+import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.SEARCH_USER_PAGE;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.VIEW_USER_BY_ADMIN_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
 /**
@@ -35,13 +39,26 @@ public class SearchUserByIdAction implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        // transfer attributes from session to request if any
+        transferStringFromSessionToRequest(request, MESSAGE);
+        transferStringFromSessionToRequest(request, ERROR);
+
+        // return page if user was found
         String path = VIEW_USER_BY_ADMIN_PAGE;
+
         try {
+            // retrieving user record from db
             request.setAttribute(USER, userService.getById(request.getParameter(ID)));
+
         } catch (NoSuchUserException | IncorrectFormatException e) {
+            // setting error message
             request.setAttribute(ERROR, e.getMessage());
+
+            // setting search tour page so user will be staying on the same one
             path = SEARCH_USER_PAGE;
         }
+
+        // return path depending on whether user was found or not
         return path;
     }
 }

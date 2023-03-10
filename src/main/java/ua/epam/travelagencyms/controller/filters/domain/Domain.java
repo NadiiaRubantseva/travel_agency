@@ -104,7 +104,7 @@ public class Domain {
     private boolean checkPages() {
         if (servletPath != null) {
             System.out.println(servletPath + " <- servlet path");
-            if (servletPath.startsWith("/img/")) return true;
+            if (servletPath.startsWith("/img/") || servletPath.startsWith("/js/") || servletPath.startsWith("/css/")) return true;
             return domainPages.contains(servletPath.substring(1));
         }
         return true;

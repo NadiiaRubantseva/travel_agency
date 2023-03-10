@@ -21,7 +21,6 @@ public class ActionNames {
     public static final String VERIFY_CODE_ACTION = "verify-code";
     public static final String EDIT_PROFILE_ACTION = "edit-profile";
     public static final String UPLOAD_AVATAR_ACTION = "update-avatar";
-    public static final String SEARCH_LOYALTY_PROGRAM_ACTION = "search-loyalty-program";
 
     /** Admin's actions */
     public static final String VIEW_USERS_ACTION = "view-users";
@@ -43,6 +42,8 @@ public class ActionNames {
     public static final String USERS_PDF_ACTION = "users-pdf";
     public static final String TOURS_PDF_ACTION = "tours-pdf";
     public static final String ORDERS_PDF_ACTION = "orders-pdf";
+    public static final String SEARCH_LOYALTY_PROGRAM_ACTION = "search-loyalty-program";
+    public static final String EDIT_LOYALTY_PROGRAM_ACTION = "edit-loyalty-program";
 
     /** User's actions */
     public static final String BOOK_TOUR_ACTION = "book-tour";

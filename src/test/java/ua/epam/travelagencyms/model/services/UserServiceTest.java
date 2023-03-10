@@ -2,7 +2,9 @@ package ua.epam.travelagencyms.model.services;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.*;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.MockedStatic;
 import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.exceptions.*;
@@ -24,7 +26,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
 import static ua.epam.travelagencyms.TestUtils.*;
-import static ua.epam.travelagencyms.TestUtils.PASSWORD_VALUE;
 import static ua.epam.travelagencyms.exceptions.constants.Message.*;
 import static ua.epam.travelagencyms.utils.PasswordHashUtil.encode;
 import static ua.epam.travelagencyms.utils.QueryBuilderUtil.userQueryBuilder;
@@ -213,14 +214,14 @@ class UserServiceTest {
     }
 
     @ParameterizedTest
-    @NullAndEmptySource
-    void testViewProfileWrongId(String id) {
-        assertThrows(NoSuchUserException.class, () -> userService.getById(id));
+    @EmptySource
+    void testViewProfileEmptyId(String id) {
+        assertThrows(IncorrectFormatException.class, () -> userService.getById(id));
     }
 
     @Test
     void testViewProfileWrongId2() {
-        assertThrows(NoSuchUserException.class, () -> userService.getById("id"));
+        assertThrows(IncorrectFormatException.class, () -> userService.getById("id"));
     }
 
     @Test
@@ -591,7 +592,7 @@ class UserServiceTest {
     void testSetStatus_SetsStatusNotBlocked() throws ServiceException, DAOException {
         String status = "Active";
         byte expected = 0;
-        userService.setStatus(ONE, status);
+        userService.setStatus(ID_STRING_VALUE, status);
         verify(userDAO).setStatus(ONE, expected);
     }
 
@@ -599,7 +600,7 @@ class UserServiceTest {
     void testSetStatus_SetsStatusBlocked() throws ServiceException, DAOException {
         String status = "Blocked";
         byte expected = 1;
-        userService.setStatus(ONE, status);
+        userService.setStatus(ID_STRING_VALUE, status);
         verify(userDAO).setStatus(ONE, expected);
 
     }
@@ -608,7 +609,7 @@ class UserServiceTest {
     void testSetStatusSQLException() throws DAOException {
         Exception exception = new DAOException(new SQLException());
         doThrow(exception).when(userDAO).setStatus(isA(Long.class), isA(byte.class));
-        ServiceException e = assertThrows(ServiceException.class, () -> userService.setStatus(ONE, ID_STRING_VALUE));
+        ServiceException e = assertThrows(ServiceException.class, () -> userService.setStatus(ID_STRING_VALUE, ID_STRING_VALUE));
         assertEquals(e.getCause(), exception);
     }
 
@@ -639,14 +640,14 @@ class UserServiceTest {
     @Test
     void testSetDiscount() throws DAOException {
         doNothing().when(userDAO).setDiscount(isA(int.class), isA(long.class));
-        assertDoesNotThrow(() -> userService.setDiscount(DISCOUNT_VALUE, ONE));
+        assertDoesNotThrow(() -> userService.setDiscount(DISCOUNT_VALUE, ID_STRING_VALUE));
     }
     @Test
     void testSqlExceptionSetDiscount() throws DAOException {
         Exception exception = new DAOException(new SQLException());
         doThrow(exception).when(userDAO).setDiscount(isA(int.class), isA(long.class));
         ServiceException e = assertThrows(ServiceException.class,
-                () -> userService.setDiscount(DISCOUNT_VALUE, ONE));
+                () -> userService.setDiscount(DISCOUNT_VALUE, ID_STRING_VALUE));
         assertEquals(e.getCause(), exception);
     }
 }

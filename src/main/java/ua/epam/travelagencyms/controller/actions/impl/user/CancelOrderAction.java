@@ -8,10 +8,9 @@ import ua.epam.travelagencyms.model.services.OrderService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
-import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.*;
-import static ua.epam.travelagencyms.controller.actions.constants.Pages.VIEW_ORDERS_BY_USER_PAGE;
-import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_DELETE;
+import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
+import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.VIEW_ORDERS_OF_USER_ACTION;
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_CANCEL;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
 /**
@@ -32,39 +31,30 @@ public class CancelOrderAction implements Action {
     }
 
     /**
-     * Checks method and calls required implementation
-     *
-     * @param request  to get method, session and set all required attributes
-     * @return path to redirect or forward by front-controller
-     * @throws ServiceException to call error page in front-controller
-     */
-    @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        return isPostMethod(request) ? executePost(request) : executeGet(request);
-    }
-
-    /**
-     * Called from doGet method in front-controller. Obtains required path and transfer attributes from session
-     * to request. Executes if only error happens.
-     *
-     * @param request to get message attribute from session and put it in request
-     * @return view orders by user page
-     */
-    private String executeGet(HttpServletRequest request) {
-        transferStringFromSessionToRequest(request, MESSAGE);
-        return VIEW_ORDERS_BY_USER_PAGE;
-    }
-
-    /**
-     * Called from doPost method in front-controller. Tries to add a new tour.
+     * Called from doPost method in front-controller. Tries to cancel tour.
      * Logs error in case if not able
      *
      * @param request to get order id attribute and sets message attribute to session
-     * @return redirect by view orders of user action.
+     * @return path for controller.
      */
-    private String executePost(HttpServletRequest request) throws ServiceException {
-        orderService.delete(request.getParameter(ORDER_ID));
-        request.getSession().setAttribute(MESSAGE, SUCCEED_DELETE);
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+
+        try {
+            // changing order status to canceled
+            orderService.delete(request.getParameter(ORDER_ID));
+
+            // setting success cancel message
+            request.getSession().setAttribute(MESSAGE, SUCCEED_CANCEL);
+
+        } catch (ServiceException e) {
+
+            // setting error message
+            request.getSession().setAttribute(ERROR, e.getMessage());
+
+        }
+
+        // redirecting to all orders page
         return getActionToRedirect(VIEW_ORDERS_OF_USER_ACTION);
     }
 }

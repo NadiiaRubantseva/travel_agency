@@ -20,6 +20,7 @@ import java.util.List;
 import static ua.epam.travelagencyms.utils.ConvertorUtil.convertDTOToOrder;
 import static ua.epam.travelagencyms.utils.ConvertorUtil.convertOrderToDTO;
 import static ua.epam.travelagencyms.utils.ValidatorUtil.getOrderId;
+import static ua.epam.travelagencyms.utils.ValidatorUtil.validateId;
 
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -166,6 +167,7 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public OrderDTO getById(String orderIdString) throws ServiceException {
+        validateId(orderIdString);
         OrderDTO orderDTO;
         long orderId = getOrderId(orderIdString);
         try {

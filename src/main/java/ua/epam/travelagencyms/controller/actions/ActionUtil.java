@@ -5,7 +5,6 @@ import ua.epam.travelagencyms.dto.TourDTO;
 import ua.epam.travelagencyms.dto.UserDTO;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.StringJoiner;
 
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.CONTROLLER_PAGE;
@@ -73,18 +72,6 @@ public class ActionUtil {
         if (order != null) {
             request.setAttribute(ORDER, order);
             request.getSession().removeAttribute(ORDER);
-        }
-    }
-
-    /**
-     * Transfers sessions attributes to request. Delete then
-     * @param request passed by action
-     */
-    public static void transferTourImageFromSessionToRequest(HttpServletRequest request) {
-        String image = (String) request.getSession().getAttribute(IMAGE);
-        if (image != null) {
-            request.setAttribute(IMAGE, image);
-            request.getSession().removeAttribute(IMAGE);
         }
     }
 

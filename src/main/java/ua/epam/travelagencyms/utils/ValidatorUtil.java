@@ -3,8 +3,7 @@ package ua.epam.travelagencyms.utils;
 import ua.epam.travelagencyms.exceptions.*;
 import ua.epam.travelagencyms.utils.constants.Regex;
 
-import static ua.epam.travelagencyms.exceptions.constants.Message.ENTER_CORRECT_EMAIL;
-import static ua.epam.travelagencyms.exceptions.constants.Message.ENTER_CORRECT_PASSWORD;
+import static ua.epam.travelagencyms.exceptions.constants.Message.*;
 
 public final class ValidatorUtil {
 
@@ -29,6 +28,10 @@ public final class ValidatorUtil {
 
     public static void validateName(String name, String message) throws IncorrectFormatException {
         validateFormat(name, Regex.NAME_REGEX, message);
+    }
+
+    public static void validateId(String id) throws IncorrectFormatException {
+        validateFormat(id, Regex.ID_REGEX, ENTER_CORRECT_ID);
     }
 
     public static void validateComplexName(String name, String message) throws IncorrectFormatException {

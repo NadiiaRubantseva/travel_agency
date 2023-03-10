@@ -3,6 +3,7 @@ package ua.epam.travelagencyms.dto;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -13,9 +14,10 @@ import java.io.Serializable;
  * @author Nadiia Rubantseva
  * @version 1.0
  */
-@Data
-@EqualsAndHashCode(of = {"title", "persons", "price", "hot"})
 @Builder
+@Data
+@EqualsAndHashCode
+@ToString (exclude = {"image"})
 public class TourDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private long id;

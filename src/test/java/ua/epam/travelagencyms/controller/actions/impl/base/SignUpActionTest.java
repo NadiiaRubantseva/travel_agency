@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import ua.epam.travelagencyms.controller.actions.util.MyRequest;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
+import ua.epam.travelagencyms.exceptions.DuplicateEmailException;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.UserService;
 import ua.epam.travelagencyms.utils.EmailSender;
@@ -12,21 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
-import static ua.epam.travelagencyms.ConstantsForTest.*;
-import static ua.epam.travelagencyms.ConstantsForTest.NAME;
-import static ua.epam.travelagencyms.ConstantsForTest.PASSWORD;
-import static ua.epam.travelagencyms.ConstantsForTest.SURNAME;
-import static ua.epam.travelagencyms.MethodsForTest.getUserDTO;
+import static ua.epam.travelagencyms.TestUtils.*;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
-import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SIGN_IN_ACTION;
+import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SIGN_UP_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.SIGN_UP_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_REGISTER;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
-import static ua.epam.travelagencyms.exceptions.constants.Message.ERROR;
+import static ua.epam.travelagencyms.exceptions.constants.Message.DUPLICATE_EMAIL;
 
 class SignUpActionTest {
     private final HttpServletRequest request = mock(HttpServletRequest.class);
@@ -45,9 +42,27 @@ class SignUpActionTest {
         doNothing().when(emailSender).send(isA(String.class), isA(String.class), isA(String.class));
         String path = new SignUpAction(appContext).execute(myRequest, response);
 
-        assertEquals(getActionToRedirect(SIGN_IN_ACTION), path);
+        assertEquals(getActionToRedirect(SIGN_UP_ACTION), path);
         assertEquals(SUCCEED_REGISTER, myRequest.getSession().getAttribute(MESSAGE));
         assertNull(myRequest.getSession().getAttribute(ERROR));
+    }
+
+    @Test
+    void testExecuteBadPost() throws ServiceException {
+        MyRequest myRequest = new MyRequest(request);
+        setPostRequest();
+        when(appContext.getUserService()).thenReturn(userService);
+        when(appContext.getEmailSender()).thenReturn(emailSender);
+        doThrow(new DuplicateEmailException()).when(userService).add(isA(UserDTO.class), isA(String.class), isA(String.class));
+        doNothing().when(emailSender).send(isA(String.class), isA(String.class), isA(String.class));
+        UserDTO userDTO = UserDTO.builder().email(EMAIL_VALUE).name(NAME_VALUE).surname(SURNAME_VALUE).build();
+        String path = new SignUpAction(appContext).execute(myRequest, response);
+
+        assertEquals(getActionToRedirect(SIGN_UP_ACTION), path);
+        assertEquals(userDTO, myRequest.getSession().getAttribute(USER));
+        assertEquals(DUPLICATE_EMAIL, myRequest.getSession().getAttribute(ERROR));
+        assertNull(myRequest.getSession().getAttribute(MESSAGE));
+        assertNull(myRequest.getSession().getAttribute(EMAIL));
     }
 
     @Test
@@ -57,7 +72,7 @@ class SignUpActionTest {
         String path = new SignUpAction(appContext).execute(myRequest, response);
 
         assertEquals(SIGN_UP_PAGE, path);
-        assertEquals(getUserDTO() , myRequest.getAttribute(USER));
+        assertEquals(getTestUserDTO() , myRequest.getAttribute(USER));
         assertNull(myRequest.getSession().getAttribute(ERROR));
         assertNull(myRequest.getSession().getAttribute(USER));
     }
@@ -69,14 +84,13 @@ class SignUpActionTest {
         when(request.getParameter(SURNAME)).thenReturn(SURNAME_VALUE);
         when(request.getParameter(PASSWORD)).thenReturn(PASSWORD_VALUE);
         when(request.getParameter(CONFIRM_PASSWORD)).thenReturn(PASSWORD_VALUE);
-        when(request.getServletPath()).thenReturn(SERVLET_PATH);
-        when(request.getRequestURL()).thenReturn(REQUEST_URL);
     }
 
     void setGetRequest(MyRequest myRequest) {
         when(request.getMethod()).thenReturn(GET);
         HttpSession session = myRequest.getSession();
         session.setAttribute(MESSAGE, SUCCEED_REGISTER);
-        session.setAttribute(USER, getUserDTO());
+        session.setAttribute(USER, getTestUserDTO());
+        session.setAttribute(CURRENT_PATH, SIGN_UP_PAGE);
     }
 }

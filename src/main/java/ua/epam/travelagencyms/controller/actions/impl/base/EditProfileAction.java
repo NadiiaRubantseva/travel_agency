@@ -1,24 +1,25 @@
 package ua.epam.travelagencyms.controller.actions.impl.base;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
-import ua.epam.travelagencyms.exceptions.*;
-import ua.epam.travelagencyms.model.services.*;
+import ua.epam.travelagencyms.exceptions.DuplicateEmailException;
+import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
+import ua.epam.travelagencyms.exceptions.ServiceException;
+import ua.epam.travelagencyms.model.services.UserService;
 import ua.epam.travelagencyms.utils.ImageEncoder;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.EDIT_PROFILE_ACTION;
-import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
-import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.*;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.EDIT_PROFILE_PAGE;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.PROFILE_PAGE;
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.SURNAME;
 
 /**
  * This is EditProfileAction class. Accessible by any logged user. Allows to change user's email, name and surname.
@@ -76,18 +77,31 @@ public class EditProfileAction implements Action {
         String path = PROFILE_PAGE;
 
         try {
-
+            // getting userDTO instance from request
             UserDTO user = getUserDTO(request);
+
+            // setting updated logged user to session
             request.getSession().setAttribute(LOGGED_USER, user);
+
+            // updating user record in db
             userService.update(user);
+
+            // setting success message
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
 
         } catch (IncorrectFormatException | DuplicateEmailException | IOException |ServletException e) {
+
+            // setting error message
             request.getSession().setAttribute(ERROR, e.getMessage());
+
+            // for keep staying on the same page
             path = EDIT_PROFILE_PAGE;
         }
 
+        // setting current page
         request.getSession().setAttribute(CURRENT_PATH, path);
+
+        // redirecting
         return getActionToRedirect(EDIT_PROFILE_ACTION);
     }
 

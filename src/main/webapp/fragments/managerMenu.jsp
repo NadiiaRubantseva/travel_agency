@@ -45,11 +45,10 @@
                             <fmt:message key="orders"/></a>
                         <div class="dropdown-menu">
                             <a href="controller?action=view-orders-by-admin" class="dropdown-item">
-                                <fmt:message key="view.orders"/></a>
+                                <fmt:message key="view.orders"/>
+                            </a>
                             <a href="searchOrder.jsp" class="dropdown-item">
-                                <fmt:message key="search.order"/></a>
-                            <a href="controller?action=search-loyalty-program" class="dropdown-item">
-                                <fmt:message key="loyalty.program"/></a>
+                                <fmt:message key="search.order"/>
                             </a>
                         </div>
                     </div>

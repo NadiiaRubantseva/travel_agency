@@ -1,25 +1,19 @@
 package ua.epam.travelagencyms.controller.actions.impl.base;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.exceptions.*;
-import ua.epam.travelagencyms.model.services.*;
+import ua.epam.travelagencyms.model.services.UserService;
 
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRedirect;
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.isPostMethod;
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.transferStringFromSessionToRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.CHANGE_PASSWORD_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.CHANGE_PASSWORD_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.CONFIRM_PASSWORD;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.ERROR;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.LOGGED_USER;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.MESSAGE;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.OLD_PASSWORD;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.PASSWORD;
+import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 
 /**
  * This is ChangePasswordAction class. Accessible by any logged user. Allows to change user's password.
@@ -73,19 +67,33 @@ public class ChangePasswordAction implements Action {
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
         try {
+            // retrieving passwords, updating password in db
             userServiceChangePassword(request);
+
+            // setting success message
             request.getSession().setAttribute(MESSAGE, SUCCEED_UPDATE);
         } catch (IncorrectFormatException | IncorrectPasswordException | NoSuchUserException | PasswordMatchingException e) {
+
+            // setting error message
             request.getSession().setAttribute(ERROR, e.getMessage());
         }
         return getActionToRedirect(CHANGE_PASSWORD_ACTION);
     }
 
     private void userServiceChangePassword(HttpServletRequest request) throws ServiceException {
+        // getting logged user id
         long id = ((UserDTO) request.getSession().getAttribute(LOGGED_USER)).getId();
+
+        // getting old password from request
         String oldPassword = request.getParameter(OLD_PASSWORD);
+
+        // getting new password from request
         String password = request.getParameter(PASSWORD);
+
+        // getting new password from request to confirm
         String confirmPassword = request.getParameter(CONFIRM_PASSWORD);
+
+        // updating password in db
         userService.changePassword(id, oldPassword, password, confirmPassword);
     }
 }

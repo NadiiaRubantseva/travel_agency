@@ -132,7 +132,7 @@ public interface UserService extends Service<UserDTO> {
      * @param status - status value
      * @throws ServiceException - may wrap DAOException or be thrown by another mistakes
      */
-    void setStatus(long id, String status) throws ServiceException;
+    void setStatus(String id, String status) throws ServiceException;
 
-    void setDiscount(int discount, long userId) throws ServiceException;
+    void setDiscount(int discount, String userId) throws ServiceException;
 }

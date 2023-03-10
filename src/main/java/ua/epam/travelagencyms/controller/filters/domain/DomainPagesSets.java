@@ -66,6 +66,8 @@ public final class DomainPagesSets {
         adminPages.add(SEARCH_TOUR_PAGE);
         adminPages.add(SEARCH_ORDER_PAGE);
         adminPages.add(SEARCH_USER_PAGE);
+        adminPages.add(VIEW_LOYALTY_PROGRAM_BY_ADMIN_PAGE);
+        adminPages.add(EDIT_LOYALTY_PROGRAM_PAGE);
     }
 
     static {

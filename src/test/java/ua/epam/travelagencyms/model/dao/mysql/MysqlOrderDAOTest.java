@@ -14,8 +14,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.DATE;
 import static ua.epam.travelagencyms.TestUtils.*;
+import static ua.epam.travelagencyms.controller.actions.constants.Parameters.DATE;
 import static ua.epam.travelagencyms.model.dao.mysql.constants.SQLFields.*;
 
 class MysqlOrderDAOTest {

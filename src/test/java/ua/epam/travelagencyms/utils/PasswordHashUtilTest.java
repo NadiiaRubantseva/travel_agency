@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 import ua.epam.travelagencyms.exceptions.IncorrectPasswordException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static ua.epam.travelagencyms.utils.PasswordHashUtil.*;
+import static ua.epam.travelagencyms.utils.PasswordHashUtil.encode;
+import static ua.epam.travelagencyms.utils.PasswordHashUtil.verify;
 
 class PasswordHashUtilTest {
     private static final String password = "PassWord1";

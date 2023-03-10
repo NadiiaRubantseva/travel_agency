@@ -10,8 +10,9 @@ import ua.epam.travelagencyms.model.services.TourService;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.epam.travelagencyms.exceptions.constants.Message.*;
-import static ua.epam.travelagencyms.utils.ConvertorUtil.*;
+import static ua.epam.travelagencyms.exceptions.constants.Message.ENTER_CORRECT_TITLE;
+import static ua.epam.travelagencyms.utils.ConvertorUtil.convertTourDTOToTour;
+import static ua.epam.travelagencyms.utils.ConvertorUtil.convertTourToDTO;
 import static ua.epam.travelagencyms.utils.ValidatorUtil.*;
 
 @RequiredArgsConstructor
@@ -29,6 +30,7 @@ public class TourServiceImpl implements TourService {
      */
     @Override
     public TourDTO getById(String tourIdString) throws ServiceException {
+        validateId(tourIdString);
         TourDTO tourDTO;
         try {
             long tourId = getTourId(tourIdString);
@@ -202,7 +204,7 @@ public class TourServiceImpl implements TourService {
     }
 
     private void checkExceptionType(DAOException e) throws ServiceException {
-        if (e.getMessage().contains("Duplicate")) {
+        if (e.getMessage() != null && e.getMessage().contains("Duplicate entry")) {
             throw new DuplicateTitleException();
         } else {
             throw new ServiceException(e);

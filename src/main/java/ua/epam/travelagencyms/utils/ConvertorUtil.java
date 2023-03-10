@@ -13,13 +13,8 @@ import ua.epam.travelagencyms.model.entities.tour.Type;
 import ua.epam.travelagencyms.model.entities.user.Role;
 import ua.epam.travelagencyms.model.entities.user.User;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-
-import java.io.IOException;
-
-import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.*;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.FALSE;
+import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.TRUE;
 
 /**
  * Converts DTO to Entities and vise versa
@@ -160,27 +155,6 @@ public final class ConvertorUtil {
                 .step(loyaltyProgram.getStep())
                 .discount(loyaltyProgram.getDiscount())
                 .maxDiscount(loyaltyProgram.getMaxDiscount())
-                .build();
-    }
-
-    public static UserDTO getUserDTO(HttpServletRequest request) {
-        return UserDTO.builder()
-                .email(request.getParameter(EMAIL))
-                .name(request.getParameter(NAME))
-                .surname(request.getParameter(SURNAME))
-                .build();
-    }
-
-    public static TourDTO getTourDTOFromAddRequest(HttpServletRequest request) throws ServletException, IOException {
-        return TourDTO.builder()
-                .title(request.getParameter(TITLE))
-                .persons(Integer.parseInt(request.getParameter(PERSONS)))
-                .price(Double.parseDouble(request.getParameter(PRICE)))
-                .hot(request.getParameter(HOT) == null ? FALSE : TRUE)
-                .type(request.getParameter(TYPE))
-                .hotel(request.getParameter(HOTEL))
-                .image(ImageEncoder.encode(request.getPart(IMAGE).getInputStream().readAllBytes()))
-                .description(request.getParameter(DESCRIPTION))
                 .build();
     }
 

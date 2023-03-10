@@ -33,6 +33,10 @@
                 <span class="text-success"><fmt:message key="${requestScope.message}"/></span>
             </c:if>
 
+            <c:if test="${not empty requestScope.error}">
+                <span class="text-danger"><fmt:message key="${requestScope.error}"/></span>
+            </c:if>
+
             <br>
 
             <h2 class="text-muted"><fmt:message key="view.user"/></h2>

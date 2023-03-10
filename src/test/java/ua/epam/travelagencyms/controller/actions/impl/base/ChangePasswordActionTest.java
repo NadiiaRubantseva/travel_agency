@@ -5,7 +5,8 @@ import ua.epam.travelagencyms.ConstantsForTest;
 import ua.epam.travelagencyms.controller.actions.util.MyRequest;
 import ua.epam.travelagencyms.controller.context.AppContext;
 import ua.epam.travelagencyms.dto.UserDTO;
-import ua.epam.travelagencyms.exceptions.*;
+import ua.epam.travelagencyms.exceptions.IncorrectFormatException;
+import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +21,8 @@ import static ua.epam.travelagencyms.controller.actions.ActionUtil.getActionToRe
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.CHANGE_PASSWORD_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.Pages.CHANGE_PASSWORD_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.ParameterValues.SUCCEED_UPDATE;
-import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.PASSWORD;
+import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
 import static ua.epam.travelagencyms.exceptions.constants.Message.ENTER_CORRECT_PASSWORD;
 
 class ChangePasswordActionTest {

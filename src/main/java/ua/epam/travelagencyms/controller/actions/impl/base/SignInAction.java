@@ -5,22 +5,24 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
 import ua.epam.travelagencyms.controller.actions.Action;
 import ua.epam.travelagencyms.controller.context.AppContext;
+import ua.epam.travelagencyms.dto.UserDTO;
+import ua.epam.travelagencyms.exceptions.IncorrectPasswordException;
+import ua.epam.travelagencyms.exceptions.NoSuchUserException;
 import ua.epam.travelagencyms.exceptions.ServiceException;
 import ua.epam.travelagencyms.model.services.UserService;
-import ua.epam.travelagencyms.dto.UserDTO;
-import ua.epam.travelagencyms.exceptions.*;
 import ua.epam.travelagencyms.utils.EmailSender;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static ua.epam.travelagencyms.controller.actions.ActionUtil.isPostMethod;
 import static ua.epam.travelagencyms.controller.actions.ActionUtil.*;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.SIGN_IN_ACTION;
 import static ua.epam.travelagencyms.controller.actions.constants.ActionNames.VIEW_TOURS_ACTION;
-import static ua.epam.travelagencyms.controller.actions.constants.Pages.*;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.PROFILE_PAGE;
+import static ua.epam.travelagencyms.controller.actions.constants.Pages.SIGN_IN_PAGE;
 import static ua.epam.travelagencyms.controller.actions.constants.Parameters.*;
-import static ua.epam.travelagencyms.utils.constants.Email.*;
+import static ua.epam.travelagencyms.utils.constants.Email.EMAIL_VERIFICATION;
+import static ua.epam.travelagencyms.utils.constants.Email.MESSAGE_VERIFY_EMAIL;
 
 /**
  * This is SignInAction class. Accessible by any user. Allows to sign in web app. Implements PRG pattern
@@ -78,32 +80,62 @@ public class SignInAction implements Action {
      */
     private String executePost(HttpServletRequest request) throws ServiceException {
         String path = PROFILE_PAGE;
+
+        // getting email address from request
         String email = request.getParameter(EMAIL);
+
+        // getting password from request
         String password = request.getParameter(PASSWORD);
 
         try {
+
+            // verifying credentials
             UserDTO user = userService.signIn(email, password);
+
+            // setting logged user to session
             request.getSession().setAttribute(LOGGED_USER, user);
+
+            // setting logged user role to session
             request.getSession().setAttribute(ROLE, user.getRole());
+
+            // logging user
             logger.atLevel(Level.INFO).log(String.format("%s entered web app", user.getEmail()));
 
+            // checking if user has email verified
             long userId = user.getId();
             if (user.getIsEmailVerified().equalsIgnoreCase("No")) {
+
+                // setting security code to database
                 String code = userService.setVerificationCode(userId);
+
+                // emailing the security code to the user
                 sendEmail(code, email);
-                path = VERIFY_EMAIL_PAGE;
+
+                // setting page where you can enter the code
+                return getActionToRedirect(SIGN_IN_ACTION);
             }
 
+            // if user has role 'USER', will be forwarded to all tours page
             if (user.getRole().equalsIgnoreCase(USER)) {
                 return getActionToRedirect(VIEW_TOURS_ACTION);
             }
 
         } catch (NoSuchUserException | IncorrectPasswordException e) {
+
+            // setting error message
             request.getSession().setAttribute(ERROR, e.getMessage());
+
+            // setting email attribute to display
             request.getSession().setAttribute(EMAIL, email);
+
+            path = SIGN_IN_PAGE;
+
         }
 
+        // setting current path to the session
         request.getSession().setAttribute(CURRENT_PATH, path);
+
+        // forwarding
         return getActionToRedirect(SIGN_IN_ACTION);
     }
 

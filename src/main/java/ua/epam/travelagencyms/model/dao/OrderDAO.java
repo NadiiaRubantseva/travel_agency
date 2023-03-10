@@ -58,4 +58,5 @@ public interface OrderDAO extends EntityDAO<Order> {
      * @throws DAOException is wrapper for SQLException
      */
     void setOrderStatus(long orderId, int status) throws DAOException;
+    void setOrderStatus(long orderId, int status, long userId) throws DAOException;
 }

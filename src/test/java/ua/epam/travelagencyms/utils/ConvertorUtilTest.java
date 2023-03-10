@@ -1,16 +1,14 @@
 package ua.epam.travelagencyms.utils;
 
 import org.junit.jupiter.api.Test;
-import ua.epam.travelagencyms.dto.*;
+import ua.epam.travelagencyms.dto.TourDTO;
+import ua.epam.travelagencyms.dto.UserDTO;
 import ua.epam.travelagencyms.model.entities.tour.Tour;
 import ua.epam.travelagencyms.model.entities.user.User;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static ua.epam.travelagencyms.TestUtils.*;
-import static ua.epam.travelagencyms.TestUtils.EMAIL_VALUE;
-import static ua.epam.travelagencyms.TestUtils.NAME_VALUE;
-import static ua.epam.travelagencyms.TestUtils.ROLE_ID_VALUE;
-import static ua.epam.travelagencyms.TestUtils.SURNAME_VALUE;
 import static ua.epam.travelagencyms.utils.ConvertorUtil.*;
 
 class ConvertorUtilTest {

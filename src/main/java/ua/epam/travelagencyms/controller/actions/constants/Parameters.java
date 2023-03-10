@@ -120,4 +120,9 @@ public class Parameters {
     public static final String PURPOSE = "purpose";
     public static final String VIEW = "view";
 
+    /**
+     * Parameters and attributes to work with LoyaltyProgramDTO
+     */
+    public static final String LOYALTY_PROGRAM = "loyaltyProgram";
+
 }
