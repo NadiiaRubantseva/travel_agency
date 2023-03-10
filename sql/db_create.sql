@@ -74,7 +74,7 @@ create table user
     password          varchar(255)      not null,
     name              varchar(45)       not null,
     surname           varchar(45)       not null,
-    avatar            mediumblob        null,
+    avatar            longblob          null,
     discount          int               null,
     is_blocked        tinyint           null,
     is_email_verified tinyint default 0 null,
@@ -121,7 +121,6 @@ create index fk_order_user1_idx
 
 create index fk_user_role_idx
     on user (role_id);
-
 
 INSERT INTO `role` (`id`, `role_name`) VALUES (1, 'ADMIN');
 INSERT INTO `role` (`id`, `role_name`) VALUES (2, 'USER');
