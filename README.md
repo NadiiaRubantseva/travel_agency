@@ -18,7 +18,7 @@ The travel agency has a catalog of tours. For the catalog to implement the possi
 
 ![image](https://user-images.githubusercontent.com/107259127/226555139-022e547c-eb93-485f-9d08-0b3a2e67c397.png)
 
-![image](https://user-images.githubusercontent.com/107259127/226555978-bbfb9e38-84ca-4817-8f42-4447aeba19d6.png)
+![image](https://user-images.githubusercontent.com/107259127/226558708-ab50ba94-60fa-4523-81d1-d849b617d886.png)
 
 **PROJECT DESCRIPTION**
 
