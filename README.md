@@ -1,5 +1,27 @@
 **PROJECT DESCRIPTION**
 
+The task of the final project is to develop a web application that supports the functionality according to the task variant.
+
+**Travel agency**
+The travel agency has a catalog of tours. For the catalog to implement the possibility of selecting tours:
+- by type (rest, excursion, shopping);
+- by price;
+- by number of persons;
+- by hotel type.
+  The user registers in the system, selects the Tour and makes the Order. After ordering the tour has the status of 'registered'.
+  An unregistered user does not have the opportunity to book a tour.
+  The user has a personal account, which contains brief information about him, as well as a list of selected tours and their current status (registered, paid, canceled).
+  The manager defines the tour as 'hot'. 'Hot' tours are always displayed at the top of the list. The manager transfers the status of the tour from 'registered' to 'paid' or 'canceled'. For each booked tour, a discount is determined with a step set by the manager, but not more than a percentage, which is also determined by the manager.
+  The system administrator has the same rights as the manager, and can additionally:
+- add / delete tour, change tour information;
+- block / unblock user.
+
+![image](https://user-images.githubusercontent.com/107259127/226555139-022e547c-eb93-485f-9d08-0b3a2e67c397.png)
+
+![image](https://user-images.githubusercontent.com/107259127/226555978-bbfb9e38-84ca-4817-8f42-4447aeba19d6.png)
+
+**PROJECT DESCRIPTION**
+
 The task of the final project is to develop a web application that supports functionality in accordance with variant of the task.
 Implementation requirements:
 
@@ -38,24 +60,3 @@ Implementation requirements:
 20. The application must respond correctly to errors and exceptional situations of various kinds (the end user must not see the stack trace on the client side).
 21. Independent expansion of the statement of the task in terms of functionality is encouraged! (adding a captcha, generating reports in various formats, etc.)
 22. The use of HTML, CSS, JS frameworks for the user interface (Bootstrap, Materialize, etc.) is encouraged!
-
-
-**PROJECT DESCRIPTION**
-
-The task of the final project is to develop a web application that supports the functionality according to the task variant.
-
-**Travel agency**
-The travel agency has a catalog of tours. For the catalog to implement the possibility of selecting tours:
-- by type (rest, excursion, shopping);
-- by price;
-- by number of persons;
-- by hotel type.
-  The user registers in the system, selects the Tour and makes the Order. After ordering the tour has the status of 'registered'.
-  An unregistered user does not have the opportunity to book a tour.
-  The user has a personal account, which contains brief information about him, as well as a list of selected tours and their current status (registered, paid, canceled).
-  The manager defines the tour as 'hot'. 'Hot' tours are always displayed at the top of the list. The manager transfers the status of the tour from 'registered' to 'paid' or 'canceled'. For each booked tour, a discount is determined with a step set by the manager, but not more than a percentage, which is also determined by the manager.
-  The system administrator has the same rights as the manager, and can additionally:
-- add / delete tour, change tour information;
-- block / unblock user.
-
-![image](https://user-images.githubusercontent.com/107259127/226555139-022e547c-eb93-485f-9d08-0b3a2e67c397.png)
