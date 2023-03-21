@@ -4,8 +4,7 @@ The task of the final project is to develop a web application that supports func
 Implementation requirements:
 
 1. Based on the entities of the subject area, create classes that correspond to them.
-2. Classes and methods should have names that reflect their functionality, and should be
-   divided into packages.
+2. Classes and methods should have names that reflect their functionality, and should be divided into packages.
 3. The design of the code must comply with the Java Code Convention.
 4. Information about the subject area should be stored in a relational database (it is recommended to use MySQL or PostgreSQL as a DBMS).
 5. To access data, use the JDBC API using a ready-made or self-developed connection pool.
@@ -58,3 +57,5 @@ The travel agency has a catalog of tours. For the catalog to implement the possi
   The system administrator has the same rights as the manager, and can additionally:
 - add / delete tour, change tour information;
 - block / unblock user.
+
+![image](https://user-images.githubusercontent.com/107259127/226555139-022e547c-eb93-485f-9d08-0b3a2e67c397.png)
